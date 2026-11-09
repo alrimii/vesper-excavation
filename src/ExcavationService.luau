@@ -102,13 +102,14 @@ local function training(p, s, enabled)
 end
 local currentEgg = Rules.Eggs[1]
 local transitioning = false
-local initialDeliveryPending = true
 local random = Random.new()
 local Catalog = require(Shared:WaitForChild("DiscoveryCatalog"))
 local Profiles = require(script.Parent.ResearchProfiles)
 local Action = Shared.Remotes:WaitForChild("Action")
 local Feedback = Shared.Remotes:WaitForChild("Feedback")
 local State = Shared:WaitForChild("RoundState")
+State:SetAttribute("Initialized", false)
+State:SetAttribute("TransitionStartedAt", 0)
 local Piles = Shared:WaitForChild("ResourcePiles")
 local Egg = workspace.VesperLab.Egg
 local Sections = Egg.Sections
@@ -311,6 +312,7 @@ local function syncRound()
 		"PhaseSnapshot",
 		game:GetService("HttpService"):JSONEncode({
 			status = status,
+			transitionStarted = State:GetAttribute("TransitionStartedAt") or 0,
 			started = State:GetAttribute("PhaseStartedAt") or workspace:GetServerTimeNow(),
 		})
 	)
@@ -394,6 +396,7 @@ local function beginRound(nextEgg)
 	State:SetAttribute("PhaseStartedAt", workspace:GetServerTimeNow())
 	syncRound()
 	State:SetAttribute("Ready", true)
+	State:SetAttribute("Initialized", true)
 	accessEnabled(true)
 	transitioning = false
 end
@@ -421,6 +424,7 @@ local function nextExpedition(selectedEgg)
 	State:SetAttribute("NextEggId", selected.Id)
 	State:SetAttribute("Ready", false)
 	status = "Selecting"
+	State:SetAttribute("TransitionStartedAt", workspace:GetServerTimeNow())
 	State:SetAttribute("PhaseStartedAt", workspace:GetServerTimeNow())
 	syncRound()
 	for _, data in sections do
@@ -481,7 +485,7 @@ local function completion()
 			syncPlayer(p)
 		end
 		syncRound()
-		Feedback:FireAllClients("Reveal", specimenId)
+		Feedback:FireAllClients("Reveal", specimenId, completed, State:GetAttribute("PhaseStartedAt"))
 		-- One immutable personal receipt; displaying it never grants rewards again.
 		for _, p in candidates do
 			p:SetAttribute(
@@ -815,14 +819,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		Feedback:FireAllClients("Cancel", p.UserId)
 		return
 	elseif kind == "EnterLab" then
-		-- Dispatch only after the first player closes the loading screen.
-		-- Later arrivals cannot reset an expedition already in progress.
-		if initialDeliveryPending and alive(p) then
-			initialDeliveryPending = false
-			if round == 1 and removed == 0 and status == "Excavating" and not transitioning then
-				nextExpedition(currentEgg)
-			end
-		end
+		-- Compatibility no-op: player arrival never owns the server egg lifecycle.
 		return
 	elseif kind == "GuideSkip" then
 		accounts[p.UserId].introStage = 5
@@ -1080,6 +1077,7 @@ local function joined(p)
 	if sessions[p] then
 		return
 	end
+	p:SetAttribute("ProfileReady", false)
 	local loaded = Profiles.Load(p)
 	if not loaded then
 		p:Kick("Your research is still saving or unavailable. Please reconnect shortly.")
@@ -1107,6 +1105,7 @@ local function joined(p)
 		giveTools(p, ch, s)
 	end)
 	syncPlayer(p)
+	p:SetAttribute("ProfileReady", true)
 	if p.Character then
 		task.spawn(giveTools, p, p.Character, s)
 	end

@@ -2,8 +2,8 @@
 
 ## Authority and scope
 Communicate exclusively in English unless the user explicitly requests otherwise.
-Current authorization is Phase 1B: implement the core breaking interaction directly in original Studio place 94763223427049 and its canonical source, after a fresh full native recovery backup. Improve existing pickaxe handling/swing/cancellation, confirmed surface impacts, bounded shell effects, damage numbers and actual material collection feedback. Preserve server validation, damage/economy values, reward eligibility and useful systems. Commit/push this milestone on the current development branch and deliver the edited original place for the user's manual review.
-Both reinforced and fire upgrade studies are rejected for production. Preserve historical files; stop concept boards, alternate designs, Blender presentations, GIFs and videos. Use existing in-game tool and shell assets as temporary visuals. No new weapons, upgrade trees, fire mechanics, currencies, rebirth, worlds, purchases or creature systems. No full egg architecture or HUD rewrite. Later phases still require approval.
+Phase 1B is provisionally accepted based on the user's manual review. Current authorization is Phase 2: direct joining after essential initialization, a cohesive responsive gameplay HUD and brief contextual onboarding using saved tutorial progress. Remove joining/respawn cinematics and arrival-triggered lifecycle changes, including for the first player. Preserve the server-driven reveal and real round transitions, actual replicated state, economy and reward rules. Apply in original place 94763223427049 and canonical source after a fresh private native backup, then commit/push the current development branch. Mining audio remains unfinished and does not block this phase.
+Both reinforced and fire upgrade studies are rejected for production. Preserve historical files; no concepts, alternate designs, Blender presentations, GIFs or videos. Use existing assets. No new levels, weapons, upgrade trees, fire mechanics, currencies, rebirth, worlds, purchases or creature/reward systems. Phase 2 permits consolidating the core HUD while preserving useful feature access; no full egg architecture rewrite or replacement opening cinematic. Later phases still require approval.
 Preserve useful systems. Historical completion reports are leads, not acceptance evidence. Do not rewrite the project by default.
 
 ## Execution restrictions
@@ -15,7 +15,7 @@ The user performs gameplay testing in Studio. Without an explicit exception:
 - Do not bypass restrictions through scripts, alternate tools or agents. Do not delegate unless explicitly requested.
 - If Studio is running, leave it running; continue independent read-only work and identify work requiring Edit mode.
 Never claim tested, performant, glitch-free or visually approved without evidence. Tool descriptions suggesting starting/stopping play do not override these rules.
-Retained native-backup exception: narrowly scoped Studio UI automation is authorized solely to save a full native place recovery copy. It does not permit gameplay input, Play/Run or testing. No new visual or animated previews in Phase 1B.
+Retained native-backup exception: narrowly scoped Studio UI automation is authorized solely to save a full native place recovery copy. It does not permit gameplay input, Play/Run or testing. No visual or animated previews in Phase 2.
 
 ## Single implementation target
 The existing original Studio place (Coming Soon, place ID 94763223427049) is the sole implementation target. Never create a separate test/development place, staging world, duplicated map or parallel playable implementation for later transfer.

@@ -1,6 +1,6 @@
 # Art direction and asset delivery
 Status: the user retains the cartoon direction/starter foundation but has closed Phase 1A concept iteration. Both reinforced and fire upgrades are rejected for production. Files remain historical. No finalized game name.
-Phase 1B prioritizes the actual core breaking interaction using existing in-game visuals. No new concepts, Blender presentations, GIFs or videos. No rejected model imports, new weapons or fire mechanics. Scoped procedural handling and confirmed contact/break/collection effects are applied in the original place for manual review; see [the current handoff](PHASE_1B_HANDOFF.md).
+Phase 1B core breaking has provisional user acceptance with existing in-game visuals. Phase 2 extends that direction to a compact gameplay HUD: rounded controls, warm cream/gold and mint accents against dark blue, existing equipment previews, readable counters and grouped secondary actions. Visual and device acceptance awaits the user's manual review; see [the current handoff](PHASE_2_HANDOFF.md). No new concepts, Blender presentations, GIFs, videos or rejected model imports. Missing mining audio remains unfinished.
 
 ## Intent
 Create a coherent, readable laboratory excavation experience with satisfying physical tools and recognizable egg/creature themes. Preserve useful existing art while reviewing actual in-game appearance. Interfaces should feel integrated into a Roblox game. Avoid accumulated decoration that obscures interaction.

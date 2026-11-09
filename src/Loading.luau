@@ -5,6 +5,10 @@ local CAS = game:GetService("ContextActionService")
 local player = Players.LocalPlayer
 local pg = player:WaitForChild("PlayerGui")
 player:SetAttribute("LabReady", false)
+player:SetAttribute("DiscoveryCinematic", false)
+player:SetAttribute("CoreMenuOpen", false)
+CAS:UnbindAction("VesperDeliveryLock")
+CAS:UnbindAction("DiscoveryRevealLock")
 local view = require(script.Parent:WaitForChild("LoadingView")).Build(pg)
 local gui, status, enter = view.gui, view.status, view.enter
 game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()
@@ -15,17 +19,18 @@ CAS:BindActionAtPriority(
 	end,
 	false,
 	4000,
-	Enum.KeyCode.W,
-	Enum.KeyCode.A,
-	Enum.KeyCode.S,
-	Enum.KeyCode.D,
-	Enum.KeyCode.Space,
+	Enum.PlayerActions.CharacterForward,
+	Enum.PlayerActions.CharacterLeft,
+	Enum.PlayerActions.CharacterBackward,
+	Enum.PlayerActions.CharacterRight,
+	Enum.PlayerActions.CharacterJump,
 	Enum.KeyCode.E,
 	Enum.KeyCode.One,
 	Enum.KeyCode.Two
 )
 local resize = game:GetService("RunService").RenderStepped:Connect(function()
-	local v = workspace.CurrentCamera.ViewportSize
+	local camera = workspace.CurrentCamera
+	local v = camera and camera.ViewportSize or Vector2.new(800, 600)
 	view:Resize(v)
 end)
 local shared = game.ReplicatedStorage:WaitForChild("VesperShared")
@@ -39,10 +44,12 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 view:Stage(2)
-status.Text = "Preparing the excavation and your room..."
+status.Text = "Synchronizing the current egg and your inventory..."
 local deadline = os.clock() + 45
 while
-	not state:GetAttribute("Ready")
+	not state:GetAttribute("Initialized")
+	or not player:GetAttribute("ProfileReady")
+	or not player:GetAttribute("GameplayClientReady")
 	or not shared:GetAttribute("PresentationReady")
 	or not game.ReplicatedStorage.VesperShared:GetAttribute("OuterFracturesReady")
 	or not player:GetAttribute("OuterFracturesClientReady")
@@ -79,10 +86,7 @@ local textureIds = {
 }
 local essentials = {}
 local temporaryAssets = {}
-local deliveryShell = shared:WaitForChild("DeliveryShell", 30)
-if deliveryShell then
-	table.insert(essentials, deliveryShell)
-end
+-- Delivery presentation is not an essential joining gate.
 -- Texture instances select the image fetch path; bare IDs may be treated as models.
 for _, uri in textureIds do
 	if uri == "" then
@@ -149,6 +153,10 @@ end
 while not hasTool() and os.clock() < toolDeadline do
 	task.wait(0.1)
 end
+if not hasTool() then
+	status.Text = "Your equipment is not available yet. Please reconnect."
+	return
+end
 for _, container in { backpack, player.Character } do
 	if container then
 		for _, part in container:GetDescendants() do
@@ -185,7 +193,7 @@ local function prepare()
 		assetsReady = ok and failed == 0
 		player:SetAttribute("EggAssetsReady", assetsReady)
 		if assetsReady then
-			status.Text = "Your room is ready. Train, gear up, then discover."
+			status.Text = "Current egg synchronized. Joining now."
 			enter.Text = ""
 			view:Stage(4)
 			task.defer(function()
@@ -208,16 +216,20 @@ enterGame = function()
 	entered = true
 	status.Text = "Expedition ready"
 	hud.Enabled = true
-	view:Exit()
 	CAS:UnbindAction("VesperLoading")
 	resize:Disconnect()
 	for _, asset in temporaryAssets do
 		asset:Destroy()
 	end
 	table.clear(temporaryAssets)
+	local human = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+	local camera = workspace.CurrentCamera
+	if camera and human then
+		camera.CameraType, camera.CameraSubject = Enum.CameraType.Custom, human
+	end
+	player:SetAttribute("GameplayArrivalAt", workspace:GetServerTimeNow())
 	player:SetAttribute("LabReady", true)
 	gui:Destroy()
-	shared.Remotes.Action:FireServer("EnterLab")
 end
 enter.Activated:Connect(function()
 	if not entered and not loading and not assetsReady then

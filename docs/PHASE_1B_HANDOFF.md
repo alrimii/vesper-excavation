@@ -1,6 +1,6 @@
 # Phase 1B: core breaking interaction
 
-9 November 2026. Implemented in the original open Studio place **94763223427049**, in Edit mode. User gameplay review is pending. This is a scoped interaction delivery with an **audio gap**, not a claim that the full quality milestone is accepted.
+9 November 2026. Implemented in the original open Studio place **94763223427049**, in Edit mode. Subsequently provisionally accepted based on the user's manual review; this does not constitute agent gameplay verification. This is a scoped interaction delivery with an **audio gap**, not a claim that the full quality milestone is complete. Current work is [Phase 2](PHASE_2_HANDOFF.md).
 
 ## What is applied
 

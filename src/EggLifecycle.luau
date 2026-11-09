@@ -99,7 +99,7 @@ function M.Start(gui, state, egg)
 		folder:Destroy()
 	end)
 	connection = Run.RenderStepped:Connect(function()
-		local status, phaseStarted = Phase.Read(state)
+		local status, phaseStarted, transitionStarted = Phase.Read(state)
 		local now = workspace:GetServerTimeNow()
 		local age = math.max(0, now - phaseStarted)
 		impact:Update(status, phaseStarted, age, game.Players.LocalPlayer:GetAttribute("ReducedMotion"))
@@ -127,7 +127,10 @@ function M.Start(gui, state, egg)
 		local selecting = status == "Selecting"
 		local active = delivery or selecting
 		local sample = Sequence.Sample(delivery and age or 0)
-		dispatch:Update(status, age, Rules.Egg(state:GetAttribute("NextEggId")), sample)
+		local player = game.Players.LocalPlayer
+		local arrival = player:GetAttribute("GameplayArrivalAt")
+		local present = player:GetAttribute("LabReady") == true and arrival and transitionStarted > arrival
+		dispatch:Update(status, age, Rules.Egg(state:GetAttribute("NextEggId")), sample, present)
 		access:Update(selecting and 110 * Sequence.Ease(age / 2.9) or delivery and sample.accessDrop or 0)
 		if proxy then
 			local selected = Rules.Egg(state:GetAttribute("NextEggId"))

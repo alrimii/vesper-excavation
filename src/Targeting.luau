@@ -71,6 +71,10 @@ function T.new(player, gui, egg, C)
 	local function blockedByUI()
 		if
 			gui.Station.Visible
+			or player:GetAttribute("LabReady") ~= true
+			or player:GetAttribute("CoreMenuOpen")
+			or player:GetAttribute("MaterialBagOpen")
+			or player:GetAttribute("Training")
 			or player:GetAttribute("ResearchModal")
 			or player:GetAttribute("DiscoveryCinematic")
 			or UIS:GetFocusedTextBox()
@@ -192,7 +196,7 @@ function T.new(player, gui, egg, C)
 			stroke.Color = color
 			dot.BackgroundColor3 = color
 			mark.Enabled = true
-			status.Visible = true
+			status.Visible = gui.Toast.Text == "" and not gui:GetAttribute("CoreTargetSuppressed")
 			local layer = C.Layers[section:GetAttribute("Layer")]
 			local maxHealth = section:GetAttribute("MaxHP") or layer.Durability
 			local health = section:GetAttribute("HP") or maxHealth
@@ -209,7 +213,7 @@ function T.new(player, gui, egg, C)
 			local locked = not section:GetAttribute("Exposed")
 			status.Text = permanent and "PERMANENT SHELL BASE"
 				or locked and "FINISH THE OUTER LAYER FIRST"
-				or not exposed and "BLOCKED — find a clear angle"
+				or not exposed and "BLOCKED - find a clear angle"
 				or not valid and "OUT OF RANGE"
 				or string.format(
 					"%s | %d / %d | %s",
@@ -243,7 +247,7 @@ function T.new(player, gui, egg, C)
 				mark.Enabled = true
 				status.Visible = true
 				hp.Size = UDim2.fromScale(0, 0)
-				status.Text = full and "BUCKET FULL · SELL AT DEPOT" or "LOOSE MATERIAL · HOLD TO COLLECT"
+				status.Text = full and "BUCKET FULL / SELL" or "LOOSE MATERIAL / HOLD TO COLLECT"
 			end
 		end
 	end)

@@ -1,509 +1,267 @@
--- One layout owner for the visible HUD. Legacy widgets remain only as data adapters.
+-- Gameplay layout owner. Existing journal, workshop, inventory and input controllers are reused.
 local M = {}
-function M.Build(gui, player, remote, openEquipment, equip)
-	local Tween = game:GetService("TweenService")
-	local Run = game:GetService("RunService")
-	local shared = script.Parent
-	local Style = require(shared.InterfaceStyle)
-	local Art = require(shared.NavigationArtwork)
-	local palette = {
-		ink = Color3.fromRGB(26, 39, 66),
-		paper = Color3.fromRGB(245, 249, 255),
-		mint = Color3.fromRGB(72, 221, 160),
-		blue = Color3.fromRGB(81, 168, 248),
-		gold = Color3.fromRGB(255, 199, 72),
-		purple = Color3.fromRGB(174, 125, 246),
-	}
+function M.Build(gui, player, remote, openEquipment, equip, openJournal)
+	local UIS = game:GetService("UserInputService")
+	local Shared = script.Parent
+	local Style = require(Shared.InterfaceStyle)
+	local Catalog = require(Shared.DiscoveryCatalog)
+	local Config = require(Shared.ExcavationConfig)
+	local Phase = require(Shared.ExpeditionPhase)
+	local State = Shared.RoundState
+	local ink, cream = Color3.fromRGB(27, 44, 57), Color3.fromRGB(248, 242, 223)
+	local mint, gold = Color3.fromRGB(119, 230, 188), Color3.fromRGB(255, 206, 100)
+	gui:SetAttribute("CoreHUDManaged", true)
+	gui.ResetOnSpawn, gui.ScreenInsets = false, Enum.ScreenInsets.CoreUISafeInsets
 	local root = Instance.new("Frame")
-	root.Name = "SimulatorHUD"
-	root.Size = UDim2.fromScale(1, 1)
-	root.BackgroundTransparency = 1
+	root.Name, root.Size, root.BackgroundTransparency, root.Visible = "CoreHUD", UDim2.fromScale(1, 1), 1, false
 	root.Parent = gui
-	local function corner(p, r)
-		local v = Instance.new("UICorner")
-		v.CornerRadius = UDim.new(0, r)
-		v.Parent = p
+	local function round(object, radius)
+		local c = object:FindFirstChildOfClass("UICorner") or Instance.new("UICorner")
+		c.CornerRadius, c.Parent = UDim.new(0, radius), object
 	end
-	local function stroke(p, c, w)
-		local v = Instance.new("UIStroke")
-		v.Color = c
-		v.Thickness = w
-		v.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		v.Parent = p
+	local function card(name, parent, color)
+		local f = Instance.new("Frame")
+		f.Name, f.BackgroundColor3, f.BorderSizePixel = name, color or ink, 0
+		f.Parent = parent or root
+		round(f, 14)
+		local s = Instance.new("UIStroke")
+		s.Color, s.Thickness, s.Transparency, s.Parent = Color3.fromRGB(84, 112, 119), 1.5, 0.2, f
+		return f
 	end
-	local function text(p, name, value, size, pos, fs, color)
-		local v = Instance.new("TextLabel")
-		v.Name = name
-		v.Text = value
-		v.Size = size
-		v.Position = pos
-		v.BackgroundTransparency = 1
-		v.Font = Enum.Font.GothamBold
-		v.TextSize = fs
-		v.TextColor3 = color or palette.ink
-		v.TextXAlignment = Enum.TextXAlignment.Left
-		v.Parent = p
-		return v
+	local function text(parent, name, size, pos, bounds, color)
+		local t = Instance.new("TextLabel")
+		t.Name, t.Text, t.Font, t.TextSize = name, "", Enum.Font.GothamBold, size
+		t.Position, t.Size, t.BackgroundTransparency = pos, bounds, 1
+		t.TextColor3, t.TextXAlignment = color or cream, Enum.TextXAlignment.Left
+		t.TextTruncate, t.Parent = Enum.TextTruncate.AtEnd, parent
+		return t
 	end
-	local function panel(name, color)
-		local v = Instance.new("Frame")
-		v.Name = name
-		v.BackgroundColor3 = color
-		v.BorderSizePixel = 0
-		v.Parent = root
-		corner(v, 16)
-		stroke(v, Color3.fromRGB(88, 112, 142), 1)
-		Style.Surface(v, Color3.new(1, 1, 1), Color3.fromRGB(230, 239, 250))
-		return v
-	end
-	local function button(name, label, color, fn)
+	local function button(parent, name, caption, color, action)
 		local b = Instance.new("TextButton")
-		b.Name = name
-		b.Text = label
-		b.Font = Enum.Font.GothamBlack
-		b.TextSize = 15
-		b.TextColor3 = palette.ink
-		b.BackgroundColor3 = color
-		b.BorderSizePixel = 0
-		b.Parent = root
-		corner(b, 14)
-		stroke(b, palette.ink, 2)
+		b.Name, b.Text, b.Font, b.TextSize = name, caption, Enum.Font.GothamBold, 14
+		b.BackgroundColor3, b.TextColor3, b.BorderSizePixel, b.ZIndex = color, ink, 0, 8
+		b.Parent = parent
+		round(b, 12)
 		Style.Button(b)
-		b.Activated:Connect(fn)
+		b.Activated:Connect(action)
 		return b
 	end
-	local money = panel("Wallet", palette.paper)
-	local coin = Instance.new("Frame")
-	coin.Size = UDim2.fromOffset(32, 32)
-	coin.Position = UDim2.fromOffset(10, 10)
-	coin.BackgroundColor3 = palette.gold
-	coin.Parent = money
-	corner(coin, 30)
-	stroke(coin, Color3.fromRGB(206, 145, 36), 2)
-	local symbol = text(coin, "Symbol", "$", UDim2.fromScale(1, 1), UDim2.new(), 22)
-	symbol.TextXAlignment = Enum.TextXAlignment.Center
-	coin.BackgroundTransparency = 1
-	coin:FindFirstChildOfClass("UIStroke").Enabled = false
-	symbol.Visible = false
-	local coinArt = Art.Icon(coin, "Coins")
-	coinArt.Position, coinArt.Size = UDim2.fromOffset(-5, -5), UDim2.fromOffset(42, 42)
-	local credits = text(money, "Credits", "0", UDim2.new(1, -54, 0, 25), UDim2.fromOffset(51, 5), 22)
-	text(
-		money,
-		"Caption",
-		"COINS",
-		UDim2.new(1, -54, 0, 15),
-		UDim2.fromOffset(52, 30),
-		10,
-		Color3.fromRGB(108, 123, 148)
-	)
-	local bag = panel("Bag", palette.paper)
-	local bagTitle = text(
-		bag,
-		"Caption",
-		"MATERIALS",
-		UDim2.new(1, -20, 0, 16),
-		UDim2.fromOffset(10, 6),
-		10,
-		Color3.fromRGB(108, 123, 148)
-	)
-	local bagValue = text(bag, "Amount", "0 / 40", UDim2.new(1, -20, 0, 24), UDim2.fromOffset(10, 22), 19)
-	local materialBag = require(shared.MaterialBag).Attach(gui, player, remote, bag)
-	local egg = panel("EggProgress", palette.ink)
-	local eggTitle = text(
-		egg,
-		"Title",
-		"THE ANCIENT EGG",
-		UDim2.new(1, -28, 0, 21),
-		UDim2.fromOffset(14, 9),
-		15,
-		palette.paper
-	)
-	local eggSub =
-		text(egg, "Subtitle", "", UDim2.new(1, -28, 0, 16), UDim2.fromOffset(14, 33), 10, palette.gold)
-	local track = Instance.new("Frame")
-	track.Size = UDim2.new(1, -28, 0, 6)
-	track.Position = UDim2.fromOffset(14, 55)
-	track.BackgroundColor3 = Color3.fromRGB(59, 77, 105)
-	track.BorderSizePixel = 0
-	track.Parent = egg
-	corner(track, 8)
-	local fill = track:Clone()
-	fill.Name = "Fill"
-	fill.Position = UDim2.new()
-	fill.Size = UDim2.fromScale(0, 1)
-	fill.BackgroundColor3 = palette.gold
-	fill.Parent = track
-	Style.Button(gui.Use)
-	gui.Use.TextTransparency = 1
-	local strikeArt = Art.Icon(gui.Use, "Equipment")
-	strikeArt.Position, strikeArt.Size = UDim2.fromOffset(2, 2), UDim2.new(0.42, 0, 1, -4)
-	local strikeLabel = text(
-		gui.Use,
-		"ActionCaption",
-		"STRIKE",
-		UDim2.new(0.58, -6, 1, 0),
-		UDim2.new(0.42, 0, 0, 0),
-		15,
-		Color3.fromRGB(244, 249, 250)
-	)
-	strikeLabel.TextXAlignment = Enum.TextXAlignment.Center
-	strikeLabel.ZIndex = gui.Use.ZIndex + 3
-	Style.Surface(gui.Use, Color3.fromRGB(47, 126, 127), Color3.fromRGB(20, 53, 69))
-	local gear = button("Equipment", "EQUIPMENT", palette.mint, function()
-		openEquipment("TOOLS")
-	end)
-	local pets = button("Creatures", "CREATURES", palette.purple, function()
-		openEquipment("ARCHIVE")
-	end)
-	local home = button("Home", "MY ROOM", palette.blue, function()
-		remote:FireServer("Home")
-	end)
-	for _, nav in { gear, pets, home } do
-		local caption = text(
-			nav,
-			"Caption",
-			nav.Text,
-			UDim2.new(1, -4, 0, 20),
-			UDim2.new(0, 2, 1, -23),
-			11,
-			Color3.fromRGB(249, 244, 231)
-		)
-		caption.TextXAlignment = Enum.TextXAlignment.Center
-		caption.TextStrokeColor3, caption.TextStrokeTransparency = palette.ink, 0.35
-		caption.ZIndex = nav.ZIndex + 3
-		nav.Text = ""
-		nav.BackgroundColor3 = Color3.new(1, 1, 1)
-		local top = nav == gear and Color3.fromRGB(37, 101, 109)
-			or nav == pets and Color3.fromRGB(94, 57, 137)
-			or Color3.fromRGB(42, 78, 119)
-		Style.Surface(nav, top, Color3.fromRGB(19, 30, 49))
-		nav:FindFirstChildOfClass("UIStroke").Color = Color3.fromRGB(124, 164, 180)
-		local icon = Art.Icon(nav, nav.Name)
-		icon.Position, icon.Size = UDim2.fromScale(0.06, -0.07), UDim2.new(0.88, 0, 1, -17)
-		local rim = Instance.new("Frame")
-		rim.Name, rim.BorderSizePixel = "TopHighlight", 0
-		rim.Position, rim.Size = UDim2.new(0.18, 0, 0, 2), UDim2.new(0.64, 0, 0, 1)
-		rim.BackgroundColor3, rim.BackgroundTransparency = Color3.fromRGB(199, 229, 231), 0.4
-		rim.Parent = nav
+	local wallet = card("Wallet")
+	local cash = text(wallet, "Cash", 20, UDim2.fromOffset(12, 4), UDim2.new(1, -24, 0, 25), gold)
+	local relics = text(wallet, "Relics", 13, UDim2.fromOffset(12, 30), UDim2.new(1, -24, 0, 18))
+	local bag = card("Bucket")
+	local bucket = text(bag, "Amount", 19, UDim2.fromOffset(12, 4), UDim2.new(1, -24, 0, 25), mint)
+	local bagCaption = text(bag, "Caption", 12, UDim2.fromOffset(12, 30), UDim2.new(1, -24, 0, 18))
+	local materialBag = require(Shared.MaterialBag).Attach(gui, player, remote, bag)
+	bagCaption.Text = "BUCKET / OPEN"
+	local egg = card("CurrentEgg")
+	local eggName = text(egg, "Name", 17, UDim2.fromOffset(12, 5), UDim2.new(1, -24, 0, 23))
+	local progress = text(egg, "Progress", 13, UDim2.fromOffset(12, 29), UDim2.new(1, -24, 0, 18), mint)
+	local track = card("Track", egg, Color3.fromRGB(51, 72, 80))
+	track.Position, track.Size = UDim2.fromOffset(12, 53), UDim2.new(1, -24, 0, 6)
+	local fill = Instance.new("Frame")
+	fill.Size, fill.BackgroundColor3, fill.BorderSizePixel, fill.Parent = UDim2.fromScale(0, 1), gold, 0, track
+	round(fill, 6)
+	local drawer = card("MoreActions")
+	drawer.Visible, drawer.ZIndex, drawer.Active = false, 10, true
+	local list = Instance.new("ScrollingFrame")
+	list.Position, list.Size, list.BackgroundTransparency = UDim2.fromOffset(8, 8), UDim2.new(1, -16, 1, -16), 1
+	list.CanvasSize, list.AutomaticCanvasSize, list.ScrollBarThickness = UDim2.new(), Enum.AutomaticSize.Y, 4
+	list.BorderSizePixel, list.ZIndex, list.Parent = 0, 11, drawer
+	local layout = Instance.new("UIListLayout")
+	layout.Padding, layout.SortOrder, layout.Parent = UDim.new(0, 6), Enum.SortOrder.LayoutOrder, list
+	local menuOpen, showHelp, belt = false, false, nil
+	local more
+	local function setMenu(open)
+		menuOpen, drawer.Visible = open, open
+		player:SetAttribute("CoreMenuOpen", open)
+		if more then more.Text = open and "CLOSE" or "MORE" end
 	end
-	local sell = button("Sell", "SELL", palette.gold, function()
-		remote:FireServer("Sell")
-	end)
-	sell.TextTransparency = 1
-	local sellArt = Art.Icon(sell, "Coins")
-	sellArt.Position, sellArt.Size = UDim2.fromOffset(3, 1), UDim2.new(0, 38, 1, -2)
-	local sellLabel =
-		text(sell, "Caption", "SELL", UDim2.new(1, -48, 1, 0), UDim2.fromOffset(43, 0), 14, palette.ink)
-	sellLabel.TextXAlignment = Enum.TextXAlignment.Center
-	local training = button("AutoTrain", "START AUTO TRAIN", palette.mint, function()
-		remote:FireServer("Training")
-	end)
-	local trainingInfo = text(
-		training,
-		"Hint",
-		"Tap once. Train automatically.",
-		UDim2.new(1, -12, 0, 16),
-		UDim2.new(0, 6, 1, -19),
-		10
-	)
-	trainingInfo.TextXAlignment = Enum.TextXAlignment.Center
-	local trainText =
-		text(training, "Title", "START AUTO TRAIN", UDim2.new(1, -12, 0, 25), UDim2.fromOffset(6, 8), 17)
-	trainText.TextXAlignment = Enum.TextXAlignment.Center
-	training.Text = ""
-	local trainingArt = Art.Icon(training, "Equipment")
-	trainingArt.Position, trainingArt.Size = UDim2.fromOffset(3, 1), UDim2.fromOffset(60, 60)
-	trainText.Position, trainText.Size = UDim2.fromOffset(66, 8), UDim2.new(1, -72, 0, 25)
-	trainingInfo.Position, trainingInfo.Size = UDim2.new(0, 66, 1, -21), UDim2.new(1, -72, 0, 18)
-	local guide = panel("Guide", palette.paper)
-	local guideTitle = text(
-		guide,
-		"Heading",
-		"YOUR FIRST DISCOVERY",
-		UDim2.new(1, -60, 0, 16),
-		UDim2.fromOffset(12, 10),
-		10,
-		Color3.fromRGB(74, 137, 159)
-	)
-	local guideText = text(guide, "Instruction", "", UDim2.new(1, -24, 0, 22), UDim2.fromOffset(12, 29), 13)
-	guideText.TextWrapped = true
-	guideText.TextYAlignment = Enum.TextYAlignment.Top
-	local skip = Instance.new("TextButton")
-	skip.Size = UDim2.fromOffset(44, 44)
-	skip.Position = UDim2.new(1, -48, 0, 0)
-	skip.Text = "SKIP"
-	skip.Font = Enum.Font.GothamBold
-	skip.TextSize = 9
-	skip.TextColor3 = palette.ink
-	skip.BackgroundTransparency = 1
-	skip.Parent = guide
-	skip.Activated:Connect(function()
-		remote:FireServer("GuideSkip")
-	end)
-	local trial =
-		text(root, "Trial", "", UDim2.fromOffset(270, 24), UDim2.new(0.5, -135, 1, -137), 13, palette.gold)
-	trial.TextXAlignment = Enum.TextXAlignment.Center
-	local world = Instance.new("Folder")
-	world.Name = "LocalGuidedRoute"
-	world.Parent = workspace
-	local highlight = Instance.new("Highlight")
-	highlight.FillColor = palette.mint
-	highlight.FillTransparency = 0.87
-	highlight.OutlineColor = palette.mint
-	highlight.OutlineTransparency = 0.12
-	highlight.DepthMode = Enum.HighlightDepthMode.Occluded
-	highlight.Parent = world
-	local anchor = Instance.new("Part")
-	anchor.Anchored = true
-	anchor.Transparency = 1
-	anchor.Size = Vector3.one * 0.1
-	anchor.CanCollide = false
-	anchor.CanTouch = false
-	anchor.CanQuery = false
-	anchor.Parent = world
-	local marker = Instance.new("BillboardGui")
-	marker.Size = UDim2.fromOffset(170, 36)
-	marker.MaxDistance = 110
-	marker.AlwaysOnTop = false
-	marker.StudsOffset = Vector3.new(0, 4, 0)
-	marker.Adornee = anchor
-	marker.Parent = gui
-	local arrow =
-		text(marker, "Arrow", "FOLLOW THE PATH", UDim2.fromScale(1, 1), UDim2.new(), 15, palette.mint)
-	arrow.TextXAlignment = Enum.TextXAlignment.Center
-	arrow.TextStrokeTransparency = 0.25
-	local route = {}
-	for i = 1, 16 do
-		local p = Instance.new("Part")
-		p.Name = "RouteDash"
-		p.Size = Vector3.new(0.8, 0.12, 2.2)
-		p.Anchored = true
-		p.CanCollide = false
-		p.CanQuery = false
-		p.CanTouch = false
-		p.CastShadow = false
-		p.Material = Enum.Material.Neon
-		p.Color = palette.mint
-		p.Transparency = 1
-		p.Parent = world
-		route[i] = p
+	more = button(root, "More", "MORE", cream, function() setMenu(not menuOpen) end)
+	local upgrade = button(root, "Upgrades", "UPGRADES", mint, function() setMenu(false); openEquipment("RIG") end)
+	local sell = button(root, "Sell", "SELL", gold, function() setMenu(false); remote:FireServer("Sell") end)
+	local entries = {
+		{ "Journal", "Journal & discoveries", function() openJournal(true) end },
+		{ "Equipment", "Equipment", function() openEquipment("TOOLS") end },
+		{ "Creatures", "Creatures", function() openEquipment("ARCHIVE") end },
+		{ "Home", "Go to my room", function() remote:FireServer("Home") end },
+		{ "Decorate", "Room collection", function() openEquipment("ROOM") end },
+		{ "Settings", "Settings", function() openEquipment("OPTIONS") end },
+		{ "Help", "Controls & guidance", function() showHelp = not showHelp end },
+	}
+	for index, entry in entries do
+		local b = button(list, entry[1], entry[2], cream, function() setMenu(false); entry[3]() end)
+		b.Size, b.LayoutOrder, b.ZIndex = UDim2.new(1, -6, 0, 44), index, 12
 	end
-	local guidedRoute = require(shared.GuidedRoute).new(route, world)
-	gui.Destroying:Connect(function()
-		world:Destroy()
+	local contract = text(list, "Contract", 14, UDim2.new(), UDim2.new(1, -6, 0, 88), mint)
+	contract.LayoutOrder, contract.TextWrapped, contract.TextTruncate, contract.ZIndex = 9, true, Enum.TextTruncate.None, 12
+	local guide = card("ContextHint")
+	guide.BackgroundTransparency = 0.08
+	local hint = text(guide, "Text", 14, UDim2.fromOffset(10, 4), UDim2.new(1, -58, 1, -8))
+	hint.TextWrapped, hint.TextTruncate = true, Enum.TextTruncate.None
+	local dismiss = button(guide, "Dismiss", "OK", cream, function()
+		if showHelp then showHelp = false else remote:FireServer("TutorialSkip") end
 	end)
-	local lastRoute = 0
-	local function room()
-		for _, r in workspace.VesperLab.Rooms:GetChildren() do
-			if r:GetAttribute("OwnerUserId") == player.UserId then
-				return r
-			end
-		end
+	dismiss.Size, dismiss.Position = UDim2.fromOffset(44, 44), UDim2.new(1, -48, 0.5, -22)
+	local training = button(root, "Training", "TRAIN", cream, function() setMenu(false); remote:FireServer("Training") end)
+	local toolName = text(root, "Equipped", 14, UDim2.new(), UDim2.fromOffset(260, 22), cream)
+	toolName.TextXAlignment, toolName.TextStrokeTransparency = Enum.TextXAlignment.Center, 0.4
+	local prompt = text(gui.Use, "InputHint", 12, UDim2.new(0, 2, 1, -21), UDim2.new(1, -4, 0, 18), ink)
+	-- The existing Use button retains its one desktop/touch input route.
+	gui.Use.TextTransparency, gui.Use.TextColor3, gui.Use.TextSize = 0, ink, 18
+	gui.Use.BackgroundColor3 = gold
+	round(gui.Use, 16)
+	local originalCaption = gui.Use:FindFirstChild("ActionCaption")
+	if originalCaption then originalCaption:Destroy() end
+	gui.Use.TextYAlignment = Enum.TextYAlignment.Top
+	local usePadding = Instance.new("UIPadding")
+	usePadding.PaddingTop, usePadding.Parent = UDim.new(0, 9), gui.Use
+	local function number(value)
+		if typeof(value) ~= "number" then return "Syncing..." end
+		return tostring(math.floor(value)):reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", "")
 	end
-	local function fmt(n)
-		if n >= 1e6 then
-			return string.format("%.1fM", n / 1e6)
-		elseif n >= 1000 then
-			return string.format("%.1fK", n / 1000)
-		end
-		return tostring(math.floor(n))
-	end
-	local api = {}
-	function api:Update()
-		local available = gui.AbsoluteSize
-		local w, h = available.X, available.Y
-		local small = w < 760
-		local short = h < 500 and w >= 600
-		local modal = gui.Station.Visible
-			or player:GetAttribute("ResearchModal")
-			or player:GetAttribute("DiscoveryCinematic")
-		root.Visible = not modal
-		materialBag.Update(modal)
-		for _, name in { "Status", "Shop", "Help", "Bag", "Tools", "Tutorial", "Guidance" } do
-			gui[name].Visible = false
-		end
-		local bw = small and 126 or 162
-		money.Size = UDim2.fromOffset(bw, 52)
-		money.Position = UDim2.fromOffset(12, 12)
-		bag.Size = UDim2.fromOffset(bw, 52)
-		bag.Position = small and UDim2.new(1, -bw - 12, 0, 12) or UDim2.fromOffset(12, 72)
-		egg.Size = UDim2.fromOffset(small and math.min(300, w - 28) or 330, 70)
-		egg.AnchorPoint = Vector2.new(0.5, 0)
-		egg.Position = UDim2.new(0.5, 0, 0, small and 76 or 12)
-		credits.Text = fmt(player:GetAttribute("Cash") or 0)
-		bagValue.Text = fmt(player:GetAttribute("BucketUsed") or 0)
-			.. " / "
-			.. fmt(player:GetAttribute("BucketCapacity") or 40)
-		bagTitle.Text = (player:GetAttribute("BucketUsed") or 0)
-					>= (player:GetAttribute("BucketCapacity") or 40)
-				and "BAG FULL / OPEN"
-			or "MATERIALS / OPEN"
-		local state = shared.RoundState
-		local left, total = state:GetAttribute("LayerRemaining") or 0, state:GetAttribute("LayerTotal") or 1
-		eggTitle.Text = state:GetAttribute("EggName") or "ANCIENT EGG"
-		eggSub.Text = string.format(
-			"LAYER %d OF 3   /   %s PLATES LEFT",
-			state:GetAttribute("ActiveLayer") or 1,
-			fmt(left)
-		)
-		fill.Size = UDim2.fromScale(math.clamp(1 - left / math.max(total, 1), 0, 1), 1)
-		local startY = small and 161 or 142
-		local navW = small and 132 or 164
-		for i, b in { gear, pets, home } do
-			b.Size = UDim2.fromOffset(navW, 46)
-			b.Position = UDim2.fromOffset(12, startY + (i - 1) * 55)
-			b.TextSize = small and 11 or 13
-		end
-		sell.Size = UDim2.fromOffset(bw, 38)
-		sell.Position = small and UDim2.fromOffset(12, startY + 165) or UDim2.fromOffset(12, 130)
-		if small then
-			sell.Size = UDim2.fromOffset(navW, 38)
-		end
-		if not small then
-			startY = 184
-			for i, b in { gear, pets, home } do
-				b.Position = UDim2.fromOffset(12, startY + (i - 1) * 55)
-			end
-		end
-		sell.Visible = (player:GetAttribute("BucketUsed") or 0) > 0
+	local function ownedTraining()
 		local ch = player.Character
 		local hrp = ch and ch:FindFirstChild("HumanoidRootPart")
-		local own = room()
-		local device = own and own:FindFirstChild("TrainingStation")
-		local near = device and hrp and (hrp.Position - device.TrainingSpot.Position).Magnitude < 18
-		local running = player:GetAttribute("Training") == true
-		training.Visible = not modal and (near or running)
-		training.Size = UDim2.fromOffset(math.min(300, w - 28), 64)
-		training.AnchorPoint = Vector2.new(0.5, 1)
-		training.Position = UDim2.new(0.5, 0, 1, -20)
-		trainText.Text = running and "STOP TRAINING" or "START AUTO TRAIN"
-		training.BackgroundColor3 = running and palette.gold or palette.mint
-		trainingInfo.Text = running and "Equipped tool practice / tap to stop"
-			or "Tap once. Train automatically."
-		gui.Use.Visible = not modal and not training.Visible
-		gui.Use.Size = UDim2.fromOffset(small and 112 or 150, 64)
-		gui.Use.Position = UDim2.new(1, small and -126 or -166, 1, small and -174 or -90)
-		gui.Use.BackgroundColor3 = Color3.new(1, 1, 1)
-		strikeLabel.Text = gui.Use.Text
-		strikeLabel.TextSize = small and 12 or 15
-		gui.Use.TextColor3 = palette.ink
-		gui.Use.Font = Enum.Font.GothamBlack
-		gui.Use.TextSize = 20
-		local toolbelt = gui:FindFirstChild("Toolbelt")
-		if toolbelt then
-			toolbelt.Visible = not modal and not training.Visible and player:GetAttribute("LabReady") == true
-		end
-		local expires = player:GetAttribute("DrillTrialEndsAt")
-		trial.Text = expires
-				and "HELIX TRIAL / " .. math.max(0, math.ceil(expires - workspace:GetServerTimeNow())) .. "s"
-			or ""
-		local stage = player:GetAttribute("IntroStage") or 1
-		for _, b in { gear, sell } do
-			local edge = b:FindFirstChildOfClass("UIStroke")
-			local active = (b == gear and stage == 4) or (b == sell and stage == 3)
-			edge.Color = active and palette.gold or palette.ink
-			edge.Thickness = active and (2.5 + 0.5 * math.sin(os.clock() * 4)) or 2
-		end
-		guide.Visible = stage < 5 and not running and player:GetAttribute("LabReady") == true
-		guide.Size = UDim2.fromOffset(small and math.min(230, w - 150) or 270, 60)
-		guide.AnchorPoint = Vector2.new(1, 0)
-		guide.Position = UDim2.new(1, -12, 0, small and 161 or 98)
-		guideTitle.Text = "NEXT / " .. stage .. " OF 4"
-		guideText.Text = ({
-			"Train once in your room",
-			"Break a plate / collect materials",
-			"Sell your collected materials",
-			player:GetAttribute("OwnsTool_Drill") and "Equip your drill" or "Try the drill at the shop",
-		})[stage] or ""
-		guideText.TextScaled = small
-		if short then
-			-- Landscape phones need a separate arrangement, not the portrait stack.
-			money.Size = UDim2.fromOffset(136, 52)
-			bag.Size = UDim2.fromOffset(136, 52)
-			bag.Position = UDim2.new(1, -148, 0, 12)
-			egg.Size = UDim2.fromOffset(math.min(330, w - 328), 70)
-			egg.Position = UDim2.new(0.5, 0, 0, 12)
-			for i, b in { gear, pets, home } do
-				b.Size = UDim2.fromOffset(136, 44)
-				b.Position = UDim2.new(1, -148, 0, 74 + (i - 1) * 49)
+		if not hrp then return false end
+		for _, room in workspace.VesperLab.Rooms:GetChildren() do
+			if room:GetAttribute("OwnerUserId") == player.UserId then
+				local device = room:FindFirstChild("TrainingStation")
+				local spot = device and device:FindFirstChild("TrainingSpot")
+				return spot ~= nil and (hrp.Position - spot.Position).Magnitude < 18
 			end
-			sell.Size, sell.Position = UDim2.fromOffset(136, 44), UDim2.fromOffset(12, 74)
-			guide.Size = UDim2.fromOffset(190, 70)
-			guide.AnchorPoint, guide.Position = Vector2.zero, UDim2.fromOffset(12, 180)
-			guideText.Size = UDim2.new(1, -24, 0, 34)
-			gui.Use.Size = UDim2.fromOffset(112, 54)
-			gui.Use.Position = UDim2.new(1, -126, 1, -100)
+		end
+		return false
+	end
+	player.CharacterAdded:Connect(function() setMenu(false); showHelp = false end)
+	UIS.InputBegan:Connect(function(input, processed)
+		if not processed and (input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.ButtonB) then
+			setMenu(false)
+			showHelp = false
+		end
+	end)
+	local api = {}
+	function api:SetToolbelt(controller) belt = controller end
+	function api:Update()
+		local ready = player:GetAttribute("LabReady") == true and player:GetAttribute("ProfileReady") == true
+		local externalModal = gui.Station.Visible or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic")
+		local bagOpen = player:GetAttribute("MaterialBagOpen") == true
+		if not ready or externalModal or bagOpen then setMenu(false) end
+		root.Visible = ready and not externalModal and not bagOpen
+		materialBag.Update(externalModal or not ready)
+		for _, name in { "Status", "Shop", "Help", "Bag", "Tools", "Tutorial", "Guidance", "ResearchRank" } do
+			local old = gui:FindFirstChild(name)
+			if old then old.Visible = false end
+		end
+		local w, h = gui.AbsoluteSize.X, gui.AbsoluteSize.Y
+		local portrait = w < 600 and h > w
+		local compactPortrait = portrait and h < 620
+		local short = h < 480 and not portrait
+		local stacked = w < 800 and not short
+		local side = short and 124 or math.min(166, (w - 30) / 2)
+		wallet.Size, wallet.Position = UDim2.fromOffset(side, 54), UDim2.fromOffset(10, 8)
+		bag.Size, bag.Position = UDim2.fromOffset(side, 54), UDim2.new(1, -side - 10, 0, 8)
+		local eggWidth = stacked and math.min(400, w - 20) or math.min(360, w - 2 * side - 48)
+		egg.AnchorPoint, egg.Position = Vector2.new(0.5, 0), UDim2.new(0.5, 0, 0, stacked and 70 or 8)
+		egg.Size = UDim2.fromOffset(math.max(160, eggWidth), 66)
+		local actionY = stacked and 144 or 82
+		more.Size, more.Position = UDim2.fromOffset(92, 44), UDim2.fromOffset(10, actionY)
+		upgrade.Size, upgrade.Position = UDim2.fromOffset(100, 44), UDim2.fromOffset(110, actionY)
+		sell.Size, sell.Position = UDim2.fromOffset(92, 44), UDim2.new(1, -102, 0, actionY)
+		drawer.Position, drawer.Size = UDim2.fromOffset(10, actionY + 50), UDim2.fromOffset(math.min(340, w - 20), math.max(100, math.min(386, h - actionY - 62)))
+		cash.Text, relics.Text = "$" .. number(player:GetAttribute("Cash")), "Relics  " .. number(player:GetAttribute("Relics"))
+		local used, cap = player:GetAttribute("BucketUsed"), player:GetAttribute("BucketCapacity")
+		bucket.Text = number(used) .. " / " .. number(cap)
+		local full = typeof(used) == "number" and typeof(cap) == "number" and used >= cap
+		local activeLayer = Config.Layers[State:GetAttribute("ActiveLayer")]
+		local noRoom = typeof(used) == "number" and typeof(cap) == "number" and activeLayer
+			and used + activeLayer.Yield + (player:GetAttribute("YieldBonus") or 0) > cap
+		bagCaption.Text, bucket.TextColor3 = full and "FULL / SELL" or noRoom and "SELL TO MAKE ROOM" or "BUCKET / OPEN", noRoom and gold or mint
+		sell.Interactable, sell.Selectable = ready and typeof(used) == "number" and used > 0, ready and typeof(used) == "number" and used > 0
+		sell.BackgroundTransparency = sell.Interactable and 0 or 0.4
+		local phase = Phase.Read(State)
+		local sharedProgress, layer = State:GetAttribute("Progress"), State:GetAttribute("ActiveLayer")
+		eggName.Text = State:GetAttribute("EggName") or "Synchronizing egg..."
+		if typeof(sharedProgress) == "number" and typeof(layer) == "number" then
+			progress.Text = phase == "Excavating" and string.format("%.1f%% excavated / Layer %d of 3", sharedProgress * 100, layer)
+				or phase == "Selecting" and "Selecting the next egg"
+				or phase == "Delivering" and "Next egg arriving"
+				or phase == "Hatching" and "Shell complete / Hatching"
+				or "Discovery complete"
+			fill.Size = UDim2.fromScale(math.clamp(sharedProgress, 0, 1), 1)
 		else
-			guideText.Size = UDim2.new(1, -24, 0, 22)
+			progress.Text, fill.Size = "Synchronizing progress...", UDim2.fromScale(0, 1)
 		end
-		local navSize = short and 76 or small and 82 or 96
-		for i, nav in { gear, pets, home } do
-			nav.Size = UDim2.fromOffset(navSize, navSize + 8)
-			nav.Position = short and UDim2.new(0.5, -124 + (i - 1) * 86, 0, 86)
-				or UDim2.fromOffset(16, (small and 162 or 184) + (i - 1) * (navSize + 20))
-			nav.Caption.TextSize = short and 9 or small and 10 or 11
+		local index, done = player:GetAttribute("ContractIndex"), player:GetAttribute("ContractProgress")
+		if index and done then
+			local item = Catalog.Contract(index)
+			contract.Text = "CURRENT CONTRACT\n" .. item.Title .. "\n" .. number(done) .. " / " .. number(item.Goal) .. "  |  Reward $" .. number(item.Reward)
+		else contract.Text = "Synchronizing contract..." end
+		local ch = player.Character
+		local actualTool = ch and ch:FindFirstChildOfClass("Tool")
+		local human = ch and ch:FindFirstChildOfClass("Humanoid")
+		local alive = human ~= nil and human.Health > 0
+		local running = player:GetAttribute("Training") == true
+		local blocked = not root.Visible or menuOpen or not alive
+		local beltY = portrait and 172 or 12
+		local beltHeight, beltWidth = portrait and 66 or 72, short and 228 or portrait and 216 or 252
+		if belt then belt:Update(beltWidth, beltHeight, UDim2.new(0.5, 0, 1, -beltY), blocked or running) end
+		toolName.Size, toolName.Position = UDim2.fromOffset(beltWidth + 50, 22), UDim2.new(0.5, -(beltWidth + 50) / 2, 1, -beltY - beltHeight - 24)
+		toolName.Visible, toolName.Text = not blocked and not running and not compactPortrait, actualTool and ("Equipped: " .. actualTool.Name) or "Select a tool"
+		local trialEnd = player:GetAttribute("DrillTrialEndsAt")
+		if actualTool and actualTool:GetAttribute("ToolFamily") == "Drill" and typeof(trialEnd) == "number"
+			and trialEnd > workspace:GetServerTimeNow() and not player:GetAttribute("OwnsTool_Drill") then
+			toolName.Text ..= " / trial " .. math.ceil(trialEnd - workspace:GetServerTimeNow()) .. "s"
 		end
-		if small and not short then
-			sell.Size, sell.Position = UDim2.fromOffset(126, 44), UDim2.new(1, -138, 0, 234)
+		local touch = UIS.PreferredInput == Enum.PreferredInput.Touch
+		gui.Use.Visible = not blocked and not running and phase == "Excavating"
+		gui.Use.Size = UDim2.fromOffset(touch and 106 or 130, 64)
+		gui.Use.Position = UDim2.new(1, touch and -116 or -140, 1, touch and -100 or -16)
+		gui.Use.Text = not actualTool and "EQUIP" or player:GetAttribute("ToolFamily") == "Drill"
+			and (gui.Use.Text:find("STOP") and "STOP DRILL" or "START DRILL")
+			or player:GetAttribute("ToolFamily") == "Explosive" and "DETONATE" or "STRIKE"
+		prompt.Text = not actualTool and "SELECT TOOL" or touch and (player:GetAttribute("ToolFamily") == "Drill" and "TAP TO TOGGLE" or "HOLD")
+			or UIS.PreferredInput == Enum.PreferredInput.Gamepad and "RT / R2" or "CLICK / E"
+		-- Equip behavior is owned by the original input controller.
+		local sprint = gui:FindFirstChild("SprintToggle")
+		if sprint then
+			sprint.Size, sprint.Position = UDim2.fromOffset(compactPortrait and 64 or 84, 44), UDim2.fromOffset(10, actionY + (portrait and 116 or 54))
 		end
-		local status = gui:FindFirstChild("TargetStatus")
-		if status then
-			status.Position = UDim2.new(0.5, 0, 1, -112)
-			status.Visible = status.Visible and not modal and not training.Visible
+		training.Parent = running and root or list
+		training.LayoutOrder = 8
+		training.Visible = root.Visible and alive and (running or (menuOpen and ownedTraining()))
+		training.AnchorPoint = running and Vector2.new(0.5, 1) or Vector2.zero
+		training.Size, training.Position = running and UDim2.fromOffset(160, 44) or UDim2.new(1, -6, 0, 44), UDim2.new(0.5, 0, 1, -14)
+		training.ZIndex = running and 8 or 12
+		training.Text = running and "STOP TRAINING" or "TRAIN / OPTIONAL"
+		local step = player:GetAttribute("TutorialStep")
+		local guideText = noRoom and "Make room for the next section: tap SELL, then UPGRADES."
+			or showHelp and (touch and "Aim at the shell and hold STRIKE. Materials collect automatically." or "Click / E to strike. 1-3 select tools. Shift sprints; Ctrl locks aim.")
+			or step and step <= 1 and "Select your pickaxe, aim at the egg and strike."
+			or step and step <= 4 and "Break a shell section. Materials collect automatically."
+			or step and step <= 6 and "Tap SELL to empty your bucket and earn credits."
+			or step and step == 7 and "Open UPGRADES to improve your equipped tool."
+			or nil
+		guide.Visible = not blocked and not running and guideText ~= nil and phase == "Excavating" and gui.Toast.Text == ""
+		hint.Text = guideText or ""
+		dismiss.Visible = not noRoom and (showHelp or (step ~= nil and step <= 7))
+		hint.Size = UDim2.new(1, dismiss.Visible and -58 or -20, 1, -8)
+		if short then
+			guide.Size, guide.Position = UDim2.fromOffset(math.min(380, math.max(180, w - 330)), 54), UDim2.fromOffset(218, actionY)
+		else
+			guide.Size, guide.Position = UDim2.fromOffset(math.min(380, w - 20), 54), UDim2.new(0.5, -math.min(380, w - 20) / 2, 0, actionY + 54)
 		end
-		if os.clock() - lastRoute < 0.12 then
-			return
+		local target = gui:FindFirstChild("TargetStatus")
+		gui:SetAttribute("CoreTargetSuppressed", compactPortrait and guide.Visible)
+		if target then
+			target.Position = UDim2.new(0.5, 0, 1, -beltY - beltHeight - 48)
+			target.Visible = target.Visible and not blocked and not running and gui.Toast.Text == "" and not gui:GetAttribute("CoreTargetSuppressed")
 		end
-		lastRoute = os.clock()
-		local target, targetPart
-		if
-			own
-			and hrp
-			and stage < 5
-			and not running
-			and not modal
-			and player:GetAttribute("LabReady") == true
-		then
-			if stage == 1 then
-				targetPart = device and device.Control
-			elseif stage == 2 then
-				local delta = Vector3.new(hrp.Position.X, 0, hrp.Position.Z)
-				local radial = delta.Magnitude > 1 and delta.Unit or Vector3.zAxis
-				target = radial * 51 + Vector3.new(0, 2, 0)
-				local localPos = own:GetPivot():PointToObjectSpace(hrp.Position)
-				if math.abs(localPos.X) < 43 and math.abs(localPos.Z) < 36 then
-					target = own:GetPivot():PointToWorldSpace(Vector3.new(0, 2, -46))
-				end
-			elseif stage == 4 then
-				local workshop = workspace.VesperLab:FindFirstChild("SharedWorkshop")
-				targetPart = workshop and workshop:FindFirstChild("Console")
-			end
-		end
-		target = targetPart and targetPart.Position or target
-		highlight.Adornee = targetPart
-		highlight.Enabled = targetPart ~= nil
-			and hrp ~= nil
-			and (targetPart.Position - hrp.Position).Magnitude < 35
-		marker.Enabled = target ~= nil
-		local goal = target
-		if target and hrp then
-			anchor.Position = target
-			local name = stage == 1 and "PRACTICE" or stage == 4 and "TOOLWORKS" or "EXCAVATE"
-			arrow.Text = name .. " / " .. math.floor((target - hrp.Position).Magnitude) .. " studs"
-			marker.StudsOffset = Vector3.new(0, 3, 0)
-			-- Route to the accessible front of a terminal, never inside its solid body.
-			if targetPart then
-				goal = (targetPart.CFrame * CFrame.new(0, 0, 5)).Position
-			end
-			local params = RaycastParams.new()
-			params.FilterType = Enum.RaycastFilterType.Exclude
-			params.FilterDescendantsInstances = { ch, world }
-			params.RespectCanCollide = true
-			local floor = workspace:Raycast(goal + Vector3.yAxis * 8, -Vector3.yAxis * 24, params)
-			goal = floor and floor.Position or goal
-		end
-		guidedRoute:Update(hrp, goal, ch, player:GetAttribute("ReducedMotion"))
+		gui.Toast.AnchorPoint = Vector2.new(0.5, 0)
+		gui.Toast.Position, gui.Toast.Size = UDim2.new(0.5, 0, 1, -beltY - beltHeight - 90), UDim2.fromOffset(math.min(420, w - 24), 40)
+		if compactPortrait then gui.Toast.Position = UDim2.new(0.5, 0, 0, actionY + 54) end
+		gui.Toast.Visible = ready and not externalModal and not bagOpen and gui.Toast.Text ~= ""
+		gui.Toast.TextWrapped, gui.Toast.TextSize = true, 14
 	end
 	return api
 end

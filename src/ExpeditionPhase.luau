@@ -8,14 +8,15 @@ function M.Read(state)
 	if encoded and (not saved or saved.encoded ~= encoded) then
 		local ok, value = pcall(Http.JSONDecode, Http, encoded)
 		if ok and typeof(value.status) == "string" and typeof(value.started) == "number" then
-			saved = { encoded = encoded, status = value.status, started = value.started }
+			saved = { encoded = encoded, status = value.status, started = value.started, transitionStarted = value.transitionStarted or 0 }
 			cache[state] = saved
 		end
 	end
 	if saved then
-		return saved.status, saved.started
+		return saved.status, saved.started, saved.transitionStarted
 	end
 	return state:GetAttribute("Status") or "Excavating",
-		state:GetAttribute("PhaseStartedAt") or workspace:GetServerTimeNow()
+		state:GetAttribute("PhaseStartedAt") or workspace:GetServerTimeNow(),
+		state:GetAttribute("TransitionStartedAt") or 0
 end
 return M

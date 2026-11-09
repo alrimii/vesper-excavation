@@ -116,8 +116,8 @@ function M.new(gui, shared)
 		end
 	end
 	local api = {}
-	function api:Update(status, age, selected, sample)
-		screen.Visible = status == "Selecting" or status == "Delivering"
+	function api:Update(status, age, selected, sample, present)
+		screen.Visible = present == true and (status == "Selecting" or status == "Delivering")
 		if not screen.Visible then
 			return
 		end

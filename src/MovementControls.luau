@@ -26,6 +26,8 @@ function M.Start(player, gui)
 			or GuiService.MenuIsOpen
 			or player:GetAttribute("LabReady") ~= true
 			or player:GetAttribute("ResearchModal")
+			or player:GetAttribute("CoreMenuOpen")
+			or player:GetAttribute("MaterialBagOpen")
 			or player:GetAttribute("DiscoveryCinematic")
 			or player:GetAttribute("Training")
 			or gui.Station.Visible
@@ -93,11 +95,13 @@ function M.Start(player, gui)
 		end
 	end)
 	local function applyMouse()
-		sprintButton.Visible = UIS.PreferredInput == Enum.PreferredInput.Touch and not blocked()
+		sprintButton.Visible = UIS.PreferredInput == Enum.PreferredInput.Touch and not blocked() and gui.Toast.Text == ""
 		-- Clear both the native jump control and the mining action button.
 		local size = gui.AbsoluteSize
-		sprintButton.Position = size.Y < 500 and size.X >= 600 and UDim2.fromOffset(12, 128)
-			or UDim2.new(1, -96, 1, -238)
+		if not gui:GetAttribute("CoreHUDManaged") then
+			sprintButton.Position = size.Y < 500 and size.X >= 600 and UDim2.fromOffset(12, 128)
+				or UDim2.new(1, -96, 1, -238)
+		end
 		sprintButton.Text = touchSprint and "WALK" or "SPRINT"
 		local active = locked and not blocked() and UIS.PreferredInput == Enum.PreferredInput.KeyboardAndMouse
 		player:SetAttribute("CenteredAim", active)

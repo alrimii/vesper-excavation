@@ -14,17 +14,26 @@ function M.Start(player, state, gui)
 		CAS:UnbindAction("VesperDeliveryLock")
 		player:SetAttribute("DiscoveryCinematic", false)
 		if saved.camera == workspace.CurrentCamera then
-			saved.camera.CameraType = saved.kind
-			saved.camera.CFrame = saved.cf
+			saved.camera.CameraType = player.Character == saved.character and saved.kind or Enum.CameraType.Custom
+			if player.Character == saved.character then saved.camera.CFrame = saved.cf end
 			saved.camera.FieldOfView = saved.fov
+			local human = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+			if human then saved.camera.CameraSubject = human end
 		end
 	end
 	Run:BindToRenderStep("VesperDeliveryCamera", Enum.RenderPriority.Camera.Value + 3, function()
-		local status, phaseStarted = Phase.Read(state)
+		local status, phaseStarted, transitionStarted = Phase.Read(state)
 		local active = status == "Selecting" or status == "Delivering"
 		local round = state:GetAttribute("RoundId")
 		local ch = player.Character
 		local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+		local arrival = player:GetAttribute("GameplayArrivalAt")
+		-- A late join or respawn suppresses this entire transition, including
+		-- Delivering after Selecting. World machinery still uses server time.
+		if not arrival or transitionStarted <= arrival or not player:GetAttribute("LabReady") then
+			finish()
+			return
+		end
 		if not active then
 			finish()
 			suppressed = nil

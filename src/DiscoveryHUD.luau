@@ -226,11 +226,13 @@ function H.Attach(gui, player)
 			else
 				enqueue()
 			end
-		elseif kind == "Reveal" then
+		elseif kind == "Reveal" and player:GetAttribute("LabReady") == true
+			and b == State:GetAttribute("RoundId") and typeof(c) == "number"
+			and c > (player:GetAttribute("GameplayArrivalAt") or math.huge) then
 			for _, entry in Catalog.Specimens do
 				if entry.Id == a then
 					toggle(false)
-					require(Shared.DiscoveryCinematic).Start(player, entry)
+					require(Shared.DiscoveryCinematic).Start(player, entry, c)
 					break
 				end
 			end
@@ -258,14 +260,12 @@ function H.Attach(gui, player)
 	require(Shared.SpecimenMotion).Start(workspace.VesperLab.Egg.ContainedSpecimen, State)
 	local api = {}
 	local researchJournal = require(Shared.ResearchJournal).Attach(journal, cards, player)
-	local updateArtwork = require(Shared.MenuArtwork).Attach(gui)
+	-- ModernHUD owns navigation; preserve the existing journal controller.
+	api.Toggle = toggle
 	function api.Update(_kind)
 		local v = gui.AbsoluteSize
 		local narrow = v.X < 800
-		rank.Visible = not narrow
-			and not player:GetAttribute("DiscoveryCinematic")
-			and not player:GetAttribute("ResearchModal")
-			and not gui.Station.Visible
+		rank.Visible = false -- Existing research values remain available in the journal.
 		local portrait = v.X < 600 and v.Y > v.X
 		local journalWidth, journalHeight = portrait and 440 or 650, portrait and 690 or 510
 		local short = v.Y < 450
@@ -325,7 +325,7 @@ function H.Attach(gui, player)
 			)
 		gui.Status.ProgressTrack.Fill.Size = UDim2.fromScale(State:GetAttribute("Progress") or 0, 1)
 		gui.Status.ProgressTrack.Fill.BackgroundColor3 = specimen.Color
-		contract.Visible = not journal.Visible
+		contract.Visible = false -- Current contract is in the compact More drawer.
 		contract.Skip.Visible = false
 		contract.Arrow.Visible = false
 		local c = Catalog.Contract(player:GetAttribute("ContractIndex") or 1)
@@ -381,7 +381,6 @@ function H.Attach(gui, player)
 				and "Hold STRIKE  /  Automatic collection  /  Sell from UPGRADES"
 			or "1 PICKAXE   CLICK / E STRIKE   AUTO COLLECT   CTRL LOCK   SHIFT SPRINT"
 		researchJournal.Update()
-		updateArtwork(v)
 	end
 	return api
 end

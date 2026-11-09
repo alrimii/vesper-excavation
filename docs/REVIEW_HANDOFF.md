@@ -1,6 +1,6 @@
 # Phase review handoff template
 
-Current delivery: [Phase 1B core breaking handoff](PHASE_1B_HANDOFF.md). Applied in the original Studio place; gameplay review and suitable mining audio remain outstanding. The reusable template below remains for subsequent authorized deliveries.
+Current delivery: [Phase 2 direct joining and core HUD](PHASE_2_HANDOFF.md). Applied in the original Studio place with source readback and a native save; user gameplay review is pending. Phase 1B has provisional user acceptance; mining audio remains unfinished. The reusable template below remains for subsequent authorized deliveries.
 
 ## Identity and authorization
 - Phase, approved scope, date and remaining scope boundaries:

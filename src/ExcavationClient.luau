@@ -4,6 +4,7 @@ local UIS = game:GetService("UserInputService")
 local Run = game:GetService("RunService")
 local player = Players.LocalPlayer
 player:SetAttribute("OuterFracturesClientReady", false)
+player:SetAttribute("GameplayClientReady", false)
 local Shared = game.ReplicatedStorage:WaitForChild("VesperShared")
 while not Shared:GetAttribute("OuterFracturesReady") do
 	Shared:GetAttributeChangedSignal("OuterFracturesReady"):Wait()
@@ -70,6 +71,8 @@ local function cancel()
 	Motion.Cancel(player)
 	Action:FireServer("Cancel")
 end
+player:GetAttributeChangedSignal("CoreMenuOpen"):Connect(cancel)
+player:GetAttributeChangedSignal("ResearchModal"):Connect(cancel)
 player:GetAttributeChangedSignal("Training"):Connect(cancel)
 player:GetAttributeChangedSignal("MaterialBagOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("DiscoveryCinematic"):Connect(function()
@@ -110,13 +113,14 @@ local modern = require(Shared.ModernHUD).Build(gui, player, Action, function(pag
 	workshop:Select(page)
 end, function()
 	equip("Pickaxe")
-end)
+end, DiscoveryHUD.Toggle)
 local function selectTool(id)
 	if
 		player:GetAttribute("LabReady") ~= true
 		or player:GetAttribute("DiscoveryCinematic")
 		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
+		or player:GetAttribute("CoreMenuOpen")
 	then
 		return
 	end
@@ -132,7 +136,7 @@ local function selectTool(id)
 	cancel()
 	Action:FireServer("EquipTool", id)
 end
-require(Shared.Toolbelt).Build(gui, player, selectTool)
+modern:SetToolbelt(require(Shared.Toolbelt).Build(gui, player, selectTool))
 local function cycleTool(direction)
 	local order = require(Shared.ProgressionRules).ToolOrder
 	local index = table.find(order, player:GetAttribute("ToolFamily")) or 1
@@ -156,8 +160,11 @@ end
 local function use()
 	if
 		player:GetAttribute("LabReady") ~= true
+		or State:GetAttribute("Status") ~= "Excavating"
+		or not State:GetAttribute("Ready")
 		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
+		or player:GetAttribute("CoreMenuOpen")
 		or player:GetAttribute("DiscoveryCinematic")
 		or shopOpen
 		or player:GetAttribute("Training")
@@ -185,7 +192,7 @@ local function use()
 			> (player:GetAttribute("BucketCapacity") or 40)
 		then
 			if not fullNotified then
-				notice("Bucket full for this plate. Sell from UPGRADES.")
+				notice("Bucket full for this plate. Tap SELL to make room.")
 				fullNotified = true
 			end
 			held = false
@@ -200,8 +207,7 @@ local function use()
 			Action:FireServer("Swing", sequence)
 		end
 	else
-		held = false
-		notice("Select the pickaxe to excavate.")
+		equip("Pickaxe")
 	end
 end
 -- No Tool.Activated handlers: manual activation and one GUI-aware input route.
@@ -288,6 +294,7 @@ gui.Use.Activated:Connect(function()
 		or player:GetAttribute("DiscoveryCinematic")
 		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
+		or player:GetAttribute("CoreMenuOpen")
 	then
 		return
 	end
@@ -361,6 +368,7 @@ local function disableBackpack()
 	end)
 end
 player.CharacterAdded:Connect(function()
+	player:SetAttribute("GameplayArrivalAt", workspace:GetServerTimeNow())
 	held = false
 	currentTool = nil
 	fullNotified = false
@@ -579,7 +587,7 @@ Run.Heartbeat:Connect(function(dt)
 	gui.Tutorial.Visible = false
 	gui.Guidance.Visible = false
 	marker.Enabled = false
-	Layout.Update(gui, workspace.CurrentCamera.ViewportSize, panel.Contents.Visible)
+	-- ModernHUD alone owns gameplay layout; Workshop owns its modal layout.
 
 	local waitTime =
 		math.max(0, math.ceil((State:GetAttribute("ReadyAt") or 0) - workspace:GetServerTimeNow()))
@@ -590,3 +598,5 @@ Run.Heartbeat:Connect(function(dt)
 	workshop:Update(workspace.CurrentCamera.ViewportSize)
 	modern:Update()
 end)
+
+player:SetAttribute("GameplayClientReady", true)

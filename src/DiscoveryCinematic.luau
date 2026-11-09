@@ -1,5 +1,5 @@
 local M = {}
-function M.Start(player, entry)
+function M.Start(player, entry, revealedAt)
 	if player:GetAttribute("DiscoveryCinematic") then
 		return
 	end
@@ -64,7 +64,7 @@ function M.Start(player, entry)
 		Enum.KeyCode.Thumbstick1
 	)
 	game.ReplicatedStorage.VesperShared.Remotes.Action:FireServer("Cancel")
-	local started = os.clock()
+	local started = revealedAt or workspace:GetServerTimeNow()
 	local finished = false
 	local function finish()
 		if finished then
@@ -74,9 +74,13 @@ function M.Start(player, entry)
 		Run:UnbindFromRenderStep("DiscoveryRevealCamera")
 		CAS:UnbindAction("DiscoveryRevealLock")
 		player:SetAttribute("DiscoveryCinematic", false)
-		camera.CameraType = oldType
-		camera.CFrame = oldCF
-		camera.FieldOfView = oldFov
+		if camera == workspace.CurrentCamera then
+			camera.CameraType = player.Character == character and oldType or Enum.CameraType.Custom
+			if player.Character == character then camera.CFrame = oldCF end
+			camera.FieldOfView = oldFov
+			local current = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+			if current then camera.CameraSubject = current end
+		end
 		if hud then
 			hud.Enabled = hudWasEnabled
 		end
@@ -84,7 +88,7 @@ function M.Start(player, entry)
 	end
 	camera.CameraType = Enum.CameraType.Scriptable
 	Run:BindToRenderStep("DiscoveryRevealCamera", Enum.RenderPriority.Camera.Value + 2, function()
-		local t = os.clock() - started
+		local t = math.max(0, workspace:GetServerTimeNow() - started)
 		local hum = character and character:FindFirstChildOfClass("Humanoid")
 		if
 			t >= 7.5
