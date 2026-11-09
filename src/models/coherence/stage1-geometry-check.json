@@ -1,0 +1,8 @@
+{
+  "templates": 30,
+  "fragments": 90,
+  "maxRelativeVolumeError": 1.161897282652161e-06,
+  "maxBoundsErrorStuds": 0.0,
+  "nonmanifoldEdges": 0,
+  "gameplayTested": false
+}

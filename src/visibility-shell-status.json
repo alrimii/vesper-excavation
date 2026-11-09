@@ -1,0 +1,38 @@
+{
+  "updated": "2026-10-31T00:45:46.739050",
+  "installed": true,
+  "published": false,
+  "playtest": false,
+  "lighting": {
+    "style": "Soft",
+    "ambient": [
+      113,
+      122,
+      138
+    ],
+    "outdoorAmbient": [
+      125,
+      137,
+      155
+    ],
+    "brightness": 2,
+    "clockTime": 14,
+    "exposure": 0.12,
+    "contrast": 0.025,
+    "bloom": 0.08,
+    "atmosphereDensity": 0.075
+  },
+  "shell": {
+    "outerPlates": 2720,
+    "intactTexture": "removed old UV texture",
+    "material": "SmoothPlastic",
+    "color": [
+      224,
+      211,
+      184
+    ],
+    "reflectance": 0.025,
+    "damageCrackTextures": "retained",
+    "geometry": "unchanged"
+  }
+}

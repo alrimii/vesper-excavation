@@ -1,0 +1,36 @@
+{
+  "version": "Room and presentation rebuild / 2026-11-09",
+  "placeId": 94763223427049,
+  "snapshot": "VesperRoomRebuild.rbxm",
+  "snapshotType": "Native system snapshot with twelve roots and ReleaseRestorePath attributes; not a standalone published place",
+  "backup": "Backups/RoomRebuild_20261109",
+  "artDirection": "Readable stylized laboratory: ivory surfaces, navy structure, mint training, gold rewards, blue navigation, purple collection. Physical fracture and organic motion replace impact illumination.",
+  "implementationPlan": [
+    {"phase": 1, "objective": "Restore the personal-room loop", "implemented": ["Spawn and respawn at owned RoomSpawn", "Twelve custom training machines", "Twelve equipment stations", "Server-validated one-button automatic training", "Training tool unequip and mechanical/player animation", "Home return"]},
+    {"phase": 2, "objective": "Replace the visible interface", "implemented": ["New HUD layout owner", "Color-coded navigation", "Coin and material cards", "Live 3D equipped-tool preview", "Light equipment shop", "Compact preview cards", "Free 90-second drill trial recorded in profile", "Trial automatically closes shop"]},
+    {"phase": 3, "objective": "Teach through action", "implemented": ["Four persisted introduction stages", "Animated world route", "Highlighted training and equipment destinations", "World destination marker", "Highlighted sell/equipment buttons", "Tutorial skip"]},
+    {"phase": 4, "objective": "Rebuild material and fracture presentation", "implemented": ["Two generated PBR materials", "Ninety native Voronoi fracture templates baked at edit time", "Irregular multi-piece splits", "Delayed physical neighboring-plate compression and spring recoil", "Persistent cracks from early damage", "Organic inner-layer displacement", "Physical chips instead of flash lights", "Longer peel, release and collection motion", "Motor-driven rotating drill bit"]},
+    {"phase": 5, "objective": "Clean up world presentation and integrate", "implemented": ["Archived duplicated center ornament and public training station", "Recolored access decks and rails", "Removed old access textures", "Improved room lighting", "Hidden obsolete depot labels", "Preserved all 6120 breakable plates and long-term upgrade economy"]}
+  ],
+  "validation": {
+    "strategy": "One focused integrated play session; syntax compilation after final corrections. No repeated full expedition grind.",
+    "observed": ["Spawn approximately 3.22 studs above own spawn", "New HUD initialized", "Essential loading completed", "Training remained active after one action and awarded strength", "First introduction stage advanced from training", "Normal server-validated mining reduced plate HP", "Six pieces in sampled new fracture template", "Ninety templates baked with zero generation failures", "Drill trial equipped Drill with 55 base power while OwnsTool_Drill stayed false", "New equipment menu and room training presentation visually inspected"],
+    "finalCorrections": ["Button outlines explicitly use Border mode", "Trial card has drill preview and compact height", "Tool put away during training", "Trial use persisted to prevent rejoin farming", "Shell normal-map strength reduced by removing the coarse normal map", "Access finish recolored", "Final runtime sources compiled"],
+    "notVerified": ["Full excavation-to-reward cycle", "Multi-client ownership/rejoin persistence in a published server", "All device resolutions", "Frame-time benchmark", "A final visual pass after the last compact-card and border corrections"],
+    "console": "No gameplay script errors observed. Studio reported temporary asset-content representation generation warnings during the preview."
+  },
+  "materials": {
+    "shell": {"name": "VesperPearlShell", "colorMap": "rbxassetid://115768884596558", "normalMap": "", "studsPerTile": 28},
+    "inner": {"name": "VesperLivingMembrane", "colorMap": "rbxassetid://91546485851458", "studsPerTile": 18}
+  },
+  "lightingProperties": {"Brightness": 2, "AmbientRGB": [112,130,154], "OutdoorAmbientRGB": [135,152,173], "ExposureCompensation": 0.2},
+  "research": [
+    {"url": "https://www.roblox.com/games/123720558354386/Build-the-Pyramid", "use": "Shared objective and training/progression loop"},
+    {"url": "https://www.roblox.com/games/119596045909999/1-Speed-Keyboard-Toy-Escape", "use": "Keyboard simulator reference identified; exact user-referenced keyboard experience was not confirmed"},
+    {"url": "https://create.roblox.com/docs/production/game-design/onboarding", "use": "Action-led introduction and visible guidance"},
+    {"url": "https://github.com/Fraktality/spr", "use": "Existing MIT-licensed spring motion library retained"},
+    {"url": "https://create.roblox.com/docs/reference/engine/classes/GeometryService", "use": "Native edit-time fragmentation"},
+    {"url": "https://create.roblox.com/docs/art/modeling/surface-appearance", "use": "PBR material workflow"}
+  ],
+  "limitations": ["Creature collection still uses Crownback variants", "No paid-luck or Robux checkout enabled", "Animations are procedural, not newly uploaded motion-capture clips", "Existing egg silhouette and hexagonal plate topology retained; cracks, materials and reactions were rebuilt", "No third-party game kit or unlicensed project copied"]
+}

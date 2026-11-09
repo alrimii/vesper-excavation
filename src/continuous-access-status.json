@@ -1,0 +1,25 @@
+{
+  "updated": "2026-10-31T00:11:18.373813",
+  "published": false,
+  "publishingOwner": "User only",
+  "builder": "src/ContinuousAccess.luau",
+  "width": 10,
+  "maximumSlopeDegrees": 9.094,
+  "changes": [
+    "Removed crossing galleries and four steep crown bridges",
+    "One continuous three-turn ascent and half-circle crown landing",
+    "Six outboard supports; thin rails and continuous smooth outer barriers",
+    "Direction markings along the path"
+  ],
+  "checks": {
+    "headroomRaySamplesBlocked": 0,
+    "plateCentersBeyond14StudReach": 0,
+    "maximumSampledMiningDistance": 13.528,
+    "characterWalkChecks": [
+      "lower section passed",
+      "middle section passed",
+      "upper section passed"
+    ],
+    "limitations": "Short sampled traversal, not full multiplayer testing. One test helper initially expected missing PlayerModule; corrected to drive Humanoid movement."
+  }
+}

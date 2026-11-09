@@ -1,0 +1,22 @@
+{
+  "updated": "2026-10-30T23:58:47.565063",
+  "placeId": 94763223427049,
+  "published": true,
+  "publishEvidence": "Studio Publish Experience dialog: Successfully published! Coming Soon / Private",
+  "changes": [
+    "Four six-step entrances with handrails and open perimeter access",
+    "Numbered bay plaques, approach inlays, deck seams and registration lights",
+    "Spiral tread edges, rail posts, fascia and support columns",
+    "Cradle caps lowered to match clamps",
+    "Wallet and collection labels parented to their cards; PC layout aligned",
+    "Thousands separators and bounded price text sizing",
+    "Loading instruction corrected to full-layer excavation"
+  ],
+  "validation": {
+    "shortStartup": "passed",
+    "consoleGameplayErrors": 0,
+    "walletTextFits": true,
+    "fullMultiplayerTest": false
+  },
+  "builder": "src/PlatformPolish.luau"
+}

@@ -1,0 +1,16 @@
+VESPER EXCAVATION - CURRENT STUDIO SNAPSHOT
+
+VesperCurrent.rbxm contains the latest Stage 30 map, scripts, UI, equipment,
+lighting effects and essential assets exported from the connected Studio session.
+BasePlace.rbxl preserves the original place-level configuration.
+
+Restore:
+1. Open BasePlace.rbxl in Roblox Studio without starting Play.
+2. Insert VesperCurrent.rbxm into Workspace using Insert from File.
+3. Run ApplySnapshot.luau in Studio's Command Bar in Edit mode.
+4. Save the restored place under a new filename.
+
+src/ contains source scripts, build recipes and original model assets.
+Not every builder is a runtime script. Do not run all builders in sequence.
+Uploaded Roblox assets retain their original asset IDs and ownership requirements.
+Old backups, installed tools, caches and authentication data are excluded.

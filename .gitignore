@@ -1,0 +1,15 @@
+*
+!src/
+!src/**
+!assets/
+!assets/**
+!release/
+!release/**
+!stylua.toml
+!selene.toml
+!.gitignore
+!.gitattributes
+**/.env*
+**/*.log
+**/*.blend1
+**/__pycache__/

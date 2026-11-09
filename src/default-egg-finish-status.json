@@ -1,0 +1,16 @@
+{
+  "installed": true,
+  "published": false,
+  "playtested": false,
+  "studioId": "6afd055b-bef2-43dc-98da-e8e077fd2c85",
+  "finish": "Default mineral porcelain",
+  "updatedMeshes": 2920,
+  "outerPlates": 2720,
+  "mapsInUse": {"color": 40, "roughness": 40, "normal": 1},
+  "sources": ["ShellMotion", "FragmentMotion", "ExcavationClient", "ExcavationService", "ExcavationConfig", "EggFinishes"],
+  "visibility": "Per-round release latch, pending fragment handoff, event round IDs and duplicate rejection, reset synchronization",
+  "fracture": "Actual three-piece geometry from first damage threshold; stable PBR maps; progressive gaps; restrained impact; outward peel and smooth travel",
+  "lighting": {"environmentSpecularScale": 0.43, "exposureUnchanged": 0.12, "brightnessUnchanged": 2},
+  "validation": {"staticErrors": 0, "existingDeprecationWarnings": 1, "missingOuterFinishes": 0, "sampledAssetFetchFailures": 0, "studioEditCapture": true},
+  "limitation": "Runtime replication and animation have not been playtested, per user preference. Publishing remains with user."
+}

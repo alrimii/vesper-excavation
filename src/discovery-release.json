@@ -1,0 +1,23 @@
+{
+  "release": "Discovery 1.0",
+  "date": "2026-10-30",
+  "placeId": 94763223427049,
+  "backup": "Backups/DiscoveryRebuild_20261030_224002/LiveBeforeRebuild.rbxl",
+  "placeFile": "VesperDiscovery.rbxl",
+  "direction": "Shared targeted excavation: recover six core samples, reveal a creature, build a personal archive, complete contracts, and upgrade field equipment.",
+  "features": ["Six original specimen designs", "Local layer excavation without whole-layer clearing", "Scanner with life-signature clues", "Cinematic reveal", "Personal 3D journal and physical archive", "Research ranks and rotating contracts", "Field selling and upgrades", "Session-locked live profiles", "Materials persist across expeditions", "Portrait/landscape HUD and journal layouts"],
+  "validation": {
+    "staticAnalysis": "0 errors, 0 warnings, 0 parse errors across changed runtime modules",
+    "profileAndCatalogTests": 14,
+    "excavation": "Two complete live Studio cycles: 54 accepted strikes, zero missed requests, six samples, correct rewards and automatic reset",
+    "economy": "Capacity capped at 40; 40 units sold for 154 plus contract bonus; duplicate sale did not award money; upgrades used server prices",
+    "security": "NaN coordinates, fake target tables and stale round IDs rejected",
+    "respawn": "Credits, discoveries and samples preserved; exactly two owner-tagged tools restored",
+    "mobile": "Phone simulator portrait and landscape inspected; portrait control intersection check passes; actual simulated touch entry verified",
+    "performance": "90-frame desktop sample: about 60.4 FPS, worst frame 26.4 ms; not a low-end hardware benchmark",
+    "limits": ["Live cloud DataStore probe blocked because Studio API access is disabled; isolated save/reload/session-lock/outage tests pass", "No two-client playtest completed", "No claim that all possible bugs are eliminated"]
+  },
+  "controls": {"keyboard": "1 pickaxe, 2 bucket, hold click/E, Q scan, J journal", "gamepad": "L1 pickaxe, R1 bucket, R2 use, L2 equipment, X journal, Y scan, B close"},
+  "persistence": "VesperDiscovery_v1; Studio uses memory and does not alter production profiles",
+  "publication": "Confirmed by Studio: Successfully published to existing Coming Soon experience; audience remains Private. Used Publish As > existing Coming Soon place > Overwrite."
+}

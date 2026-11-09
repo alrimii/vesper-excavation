@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-30",
+  "placeId": 94763223427049,
+  "state": "Installed in Studio Edit mode; normal gameplay restored; publication pending native Studio action",
+  "implemented": [
+    "Server enforced whole-layer progression; no automatic neighbor destruction",
+    "432 breakable plates, 144 per layer; 144 permanent lower-base plates excluded from completion",
+    "New original Blender shell and 108 matching fracture meshes imported as uploaded assets",
+    "Lower egg placement, fitted spiral access and upper cap walkway",
+    "Precision strikes and harder durability: 90/120/150; base power 25, cooldown 0.66",
+    "Detailed generated Crownback creature asset 73536973235465; body/neck/tail Motor6D rig and procedural animation",
+    "Opaque incubation veil and seven-and-a-half-second reveal with camera FOV restoration",
+    "New illustrated menu atlas 122676131205756 and PC help panel",
+    "Previous discovery profile entries preserved; only Crownback offered in current expedition rotation"
+  ],
+  "validation": {
+    "normalBalanceStrike": "Three precision strikes broke one outer plate; neighbor stayed at 90 HP; inner layer stayed locked",
+    "guardChecks": "Locked inner plate stayed at 120 HP and permanent base at 90 HP",
+    "desktopSample": "90 frames, about 60 FPS, maximum observed frame about 21.3ms; not a broad performance benchmark",
+    "progressionRun": "Accelerated test reached 143/144 outer plates; full layer transition and completion not verified. Stopped extended testing at user request about time",
+    "reveal": "Visual preview inspected before articulated rig refinement; no full rig animation review completed",
+    "staticAnalysis": "Changed runtime scripts passed before final rig adjustment; final adjustment only replaced deprecated Animator parenting",
+    "ui": "Layout testing deferred at user request"
+  },
+  "limitations": [
+    "Creature uses three articulated rigid mesh segments and procedural motion, not a fully skinned Blender animation asset",
+    "Full gameplay balance and complete expedition have not been playtested",
+    "Remaining creature collection has not been rebuilt",
+    "Cloud persistence remains unverified because Studio API access was disabled",
+    "No publication or new local rbxl save confirmed for this build"
+  ],
+  "workflow": "Direct Studio MCP edits, live BlendRelay modeling, one user native FBX import; image and creature assets uploaded directly through MCP. No desktop click automation used.",
+  "publishingBlock": "Current MCP has no publish operation; AssetService.SavePlaceAsync failed in Edit context: Game:SavePlace can only be called from a server script. Do not publish a Play-state snapshot.",
+  "existingBaseline": "VesperDiscovery.rbxl and Backups/DiscoveryRebuild_20261030_224002/LiveBeforeRebuild.rbxl"
+}

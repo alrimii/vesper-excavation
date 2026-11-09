@@ -1,0 +1,17 @@
+{
+  "updated": "2026-10-31T00:39:29.369587",
+  "installed": true,
+  "published": false,
+  "playtest": false,
+  "builder": "src/CinematicLightingPolish.luau",
+  "changes": {
+    "creatureScale": 2.1,
+    "previousScale": 2.55,
+    "stairGuideLights": 120,
+    "arrowsRemoved": true,
+    "lowerLampRadius": 67,
+    "cradleRingRadius": 44,
+    "floatingObjectRemoved": "Workspace.VesperLab.Presentation.SpecimenKeyLight",
+    "lighting": "Realistic, midnight, warm key / cool rim, restrained bloom and reduced ambient wash"
+  }
+}

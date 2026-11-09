@@ -1,0 +1,104 @@
+{
+  "reviewedOn": "2026-10-30",
+  "activeConnections": [
+    "Official Roblox Studio MCP",
+    "BlendRelay local Blender bridge"
+  ],
+  "installedSkills": {
+    "source": "https://github.com/EL4CTEO/roblox-skills",
+    "license": "MIT",
+    "path": ".agents/skills",
+    "count": 11
+  },
+  "runtimeLibraries": [
+    {
+      "name": "spr",
+      "source": "https://github.com/Fraktality/spr",
+      "commit": "665be1721c2a85e5cdfd9d44888d85dfc920626a",
+      "license": "MIT",
+      "path": "src/vendor/spr.luau",
+      "licenseFile": "src/vendor/spr.LICENSE",
+      "usedBy": "src/UIMotion.luau"
+    }
+  ],
+  "localTools": {
+    "StyLua": "2.6.0",
+    "Selene": "0.32.0"
+  },
+  "decisions": {
+    "motion-tools": "Reviewed only. No declared repository license found; optional AI providers excluded. Not connected.",
+    "mcp-blender": "Existing BlendRelay is working; no second Blender server installed.",
+    "robloxstudio-mcp": "Official connection already supports current testing and inspection needs.",
+    "romcp": "No extra connection installed.",
+    "roblox-dev-kit": "Useful export guidance, but automation targets macOS and Windows paths are stubs. Do not execute scaffold over existing place.",
+    "Rojo/Wally/RoInit": "Deferred; require intentional project mapping/package need, not wholesale migration."
+  },
+  "nextPasses": [
+    "Blender egg silhouette and fitted plates with matched inner layers; inspect preview before import",
+    "Rig-aware pickaxe swing with impact timing and walking freedom",
+    "Responsive HUD and tutorial layout, readable target and layer lock states",
+    "Lighting/map intersection fixes and multiplayer performance review"
+  ],
+  "repositories": [
+    {
+      "repository": "Roblox/roblox-studio-agent-plugin",
+      "url": "https://github.com/Roblox/roblox-studio-agent-plugin",
+      "license": "MIT"
+    },
+    {
+      "repository": "yansha-os/motion-tools",
+      "url": "https://github.com/yansha-os/motion-tools",
+      "license": "not declared"
+    },
+    {
+      "repository": "RFingAdam/mcp-blender",
+      "url": "https://github.com/RFingAdam/mcp-blender",
+      "license": "AGPL-3.0"
+    },
+    {
+      "repository": "Chrrxs/robloxstudio-mcp",
+      "url": "https://github.com/Chrrxs/robloxstudio-mcp",
+      "license": "MIT"
+    },
+    {
+      "repository": "EL4CTEO/roblox-skills",
+      "url": "https://github.com/EL4CTEO/roblox-skills",
+      "license": "MIT"
+    },
+    {
+      "repository": "MSayib/roblox-dev-skill",
+      "url": "https://github.com/MSayib/roblox-dev-skill",
+      "license": "MIT"
+    },
+    {
+      "repository": "justOzy/Roblox-Skills",
+      "url": "https://github.com/justOzy/Roblox-Skills",
+      "license": "NOASSERTION"
+    },
+    {
+      "repository": "WojciechJelen/roblox-dev-kit",
+      "url": "https://github.com/WojciechJelen/roblox-dev-kit",
+      "license": "MIT"
+    },
+    {
+      "repository": "afrxo/roblox-agent-skills",
+      "url": "https://github.com/afrxo/roblox-agent-skills",
+      "license": "MIT"
+    },
+    {
+      "repository": "TabooHarmony/roblox-brain",
+      "url": "https://github.com/TabooHarmony/roblox-brain",
+      "license": "MIT"
+    },
+    {
+      "repository": "rib3ye/RoInit",
+      "url": "https://github.com/rib3ye/RoInit",
+      "license": "MIT"
+    },
+    {
+      "repository": "Fraktality/spr",
+      "url": "https://github.com/fraktality/spr",
+      "license": "MIT"
+    }
+  ]
+}

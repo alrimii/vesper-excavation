@@ -1,0 +1,13 @@
+{
+  "installed": true,
+  "published": false,
+  "startedPlaytest": false,
+  "inspectedExistingPlaySession": true,
+  "collection": "Full plate yield awarded atomically to final hitter. Capacity checked before windup and at impact. No world piles or collect remote. Only pickaxe granted.",
+  "animation": "Brief peel, then 0.52-second collection arc toward collector; 72 cosmetic fragment cap; smaller stationary fracture gaps.",
+  "cursor": "Hidden during active Ctrl lock, prior visibility restored when unlocked or blocked by menus.",
+  "finish": "Shared polished ivory porcelain; decorative veins removed; roughness about 0.24; three maps total instead of 81.",
+  "performance": "Removed ground-pile pipeline, stopped settled fracture CFrame writes, disabled membrane color writes when pulse is zero, shared material maps.",
+  "validation": {"staticErrors": 0, "existingWarnings": 2, "assetFailures": 0, "missingOuterFinishes": 0},
+  "performanceCaveat": "Existing Studio client was in the background; its sampled frame rate is not a reliable live-game performance baseline. No post-change FPS claim."
+}

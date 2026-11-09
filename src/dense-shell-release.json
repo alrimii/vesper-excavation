@@ -1,0 +1,33 @@
+{
+  "release": "Dense shell correction",
+  "placeId": 94763223427049,
+  "studioMode": "Edit",
+  "localSnapshot": "VesperDenseShell-Release.rbxm",
+  "snapshotFormat": "Native Roblox SerializationService model package with ReleaseRestorePath attributes; not a standalone rbxl place",
+  "baselinePlace": "VesperDiscovery.rbxl",
+  "publication": "Pending: Windows desktop locked; no functioning publish operation exposed by current MCP",
+  "geometry": {"columns":40,"rows":24,"layers":3,"permanentRows":6,"breakablePerLayer":720,"totalBreakable":2160,"totalIncludingPermanent":2880,"height":68,"radius":24,"baseY":3.2},
+  "balance": {"durability":[180,240,300],"basePower":25,"cooldown":0.64,"precisionMultiplier":1.35,"precisionChainStep":0.05,"designCrewSize":12},
+  "changes": [
+    "Restored original 72 uploaded curved plate meshes and 216 matching fracture meshes from the existing source and baseline file",
+    "Restored dense tessellation and original egg dimensions; retained lower ground placement and permanent underside",
+    "Kept server-enforced whole-layer completion and no neighboring-plate auto-destruction",
+    "Client now submits the validated head-ray surface point rather than the differing camera-ray intersection",
+    "Added bounded cooldown jitter tolerance with accumulated cadence and accepted-sequence replay rejection",
+    "Damaged plates transition into matching separated fracture meshes before final release; restored Blender contact normals and resting heights",
+    "Removed exaggerated procedural aiming offsets and abrupt swing cancellation on an impact miss",
+    "Made illustrated desktop artwork available in shorter Studio viewports and installed it in edit-time StarterGui",
+    "Refitted spiral access and upper cap walkway to original dimensions",
+    "Enlarged the existing Crownback and its concealment veil for the restored egg"
+  ],
+  "verification": {
+    "static": "Changed runtime scripts: zero errors, warnings or parse errors",
+    "normalMining": "180 HP -> 39 after four precision strikes, three-piece fracture state present; then HP 0, one plate removed, one debris pile, layer remaining 719",
+    "layerGuard": "Corresponding inner section remained locked after outer plate broke",
+    "console": "Only normal 12 session rooms ready message; no runtime errors during focused mining check",
+    "artwork": "IllustratedIcon.Visible true in running client; screenshot capture unavailable while Windows was locked",
+    "limits": "No full expedition, 12-client load test, broad UI test or new cloud persistence test was performed"
+  },
+  "restore": "Deserialize the native package in Edit mode; each top-level child records its destination in ReleaseRestorePath. Replace only those destinations in the baseline place. Global service settings remain in the baseline rbxl.",
+  "remainingQualityWork": "Twelve-player balance needs real session feedback; Crownback remains a three-segment articulated model, not a fully skinned creature animation set. Do not describe the full earlier plan as completed."
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Ancient nacre shell",
+  "installed": true,
+  "published": false,
+  "playtested": false,
+  "generation": "Roblox Studio native generate_texture Quality; projected from generated mesh in Blender, color graded to low-saturation ivory, relief/roughness processed into shared maps.",
+  "sourceAssets": {"color": "74541991633681", "roughness": "124499446132885", "metalness": "139448767085980"},
+  "shippedAssets": {
+    "color": {"id": "99715008374450", "file": "ancient-ivory-color.png", "resolution": 1024},
+    "normal": {"id": "85174688266648", "file": "ancient-ivory-normal.png", "resolution": 512},
+    "roughness": {"id": "73986333820756", "file": "ancient-ivory-rough.png", "resolution": 512},
+    "metalness": {"id": "71317019076258", "file": "ancient-ivory-metal.png", "resolution": 256}
+  },
+  "updatedMeshes": 2920,
+  "outerPlates": 2720,
+  "meshGeometryChanged": false,
+  "fractureUVsPreserved": true,
+  "review": "Viewed original-mesh material sample and full egg through Studio edit-time screen_capture; rejected first overly colorful sample.",
+  "appearance": "Organic mineral growth and pores, restrained ivory coloration, rough recesses and polished highlights, height-dependent champagne-to-pearl tint."
+}

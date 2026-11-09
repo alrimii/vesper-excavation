@@ -1,0 +1,17 @@
+{
+  "updated": "2026-10-31T00:06:13.522210",
+  "publishedByAssistant": false,
+  "publishingOwner": "User explicitly reserves publishing from this point onward. Do not publish.",
+  "changes": [
+    "Egg height 61.2, base Y -5; first breakable geometry starts Y 3.503 above deck Y 2.7",
+    "Intact and fracture geometry transformed together",
+    "Outer access radius 33 with supports at radius 37; crown galleries and bridges",
+    "Creature and reveal camera lowered to fit"
+  ],
+  "validation": {
+    "normalMiningLowestRow": "L1_R06_C00 HP 180 to 0, intact false, inner layer stayed locked",
+    "runtimeErrors": 0,
+    "geometricReachCheck": "All breakable plate centers within 12.317 studs of sampled access positions; distance check, not full traversal/occlusion test"
+  },
+  "builder": "src/FitEggAndAccess.luau"
+}

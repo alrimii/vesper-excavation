@@ -1,0 +1,170 @@
+{
+  "savedAtUtc": "2026-11-08T20:57:07.499545+00:00",
+  "placeId": 94763223427049,
+  "studioMode": "Edit",
+  "backup": "Backups/MajorUpgrade_20261108_233454",
+  "nativeSystemsSnapshot": "VesperMajorUpgrade.rbxm",
+  "snapshotType": "Native Roblox model containing 10 system roots, each with ReleaseRestorePath. Not a standalone place or a published release.",
+  "implemented": [
+    "6120 breakable plates retained, three sequential layers",
+    "Bronze, golden and volcanic egg configurations with 1x/2.6x/6x durability",
+    "Server-selected egg roulette presentation and cosmetic crane delivery",
+    "Opaque living membrane, creature created only after final layer; membrane burst",
+    "Wider bounded cosmetic shell response, dust and impact particles",
+    "Pickaxe, generated Helix Drill, and procedural single-target Seismic Charge",
+    "Separate upgrades and ownership for each tool family",
+    "Server-authoritative training, 10000 strength levels, maximum +100% power",
+    "Rare shared server draw, one uniformly selected player when a collectible drops",
+    "Three Crownback color variants, collectible inventory and one active power buff",
+    "Personal room shelves, earned room themes, rare relic display",
+    "Avatar field harness, touch and gamepad sprint",
+    "Five-tab responsive equipment menu with static 3D tool and creature previews",
+    "SFX mute and reduced shell/membrane effects options",
+    "Persisted tutorial completion, per-tool progression migration, bounded save wait",
+    "Material value retained across egg changes",
+    "Duplicate shared modules moved to Studio backup",
+    "Loading waits for the actual tool instead of an obsolete two-tool requirement"
+  ],
+  "focusedValidation": {
+    "runtimeSourcesCompiled": 20,
+    "existingPersistenceChecksPassed": 15,
+    "additionalChecks": [
+      "Tool level isolation and switching",
+      "Profile round-trip with active drill",
+      "Legacy inventory value migration",
+      "One real server-validated strike: HP 180 to 146",
+      "Training increases strength at station",
+      "Specimen absent before reveal",
+      "Field harness present",
+      "Studio console had no script errors in the focused smoke check"
+    ],
+    "visualInspection": [
+      "Loading screen",
+      "Equipment menu before final safe-height and 3D-preview polish",
+      "Avatar harness",
+      "Generated training station before final relocation and recoloring"
+    ],
+    "notPerformed": [
+      "Full 6120-plate expedition completion",
+      "Multi-client reward distribution playtest",
+      "Live DataStore writes",
+      "Robux transactions",
+      "Device performance benchmark",
+      "Visual inspection of every final animation phase"
+    ],
+    "scope": "Limited to focused checks as requested; no repeated full playtest cycle"
+  },
+  "limitations": [
+    "Robux products, paid luck and purchase receipt handling are disabled; product configuration and platform eligibility requirements remain future work.",
+    "Creature variants reuse the existing Crownback mesh, not three distinct species.",
+    "Seismic Charge is a heavy single-target tool; area damage is not implemented.",
+    "Crane and creature movement are procedural animations, not uploaded authored animation assets.",
+    "Large existing shell geometry remains; this change caps cosmetic work but is not a complete geometry/performance rewrite.",
+    "SFX and reduced-motion preferences are session-local."
+  ],
+  "toolsUsed": [
+    "Roblox Studio MCP",
+    "Local PowerShell/Python",
+    "StyLua",
+    "Roblox native SerializationService"
+  ],
+  "skillsApplied": [
+    "roblox-architecture",
+    "roblox-game-systems",
+    "roblox-security",
+    "roblox-world-building",
+    "roblox-characters-animation",
+    "roblox-ui",
+    "roblox-input",
+    "roblox-physics",
+    "roblox-audio",
+    "roblox-performance",
+    "roblox-testing"
+  ],
+  "generatedAssets": {
+    "helixDrillAssetId": 95708571964978,
+    "trainingStation": "Baked generated procedural model in Workspace.VesperLab.TrainingStation"
+  },
+  "sources": {
+    "ProgressionRules": {
+      "path": "src/ProgressionRules.luau",
+      "sha256": "d2cafa795ad6840c8aeca4c4f00cf942a2f08b70b5099e638b830aa877f78a77"
+    },
+    "EggLifecycle": {
+      "path": "src/EggLifecycle.luau",
+      "sha256": "3b207f891d9fa96f216fa4387db90ede831db9f0b69735aaf20b9d20fdd71f17"
+    },
+    "ImpactFX": {
+      "path": "src/ImpactFX.luau",
+      "sha256": "a60d0f64cc36de7aef208734d7108de76bb31deb46dac6e78cb0bfdd250befc9"
+    },
+    "ExcavationConfig": {
+      "path": "src/ExcavationConfig.luau",
+      "sha256": "d43b0859265e2cf4c04982e74b55ed671ac008f5c08bf8902de5dd4700eb2bd3"
+    },
+    "ShellMotion": {
+      "path": "src/ShellMotion.luau",
+      "sha256": "14330815d0811b8e2c507fdb4e9cf22ac354f4f345bbc8d48653c2a99e8e5525"
+    },
+    "Targeting": {
+      "path": "src/Targeting.luau",
+      "sha256": "5dbce7f468715888bac4bf92d6acd5eef0d63453e851f780a5f066ef9b144530"
+    },
+    "DiscoveryHUD": {
+      "path": "src/DiscoveryHUD.luau",
+      "sha256": "25c4cef866579a496d570bbe769e20260ea235988bc5017e521d7eab7f7da0c9"
+    },
+    "MovementControls": {
+      "path": "src/MovementControls.luau",
+      "sha256": "e7c6d1db63900ff52fc6934b0d936f5fc6b571f1d258c9442e7d4a2d4ee6ad3d"
+    },
+    "ToolMotion": {
+      "path": "src/ToolMotion.luau",
+      "sha256": "45c60dfa3b39f470de91b5515f79810b2f9605bee11918743c9dbd3d226e2bb1"
+    },
+    "UIMotion": {
+      "path": "src/UIMotion.luau",
+      "sha256": "f255f3fec8368682747708f74c9b648d365f8be869bd366b727d13f6955afa44"
+    },
+    "WorkshopUI": {
+      "path": "src/WorkshopUI.luau",
+      "sha256": "82c8397792cc1a2bfd94ce1f3e9203656ecd77029387ee2568093ed719341e07"
+    },
+    "ResearchProfiles": {
+      "path": "src/ResearchProfiles.luau",
+      "sha256": "21dae7805a5d4a6d5f9bdf668cc3571074d78c7000cf0a29b722d6a0000529c6"
+    },
+    "ExcavationService": {
+      "path": "src/ExcavationService.luau",
+      "sha256": "697a5b74e5fcefad61dc40f7a8fa13a83d638ef301c692fdbdec2f0a0b5dd526"
+    },
+    "DiscoveryWorld": {
+      "path": "src/DiscoveryWorld.luau",
+      "sha256": "67193a3f9b5a3b32f98c77124956b13e31b17ff24227bdd030701ec1ff50b1a4"
+    },
+    "ExpeditionWorld": {
+      "path": "src/ExpeditionWorld.luau",
+      "sha256": "ab2c3a782998ebce38c014b9cfdea935a53e4607d1182de40b9ad5312fde2242"
+    },
+    "ExcavationClient": {
+      "path": "src/ExcavationClient.luau",
+      "sha256": "8eda7932850e438d1ba26ed702966509eb2c909158f30877fc907e19101ecbf1"
+    },
+    "Loading": {
+      "path": "src/Loading.luau",
+      "sha256": "1f6943dec8f2b83b584859e356eb3a8a81ccc0d21841216f70015f03d30809f1"
+    },
+    "DiscoveryTests": {
+      "path": "src/DiscoveryTests.luau",
+      "sha256": "be6b66791451bba29bca83435d0c62f937f2cf7287eea0e777c17848e0f947e0"
+    },
+    "HUDLayout": {
+      "path": "src/HUDLayout.luau",
+      "sha256": "41fbb8c8d480d47d525b18dc2b88e7a7a5f027ed5a15adbd83c08f4eb3e9827b"
+    },
+    "EquipmentPreview": {
+      "path": "src/EquipmentPreview.luau",
+      "sha256": "389e112b428ae03f51489e50378c8db9909c189b0cafbe9bc7552a99b4fbd9a1"
+    }
+  }
+}

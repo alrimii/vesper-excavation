@@ -1,0 +1,64 @@
+{
+  "updated": "2026-10-31T00:35:17.465513",
+  "installedInStudio": true,
+  "published": false,
+  "publishingOwner": "User only",
+  "playtestRun": false,
+  "egg": {
+    "dimensionMultiplier": 1.7,
+    "height": 104.04,
+    "radius": 40.8,
+    "baseY": -10.2,
+    "columns": 68,
+    "rows": 40,
+    "layers": 3,
+    "permanentRows": 10,
+    "totalPlates": 8160,
+    "breakablePlates": 6120,
+    "intactTemplates": 120,
+    "fractureMeshes": 360
+  },
+  "world": {
+    "surroundingsScale": 1.35,
+    "platformTopY": 3.645,
+    "collectionRadii": [
+      48,
+      51,
+      54,
+      57
+    ],
+    "collectionGroundY": 3.705,
+    "spawnRadius": 64
+  },
+  "access": {
+    "width": 12,
+    "maxSlopeDegrees": 9.1981,
+    "blenderFinishMeshes": 10,
+    "builder": "src/ExpandedAccess.luau",
+    "finish": "src/ApplyExpandedFinish.luau",
+    "geometryReview": {
+      "headroomObstructions": 0,
+      "maximumSampledPlateDistance": 15.031,
+      "miningReach": 16,
+      "note": "Static geometric review only; no Play session."
+    }
+  },
+  "dropChanges": [
+    "External apron destinations shared by server piles and client flights",
+    "Flight trajectory kept outside curved shell",
+    "Matching fracture meshes and recalculated surface normals/resting heights",
+    "Fracture split duration .18 and release stagger .025",
+    "Client in-flight fragment budget increased to 192"
+  ],
+  "lint": "0 errors, 0 warnings for changed server/config/fragment/reveal modules",
+  "assets": "src/models/expansion-v3/uploaded-assets.json",
+  "blender": [
+    "src/models/expansion-v3/VesperExpansionV3.blend",
+    "src/models/expansion-v3/VesperAccessV3.blend"
+  ],
+  "notes": [
+    "Do not run old DenseAccess, FitEggAndAccess, RestoreDenseShell or ContinuousAccess builders on this revision.",
+    "Game publishing is reserved for the user.",
+    "Creature is the existing articulated model scaled to fit; no new creature rig was created."
+  ]
+}
