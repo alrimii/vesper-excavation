@@ -2,7 +2,7 @@
 
 ## Authority and scope
 Communicate exclusively in English unless the user explicitly requests otherwise.
-Current authorization is Phase 0: documentation, read-only inspection, backups, and a dedicated Git branch/commit/push. No gameplay, visual, economy, world, or asset implementation is authorized. The vision informs architecture; it does not authorize later phases.
+Current authorization is Phase 1A: a complete native backup, read-only asset/context inspection, isolated visual concepts and Blender geometry/motion/effects studies, documentation, and commit/push on the current development branch. Already-installed Blender/BlendRelay components may be launched. Production modeling, live asset replacement, runtime changes, economy changes and gameplay integration require approval of the proposal. The vision does not authorize later phases.
 Preserve useful systems. Historical completion reports are leads, not acceptance evidence. Do not rewrite the project by default.
 
 ## Execution restrictions
@@ -14,6 +14,12 @@ The user performs gameplay testing in Studio. Without an explicit exception:
 - Do not bypass restrictions through scripts, alternate tools or agents. Do not delegate unless explicitly requested.
 - If Studio is running, leave it running; continue independent read-only work and identify work requiring Edit mode.
 Never claim tested, performant, glitch-free or visually approved without evidence. Tool descriptions suggesting starting/stopping play do not override these rules.
+Phase 1A exception: narrowly scoped Studio UI automation is authorized solely to save a fresh full native place backup. It does not permit gameplay input, Play/Run or testing. Authored Blender animation/effects previews are permitted as non-playable design deliverables.
+
+## Single implementation target
+The existing original Studio place (Coming Soon, place ID 94763223427049) is the sole implementation target. Never create a separate test/development place, staging world, duplicated map or parallel playable implementation for later transfer.
+Backups are recovery copies only; never open them as development targets. When implementation is approved, edit the original place's actual assets and systems directly, with scoped recoverable changes. The user manually playtests that same place.
+Keep repository source and editable Blender assets synchronized with the actual implementation. Concept previews and Blender design studies are allowed but must not become a second playable environment. This workflow does not authorize publishing, tests or advancement beyond the approved phase.
 
 ## Preservation and synchronization
 Inspect Git status and intended Studio place/mode before changes. Preserve unrelated and ignored work. Never reset, clean, force-push, merge into main, or restore a snapshot over the open place.

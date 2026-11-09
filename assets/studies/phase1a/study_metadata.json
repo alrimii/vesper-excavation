@@ -1,0 +1,17 @@
+{
+  "blender": "4.5.15 LTS",
+  "classification": "geometry and authored motion study; not production assets",
+  "scenes": [
+    "01 Tool construction studies",
+    "01b True side construction view",
+    "02 Curved mineral ceramic shell states",
+    "03 Scale and grip reference",
+    "04 Gameplay distance composition",
+    "05 Authored swing impact break collection",
+    "Scene"
+  ],
+  "motion_frames": 120,
+  "motion_fps": 12,
+  "audio": "not produced",
+  "uploaded_assets": []
+}

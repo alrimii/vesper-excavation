@@ -5,6 +5,7 @@
 - Repository branch, full commit SHA and GitHub commit link:
 - Push outcome (verified or exact blocker):
 - Studio place name/ID, observed mode and snapshot/version:
+- Confirm the original place is the only implementation/manual-playtest target; backups remain unopened recovery copies, and any Blender study is non-playable:
 
 ## Delivered result
 - Concrete player-visible changes and why:

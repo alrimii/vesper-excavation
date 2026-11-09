@@ -1,5 +1,5 @@
 # Phased development plan
-Only Phase 0 is authorized. Every later phase needs explicit approval. Scope may be split further after review; unresolved balancing values are not implicit approvals.
+Phase 0 documentation is reviewed. Phase 1A is authorized for native backup and isolated visual/geometry/authored-motion proposals only. Production assets and live integration remain gated on approval. Unresolved balancing values are not implicit approvals.
 
 | Phase | Scope and dependencies | Concrete deliverables and user checkpoint |
 | --- | --- | --- |
@@ -14,6 +14,8 @@ Only Phase 0 is authorized. Every later phase needs explicit approval. Scope may
 | 8: Additional worlds | Stable prior systems and approved unlock criteria | New world-specific eggs/equipment/creatures/challenge with preserved prior achievements; manual transition and progression review |
 
 ## Phase 1 boundary
+Phase 1A prepares the cartoon starter pickaxe, reinforced impact upgrade, mineral/ceramic shell states, character-scale views and authored motion study. Deliverables and approval status live in assets/studies/phase1a/README.md. No gameplay implementation is part of 1A.
+There is one implementation target: the original Studio place, 94763223427049. No test/development place, staging world, duplicated map or parallel playable environment is permitted. Recovery copies must not be used as development targets. After approval, scoped implementation happens directly in the original, synchronized with repository source/editable assets, and the user manually reviews that same place.
 Begin with a representative slice of the existing game, not a whole egg/world/UI rewrite. Select the shell area and pickaxe reference together. Specify one meaningful upgrade and its tradeoff before implementing it. Review existing targeting, tool motion, feedback and collection paths to preserve useful behavior.
 Acceptance is a coherent visible and audible strike: comfortable grip, contact aligned with damage and sound, readable shell damage, clear material gain and a noticeable upgrade. Check clipping, flicker, overlap and motion quality through the user's manual review. Do not claim these are currently verified.
 Do not include new currencies, creature-rate changes, contribution redesign, rebirth, purchases or broad art replacement in this milestone.
