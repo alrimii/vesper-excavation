@@ -1,300 +1,341 @@
 # Phase 5A: player progression, skill tree and rebirth
 
-Status: **recommended design, awaiting approval; nothing here is implemented**. Written 9 November 2026 against commit `e7de4c62d54a460421886f73051857b239d4d04a`. Phase 4B has been reviewed as implementation; earlier gameplay, device, audio and persistence checks remain unverified. This phase changes documentation only. No tests, simulations, Studio edits, assets, data migration, reset, grants or publishing.
+Status: **revised design for approval, not implementation**. Supersedes the level-50, ten-rebirth, remote-sale and same-section drill proposals in commit `e8976fcb82a6b8a85361a5fdfbb0be72a54a5c32`. Levels 0..100 and the uncapped rebirth requirement below are the user's approved direction; the other numbers, mechanics and equipment purchase milestones remain recommendations. Phase 4B implementation was reviewed; prior gameplay, device, audio and persistence checks remain unverified. Documentation only: no runtime/Studio/data edits, reset, migration, grants, tests, simulations, artwork or publishing.
 
-## 1. One progression model
+## 1. Responsibilities and corrected source assumptions
 
-Keep credits and equipment as the durable foundation. Earn player XP continuously by removing real egg HP. Spend level-earned points on a connected, three-branch tree that changes how the player works. Rebirth trades current level and the allocated tree for a bounded permanent XP bonus; it never takes tools or inventory.
+Credits buy durable equipment; actual excavation earns levels and build points; voluntary rebirth resets that personal build for a bounded permanent XP benefit. Strong equipment remains useful. Neither selling access nor baseline controls are taken away to manufacture desirable skills.
 
-| System | Responsibility | Acquisition | Rebirth |
-| --- | --- | --- | --- |
-| Equipment | Each tool's Power, Speed, Capacity, Precision, Yield, Value and Critical upgrades; existing prices and ownership | Existing credits and existing equipment interface | Retain every purchase, including inactive tools |
-| Player level | Recognize actual excavation; unlock skill tiers, points and active-technique slots | Contribution XP below; no XP from waiting or buying | Reset current-run XP/level and run milestone entitlement |
-| Skill tree | Information, deliberate attacks, logistics and tool techniques; not a second copy of the equipment upgrade list | Points, with prerequisites and build limits | Reset ranks, allocated/unspent points, loadout and temporary effects |
-| Rebirth | A limited number of faster subsequent runs | Voluntary level requirement, no currency price | Add permanent XP benefit and increment count; preserve the retained table below |
-| Strength / creature buffs | Existing independently acquired permanent capability | Optional training / existing creature collection | Retain; not converted into tree ranks or consumed |
-
-At level 50 the player has **25 points against 39 points of full-tree cost**. Two capstones can be reached with selective rank investment; all three cannot. No extra points from rebirth count, purchases or training. Experimentation is free at the player's room. Completing all branches is deliberately impossible within this initial version, including after ten rebirths.
-
-## 2. Existing code evidence and explicit resolutions
-
-This is a focused source review, not a fresh whole-project audit. Sources are canonical files under `src`; no gameplay module was executed.
-
-| Existing implementation | Conflict / recommended resolution for a later approved implementation |
+| System | Responsibility and rebirth treatment |
 | --- | --- |
-| `DiscoveryCatalog.Level(xp) = floor(sqrt(max(0,xp)/60)) + 1`; `ExcavationService` replicates ResearchXP and ResearchLevel | Replace the level interpretation with the curve below, using the same player-level presentation channel. Do not create a competing displayed level. Existing `xp` is normalized to a whole number by ResearchProfiles. Add an explicit fractional field rather than losing small drill-hit awards. |
-| Section breaker gets 2 XP, plus 4 for the deepest layer; each completed contract gets 30 XP | Replace all three XP writes with contribution XP at accepted HP removal. Contract cash, objectives and current final-hit/actor attribution remain as-is. No final-hit player XP remains, including through legacy Break/Collect contracts. |
-| `EggRewards` grants 100 XP and `floor(250 * egg.Value)` credits to loaded online contributors at reveal | Under this proposed model, remove only the 100 XP stipend. End results show excavation XP earned during this egg, explicitly **already credited**, not a second completion grant. Preserve credits and their online-at-reveal policy, creature probability/outcomes/claims and receipt guards. This is an explicit proposed change from Phase 4B, not something already applied. |
-| `ProgressionRules.SwitchTool`, `toolLevels[id]`, `ownedTools`, active top-level upgrade aliases | Preserve all. Flush active aliases into their tool entry before a respec/rebirth transaction; never zero them as personal upgrades. Purchases remain credit-based, not level-gated retroactively. |
-| Strength adds `min(1, strength * 0.0001)` to PowerBonus; an equipped creature adds 0.08, 0.16 or 0.30 | Retain the exact additive formula `1 + strengthBonus + creatureBonus`. Training adds 1 strength per completed 2.5-second cycle, capped at 10,000; retain it as optional, with zero player XP/skill points. No level/tree/rebirth prerequisite requires training. Pace assumptions below assume zero training strength. |
-| Effective damage is rounded to integer HP, clamped to remaining HP, and recorded once for materials and whole-egg contribution | Add XP at that same authoritative mutation, after validation/clamping. Skills call that path too. Do not reward client effects, attempts, final-hit identity, overkill, rejected capacity checks or duplicate receipts. |
-| MaterialRewards freezes base allocation and one combined Yield-bonus pool; claims retain original unit values | Do not change these rules. Skills that deal actual damage earn the same shares; sale techniques reuse the same inventory/value path. Pending material delivery itself gives no XP. |
-| Session-locked ResearchProfiles, memory-only Studio preview, same-server untransferred claims | Extend this profile, not a second save/inventory service. Existing preview grants are not a persistence test or an instruction to grant anything. Keep offline claim limits explicit. No claim of durable verification. |
+| Equipment | Existing owned Pickaxe, Drill and Explosive, and per-tool Power, Speed, Capacity, Precision, Yield, Value and Critical purchases. Existing credits/prices/purchased ranks remain. Final unpurchased ranks receive the explicit lifetime-level gates below; owned ranks are never disabled. |
+| Level | Levels 0..100, effective damage as the single XP source. Level/XP reset to 0 on rebirth; no buying XP or compulsory training. |
+| Skill tree | 21 mechanics, 33 rank purchases, 96 points to fully rank everything; level 100 supplies 61 points. Ranks/allocations reset. Free respecs. Not a duplicate equipment percentage ladder. |
+| Rebirth | No hard count limit. Strictly increasing permanent XP multiplier below 2x; no damage, loot or creature-probability multiplier. |
+| Permanent acquisitions | Equipment, strength, creatures, inventory, currencies, cosmetics, achievements, worlds and acquired permanent buffs remain. Temporary skill effects never become permanent. |
 
-### Production cutover boundary
+Focused read-only source review: ExcavationService, ProgressionRules, ExcavationConfig, UpgradeEconomy, MaterialRewards, ResearchProfiles, DiscoveryCatalog and the existing EggRewards contract. No gameplay code executed.
 
-The owner has requested a separate one-time full reset of published progress, with no retention or migration. **Recommend activating this new progression schema only with that separately authorized reset**, not converting old XP into new levels or silently resetting profiles in Normalize. Phase 5A does neither. Phase 5B can be reviewed in the original Studio place using its existing memory-only preview behavior; no agent creates test saves or grants resources. Before any later publication, explicitly schedule the one-time reset/activation. Do not publish code that interprets an old profile as a fresh progression profile. Unknown/old schema must fail closed for new progression mutations until the separately approved cutover, not auto-migrate. This is not a recurring reset and does not change the retention rules of ordinary rebirth.
+- **Sell correction:** `ExcavationService.station` checks a loaded writable profile, living character and existence of SellTerminal; it does not check distance. The remote uses a 0.25s station-request throttle. The StationRange check elsewhere advances tutorial proximity progress; it is not Sell authorization. Sell awards `floor(materialValue*(1+ValueLevel*0.02)+0.5)`, empties actual contents, advances the existing Sell contract and synchronizes/drains pending. Preserve this freely available action. Remove Quick Deposit, Field Dispatch and Team Chute. No invented distance, channel, fee or cooldown restriction on normal Sell.
+- **Drill correction:** one validated immediate damage tick per request, limited by the existing interval (0.38s default, 0.18s upgraded minimum). Flow belongs to continuous player excavation, not one section's lifetime. Breaking a section is productive work, not cancellation.
+- **XP correction:** current level is `floor(sqrt(max(0, xp)/60))+1`; section breakers receive 2 XP, deepest breakers another 4, completed contracts 30, and eligible online contributors 100 at completion. Replace all these XP writes together with damage XP in a later approved implementation. Keep non-XP cash/relic/sample/contract/creature policies. End results show already-earned XP, not another grant.
+- **Equipment:** preserve ownedTools, toolLevels, active aliases and SwitchTool behavior. Prices remain existing rounded geometric sums. Nodes reference only today's three families, never fictitious future ownership. Learning a technique does not grant a tool.
+- **Strength/creatures:** retain `1+min(1, strength*0.0001)+equippedCreature.Power` (existing 0.08/0.16/0.30 creature bonuses). Optional training stays +1 strength per completed 2.5s cycle, cap 10,000, zero player XP/points. No level/node/rebirth requires training.
+- **Materials:** preserve effective-damage sharing, one combined Yield bonus pool, original unit values and pending claims. Conditional Yield below joins that pool, not a separately rounded award. Packing/transfer changes are explicit; they never discard claims or permit mining while effectively full/pending.
+- **Persistence:** extend the existing loaded/session-locked profile, not a second inventory/save service. Studio preview is memory-only with pre-existing grants; it proves no production durability. No offline profile writes.
 
-## 3. Exact XP, level and point model
+The requested one-time full published-progress reset and redeem codes remain separate roadmap operations. Recommend production activation of the new schema only with that separately authorized reset, without retention/migration of old progress. Do not reset/convert inside Normalize. Preparation in the original Studio place can precede that operation; legacy schema must not silently be treated as fresh progression. The owner reports manually publishing prior work; do not assume live is older.
 
-### XP sources and accounting
+## 2. XP, levels, points and long-term pace
 
-The initial system has **one player-XP source: server-confirmed effective egg damage**, including eligible skill damage credited to its owner. For a hit removing integer `d` HP:
+### Contribution XP
 
-`earnedXP = (d / 25) * eggXpFactor * rebirthMultiplierAtHit`
+For accepted integer HP removed d: `baseXP=d/25*eggXpFactor`; `earnedXP=baseXP*M(R at the hit)`.
 
-| Egg | Existing HP multiplier | Proposed eggXpFactor | Base XP per HP | Example complete shell section, before rebirth |
+| Existing egg | HP multiplier | Proposed XP factor | Base XP/HP | Whole shell-section example |
 | --- | ---: | ---: | ---: | --- |
 | Ancient Bronze | 1 | 1.00 | 0.040 | 180 HP -> 7.2 XP |
 | Gilded Sovereign | 2.6 | 1.15 | 0.046 | 468 HP -> 21.528 XP |
 | Volcanic Heart | 6 | 1.30 | 0.052 | 1,080 HP -> 56.16 XP |
 
-HP is already higher on difficult eggs; do not multiply XP by durability a second time. The modest additional factor rewards harder excavation per HP. Each layer uses the same egg factor; deeper layers yield more total XP through their actual HP, not an extra breaker award. Power, precision, crits and techniques influence XP only by removing more real HP. Drill tick frequency, blast target count and tool identity grant no independent XP multiplier.
+Do not multiply by durability again: harder sections already contain more HP. All layers/tools use this rule. Tick/detonation count, crit labels and final-hit identity are not XP sources. Eligible secondary damage earns XP for actual additional HP only. No overkill, rejected hits, duplicate actions or client effects. A 144/36 HP split on Bronze gives 5.76/1.44 base XP regardless of final hitter; a 100-damage attempt into 36 remaining HP earns only 1.44.
 
-Example: two players remove 144 and 36 HP from a Bronze shell section. Before rebirth they earn 5.76 and 1.44 XP, totaling 7.2. Either can land the final hit. If a 100-damage attack hits the last 36 HP, only 36 HP earns XP. A blast sums its eligible targets' actual removed HP; it does not earn a separate detonation/break award.
+Zero XP from break/completion/contract callbacks, sales, collection/pending delivery, training, equipment purchases, idle time or reopening results. Keep their non-XP rewards. Removing the old 100-XP stipend is an explicit proposed change, not already applied. Results label per-egg XP **already credited**, with hit-time multipliers; rebirth during that egg never regrants earlier XP or changes contribution/creature odds.
 
-Keep fixed-point accounting at **10,000 subunits per XP**: per HP award 400 / 460 / 520 subunits for Bronze / Gilded / Volcanic, multiplied by rebirth percent / 100. All proposed rebirth percentages produce integer subunits with those rates. Store whole `xp` plus `progression.xpFraction` in 0..9,999; carry into whole XP rather than round each hit. For example R=1, Gilded: 460 * 125 / 100 = 575 subunits per HP. HUD groups receipts at most twice per second, shows tenths of XP and retains hidden fractional credit. Do not round damage or XP again for UI.
+Award in the same non-yielding authoritative mutation as effective damage, to a legitimately loaded writable actor profile. No offline settlement/replay of damage XP on rejoin. Use 10,000 subunits per XP plus the exact fractional accumulator under rebirth: base per-HP subunits 400/460/520. Carry fractions across hits, never round each hit independently. Group cosmetic receipts at most twice/second. No skill-tree XP multiplier or hidden idle catch-up grant.
 
-Zero XP from section-break callbacks, the completion callback, contracts, selling, collecting, training, idle time, tool purchases, creature delivery and reopening results. Those activities keep their non-XP rewards. No subscription, paid boost or skill-node XP multiplier. This avoids paying for the same damage through hit + break + completion. Existing contract XP removal is intentional, not an accidental omission.
+### Exact curve and point schedule
 
-Award only to the actor's legitimately loaded, writable profile in the same non-yielding operation as accepted damage; otherwise reject the action as today. Thus new damage XP requires no offline settlement. Save/receipt behavior must prevent repeated action sequence IDs from granting twice. Rejoining never reconstructs XP by replaying the damage ledger. Record per-egg awarded XP for results, but treat it as a reporting subtotal. If a player rebirths before the egg finishes, label the subtotal as historical XP earned across runs, not their current XP balance; no late grant restores the erased run. At cap, report only XP actually credited, not attempted overflow.
+New/rebirthed players: **L0, XP0, points 0**.
 
-### Curve and milestones
+`T(L)=200*L+20*L^2+floor(L^4/10)` for integer L=0..100.
 
-Initial full-system level range: **1..50**. Level 1 starts at 0 XP.
+`XP required L -> L+1 = T(L+1)-T(L)`.
 
-- XP to advance from level L to L+1: `40 + 20*(L-1)` for L=1..49.
-- Cumulative XP to reach L: `T(L) = 10*(L-1)*(L+2)`.
-- Current level is the highest L <= 50 with `xp + xpFraction/10000 >= T(L)`.
-- At level 50, cap run XP at T(50)=25,480 with fraction 0. No hidden overflow bank or automatic rebirth; show MAX and the voluntary choice. Currency/material/creature rewards continue normally.
-- Award 1 skill point at **every even level 2..50**. Total entitlement is `floor(L/2)` (0 at L=1), not a replayable level-up event. Available points = entitlement minus valid allocated rank costs. Derive this server-side; do not trust a client-supplied balance.
+Level is the largest threshold reached; run XP caps at **T(100)=10,220,000**. Show MAX, no overflow bank or forced reset. Normal material/currency/creature rewards continue. Replace the existing displayed ResearchLevel interpretation; no competing level system.
 
-| Level | Total XP | Total points | Meaningful access (requirements, not free node grants) |
+`P(0)=0`; for L>=1, `P(L)=1+floor(L/2)+floor(L/10)`.
+
+One point at L1, one every even level, plus one extra each ten-level milestone: **61 at L100**. Available points = entitlement minus valid allocated rank costs. Recompute server-side, not repeatable level-up event grants. Rebirth returns entitlement to 0; free respec returns spent points only.
+
+| L | Total XP | Points | Meaningful access, not free grants |
 | ---: | ---: | ---: | --- |
-| 2 | 40 | 1 | Choose the first branch node; tree opens non-modally from HUD |
-| 8 | 700 | 4 | First active-technique slot; Charged Swing, Quick Deposit or Core Drill path |
-| 10 | 1,080 | 5 | Second root ranks; stronger utility/build commitment |
-| 12 | 1,540 | 6 | Branch forks: Carry the Crack, Batch Unload, Shaped Charge |
-| 20 | 4,180 | 10 | Branch merge nodes: Seam Pressure, Field Dispatch, Pulse Drill |
-| 25 | 6,480 | 12 | Second active-technique slot; choose two, not a crowded hotbar |
-| 30 | 9,280 | 15 | Second merge-node ranks |
-| 35 | 12,580 | 17 | Capstones: Crosscut, Team Chute, Chain Lightning |
-| 40 | 16,380 | 20 | First rebirth available; can keep progressing instead |
-| 45 | 20,680 | 22 | Requirement for second rebirth |
-| 50 | 25,480 | 25 | Initial level cap and all 25 points; later rebirth threshold |
+| 0 | 0 | 0 | Ordinary tools, free Sell and useful baseline UI |
+| 1 | 220 | 1 | Choose a root; open the genuine tree |
+| 5 | 1,562 | 3 | Passive lightning or charged swing; first active slot |
+| 10 | 5,000 | 7 | First rebirth, or keep advancing to later mechanics |
+| 15 | 12,562 | 9 | Continuous drill, packing and accuracy choices |
+| 20 | 28,000 | 13 | Root second ranks; second rebirth threshold |
+| 30 | 105,000 | 19 | Crosscut, claim priorities, shaped charge; second active slot |
+| 40 | 296,000 | 25 | Second accuracy/packing/Flow ranks |
+| 50 | 685,000 | 31 | Overbreak, precision salvage, lateral drilling |
+| 60 | 1,380,000 | 37 | Mid-tree second ranks; veteran equipment purchase access |
+| 75 | 3,291,562 | 45 | Cooperative fault marks, independent refinery, arc routing |
+| 85 | 5,381,562 | 51 | Final equipment ranks become purchasable, not free |
+| 90 | 6,741,000 | 55 | Advanced mark/refinery/routing configurations |
+| 100 | 10,220,000 | 61 | Choose up to two distinct capstones; full build budget |
 
-Levels never grant another tool for free or lock already-owned equipment. Unlocking a technique for an unowned tool does not grant that tool: disable purchase until owned, explain the existing credit purchase, and do not make that node a cross-branch prerequisite. Active nodes must also occupy a slot; passive nodes do not.
+The curve sets a budget, not the content. Each tier adds different aiming, secondary-contact, sustained drill, handling or cooperative mechanics. There is no hundred-rank damage ladder or arbitrary published L20 ceiling.
 
-### Pacing targets, not measured playtime
+### Equipment completion also needs sustained play
 
-These are arithmetic planning assumptions at R=0 with no training strength, including travel/selling and better equipment over time. They are **not simulations, telemetry, promises or accepted balance**. Effective rates mean XP credited per minute of normal play, not per minute of uninterrupted attacks.
+XP alone cannot prevent unusually high income from maxing equipment. Recommend explicit **new-purchase-only gates**, using permanent highestLevelReached (retained through rebirth):
 
-| Stage | XP needed in this segment | Assumed average XP/min | Illustrative segment time | Intended experience |
-| --- | ---: | ---: | --- | --- |
-| Early, 1 -> 10 | 1,080 | 60..90 | 12..18 minutes | Frequent levels, first points, first technique; learn mining/selling naturally |
-| Middle, 10 -> 30 | 8,200 | 120..180 | About 46..68 minutes | Buy equipment, choose a branch fork and active loadout; try another tool |
-| Late, 30 -> 40 | 7,100 | 200..300 | About 24..36 minutes | Reach a capstone, refine build and decide whether to rebirth |
-| Optional extension, 40 -> 50 | 9,100 | 240..360 | About 25..38 minutes | More points and a second branch commitment before resetting |
+- Ranks <= floor(0.8*configuredMaxRank): today's credit-only availability.
+- Above that through floor(0.9*configuredMaxRank): lifetime highest level >=60.
+- Remaining ranks: lifetime highest level >=85.
 
-First level-up target is roughly 27..40 seconds at the early assumed rate; first rebirth roughly 82..122 minutes across the first three rows. Actual players, egg access, per-tool upgrades, bucket interruptions and multiplayer distribution can differ substantially. Do not slow the first run to manufacture a rebirth benefit. The user's future manual review should establish rates before approving balance changes; preserve these assumptions as assumptions.
+For Power/Speed max 50: 1..40 credit-only, 41..45 require lifetime L60, 46..50 lifetime L85. Apply each key's actual max. Prices, ownership and already purchased ranks remain; never revoke a rank. No tool-ownership level gate. These are permanent access milestones, not skill ranks or currency. Show requirements before purchase. **This addition needs approval**, not assumed to exist.
 
-## 4. Connected skill tree
+Players can invest in most ranks and different families immediately, then pursue final ranks over sustained play. Rebirth preserves all earned access. Source-cost illustration: full current Drill Power approximately `72*(1.12^50-1)/0.12=172,801` credits, Speed approximately `96*(1.14^50-1)/0.14=479,474`, before rounding each price, plus existing 18,000 ownership cost. This is not measured earning time. Purchase gates make the long-term goal explicit rather than pretending unknown current income guarantees it.
 
-Fifteen purchasable nodes, five per branch. A free central **Field Journal** hub connects all three branch roots; it is navigation, not a sixteenth purchased node. Each branch forks and merges. Coordinates below are logical canvas units; y decreases away from the hub. Prerequisites mean **rank >= 1 of every listed node**, not full ranks, unless stated otherwise.
+### Arithmetic pace assumptions, not measured balance
+
+Planning ordinary first session: **45..60 minutes**, not a forced duration. Rates below are assumed effective **base XP/min before M**, including aim, targets, selling and equipment investment. No training is required. These are formula evaluations, not tests, simulations or telemetry.
+
+| Situation | Arithmetic | Illustrative time |
+| --- | --- | --- |
+| Starter -> L1 | 220 / 60..100 base XP/min | 2.2..3.7 min |
+| Starter -> L5 | 1,562 / 60..100 | 15.6..26 min; signature unlock |
+| First rebirth, L10 R0 | 5,000 / 60..100 | 50..83 min; not maximum level/equipment/all unlocks in the first session |
+| Second, L20 R1 | 28,000/(7/6)=24,000 base XP; retained gear 400..800/min | 30..60 min |
+| Third, L30 R2 | 105,000/(9/7)=81,666.67; gear 800..1,600/min | 51..102 min |
+| Experienced R0, L30 -> L60 | (1,380,000-105,000)/3,000..6,000 | 212.5..425 min across sessions |
+| Veteran R0, L60 -> L100 | (10,220,000-1,380,000)/6,000..12,000 | 736.7..1,473.3 min across sessions |
+| Tenth, L100 R9 | 10,220,000/(23/14)=6,220,869.57; veteran 6,000..12,000/min | 518.4..1,036.8 min, about 8.6..17.3 hours |
+| Fifty-first, L100 R50 | 10,220,000/(21/11)=5,353,333.33; same veteran rate | 446.1..892.2 min, about 7.4..14.9 hours |
+| Very many rebirths | M<2: L100 always needs >5,110,000 base XP | >425.8..851.7 min at those rates; cycles do not tend to zero |
+
+Equipment acceleration matters: current max Drill B with max strength/Ember is `floor((55+50*4)*2.3)=586`. Max precise chain multiplier 1.85 and crit 25% give expected requested damage `586*1.85*1.125=1,219.6125` per tick. At 0.18s and Volcanic XP factor this is **21,139.95 base XP/min**, before overkill, interruptions and skills. This is source arithmetic, not observed DPS. Ideal Flow rank 2 averages at most 1.15x primary requested damage over a 4s build/3s boost cycle (`1+0.35*3/7`) before losses. Blasts/passive secondaries also matter; the Drill calculation is not a universal ceiling.
+
+Even an optimistic **40,000 base XP/min** and M almost 2 gives `10,220,000/80,000=127.75 minutes` per full L100 run. This is a stress assumption, not a proven rate bound. A new R0 profile would need 134.5 minutes at that unrealistic-from-start rate to reach the L85 equipment gate. Actual acceptance needs the owner's manual observations of retained max gear, free Sell, packing and multiplayer targets. If those invalidate targets, review curve/ability/economy interactions explicitly; do not add sale friction, paid relief or idle waiting.
+
+After L100: finish selected branch ranks, freely experiment with capstone combinations, finish alternate equipment investments, pursue the existing rare creature collection, or voluntarily rebuild with more XP efficiency. Retaining a completed build is valid. Future visible achievements, home/incubation and worlds add separately scoped goals; they are not claimed present. Late diminishing rebirth gains are honestly small, not disguised as dramatic upgrades.
+
+## 3. Revised connected tree: 21 mechanics, 33 ranks
+
+Seven nodes per branch. Free Field Journal hub at (0,0); positions are logical canvas coordinates. Branch centers x=-600/0/600. C3/C4/C5 are optional current-tool spurs, not prerequisites for the starter-compatible lightning path. Every prerequisite means rank >=1 of each listed node.
+
+Common budget per branch: N1 two ranks x 1 point, N2 one x 2, N3 two x 2, N4 two x 3, N5 one x 4, N6 two x 4, N7 one x 6 = **32 points / 11 ranks**. All branches: **96 points / 33 ranks**. Twenty-one mechanics plus twelve additional refining ranks, not 33 advertised separate abilities.
+
+At 61 points, fully rank any one branch and spend 29 elsewhere, or spread points. Two fully maxed branches cost 64 and cannot both fit. A visible additional rule permits **at most two purchased capstones**, including via the cheaper C route. No extra points from rebirth count. Every listed rank resets at rebirth. Free full respec in the player's room after 10s without mining, no pending action and a writable profile; 60s respec throttle, refund spent points only, retain active cooldowns. No credits/consumables.
 
 ```mermaid
 flowchart BT
     Hub[Field Journal] --> A1[Fault Survey]
-    Hub --> B1[Trail Runner]
-    Hub --> C1[Technique Rhythm]
     A1 --> A2[Charged Swing]
-    A1 --> A3[Carry the Crack]
-    A2 --> A4[Seam Pressure]
+    A1 --> A3[Steady Aim]
+    A2 --> A4[Crosscut]
     A3 --> A4
-    A4 --> A5[Crosscut]
-    B1 --> B2[Quick Deposit]
-    B1 --> B3[Batch Unload]
-    B2 --> B4[Field Dispatch]
+    A4 --> A5[Overbreak]
+    A5 --> A6[Fault Mark]
+    A6 --> A7[Fault Collapse]
+    Hub --> B1[Batch Unload]
+    B1 --> B2[Sale Latch]
+    B1 --> B3[Sample Packing]
+    B2 --> B4[Claim Priorities]
     B3 --> B4
-    B4 --> B5[Team Chute]
-    C1 --> C2[Core Drill]
-    C1 --> C3[Shaped Charge]
-    C2 --> C4[Pulse Drill]
-    C3 --> C4
-    C4 --> C5[Chain Lightning]
+    B4 --> B5[Clean Extraction]
+    B5 --> B6[Refinery Link]
+    B6 --> B7[Expedition Harness]
+    Hub --> C1[Precision Relay]
+    C1 --> C2[Chain Lightning]
+    C1 --> C3[Flow Drill]
+    C2 --> C4[Shaped Charge]
+    C3 --> C5[Pulse Drill]
+    C2 --> C6[Arc Routing]
+    C6 --> C7[Storm Circuit]
 ```
 
-Graph edges are mandatory actual UI connectors. No cross-branch purchase dependency: a player may specialize or mix branches. Branch totals are 13 points each: two root ranks (2), each fork (2+2), two merge ranks (4), capstone (3). A minimum capstone route costs 10; three minimum routes cost 30 > 25. Every listed node/rank resets on rebirth. Rank effects **replace** the prior rank, never add both listed rank values together.
+Level requirements mean current-run level, not lifetime. Existing tools are needed to **use** their techniques, never granted by learning. Buying a currently-unowned tool's technique displays that warning; these optional spurs do not block pickaxe access to lightning/routing/circuit or the A/B paths. No future family or invented owned tier.
 
-### Common mechanical vocabulary
+Damage vocabulary: `B=floor((base Power+purchased Power*PowerStep)*(1+strengthBonus+creatureBonus))`. D is B times existing precision/chain and critical multipliers before HP rounding/clamping. Secondary damage uses its stated B fraction without another precision/crit roll. All actual HP enters the existing material, XP and creature-contribution path once. Rank values replace prior ranks, not rank 1+rank 2 stacked. All nodes below reset on rebirth, with cooldown exceptions in section 4.
 
-- `B = floor((tool base Power + purchased Power level * PowerStep) * (1 + min(1,strength*0.0001) + equippedCreature.Power))`. This is the existing pre-precision/pre-critical power, using the relevant tool at action acceptance.
-- `D` is B multiplied by existing precision/chain multiplier and then existing critical multiplier (1 or 1.5), before HP rounding/clamping. Preserve radius 0.75, base precision 1.35, purchased Precision step 0.02, chain step 0.05 with max 3, Critical step 0.0125 and max 20. Non-precise multiplier is 1.
-- **Ordinary action** means the normal pickaxe hit, drill tick or default explosive detonation; **technique action** has an active damage technique applied. All secondary skill damage is tagged separately and cannot trigger any further skill. Passive triggers described as ordinary do not run on technique actions or secondary damage.
-- Secondary damage is based on B, with no extra precision, critical or passive multiplier. It does not roll critical independently. Round once with existing `floor(value+0.5)` then clamp to remaining HP in the common path. Effective damage, materials, hit-time Yield, XP and egg contribution are then recorded normally, once per recipient section.
-- Each active node consumes one of the 1/2 slots. Crosscut is a mode of Charged Swing in the same slot, not a third action. C1 modifies technique cooldowns, never tool cadence. Effects are personal unless Team Chute explicitly says otherwise.
+### A. Excavation and impact
 
-### A. Excavation and impact — amber, forged wedges and ceramic seams
+| Stable ID / name / position | Prerequisites; current level; cost per rank; max rank | Exact effect and equipment interaction | Feedback / original icon intent |
+| --- | --- | --- | --- |
+| A1 `impact.fault_survey` / Fault Survey / (-600,-180) | Hub; L1/L20; 1; 2 | Mark 2/4 other visible exposed sections at <=35% HP within 8/12 studs of aim contact. <=4 updates/s, order HP fraction then ID. No X-ray/stat increase; free target HP/precision UI stays free. | Local seam brackets; lens over ceramic fracture. |
+| A2 `impact.charged_swing` / Charged Swing / (-600,-360) | A1; L5; 2; 1 | Pickaxe active: 0.45s windup, one 1.60*D strike; 8s technique cooldown plus normal tool cadence. Uses purchased Power/Precision/Critical once; no movement freeze or overkill credit. | Readable anticipation/downswing; weighted pick head and arc. |
+| A3 `impact.steady_aim` / Steady Aim / (-600,-540) | A1; L15/L40; 2; 2 | Ordinary Pickaxe/Drill precision radius 1.00/1.20 studs instead of 0.75. Does not increase multiplier/guarantee crit; equipment Precision still determines precision reward. Explosive radius unchanged. | Honest larger contact ring; pick tip centered in ceramic inset. |
+| A4 `impact.crosscut` / Crosscut / (-600,-720) | A2 AND A3; L30/L60; 3; 2 | Alternate Charged Swing mode, same slot/windup/8s cooldown: primary 1.20*D plus <=2 side sections each 0.35/0.45*B, within 4 studs in a 60-degree surface-tangent fan. Replaces single 1.60 mode. Snapshot original exposed layer before damage. | Short lateral follow-through/two accents; pick across three facets. |
+| A5 `impact.overbreak` / Overbreak / (-600,-900) | A4; L50; 4; 1 | Ordinary pickaxe killing hit: transfer `min(unused requested damage,0.40*B)` to <=1 already-eligible neighbor within 4 studs; 4s ICD. Unused damage itself earns nothing, only actual neighbor HP. No technique/secondary trigger. | One carried contact accent; fracture reaching another seam. |
+| A6 `impact.fault_mark` / Fault Mark / (-600,-1080) | A5; L75/L90; 4; 2 | Charged Swing leaving primary alive marks it 6/8s. First later ordinary hit by ally, or owner after 0.6s, triggers owner's secondary 0.30/0.40*B, B snapshotted at mark. 8s mark ICD, one mark per owner/section. Owner must remain alive/writable, same tool/round/layer, in mining reach and capacity-eligible; otherwise no damage. | Wedge notch/owner cue; two tool tips meeting a wedge. |
+| A7 `impact.fault_collapse` / Fault Collapse / (-600,-1260) | A6; L100; 6; 1 | Capstone: valid mark release may hit <=2 neighbors snapshotted at placement, within 4 studs, each 1.25*B. Recheck visibility/eligibility at release, no replacements/new layer. 12s capstone ICD; ordinary mark works if unavailable. | Three-seam collapse, no screen flash; braced ceramic arch. |
 
-| ID / name / position | Prerequisites; level; cost / rank; max rank | Exact effect | Equipment interaction | Required feedback / icon brief | Rebirth |
-| --- | --- | --- | --- | --- | --- |
-| `impact.fault_survey` / Fault Survey / (-540,-180) | Hub; R1 L2, R2 L10; 1 each; 2 | While aiming at an eligible surface, mark up to 2 / 4 other exposed sections at <=35% HP within 8 / 12 studs of contact. Refresh at most 4 Hz; sort HP fraction then section ID. Visibility rays required; no X-ray. Does not enlarge the existing free aim/HP/precision UI. | No stat bonus; helps select work suited to current Power. | Restrained amber seam brackets with readable low-HP label; icon: inspection lens over a stepped shell crack. Reduced Effects uses brackets only. | Reset both ranks |
-| `impact.charged_swing` / Charged Swing / (-680,-360) | Fault Survey; L8; 2; 1 | Pickaxe active: 0.45s authored anticipation, then one strike of 1.60*D. Technique cooldown 8s from accepted start. Normal strike cadence also applies. Invalid contact causes no damage; no frozen movement pose. | Scales existing Pickaxe Power/Precision/Critical once. Speed never shortens the 0.45s technique windup or bypasses normal cadence. | Clear held-back pose, accelerated downswing, one heavier localized accent; icon: weighted pick head with one arcing swing ribbon. No new tool model. | Reset |
-| `impact.carry_crack` / Carry the Crack / (-400,-360) | Fault Survey; L12; 2; 1 | An ordinary pickaxe section break by this player arms a 3s transfer. Their next ordinary precise pickaxe hit on a different section within 4 studs of the prior contact, same exposed layer, preserves the previous precision-chain count before advancing it, still capped at 3. One transfer; 6s proc cooldown. Non-precise next hit consumes it with no benefit. | Preserves earned precision, not a free crit or extra Yield; uses purchased Precision normally. No benefit on technique/secondary breaks. | Short bracket connecting old contact to next valid aim; icon: two ceramic chips joined by a carried fissure. | Reset |
-| `impact.seam_pressure` / Seam Pressure / (-540,-540) | Charged Swing AND Carry the Crack; R1 L20, R2 L30; 2 each; 2 | Three consecutive ordinary precise pickaxe/drill hits to one section within 4s arm the next ordinary hit on that section for +0.20*B / +0.30*B, within 2s. The third hit only arms; the fourth consumes. Cooldown 8s from arming. Non-precise hit, target loss, switching or expiry clears the sequence. | Add the flat B-based bonus after D, before rounding; no second crit multiplication. Purchased Speed helps reach the sequence, never exceeds validated cadence. Explosives do not build/consume this buff. | Three small seam notches, a brief ready cue, one release accent; icon: three pressure wedges meeting at a seam. | Reset |
-| `impact.crosscut` / Crosscut / (-540,-740) | Seam Pressure; L35; 3; 1 | Charged Swing gains a selectable fan mode: same 0.45s windup and shared 8s cooldown; primary 1.20*D, up to 2 distinct secondary sections each 0.35*B. Secondary contact within 4 studs of primary and in a 60-degree surface-plane fan centered toward the player's projected facing. Snapshot before primary damage, same layer. Replaces the 1.60 single hit; never adds to it. | Wider coverage sacrifices primary damage. No extra critical/precision rolls on secondary sections. | Broad but short sideways follow-through, two small contact accents; icon: pick sweep across three ceramic facets. Mode visible before activation. | Reset |
+Fault-mark damage belongs to its owner only after actual validated HP removal; triggering player keeps their own hit. No reward for merely placing a mark. Different owners cannot queue multiple mark releases on one root action: earliest accepted still-valid mark releases, others wait for another trigger/expiry. Renewing never stacks an owner's marks. Crosscut fan uses primary tangent plane and projected player facing; degenerate projection uses projected right vector.
 
-### B. Collection and efficiency — jade, bucket straps and mineral deliveries
+### B. Collection and efficiency: useful beyond today's free Sell
 
-| ID / name / position | Prerequisites; level; cost / rank; max rank | Exact effect | Equipment interaction | Required feedback / icon brief | Rebirth |
-| --- | --- | --- | --- | --- | --- |
-| `collection.trail_runner` / Trail Runner / (0,-180) | Hub; R1 L2, R2 L10; 1 each; 2 | After a positive-value sale, +2 / +4 to walk and sprint speed for 12s, capped at 32 studs/s. Non-stacking, 15s proc cooldown. Any accepted mining/technique or training start ends the buff; no stronger movement during attacks. | No sale-value or capacity increase. Existing 16 walk / 28 sprint become 18/30 or 20/32 while applicable. | Small boot-and-bucket status timer, no camera FOV change; icon: sturdy boot carrying a mineral satchel. | Reset |
-| `collection.quick_deposit` / Quick Deposit / (-140,-360) | Trail Runner; L8; 2; 1 | Active: sell the current bucket at an existing eligible sell terminal up to 26 studs away, with unobstructed player-to-terminal ray and a stationary 1.5s channel. 30s cooldown at accepted start. Moving >2 studs, attacking, death, switching, menu or leaving range cancels without sale/refund. | Uses the same full-bucket server sale calculation and selected tool's Value at settlement; never sells pending directly. Normal free sale remains available within existing 13-stud range. | Directed delivery tether and channel ring, actual sale receipt only after server completion; icon: bucket on a short pulley line. | Reset |
-| `collection.batch_unload` / Batch Unload / (140,-360) | Trail Runner; L12; 2; 1 | A normal in-person sale can process at most 2 bucket loads: sell actual contents, drain pending once to current capacity, sell that loaded bucket if nonempty, then ordinary final drain. One atomic non-yielding command; no loop over all pending. Does not apply to Quick Deposit, Field Dispatch or Team Chute. | Capacity determines load size; each of the <=2 sales uses existing unit values and Value multiplier/rounding. Existing Sell contract receives credit once per actual sale, not for an empty load. | Receipt splits LOAD 1 / LOAD 2 and remaining pending amount; icon: two mineral buckets at a sorting chute. | Reset |
-| `collection.field_dispatch` / Field Dispatch / (0,-540) | Quick Deposit AND Batch Unload; R1 L20, R2 L30; 2 each; 2 | Active: stationary 3s channel sells exactly the current bucket from the current excavation world, no terminal proximity needed. Cooldown 120 / 90s from accepted start. Cancel rules match Quick Deposit except terminal range. No continuous auto-sale; pending drains normally afterward and is not sold again. | Existing Value multiplier at settlement and ownership rules. Full bucket mining is still blocked; player must finish the channel before new mining. | Small courier capsule/tether departure and concise actual sale receipt; icon: sealed bucket with folded courier fins. | Reset |
-| `collection.team_chute` / Team Chute / (0,-740) | Field Dispatch; L35; 3; 1 | Active: place one noncolliding delivery chute on a server-validated visible walkable lab surface <=8 studs away, outside egg geometry. Lasts 15s; users within 8 studs and line of sight can sell their own current bucket through the existing sale path. 180s cooldown. Max 1 active per owner, 4 per server; reject over limit without consuming cooldown. No Batch Unload; no automatic sale or caster share. | Everyone keeps their own original material values and Value multiplier. No currency/XP/contribution for providing the chute. Pending fills a bucket through the existing path only. | Compact original workshop chute prop, interact prompt, lifetime dial; icon: two bucket straps feeding a shared jade-rimmed chute. No new inventory. | Reset; remove prop |
+| Stable ID / name / position | Prerequisites; level; cost per rank; max rank | Exact effect and equipment interaction | Feedback / original icon intent |
+| --- | --- | --- | --- |
+| B1 `collection.batch_unload` / Batch Unload / (0,-180) | Hub; L1/L20; 1; 2 | Explicit Sell processes <=2/3 actual bucket loads: sell, drain pending to capacity, repeat only to cap, final normal drain. Each load uses original values and existing Value calculation/rounding. No unlimited loop. Fewer taps to clear earned backlog anywhere Sell works. | Receipt by load/pending left; buckets at sorting chute. |
+| B2 `collection.sale_latch` / Sale Latch / (0,-360) | B1; L5; 2; 1 | Optional passive toggle, default off. While mining input is held/toggled and an accepted positive-damage action occurred within 3s, full bucket triggers one normal one-load Sell and drain. 8s ICD; cannot retrigger just because pending refills it. Does not invoke Batch Unload; evaluate only after the entire root-action/secondary settlement, never between blast sections. Never mines while full; manual free Sell remains. | Latch indicator/actual receipt; clasp opening above bucket. |
+| B3 `collection.sample_packing` / Sample Packing / (0,-540) | B1; L15/L40; 2; 2 | For n units of one resource, occupied slots: R1 `4*floor(n/5)+n%5`; R2 `3*floor(n/4)+n%4`. Sum across resources. Counts/values unchanged. Unlike flat equipment Capacity, packing rewards homogeneous loads and changes pending-fit decisions; no extra units. | Slots-used and actual units in bag detail; nested mineral trays. |
+| B4 `collection.claim_priorities` / Claim Priorities / (0,-720) | B2 AND B3; L30/L60; 3; 2 | R1: FIFO or highest-original-unit-value pending-first. R2: optional chosen-resource priority, remaining ties FIFO. Reorder only undelivered claims, never reprice. Chooses which earned lots enter limited space first; no pending-gate bypass. | Order selector at existing pending indicator; mineral sorting lanes. |
+| B5 `collection.clean_extraction` / Clean Extraction / (0,-900) | B4; L50; 4; 1 | Ordinary precise direct hits add+1 to hit-time Yield bonus. Existing damage weighting and once-rounded combined pool apply; non-precise/secondary hits add 0. Not an extra whole unit per hit/player/section. Purchased Yield stays additive in the same formula. | Stabilized sample accent on confirmed award; ceramic sample cradle. |
+| B6 `collection.refinery_link` / Refinery Link / (0,-1080) | B5; L75/L90; 4; 2 | R1: designate one actually owned tool's Value level for sales independent of held tool. R2: optionally choose highest owned Value automatically, ToolOrder tie-break. Replaces rather than multiplies held-tool Value; original materialValue unchanged. Retains invested refinery usefulness when mining with another tool. | Sale preview names refinery; tool-to-mineral coupling. |
+| B7 `collection.expedition_harness` / Expedition Harness / (0,-1260) | B6; L100; 6; 1 | Passive capstone: other living players within 12 studs and visible to owner can use packing rank 1 or their own stronger rank. No stacking, points, ownership or contribution/XP/cash for provider. Owner keeps their own purchased packing. | Discrete affected-bucket link, no particle cloud; linked pack straps. |
 
-### C. Tool techniques — violet and brass, mechanical motion with restrained energy
+Packing requires one common server occupancy/fit function in hits, claims, sales and HUD. Existing per-tool capacity becomes the slot limit; underlying units/materialValue remain. If switching, respec, rebirth or aura departure removes packing/capacity, **retain all units/value**, display OVER CAPACITY, stop new mining/drains, allow normal Sell. No deletion, repricing or second inventory. Pending lots keep original unit values. Sale Latch cannot unattended-sell an offline backlog: it needs recent actual damage, cannot chain itself and never issues an attack or aims.
 
-| ID / name / position | Prerequisites; level; cost / rank; max rank | Exact effect | Equipment interaction | Required feedback / icon brief | Rebirth |
-| --- | --- | --- | --- | --- | --- |
-| `technique.rhythm` / Technique Rhythm / (540,-180) | Hub; R1 L2, R2 L10; 1 each; 2 | A positive ordinary damage action reduces remaining cooldown of each equipped active **damage** technique by 1 / 2s, at most once per 8s per player. Cumulative reduction on one activation <=25% of its original cooldown; never negative. Drill ticks count as actions but share the 8s gate; one blast counts once. No effect before owning/slotting a damage technique; show that prerequisite benefit plainly. | Never reduces regular tool cooldown, fuse, channel, equipment cost or logistics cooldowns. Useful across Charged Swing and C-branch active techniques. | One small tick on the ability timer; icon: three tool teeth around a brass timing dial. | Reset ranks; cooldown deadlines retained |
-| `technique.core_drill` / Core Drill / (400,-360) | Technique Rhythm; L8 and own Drill; 2; 1 | Active: after 2s of uninterrupted valid ordinary drill contact with one section, arm its next 3 ticks for 1.30*D each. Cooldown 12s starts when active request is accepted; contact setup must begin immediately, never stored between uses. Any invalid contact, section destruction, interruption or target change cancels remaining empowered ticks. | Existing drill tick interval and authority unchanged. Benefits continuous focus; no faster remote loop. Empowered ticks are technique actions, not passive-proc triggers. | Contact pressure meter, restrained bit vibration/three tick lights; icon: drill bit inside a compressed mineral ring. | Reset |
-| `technique.shaped_charge` / Shaped Charge / (680,-360) | Technique Rhythm; L12 and own Explosive; 2; 1 | Active placement uses radius 3 studs, cap 3, center 1.25*D, linear falloff to 0.50 at edge; existing 0.45s fuse. Technique cooldown 10s plus unchanged tool cooldown. Alternative to ordinary radius 6/cap 7/edge 0.35. Same persistent placement and original-layer detonation rules. | Concentrates existing Explosive Power; purchased Speed applies only to ordinary action cadence, not technique cooldown/fuse. Narrower area is the tradeoff. | Narrow footprint preview, focused inward-then-outward burst; icon: charge with a concave copper liner, no random spikes. | Reset |
-| `technique.pulse_drill` / Pulse Drill / (540,-540) | Core Drill AND Shaped Charge; R1 L20, R2 L30 and own Drill; 2 each; 2 | Active: 1.2s spool with no damage, then one validated drill tick of D on primary plus up to 2 secondary sections within 4 studs, each 0.20*B / 0.30*B. Cooldown 10s. Snapshot same exposed layer before damage. Cannot overlap Core Drill; normal drill resumes only while input remains held and valid. | No rate increase; secondary damage does not crit. Uses drill Power and sacrifices setup time for local spread. | Readable spool meter, single contact ring and at most two chips; icon: drill tip sending two concentric pressure arcs. | Reset |
-| `technique.chain_lightning` / Chain Lightning / (540,-740) | Pulse Drill; L35; 3; 1 | Active with Pickaxe or Drill only: arm next ordinary contact within 4s, reserving a technique action. Main hit stays D; up to 2 additional distinct sections take 0.35*B then 0.20*B. Each hop <=4 studs from previous contact and <=6 from origin; same original exposed layer, snapshot before damage. Cooldown 15s at acceptance. Unavailable with Explosive equipped: its existing blast already fills the local-area role. Reject such activation without consuming cooldown; show tool compatibility before slotting. | No chance proc, recursive arc or increased creature chance. A missed/expired activation consumes cooldown. Can't overlay another damage technique. | At most two short segmented arcs, 0.18s, no full-screen flash; Reduced Effects uses endpoint sparks. Icon: forked mineral conductor linking three ceramic facets. | Reset |
+B1/B2 reduce interruptions, B3 changes composition, B4 chooses claim order, B5 rewards careful extraction, B6 decouples existing refinement from tool handling, B7 helps teammates. No node sells remote access already free. Existing Sell contract counts actual nonempty operations (including each actual B1 load), never empty iterations. Its cash remains; its old XP is removed with other legacy XP writes.
 
-All prototype parameters are proposed balance, not gameplay-verified. Crosscut's fan is defined on the primary surface tangent plane; degenerate facing projection uses the player's right vector projected into that plane. Snapshot candidate representative contacts are the section's existing validated surface/center reference, not arbitrary concealed mesh points. A later implementation must review how those references map to the current sections without rebuilding the egg.
+### C. Tool techniques: passive signature and continuous excavation
 
-For Chain Lightning, choose the nearest eligible section other than the primary within 4 studs of contact for hop one, then the nearest distinct section within 4 studs of hop one for hop two, each within 6 studs of origin. Ties use section ID. Both hops must pass the original-layer and visibility rules; all candidates are fixed before any damage. No replacement hop is selected after a target breaks or a capacity gate rejects damage.
+| Stable ID / name / position | Prerequisites; level; cost per rank; max rank | Exact effect and equipment interaction | Feedback / original icon intent |
+| --- | --- | --- | --- |
+| C1 `technique.precision_relay` / Precision Relay / (600,-180) | Hub; L1/L20; 1; 2 | After ordinary Pickaxe/Drill section break, carry earned precision-chain count to next precise hit on another section in same layer within 3/5s and 4 studs. Still requires accurate contact; non-precise next hit consumes without benefit. Existing chain cap 3; 6s ICD. | Next-seam bracket; tool carrying a fissure onward. |
+| C2 `technique.chain_lightning` / Chain Lightning / (600,-360) | C1; L5; 2; 1 | **Passive**, ordinary Pickaxe/Drill only: 25% on first qualifying positive root action in each fixed 4s server window, if 8s proc ICD ready. <=2 secondary targets, 0.80*B then 0.50*B; each hop<=4 studs, total<=6 from origin, same exposed layer. Snapshot before root. No button or explosion multi-roll. | <=2 arcs,0.18s; Reduced Effects endpoint sparks; mineral conductor. |
+| C3 `technique.core_drill` / Flow Drill / (820,-540) | C1; L15/L40; 2; 2 | Passive drill mode: build 4s validated ordinary work **across targets**; next 3s valid ticks deal 1.25/1.35*D. No spool pause/additional attack loop. Breaks preserve enhancement; then rebuild from 0. Owned Drill needed to use, not granted. | Continuous contact/flow meter, bit accent; drill along mineral ribbon. |
+| C4 `technique.shaped_charge` / Shaped Charge / (820,-720) | C2; L30/L60; 3; 2 | Explosive active: radius 3, cap 3, center 1.25/1.40*D, linear falloff to 0.50 at edge, fuse 0.45s;10s technique cooldown plus existing tool cadence. Replaces ordinary 6/7/0.35 placement for this action. Narrower area is explicit tradeoff. | Narrow footprint/focused blast; concave charge liner. |
+| C5 `technique.pulse_drill` / Pulse Drill / (820,-900) | C3; L50; 4; 1 | Alternative Flow mode: same 4s build/3s duration, ordinary primary D plus <=1 eligible neighbor within 4 studs at 0.25*B each tick. No pause. Choose focused OR lateral in tree/loadout, no combat button. Snapshot each tick, no layer cascade. | Small lateral contact arc; drill tooth/pressure ring. |
+| C6 `technique.arc_routing` / Arc Routing / (600,-1080) | C2; L75/L90; 4; 2 | R1 adds third hop 0.30*B, total 4 targets including primary, same hop/origin limits. R2 permits fork mode: <=2 first targets each 0.65*B within 4 of origin, one distinct final target 0.30*B within 4 of either branch/6 of origin. Choose chain OR fork; chance/ICD unchanged. | <=3 brief arcs; mineral routing junction. |
+| C7 `technique.storm_circuit` / Storm Circuit / (600,-1260) | C6; L100; 6; 1 | Passive capstone: successful lightning marks surviving hit endpoints 6s. Next 2 ordinary positive root hits by owner on an endpoint may each discharge 0.75*B to up to two distinct other surviving marked endpoints, <=1 discharge event/s. Original layer/range/visibility, no new endpoints. Discharges cannot proc lightning/recreate circuit. No valid pair means no bonus. | Two remaining-charge notches; loop of ceramic conductors. |
 
-### Stacking, eligibility, cancellation and anti-duplication contract
+C3/C4/C5 are optional existing-tool spurs; no unavailable tool gates C2/C6/C7 or initial A/B paths. None grants future ownership.
 
-1. Server checks loaded writable profile, ownership, rank, prerequisites, active slot, life, range, round, current exposed layer, bucket/pending restriction, action sequence and all cooldowns before acceptance. Buying/slotting a node never directly applies its effect. No paid or client-authoritative proc.
-2. Ordinary damage uses D, then adds Seam Pressure if armed. Active damage replaces the ordinary formula with its table formula; passive damage buffs/transfer/rhythm do not trigger on that technique. No two damage techniques overlap. Core Drill's three empowered ticks are one active technique window; switching technique cancels it without refund.
-3. Snapshot **all** root/secondary candidates before applying any HP mutations; sort primary first, then distance (hop distance for lightning), then stable section ID. Deduplicate IDs. Maximum 7 distinct sections per action including ordinary blast candidates and skill secondaries. Only current round, original exposed layer, intact/nonpermanent eligible sections; test visibility using the existing placement/contact visibility rules. Recheck each target before damage, never add newly exposed sections during resolution. Skip an unavailable target without replacing it from a newly exposed layer. Same-layer geometry still needs line of sight; no through-egg shortcuts.
-4. Snapshot secondary eligibility for immediate skills at contact; for fuses at detonation, keeping the accepted placement position, normal and original layer even if its original section was destroyed. If the original target is gone, persistent ordinary or shaped explosives may still detonate at their saved position; they never substitute a concealed replacement primary. Lightning is restricted to pickaxe/drill and needs its valid primary contact at acceptance. No eligible sections means visuals only.
-5. One HP mutation records one effective-damage amount through the existing authority. Secondary damage cannot trigger passives, another chain, another active or a second grant. Material base/Yield pools and personal creature odds use actual damage normally. No contribution credit for scan, channel, sale, movement or another player's chute use. No duplicate loot because an effect looked like a second hit.
-6. Keep existing per-hit capacity gate across the whole sequence: no new mining while bucket is full or pending units exist. Process stable order; once a settlement fills the bucket/creates pending, skip subsequent damage. Earned material shares remain pending, never deleted. Skills cannot exempt the player from this restriction.
-7. Accepted action/technique cooldowns are spent even on cancellation, target loss or no-hit outcomes. Invalid requests spend nothing. F, switch/unequip, death, blocking menu and round change cancel armed attacks/channels/counters and pending charges. Ordinary target destruction alone still does not cancel accepted explosives. Chutes are placed world utilities: survive normal tool switching, but despawn on owner death/disconnect, respec, rebirth, round change or 15s expiry. No delayed effects after despawn/cancellation.
-8. Cooldowns persist through unequip, respec, death and same-server rejoin; save UTC deadlines for accepted active techniques so reconnecting is not a refill. Rebirth also retains unexpired deadlines. No storing temporary damage/movement buffs as permanent stats. Rhythm tracks actual reduction per activation and its 8s gate; do not reset those guards by changing rank/loadout.
-9. Active-slot/loadout changes and respec require the owner in their room, no accepted mining for 10s, no pending action/channel and a writable profile. Respec refunds all **spent points only**, sets ranks to zero, clears temporary counters/buffs and is free with a 60s server cooldown. Unspent points remain within current level entitlement. No credit refund, extra points, active cooldown refill or removal of queued material/creature claims.
-10. Presentation budgets are targets: at most 2 secondary accents per technique and 12 concurrently visible technique accents per client, <=0.6s each; prioritize local/nearby actions, drop distant cosmetics first. Chute cap 4 is server-wide. Damage/receipts never depend on rendering. Reduced Motion removes camera/character shake and screen movement; Reduced Effects uses endpoints and ordinary damage numbers. Do not hide success/failure information.
+### Drill continuity and equal-window comparison
 
-## 5. Rebirth specification
+Progress is per-player/round, not target. Each valid ordinary drill tick adds at most `min(server tool interval, elapsed since previous credit)` to buildup. First tick starts clock at zero. Credit requires actual accepted positive damage; no gain while contact/capacity is invalid. New targets after breaks are valid immediately. Gaps<=2s retain the meter but grant no catch-up time; longer gaps reset partial buildup. At 4s, the next valid tick starts a 3s wall-clock enhancement; ready expires after 4s. Breaks/retargeting do not cancel that window, but invalid targets receive zero damage. No building during enhancement. F/release, switch/unequip, death, blocking menu, round change clear meter/ready/buff. Mode changes only in room and clear progress. Normal tool cooldown always applies.
 
-Let R be completed rebirths, initially 0. Recommend **at most 10 rebirths** in this initial system; the button is disabled at R=10 with the cap explained. Never offer a reset with no additional benefit.
+Ordinary damage continues during buildup; enhancement skips **zero ordinary ticks**. In the same window with N accepted ticks and sufficient HP:
 
-- Required level for next rebirth: `min(50, 40 + 5*R)`. No credits, materials, creature sacrifice, paid bypass, time gate or mandatory egg final hit.
-- Permanent XP multiplier: `M(R) = 1 + 0.25*min(R,4) + 0.10*max(0,min(R,10)-4)`.
-- Thus +25 percentage points per rebirth for the first four, then +10 points for six more; max **2.60x**. These are additive percentage-point increments, not repeated multiplication by 1.25. No permanent damage/loot/creature-chance bonus from rebirth.
-- Available only voluntarily in the player's room, after 10s without accepted mining and no active/pending technique, while the profile is writable. Confirm current level/XP/points, reset fields, retained inventory and the exact before/after XP multiplier. The server recomputes everything on confirmation; no default-selected destructive action.
+- Ordinary = sum(D_i).
+- Focused R1/R2 =1.25/1.35*sum(D_i), clamped per target. Powerful tools need no section to survive buildup.
+- Lateral =sum(D_i)+0.25*sum(B_i on ticks with a valid neighbor). It trades focused damage for spread, not ordinary drilling time.
 
-| Rebirth performed | Requirement with prior R | Raw run XP threshold | M before -> after | Base-equivalent excavation XP needed to reach threshold before reset | Example: 100 base XP earns after |
-| --- | --- | ---: | --- | ---: | ---: |
-| First (0 -> 1) | L40 | 16,380 | 1.00 -> 1.25 | 16,380 | 125 XP |
-| Second (1 -> 2) | L45 | 20,680 | 1.25 -> 1.50 | 20,680 / 1.25 = 16,544 | 150 XP |
-| Third (2 -> 3) | L50 | 25,480 | 1.50 -> 1.75 | 25,480 / 1.50 = 16,986.666... | 175 XP |
-| Tenth (9 -> 10) | L50 | 25,480 | 2.50 -> 2.60 | 25,480 / 2.50 = 10,192 | 260 XP |
+Example D=B=55, interval 0.38:8 ticks in [0,3) give 440 ordinary,550 focused R1,440+110=550 lateral if neighbors exist. At D=B=255, interval 0.18:17 ticks give 4,335 ordinary,5,852.25 focused R2,4,335+1,083.75=5,418.75 lateral. With precision/crits D>B, focused favors durable single targets; lateral can reduce overkill. No neighbors means lateral equals ordinary. These are requested-damage arithmetic examples; HP caps, rounding, contact and capacity govern actual results. No old 1.2s no-damage Pulse spool remains.
 
-The requirement rises early, so the next entire rebirth cycle is not promised to be shorter than the first. Rebuilding the same level is faster: L20 needs 4,180 base-equivalent XP at R0, 3,344 at R1, about 2,786.67 at R2, about 2,388.57 at R3 and about 1,607.69 at R10. Retained equipment also changes real rate; these are arithmetic examples, not playtime measurements. At any qualifying level the player can keep their current tree instead of rebirthing. Level 50 remains available at R0; no rebirth-only worlds or skill tiers in this proposal.
+### Passive lightning rate and settlement guard
+
+- One opportunity per `floor(serverTime/4)` window **per UserId**, not per tick/section. Keep consumed-window/last-proc guards across rejoin. No hit means a lost window, not banked chances. First ordinary positive root consumes window; if 8s ICD ready draw once at 25%, otherwise no draw. No second chance on later drill ticks after failure. 15 scheduled windows/minute before ICD losses (a boundary-straddling 60s interval can touch 16 windows); sustained pre-ICD expectation 3.75 successes/minute, not a measured rate.
+- Pickaxe 0.60..0.30s and Drill 0.38..0.18s both fit inside 4s during valid continuous contact. Same window budget, not 1.7..3.3 versus 2.6..5.6 rolls/s. Gaps/ICD alignment affect realized rate; no exact-throughput claim. Power improves secondary damage; Speed does not create lottery tickets.
+- Ordinary Pickaxe/Drill primary may roll. Flow primary is one ordinary root; Pulse primary may roll, its neighbor cannot. Charged/Crosscut/Shaped, explosions, marks, Overbreak, lightning/circuit secondaries never roll. Explosive keeps its existing area identity. No recursive ability.
+- Snapshot neighbors before root HP mutation, nearest hop then stable ID, unique sections. Same current round/original exposed layer, nonpermanent/intact, valid surface visibility from origin/previous hop. No through-egg shortcuts. Apply only if root removes HP. Skip vanished targets without replacements/new layer. A success with no neighbors consumes ICD and shows one restrained spark, no fake reward.
+- Recheck owner/profile/life/range/capacity; each actual secondary goes through effective damage and one-section settlement. No support credit, new creature chance formula or separate grant for the effect. Round damage once using existing HP rules; never manufacture a positive hit from computed zero. Sequence/round/source IDs prevent repeated effects/events applying twice.
+
+## 4. Stacking, limits, controls and claims
+
+1. Server validates profile lock, ownership, ranks/prerequisites, current level/points, tool compatibility, slot, life, round, reach/contact, exposed layer and cooldowns. Maximum two active slots: one L5, second L30. Modes change in room/UI; passives add no combat buttons. Charged/Crosscut share a slot; Shaped is the other main active. Free Sell and ordinary touch/desktop controls remain.
+2. Root damage: existing B -> precision/crit D -> at most one active-mode multiplier OR ordinary Flow multiplier. No Flow*active stacking. Secondaries use snapshotted B without another crit/precision. Clean Extraction joins equipment Yield in the same hit-time weighted pool. Refinery Link replaces the sale Value source, never multiplies two tools' upgrades.
+3. Shared secondary budget per root: max 7 distinct sections including primary/ordinary blast candidates. Snapshot the union before root damage. Order root, technique lateral contacts, fault releases, Overbreak, circuit, lightning; distance/ID within each category. One secondary entry per section/root: if effects select the same neighbor, earlier entry wins, no replacement. Proc/cooldown consumption is not refunded for exhausted budget. Attribute actual entries to their true owner, with no hidden-layer damage or duplicate grants.
+4. Ordinary/Shaped explosives keep validated position, normal, round and original layer after target destruction. Snapshot once at detonation; ordinary HP damage and accepted-action cooldown. F/switch/unequip/death/menu/round cancel; original target destruction alone does not. Survivors retain partial HP/cracks.
+5. No mining while effective packed occupancy is full or pending claims exist. Stable settlement order; once owner fills/creates pending, skip remaining damage. Earned claims remain, not unlimited full-bucket mining. Losing capacity/aura can leave legitimate excess: preserve it until free sale. Sell processes actual bucket contents only.
+6. Cancel temporary effects/counters on release/death/round change/respec; knowledge lasts until respec/rebirth. Keep accepted action/proc/cooldown guards across switch, respec, death, rebirth and reconnect; save UTC deadlines/consumed windows as necessary. No temporary modifier becomes strength/permanent buff. Respec/loadout needs own room, 10s without mining, no pending action. Auto Sell alone is not a blocking menu; never issues an attack.
+7. Presentation targets, not performance evidence: <=3 lightning arcs/proc,<=12 visible secondary accents/client,<=0.6s cosmetic life. Prioritize local/nearby hits. Reduced Motion removes shake/FOV kicks; Reduced Effects uses endpoints/factual numbers. No full-screen flash or permanent cloud. Keep existing audio; no invented/unrelated audio IDs.
+8. Shared break effects once; personal receipts reflect actual delivered/pending rewards. Creature probability remains existing solo chance*final effective share. No aura-provider credit or last-hit advantage. Section cash/relic/sample/contract attribution remains current; only old section/contract/completion **XP** is replaced. Offline material/creature claims remain same-server memory until loaded-profile transfer, lost on shutdown if untransferred, not cross-server delivery.
+
+## 5. Uncapped voluntary rebirth
+
+Approved requirement with R completed rebirths:
+
+`requiredLevel(R)=min(100,10*(R+1))`.
+
+First L10, second L20, ... tenth L100. For exact-count implementation, compare R with 9 first: R>=9 directly gives 100, without multiplying a huge counter. Eleventh and every later rebirth still L100. No hard ten-rebirth limit, fee, timer, paid bypass or egg-final-hit requirement. Players may continue/stay at 100 instead.
+
+### One permanent-benefit formula
+
+Recommend `M(R)=1+R/(R+5)=(2R+5)/(R+5)` for player XP only.
+
+For R->R+1, `deltaM=5/((R+5)*(R+6))>0`.
+
+Strictly increasing, diminishing marginal gains, **always below 2x**, never exponential multiplication. Existing strength/creature effects influence actual damage separately; M never modifies damage/materials/creature odds. No skill XP booster.
+
+| Rebirth performed | Level | M before -> after | XP percentage-point gain | Base-equivalent XP for this run |
+| --- | ---: | --- | ---: | ---: |
+| 1st,0->1 | 10 | 1 ->7/6=1.166667 | +16.666667 | 5,000 |
+| 2nd,1->2 | 20 | 7/6 ->9/7=1.285714 | +11.904762 | 24,000 |
+| 3rd,2->3 | 30 | 9/7 ->11/8=1.375 | +8.928571 | 81,666.67 |
+| 10th,9->10 | 100 | 23/14=1.642857 ->5/3=1.666667 | +2.380952 | 6,220,869.57 |
+| 11th,10->11 | 100 | 5/3 ->27/16=1.6875 | +2.083333 | 6,132,000 |
+| 51st,50->51 | 100 | 21/11=1.909091 ->107/56=1.910714 | +0.162338 | 5,353,333.33 |
+| 101st,100->101 | 100 | 41/21=1.952381 ->207/106=1.952830 | +0.044924 | 5,234,634.15 |
+| 1001st,1000->1001 | 100 | 1.995024876 ->1.995029821 | +0.000494545 | 5,122,743.14 |
+
+After first/second/third rebirth, 100 base XP earns 116.6667/128.5714/137.5 including carried fractions. At R100 it earns 195.2381; R101 earns 195.2830. This is not a damage/loot grant. At extremely large counts gains are positive but small: disclose that rather than promising every late reset is dramatic. Keeping a full build is a valid choice.
+
+### Numerical correctness and honest display
+
+Do not repeatedly multiply a stored bonus. Store R as a canonical nonnegative decimal integer string and derive exact numerator/denominator; use exact integer/rational XP accumulation. No gameplay count cap, floating-point overflow or silent saturation.
+
+Base XP is integer 1/10,000 units. For fixed R maintain remainder q with denominator R+5: add `baseSubunits*(2R+5)`, divide by R+5 to credit whole subunits, retain division remainder. Run XP/subunits cap at T100. Rebirth explicitly resets run XP/fractions and increments R exactly. Later implementation needs reviewed arbitrary-precision decimal integer/division helpers, not a software install or code supplied now. Client approximations are display-only. Profile payload/resource failures must fail clearly without a reset/grant, never clamp the count and claim a benefit.
+
+Confirmation shows current/next multiplier, **marginal percentage-point gain**, and XP per 100 base XP. Use adaptive decimals/scientific notation when needed, exact delta fraction in details. Never show +0.00% or two indistinguishable rounded 2x labels while claiming an improvement. Fractional accrual preserves actual entitlement instead of rounding small benefits away each hit. Bounded endless progression necessarily has tiny marginal gains eventually; this limitation is explicit, not disguised.
 
 ### Exact reset/retain contract
 
-Proposed new fields live under one versioned `progression` object in the existing profile. Names here are schema requirements for later implementation, not fields created in this phase. Derived values should not be stored redundantly.
+One serialized transaction in the loaded session-locked profile, guarded by request ID/run revision and existing save path. Validate living owner in their room, 10s without mining, no pending action, writable profile and actual level requirement. Confirm actual losses/retained items/current-next M/marginal gain; never default-confirm. Retried requests cannot increment twice. In-memory success is not verified durable persistence.
 
-| Field / state | Rebirth operation |
+| State / proposed field | Rebirth action |
 | --- | --- |
-| Existing `xp`; new `progression.xpFraction` | Set to 0; displayed ResearchLevel becomes 1 using new curve |
-| `progression.skillRanks` | Clear every node rank; no permanent skill-rank carryover |
-| Skill-point entitlement / spent / available (derived) | Become 0 at L1; previous unspent points do not carry. Re-earn at even levels of the new run. No extra starting point per rebirth |
-| `progression.activeSlots` and earned run milestone access (derived from level) | Clear selected techniques; slots locked until L8/L25 again; prior illustrations/discovered descriptions may stay visible but confer no effect |
-| Temporary seam/precision transfer charges, channel state, skill movement effects, field prop, armed abilities | Cancel/clear; never copy into permanent buffs. Existing tool action cooldown still applies |
-| `progression.rebirths` | Increment by exactly 1 up to 10; permanent multiplier derived from it |
-| `progression.runId` / `progression.revision` | Increment; reject stale purchase/respec/rebirth intents from prior run/revision |
-| `progression.techniqueReadyAt`, rhythm reduction guards, respec deadline | Retain unexpired cooldowns; no refill exploit through rebirth |
-| `ownedTools`, `toolLevels`, active upgrade aliases, `toolId`, `drillTrialUsed` | Retain all; selecting another tool never erases investment; rebirth does not refresh a trial |
-| `cash`, `income`, `contents`, `materialValue`, `pendingMaterials`, `samples`, `relics` | Retain unchanged. No implicit sale, currency reset, capacity amnesty or averaging of claim values |
-| `creatures`, `equippedCreature`, `discoveries`, `displaySlots`, `eggRewardReceipts` | Retain; pending same-server creature/material claims remain eligible for normal transfer |
-| `strength` and other separately acquired permanent buffs | Retain unchanged; no skill effect is written into strength/creature power |
-| `roomTheme`, `roomThemes`, other owned cosmetics/decorations, settings | Retain unchanged |
-| `tutorial`, `introStage`, `contract`, `contractProgress` | Retain; no replay/grant of tutorial or contract milestones through rebirth |
-| Current server egg contribution, section contribution and frozen egg settlements | Retain, even if the player rebirths mid-egg. New damage uses new run XP multiplier; prior damage/claims are not rerolled, multiplied again or reassigned |
-| Future achievements, trophies, unlocked worlds, permanent acquisitions | Retain explicitly when those fields exist; none are implemented by this specification |
-| `profileVersion`, `economyVersion`, progression schema version, session lock | Rebirth does not act as a schema migration or a new profile; retain service-managed metadata |
+| xp, proposed XP subunits/fraction/denominator remainder | Zero; ResearchLevel 0; no overflow bank |
+| progression.skillRanks and selected active techniques/modes | Clear all ranks and run loadout |
+| Point entitlement/current-level milestone access/active-slot count (derived) | Zero at L0, re-earn by levels; unspent points do not carry |
+| Drill meters/ready windows, marks, circuit endpoints, temporary movement/packing aura | Clear, never convert to permanent buffs; preserve excess carried goods |
+| progression.rebirths | Exact+1, no hard limit; derive M |
+| progression.runId/revision | Increment, reject stale purchases/respec/confirmation |
+| Unexpired action/technique/proc/respec guards | Retain; no cooldown refill through reset/rejoin |
+| progression.highestLevelReached | Retain maximum, permanent equipment access; not a skill buff |
+| ownedTools, toolLevels, active upgrade aliases, selected tool, drillTrialUsed | Retain; flush active aliases into their tool before transaction; no refreshed trial |
+| cash, income, contents, materialValue, pendingMaterials, samples, relics | Retain every unit/value/currency; no silent sale, deletion or currency reset |
+| creatures, equippedCreature, discoveries, displaySlots, eggRewardReceipts, existing same-server claims | Retain, normal once-only transfer, no reroll |
+| strength, other permanent acquired buffs, cosmetics/room themes/settings | Retain, remove only temporary skill effects |
+| Tutorial/intro progress, contract index/progress | Retain, no replay grants |
+| Current egg/section contribution and frozen settlements | Retain across personal rebirth; new damage uses new R, old claims unchanged |
+| Existing/future achievements, trophies, unlocked worlds | Retain when present; grant none here |
+| Profile/economy/progression schema and session locks | Service-managed, not reset/migrated by rebirth |
 
-A rebirth is one server-authoritative, non-yielding in-memory profile transaction after validations, then uses the existing save/session-lock path. Do not claim successful durable persistence until a real save acknowledgment; a transient save failure must not trigger a second grant. Persist the new run/rebirth count together with the resets, use a request ID/revision guard and serialize mutations with the existing profile owner. UI waits for the server response and labels saving/failure. Restoring after a crash remains subject to the actual save system, not a documentation guarantee.
+No other field resets by implication. This normal rebirth is distinct from the owner's separately requested one-time full published-progress reset. Neither executes in Phase 5A.
 
-## 6. Dedicated tree screen and art specification
+## 6. Dedicated tree-screen and art specification
 
-The existing HUD/menus remain **functional interim UI, not final visual quality**. This specification does not approve their art, produce a concept board or fulfill final illustrated equipment/upgrade screens. The tree is a dedicated view reached from a compact level/XP/points button and MORE; opening it cancels mining. No auto-open on every level, respawn or join.
+Current HUD, menus and tool assets are **functional interim work, not approved final art**. Finalize revised mechanics before icon production. No artwork, boards, GIFs, video, Blender studies or uploads in this revision.
 
-### Layout and navigation
+Dedicated pannable graph, never an upgrade-button list. Bounds x=-950..1050, y=-1450..120; hub/node coordinates above, amber impact/jade collection/violet-brass technique branches. Actual edges match server prerequisites; optional tool spurs visibly differ from main route. Branch focus and Recenter support the taller tree.
 
-- Logical canvas bounds x=-900..900, y=-900..120; hub at (0,0), nodes at table coordinates. Three illustrated branch headers sit above their capstones. Connectors route through fork/merge junctions with arrows pointing toward advancement; node dependencies must match the server data, not separate hard-coded art.
-- Desktop >=900px safe width: 64px top status strip, canvas taking remaining width minus a 320..380px selected-node panel; 16px gutters. Panel contains original illustrated icon, name/branch, current/max rank, exact current and next effects, prerequisites/level, point cost, available points, equipped status and one server-confirmed purchase action. Disabled action states explain the blocking requirement. Close and Recenter remain visible.
-- Narrow/portrait: top strip <=88px with level, XP and points; canvas remains the main view. Selected-node bottom sheet uses 38% height, expandable to 70% for details and collapsible to a 56px summary. Text scrolls within the sheet only. It is never replaced by a list of upgrade buttons. Keep node navigation visible behind the sheet; recenter uses the unobscured rectangle. Landscape mobile uses a compact 280px side panel where space permits.
-- Mouse: drag empty canvas; wheel zoom anchored under cursor. Touch: one-finger drag canvas, two-finger pinch around midpoint. Drag >8px suppresses node activation; tapping a node selects, never purchases. Zoom range 0.55..1.40; initial fit clamped to range, so phones pan rather than shrinking all text into illegibility. Recenter focuses hub plus first branches at usable scale; branch tabs focus their cluster. Clamp panning so at least one node/edge remains reachable. Plus/minus buttons provide an alternative to pinch/wheel.
-- Nodes are 88 logical units, at minimum zoom a 48.4px target; control touch targets >=48px. Rank badges and short node labels stay readable (>=14px) instead of scaling into tiny text; hide distant labels at overview zoom in favor of selected label, never hide rank/state. No screen-edge overlap with Roblox chrome/safe areas. These are layout targets, not measured device approval.
-- Keyboard/gamepad: directional traversal follows graph neighbors, confirm selects, distinct action purchases, Back closes panel/screen; selected node is brought into view. Zoom buttons and Recenter are focusable. No mouse-only hover requirement. Inspector shows scroll position/focus, with no hidden purchase target.
-- Show level, current-level XP / next-level requirement, available points and rebirth count/multiplier. At cap show MAX; pending data shows synchronizing, not zero placeholders. Rebirth gets a separate explicit confirmation pane with the reset/retain summary, not a click on the tree hub.
+- Desktop safe width>=900:64px status strip, canvas plus 320..380px selected-node panel, 16px gutters. Panel: custom illustration, exact current/next effect, prerequisites/level, rank/cost/points, tool compatibility, equip/mode and one purchase action. Show two-capstone limit plainly.
+- Portrait/narrow:<=88px status strip, canvas main view, bottom sheet 38% height expandable 70% or collapsed 56px. Scroll panel text only, never replace graph with list. Landscape may use 280px side panel. Recenter respects unobscured canvas.
+- Mouse drag/wheel, touch drag/pinch; zoom 0.55..1.40 anchored at pointer/pinch;>8px drag suppresses tap. Nodes 88 logical units ->>=48.4px at minimum zoom; controls>=48px, text>=14px. Plus/minus/Recenter visible; pan clamped for recovery. Targets, not device-tested claims.
+- Locked clasp/unmet prerequisite; available open rim/empty sockets; partial filled+empty sockets; complete engraved rim/all sockets. Color supplements shape/text. Insufficient points, unowned compatible tool and two-capstone limit are distinct reasons. Checkpoint-only missing nodes say PLANNED, never falsely functional or merely level-locked.
+- Keyboard/gamepad graph-neighbor navigation, selection separate from purchase, focused node brought into view, accessible Back/Close/Recenter/zoom. No hover-only information. <=2 combat skill buttons; passives/modes add no combat hotbar overload. Free Sell stays independent.
+- Header: actual L0..100, current/next XP, points, R, M. No invented loading balances. Rebirth uses explicit reset/retain/marginal-gain confirmation; no forced level-up modal. Purchase feedback one 0.25s rim/connector trace after server confirmation; Reduced Motion static receipt, Reduced Effects no extra particles. No camera lock/join cinematic.
 
-### Node and feedback states
+Required final art: **21 original node icons**, hub, three branch emblems, rebirth emblem, four reusable node-frame states, rank sockets/clasp/focus/slot ribbons, two scalable panel frames, connector junctions, navigation/status marks and low-contrast workshop-map background. Node motifs above are briefs, not produced illustrations. Targets 512x 512 masters/256 exports readable 48px,1024 backdrop. No emoji, copied game art, generic symbols as final, rejected weapon designs or recolored default rectangles. Preserve polished playful silhouettes, intentional materials and readable highlights. Removed courier/chute skills need **no props**; future effects need restrained arc/endpoint/wedge art and authored poses on existing tools.
 
-| State | Appearance and behavior |
-| --- | --- |
-| Locked | Desaturated illustrated face with a physical clasp overlay, broken/etched connector and written unmet prerequisite/level. Still selectable for planning |
-| Available, rank 0 | Clean branch-colored rim, empty rank sockets, solid available path; affordable cost shown. If points are insufficient, show cost and reason without pretending the node is locked by a prerequisite |
-| Partially upgraded | Filled sockets for owned ranks, remaining socket outlined; selected panel shows current/next exact effects and level requirement |
-| Completed | Distinct engraved rim and all sockets filled, completed text; no fake purchase button. Slotted active nodes have a separate numbered loadout ribbon |
-| Not shipped in first subset | Explicit PLANNED ribbon, effect visible for planning, no purchase or active-slot assignment; do not confuse missing implementation with a level lock |
+Previously inspected capabilities: raster image generation and Studio upload_image (HTTP URL->asset IDs) exposed; store_image is a local reference, not upload. Ownership/permissions, HTTP serving, moderation and experience access remain unverified. No layered illustration editor or Blender/BlendRelay connection established here. Do not promise layered masters from generated PNGs. Preserve actual authored vector/layers, bitmap masters/provenance, exports and manifest mapping stable IDs to hashes/dimensions/returned IDs/owner/permissions. Proposed assets/ui/progression/source, exports, manifest.json remain future paths, not files created now. No installs; later upload access may need an owner action.
 
-Colors supplement shapes/text; availability must not rely on red/green. Successful unlock: one 0.25s rim fill and short connector trace, concise skill name/points receipt after server confirmation. No screen shake, modal celebration or continuous node pulses. Reduced Motion uses an immediate state change and static receipt; Reduced Effects removes trace particles. No sound is invented or claimed produced; later approved delivery needs one permitted, brief workshop unlock click/chime respecting current volume settings.
+Final illustrated equipment/upgrade screens remain separately unmet. A functional tree checkpoint does not establish final visual quality. Produce the icon set only after mechanics approval.
 
-### Actual required assets and available capabilities
+## 7. First milestone and exact follow-ons
 
-Required final tree art is original polished, playful excavation fantasy: readable forged metal, ceramic, jade mineral and stitched straps, bold silhouettes, selective highlights and uncluttered backgrounds. No emoji, generic default glyphs, rejected weapon concepts, copied external game icons, or recolored rectangles presented as finished art.
+### Proposed Phase 5B: signature excavation and genuine tree
 
-| Art group | Deliverable target |
-| --- | --- |
-| 15 unique node icons | One illustration per stable ID using the motif in the node tables; 512x512 editable master and 256x256 transparent PNG runtime export, readable at 48px. Same illustration used for inspector and ability slot; ranks use overlays, not recolors masquerading as new art |
-| Hub + 3 branch emblems + rebirth emblem | 5 original illustrations; 512 masters / 256 exports. Rebirth: a renewed journal clasp around an excavation spiral, not a new currency symbol |
-| State and loadout kit | 4 sculpted node-frame states, clasp overlay, rank socket empty/filled, focus outline and 2 slot ribbons; reusable transparent assets. Main panel frame and selected-node frame designed as two scalable border assets. Connectors are code-drawn paths with original junction/end-cap art |
-| Navigation / status kit | 6 designed control marks (close, recenter, zoom in/out, back, confirm) plus 3 status emblems (XP journal mark, skill-point token, active-technique slot); consistent stroke/material language, accessible text labels. Skill points are progression entitlement, not a purchasable currency |
-| Background and typography | One low-contrast 1024x1024 workshop-map backdrop; use the project's existing font family with explicit 14/16/20/28 size roles rather than requiring a font install. Decoration must not fight the node graph |
-| Later ability implementation | 3 small prop needs (deposit tether endpoint, field courier capsule, team chute), controlled swing/spool poses, two endpoint spark textures and one narrow arc strip. Reuse existing tool/shell models and current impact materials where suitable. No Blender presentation scenes or model production in this phase |
+A development checkpoint **in the original Studio place**, not a separate place or published partial release:
 
-These are **targets**, not created files or measured memory/performance budgets. Initial subset needs its nine node icons, common UI kit and branch/hub art; the six unshipped nodes can remain clearly labeled planned silhouettes during functional review, never called final art. Final full-tree visual approval requires all fifteen illustrations.
+1. Server XP/points foundation with the full **0..100** curve and highest-level record; replace legacy XP writes together, report already-credited egg XP. No arbitrary L20 cap. Apply approved equipment purchase gates without revoking purchases.
+2. Actual pannable connected tree, prerequisites, free respec and level-based slot rules. Exactly eight implemented nodes, all listed ranks: **A1 Fault Survey, A2 Charged Swing, A3 Steady Aim, B1 Batch Unload, B2 Sale Latch, C1 Precision Relay, C2 passive Chain Lightning, C3 Flow Drill**. Lightning at L5: C1 cost 1+C2 cost 2=P5=3; works with starter pickaxe, no Drill/Explosive/future ownership prerequisite.
+3. Lightning window/ICD, exposed snapshot, contribution/claims/cancellation and bounded feedback; drill flow across successful breaks. These signature behaviors are required, not deferred behind a utility-only release.
+4. Eight illustrations/common graph kit after mechanic approval, or explicit art-incomplete status if blocked. Other nodes show PLANNED/no purchase. Rebirth has factual requirement/benefit/retention preview but mutation disabled until next checkpoint. Never pretend incomplete mechanics shipped.
+5. User manual review: signature feel, retargeting/breaks, shared rewards, near-full bucket/free Sell, invalid point requests, respec, rejoining and desktop/touch graph. No agent tests, gameplay automation or artificial save/resources.
 
-Available capabilities inspected without executing generation/upload: an image-generation tool is exposed for raster artwork; it can be used in a separately approved production phase, but does not guarantee coherent finished icons or layered editable illustration sources. Original SVG/vector source can be authored as repository files; raster export capability must be confirmed for the selected existing workflow. Do not promise a layered PSD/Blender file from a generated bitmap. Preserve the bitmap master, provenance/prompt if used, any authored vector layers and final exports honestly.
+This is **not a public-ready complete progression release** while rebirth/later nodes are missing. No low player-facing level ceiling substitutes for that work. Previewing higher levels does not authorize test save manipulation. Finish the following separately approved checkpoints before considering release:
 
-The current Studio MCP exposes `upload_image` (HTTP image URLs -> Roblox asset IDs), `store_image` (local reference for other tools, **not an asset upload**) and `insert_asset`. No upload was attempted, so owner/group permissions, local HTTP serving/reachability, moderation outcome and asset access in the experience are **unverified dependencies**, not completed capabilities. A reliable generic local-file image upload and approved layered illustration editor connection have not been established. No Blender/BlendRelay tool is exposed here and no component needs launching for this written phase. Do not install a workaround; if upload cannot be completed later, request only the required owner upload/permission action and retain source files.
+- **5C — rebirth and materials:** uncapped exact-count rebirth/save guards and reset/retain behavior; B3 Packing, B4 Claim Priorities, B5 Clean Extraction, B6 Refinery Link, including excess-capacity retention and value accounting. No data reset/migration hidden inside rebirth.
+- **5D — advanced tool play:** A4 Crosscut, A5 Overbreak, A6 Fault Mark, C4 Shaped Charge, C5 Pulse Drill, C6 Arc Routing; shared budgets/stacking/high-level input/art. Existing tool families/models.
+- **5E — capstones and complete L100 delivery:** A7 Fault Collapse, B7 Expedition Harness, C7 Storm Circuit; two-capstone constraint, all 21 illustrations/navigation states; review high-level builds, equipment gates, max-gear pace and late rebirth in original place. Unperformed checks stay pending.
+- **Separate authorized release operation:** decide timing of the owner's one-time full published-progress reset without old-progress retention/migration. Publishing/reset are not implied by completing checkpoints. Redeem codes remain separate.
 
-Future production path after approval: author the agreed icon kit -> preserve editable sources -> export PNGs -> review readability in the original Studio UI -> use the supported upload route if access is established -> record returned IDs/owner/moderation status -> assign approved images in the original place -> source/property readback -> user manual device/visual review. Proposed repository locations: `assets/ui/progression/source/`, `exports/`, `manifest.json`. Manifest maps stable node/control IDs to source/export hashes, pixel dimensions, padding, nine-slice border settings where relevant, uploaded IDs, owner and permission dependency. No invented IDs, bulk installs, unapproved uploads or duplicate place. Git retains source and manifest; native backups retain Studio assignments, not hosted asset bytes.
+Eight then four then six then three nodes =21; avoids an all-at-once implementation and avoids calling a low-level utility tree final. Approve mechanics and first milestone before implementation.
 
-## 7. First implementation subset and later integration
+## 8. Compatibility, roadmap and approval
 
-Recommend Phase 5B as a bounded vertical slice, after explicit approval:
+Keep ExcavationService authority and existing profile/material/settlement paths. Versioned shared node catalog supplies stable IDs/edges/positions/costs/descriptions; one progression authority owns XP/points/ranks/rebirth. No parallel combat/inventory or competing level values. Later fields require explicit Normalize/serialization updates; existing allowlists otherwise drop them. No save changes now.
 
-1. Contribution XP service integrated at the existing effective-damage mutation; remove old section/contract/completion XP writes together so there is never a double-paying intermediate release. Keep all unrelated cash/material/creature rules. Surface per-egg already-credited XP in results.
-2. Initial **release gate at level 20** using the same full curve, 10 points maximum, run XP capped at T(20)=4,180 with fraction 0 and no overflow bank. This is a temporary content gate, not a second level system. Opening levels 21..50 and rebirth requires the remaining-node delivery below; show that boundary honestly. Lifting the gate resumes from saved XP, without restoring unearned overflow. The 50-level design is not claimed shipped by this subset.
-3. Build the actual pannable connected canvas and point/loadout/respec authority. Implement **A1-A3, B1-B3 and C1-C3** (nine nodes), including all proposed ranks available through L20. Their full cost is 18 versus 10 available points, so builds already differ. One active slot. Remaining six nodes visible as planned, non-purchasable. Only already-owned tools can use their techniques.
-4. Deliver nine illustrations/common kit as real UI assets if capabilities/permissions permit; otherwise report art incomplete, not final visual acceptance. Preserve current tool models. Rebirth schema/confirmation contract is documented but **rebirth action remains disabled**, with no reset or permanent multiplier granted in this subset.
-5. Manual checkpoint in original place: contribution XP under all tools, level/point accounting, independent equipment retention, invalid purchases, respec, cancellation, simultaneous material settlement, responsive canvas, source/save limitations. Agent does not run these checks.
+Reserve typed EggRewards payloads behind current settlement identities for a future hatchable-egg reward instead of immediate creature, without a second roll/grant. Home incubators, creature care, home/world redesign, themed eggs, new tools/worlds, visible achievements/customization stay on the roadmap with permanent acquisitions retained through rebirth. No full economies here, no claim their assets/ownership exist. Future eggs need explicit XP factors; reassess pace with new tools/world HP rather than quietly unbounding M or adding paid relief.
 
-After that review, a separately authorized continuation adds A4-A5/B4-B5/C4-C5, two-slot loadouts, level 50 and the exact rebirth transaction together. Do not enable repeated resets against an incomplete tree. These are sequencing recommendations, not authorization to implement either stage now. Full illustrated equipment screens remain a separate art deliverable; completing the tree alone does not complete them.
+Public redeem codes/per-account limits and the 100,000,000-credit restricted tester code remain notes only. No code strings, authorized tester IDs, grants, migration or reset execution in this revision. Existing published-state uncertainty is retained; owner-reported manual publishing is not ignored.
 
-### Integration seams to reserve, not build now
+**Material approval:** accept the recommended curve/points/bounded benefit and 21-node mechanics; specifically approve or reject the new lifetime-level gates on final unpurchased equipment ranks. The user's 0..100/uncapped requirement direction is already accepted, not up for reconfirmation. Approve the eight-node signature 5B checkpoint before implementation. Reset/publication timing may wait for its separate operation; it does not block this revision or preparation of the original-place checkpoint.
 
-- Versioned player-progression module owns XP curve, rank validation, costs, active loadout and rebirth; shared read-only node catalog owns IDs/positions/descriptions. Existing ExcavationService remains the accepted damage/ownership authority. No parallel combat or inventory system; client requests intent and renders confirmed state.
-- Reward delivery uses typed payloads behind the existing EggRewards settlement identity. Future `Creature` -> `HatchableEgg` payload change must preserve one-roll and once-only delivery semantics; do not change probabilities or issue both rewards now.
-- Home incubators/care may consume future owned egg entries through the existing profile lock/transaction boundary; reserve IDs and payload version only. No hatch timers, care loops or room rework here.
-- New tools can declare compatible technique IDs; new egg/world definitions can supply an explicit xpFactor. Do not infer it from price, rarity text or drop chance. New world unlocks remain retained across rebirth; no level 200 requirement is decided here.
-- Future achievements/customization can listen to authoritative level/skill/rebirth/completion events with stable IDs, separate from the resettable skill ranks. No achievement, trophy currency or cosmetic buff is awarded now.
-- Public redeem codes and the restricted 100,000,000-credit tester code remain roadmap notes; no strings, tester IDs, grants or redemption service in this phase. The one-time full published-progress reset remains a separately authorized operation. User-reported manual publication of prior work is acknowledged; do not assume the live experience is older.
-
-## 8. Approval needed and evidence limits
-
-One recommended design is presented, not competing alternatives. Material approval points are: (1) the replacement of all legacy player-XP payouts with damage XP, level/point curve and free respec; (2) the 15-node mechanics/build budget and bounded ten-rebirth reset/retention contract; (3) the staged nine-node/L20 Phase 5B scope, with full rebirth only after the remaining tree, and separate production reset/activation timing. Numerical tuning is provisional until the user's manual review; no additional broad planning exercise is required to start the approved subset.
-
-No runtime scripts, Studio assets, saves or published data were changed. The original place remains the only target. No new place backup was needed because this is documentation-only; the starting Git commit identifies the source inspected. No tests, Play/Run, simulations, automated gameplay, generated boards, GIFs/videos, installations or publishing. Source inspection and arithmetic examples do not establish gameplay balance, mobile performance or persistence. Stop for approval before Phase 5B.
+No runtime scripts, Studio assets, player data or published experience changed. No tests, Play/Run, simulations, synthetic players, installations, generated artwork or publishing. Arithmetic is formula evaluation, not gameplay verification. Current UI/assets remain unapproved final art. Stop after documentation commit/push.
