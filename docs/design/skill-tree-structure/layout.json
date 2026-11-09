@@ -1,0 +1,466 @@
+{
+  "status": "Static proposal; no runtime behavior",
+  "canvas": [
+    2000,
+    1360
+  ],
+  "sourceSpec": "docs/PHASE_5A_PROGRESSION_SPEC.md",
+  "sourceCatalog": "src/SkillCatalog.luau",
+  "illustrativeState": {
+    "level": 15,
+    "pointsEntitlement": 9,
+    "spent": 7,
+    "available": 2,
+    "ranks": {
+      "A1": 1,
+      "A2": 1,
+      "B1": 1,
+      "B2": 1,
+      "C1": 1
+    }
+  },
+  "selected": "C2",
+  "positions": {
+    "A1": [
+      260,
+      1045
+    ],
+    "A2": [
+      145,
+      875
+    ],
+    "A3": [
+      380,
+      875
+    ],
+    "A4": [
+      330,
+      725
+    ],
+    "A5": [
+      165,
+      595
+    ],
+    "A6": [
+      365,
+      495
+    ],
+    "A7": [
+      260,
+      315
+    ],
+    "B1": [
+      735,
+      1045
+    ],
+    "B2": [
+      620,
+      875
+    ],
+    "B3": [
+      855,
+      875
+    ],
+    "B4": [
+      805,
+      725
+    ],
+    "B5": [
+      640,
+      595
+    ],
+    "B6": [
+      840,
+      495
+    ],
+    "B7": [
+      735,
+      315
+    ],
+    "C1": [
+      1200,
+      1045
+    ],
+    "C2": [
+      1060,
+      875
+    ],
+    "C3": [
+      1350,
+      875
+    ],
+    "C4": [
+      1040,
+      670
+    ],
+    "C5": [
+      1360,
+      670
+    ],
+    "C6": [
+      1310,
+      495
+    ],
+    "C7": [
+      1200,
+      315
+    ]
+  },
+  "edges": [
+    {
+      "from": "A1",
+      "to": "A2",
+      "path": "M 245 1015 L 250 985 V 875 H 185",
+      "state": "owned"
+    },
+    {
+      "from": "A1",
+      "to": "A3",
+      "path": "M 280 1015 L 300 980 V 875 H 350",
+      "state": "available"
+    },
+    {
+      "from": "A2",
+      "to": "A4",
+      "path": "M 145 833 V 725 H 288",
+      "state": "locked"
+    },
+    {
+      "from": "A3",
+      "to": "A4",
+      "path": "M 380 845 L 455 820 V 725 H 372",
+      "state": "locked"
+    },
+    {
+      "from": "A4",
+      "to": "A5",
+      "path": "M 330 683 V 595 H 207",
+      "state": "locked"
+    },
+    {
+      "from": "A5",
+      "to": "A6",
+      "path": "M 165 553 V 495 H 323",
+      "state": "locked"
+    },
+    {
+      "from": "A6",
+      "to": "A7",
+      "path": "M 365 453 V 315 H 316",
+      "state": "locked"
+    },
+    {
+      "from": "B1",
+      "to": "B2",
+      "path": "M 720 1015 L 725 985 V 875 H 660",
+      "state": "owned"
+    },
+    {
+      "from": "B1",
+      "to": "B3",
+      "path": "M 755 1015 L 775 980 V 875 H 825",
+      "state": "locked"
+    },
+    {
+      "from": "B2",
+      "to": "B4",
+      "path": "M 620 833 V 725 H 763",
+      "state": "locked"
+    },
+    {
+      "from": "B3",
+      "to": "B4",
+      "path": "M 855 845 L 930 820 V 725 H 847",
+      "state": "locked"
+    },
+    {
+      "from": "B4",
+      "to": "B5",
+      "path": "M 805 683 V 595 H 682",
+      "state": "locked"
+    },
+    {
+      "from": "B5",
+      "to": "B6",
+      "path": "M 640 553 V 495 H 810",
+      "state": "locked"
+    },
+    {
+      "from": "B6",
+      "to": "B7",
+      "path": "M 840 465 V 315 H 791",
+      "state": "locked"
+    },
+    {
+      "from": "C1",
+      "to": "C2",
+      "path": "M1180 1015V875H1102",
+      "state": "available"
+    },
+    {
+      "from": "C1",
+      "to": "C3",
+      "path": "M1220 1015 1230 980V875H1308",
+      "state": "available"
+    },
+    {
+      "from": "C2",
+      "to": "C4",
+      "path": "M1060 833V800H1160V670H1082",
+      "state": "locked"
+    },
+    {
+      "from": "C3",
+      "to": "C5",
+      "path": "M1350 833V800H1250V670H1318",
+      "state": "locked"
+    },
+    {
+      "from": "C2",
+      "to": "C6",
+      "path": "M1102 875H1190V495H1268",
+      "state": "locked"
+    },
+    {
+      "from": "C6",
+      "to": "C7",
+      "path": "M1310 453V315H1256",
+      "state": "locked"
+    }
+  ],
+  "nodes": [
+    {
+      "ref": "A1",
+      "id": "impact.fault_survey",
+      "name": "Fault Survey",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "A2",
+      "id": "impact.charged_swing",
+      "name": "Charged Swing",
+      "prerequisites": [
+        "A1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "A3",
+      "id": "impact.steady_aim",
+      "name": "Steady Aim",
+      "prerequisites": [
+        "A1"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "A4",
+      "id": "impact.crosscut",
+      "name": "Crosscut",
+      "prerequisites": [
+        "A2",
+        "A3"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "A5",
+      "id": "impact.overbreak",
+      "name": "Overbreak",
+      "prerequisites": [
+        "A4"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "A6",
+      "id": "impact.fault_mark",
+      "name": "Fault Mark",
+      "prerequisites": [
+        "A5"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "A7",
+      "id": "impact.fault_collapse",
+      "name": "Fault Collapse",
+      "prerequisites": [
+        "A6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    },
+    {
+      "ref": "B1",
+      "id": "collection.batch_unload",
+      "name": "Batch Unload",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "B2",
+      "id": "collection.sale_latch",
+      "name": "Sale Latch",
+      "prerequisites": [
+        "B1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "B3",
+      "id": "collection.sample_packing",
+      "name": "Sample Packing",
+      "prerequisites": [
+        "B1"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "B4",
+      "id": "collection.claim_priorities",
+      "name": "Claim Priorities",
+      "prerequisites": [
+        "B2",
+        "B3"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "B5",
+      "id": "collection.clean_extraction",
+      "name": "Clean Extraction",
+      "prerequisites": [
+        "B4"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "B6",
+      "id": "collection.refinery_link",
+      "name": "Refinery Link",
+      "prerequisites": [
+        "B5"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "B7",
+      "id": "collection.expedition_harness",
+      "name": "Expedition Harness",
+      "prerequisites": [
+        "B6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    },
+    {
+      "ref": "C1",
+      "id": "technique.precision_relay",
+      "name": "Precision Relay",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "C2",
+      "id": "technique.chain_lightning",
+      "name": "Chain Lightning",
+      "prerequisites": [
+        "C1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "C3",
+      "id": "technique.core_drill",
+      "name": "Flow Drill",
+      "prerequisites": [
+        "C1"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "C4",
+      "id": "technique.shaped_charge",
+      "name": "Shaped Charge",
+      "prerequisites": [
+        "C2"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "C5",
+      "id": "technique.pulse_drill",
+      "name": "Pulse Drill",
+      "prerequisites": [
+        "C3"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "C6",
+      "id": "technique.arc_routing",
+      "name": "Arc Routing",
+      "prerequisites": [
+        "C2"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "C7",
+      "id": "technique.storm_circuit",
+      "name": "Storm Circuit",
+      "prerequisites": [
+        "C6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    }
+  ]
+}

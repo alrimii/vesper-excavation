@@ -1,5 +1,7 @@
 # Skill-tree visual selection — two design proposals
 
+**Historical, neither selected.** The owner requested a new editable structural proposal using Last Epoch and Assassin's Creed Origins as information-architecture references. See [the subsequent structure checkpoint](../skill-tree-structure/README.md). Do not implement or extend these painted directions.
+
 Status: **design proposals only, not implemented or visually approved**. Both the version-139 HUD illustration direction and existing tree presentation are rejected. Do not propagate them to other screens. These are two complete-screen alternatives for owner selection; no Studio, runtime, data, device, publication or gameplay operations occurred in this task.
 
 ## Images and recommendation

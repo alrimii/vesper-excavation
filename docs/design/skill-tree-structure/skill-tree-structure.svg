@@ -1,0 +1,415 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="2000" height="1360" viewBox="0 0 2000 1360" role="img" aria-labelledby="title description">
+<title id="title">Skill tree — unified disciplines, editable structural proposal</title>
+<desc id="description">One continuous map with Impact, Collection and Technique regions, exact 21-node prerequisites, and Chain Lightning selected. Static design only.</desc>
+<defs>
+<g id="symbol-pick" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-4 18 7-11 M-20-5 Q-5-22 19-9 L23-2 Q6-9-10 3Z"/></g>
+<g id="symbol-shell" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-19 15 Q-22-7 0-20 Q22-7 19 15Z M2-16-5-4 5 2-4 14"/></g>
+<g id="symbol-bucket" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-19-7-13 19H13L19-7Z M-11-8V-14Q0-27 11-14V-8 M-21-7H21"/></g>
+<g id="symbol-crystal" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0-22 16-8 12 14 0 22-13 11-16-7Z M0-22V22 M-16-7H16"/></g>
+<g id="symbol-drill" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-22-12H-3L7-5V7L-3 12H-22Z M-11 12-16 22H-25L-20 10 M7-6 24 0 7 7 M-17-5H-6"/></g>
+<g id="symbol-lightning" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-22-11-8-3-13 5 4 12 M-1-16 8-3 3 4 22 12"/><path d="M-27-17-17-20-16-9-26-7Z M-6 8 6 5 9 16-1 21Z M18 5 28 4 31 15 21 19Z"/></g>
+<g id="symbol-lens" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="-4" cy="-5" r="14"/><path d="M6 7 20 21 M-5-15-10-4-1-2-5 5"/></g>
+<g id="symbol-aim" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-22-8V-20H-10 M10-20H22V-8 M22 8V20H10 M-10 20H-22V8 M-4 0H4 M0-4V4"/></g>
+<g id="symbol-latch" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-18 0H18L13 20H-13Z M-8 0V-14H9V-7 M-2 9H3"/></g>
+<g id="symbol-pack" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-20-14H20V18H-20Z M-20-4H20 M0-14V18 M-20 7H20"/></g>
+<g id="symbol-sort" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-21-16H-9V-4H-21Z M8-16H20V-4H8Z M-15 2V14H-3 M14 2V14H3 M-2 8 4 14-2 20"/></g>
+<g id="symbol-clean" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0-21 13-6 0 8-13-6Z M-23 8-14 20H14L23 8 M-19-16-22-12 M20-20 24-16"/></g>
+<g id="symbol-link" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-7-13-14-20Q-25-24-25-11L-13 1Q-3 5 0-6 M7 13 14 20Q25 24 25 11L13-1Q3-5 0 6 M-9-9 9 9"/></g>
+<g id="symbol-harness" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-18-12H18V22H-18Z M-9-12V-22H9V-12 M-18-2H18 M-9-2V10H9V-2 M-18-8-26 0V15 M18-8 26 0V15"/></g>
+<g id="symbol-relay" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-24-15-8-10-12 6-25 1Z M8-1 23 4 18 21 3 16Z M-7-3H11 M6-8 12-3 6 2"/></g>
+<g id="symbol-charge" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-23 0Q0 29 23 0 M-23 0Q0 12 23 0 M0-4V-20 M-7-15 0-23 7-15"/></g>
+<g id="symbol-routing" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 20V1L-18-15 M0 1 18-15"/><path d="M-24-22H-12V-10H-24Z M12-22H24V-10H12Z M-6 15H6V27H-6Z"/></g>
+<g id="symbol-circuit" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0-24 23 16H-23Z M0-24-5-12 4-9-1 1 M23 16 9 15 12 6 3 6 M-23 16-16 3-9 8-5-1"/></g>
+<g id="symbol-collapse" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-24 17-18-5-9-18H8L19-5 25 17 M-8-18-3-5-9 2 1 9 M9-18 4-9 12 1 6 8 M-25 23H-13 M13 23H25"/></g>
+<g id="symbol-mark" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0-21 9 5 0 20-9 5Z M-23-12-12-1 M12-1 23-12 M-23 7-14 11 M14 11 23 7"/></g>
+<g id="symbol-book" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0-13Q-10-21-24-17V16Q-9 12 0 20Q10 12 24 16V-17Q10-21 0-13V20 M-17-7-7-5 M7-5 17-7"/></g>
+</defs><g font-family="Segoe UI, Arial, sans-serif">
+<rect x="0" y="0" width="2000" height="1360" rx="0" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<rect x="0" y="0" width="2000" height="103" rx="0" fill="#ffffff" stroke="none" stroke-width="1"/>
+<text x="42" y="35" font-size="15" font-weight="700" fill="#667782" text-anchor="start" letter-spacing="2">STRUCTURE PROPOSAL / NOT IMPLEMENTED</text>
+<text x="42" y="80" font-size="38" font-weight="750" fill="#233440" text-anchor="start" >Skills</text>
+<text x="185" y="77" font-size="20" font-weight="500" fill="#667782" text-anchor="start" >Shape your excavation style</text>
+<text x="1250" y="55" font-size="14" font-weight="700" fill="#667782" text-anchor="start" >LEVEL</text>
+<text x="1250" y="85" font-size="30" font-weight="750" fill="#233440" text-anchor="start" >15</text>
+<rect x="1355" y="28" width="179" height="55" rx="12" fill="#e9eefc" stroke="none" stroke-width="1"/>
+<text x="1375" y="64" font-size="20" font-weight="700" fill="#3e5c9e" text-anchor="start" >2 points available</text>
+<text x="1560" y="61" font-size="18" font-weight="500" fill="#667782" text-anchor="start" >7 spent / 9 earned</text>
+<rect x="1765" y="25" width="155" height="58" rx="10" fill="#ffffff" stroke="#cbd3d5" stroke-width="1.5"/>
+<text x="1842" y="50" font-size="19" font-weight="650" fill="#233440" text-anchor="middle" >Free respec</text>
+<text x="1842" y="71" font-size="13" font-weight="500" fill="#667782" text-anchor="middle" >In your room</text>
+<rect x="1940" y="28" width="42" height="49" rx="10" fill="#edf0ef" stroke="none" stroke-width="1"/>
+<path d="M1953 43 1970 61 M1970 43 1953 61" fill="none" stroke="#233440" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<g id="branch-focus-controls">
+<text x="42" y="149" font-size="13" font-weight="700" fill="#667782" text-anchor="start" letter-spacing="2">FOCUS</text>
+<rect x="115" y="118" width="125" height="48" rx="9" fill="#233440" stroke="#d2d9d8" stroke-width="0"/>
+<text x="177.5" y="149" font-size="18" font-weight="650" fill="#ffffff" text-anchor="middle" >All paths</text>
+<rect x="253" y="118" width="150" height="48" rx="9" fill="#ffffff" stroke="#d2d9d8" stroke-width="1"/>
+<circle cx="273" cy="142" r="4" fill="#bb653b" stroke="none" stroke-width="1"/>
+<text x="333.0" y="149" font-size="18" font-weight="650" fill="#bb653b" text-anchor="middle" >Impact</text>
+<rect x="416" y="118" width="165" height="48" rx="9" fill="#ffffff" stroke="#d2d9d8" stroke-width="1"/>
+<circle cx="436" cy="142" r="4" fill="#258374" stroke="none" stroke-width="1"/>
+<text x="503.5" y="149" font-size="18" font-weight="650" fill="#258374" text-anchor="middle" >Collection</text>
+<rect x="594" y="118" width="165" height="48" rx="9" fill="#ffffff" stroke="#d2d9d8" stroke-width="1"/>
+<circle cx="614" cy="142" r="4" fill="#4f6cbb" stroke="none" stroke-width="1"/>
+<text x="681.5" y="149" font-size="18" font-weight="650" fill="#4f6cbb" text-anchor="middle" >Technique</text>
+<text x="800" y="148" font-size="17" font-weight="500" fill="#667782" text-anchor="start" >One map · choose a discipline to focus</text>
+<rect x="1285" y="118" width="165" height="48" rx="9" fill="#ffffff" stroke="#cbd3d5" stroke-width="1"/>
+<text x="1367" y="149" font-size="17" font-weight="650" fill="#233440" text-anchor="middle" >Recenter map</text>
+</g>
+<rect x="34" y="185" width="450" height="960" rx="22" fill="#f3eeea" stroke="none" stroke-width="1"/>
+<text x="56" y="222" font-size="21" font-weight="750" fill="#bb653b" text-anchor="start" letter-spacing="2">IMPACT</text>
+<text x="56" y="249" font-size="15" font-weight="500" fill="#667782" text-anchor="start" >Read faults. Deliver deliberate strikes.</text>
+<rect x="509" y="185" width="450" height="960" rx="22" fill="#eaf1ed" stroke="none" stroke-width="1"/>
+<text x="531" y="222" font-size="21" font-weight="750" fill="#258374" text-anchor="start" letter-spacing="2">COLLECTION</text>
+<text x="531" y="249" font-size="15" font-weight="500" fill="#667782" text-anchor="start" >Handle resources with fewer interruptions.</text>
+<rect x="984" y="185" width="470" height="960" rx="22" fill="#edf0f7" stroke="none" stroke-width="1"/>
+<text x="1006" y="222" font-size="21" font-weight="750" fill="#4f6cbb" text-anchor="start" letter-spacing="2">TECHNIQUE</text>
+<text x="1006" y="249" font-size="15" font-weight="500" fill="#667782" text-anchor="start" >Link attacks. Master your tools.</text>
+<g id="prerequisite-connectors">
+<g id="edge-A1-A2" data-prerequisite="A1" data-skill="A2">
+<path d="M 245 1015 L 250 985 V 875 H 185" fill="none" stroke="#bb653b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<g id="edge-A1-A3" data-prerequisite="A1" data-skill="A3">
+<path d="M 280 1015 L 300 980 V 875 H 350" fill="none" stroke="#bb653b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<g id="edge-A2-A4" data-prerequisite="A2" data-skill="A4">
+<path d="M 145 833 V 725 H 288" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-A3-A4" data-prerequisite="A3" data-skill="A4">
+<path d="M 380 845 L 455 820 V 725 H 372" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-A4-A5" data-prerequisite="A4" data-skill="A5">
+<path d="M 330 683 V 595 H 207" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-A5-A6" data-prerequisite="A5" data-skill="A6">
+<path d="M 165 553 V 495 H 323" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-A6-A7" data-prerequisite="A6" data-skill="A7">
+<path d="M 365 453 V 315 H 316" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B1-B2" data-prerequisite="B1" data-skill="B2">
+<path d="M 720 1015 L 725 985 V 875 H 660" fill="none" stroke="#258374" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<g id="edge-B1-B3" data-prerequisite="B1" data-skill="B3">
+<path d="M 755 1015 L 775 980 V 875 H 825" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B2-B4" data-prerequisite="B2" data-skill="B4">
+<path d="M 620 833 V 725 H 763" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B3-B4" data-prerequisite="B3" data-skill="B4">
+<path d="M 855 845 L 930 820 V 725 H 847" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B4-B5" data-prerequisite="B4" data-skill="B5">
+<path d="M 805 683 V 595 H 682" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B5-B6" data-prerequisite="B5" data-skill="B6">
+<path d="M 640 553 V 495 H 810" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-B6-B7" data-prerequisite="B6" data-skill="B7">
+<path d="M 840 465 V 315 H 791" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-C1-C2" data-prerequisite="C1" data-skill="C2">
+<path d="M1180 1015V875H1102" fill="none" stroke="#4f6cbb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<g id="edge-C1-C3" data-prerequisite="C1" data-skill="C3">
+<path d="M1220 1015 1230 980V875H1308" fill="none" stroke="#4f6cbb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<g id="edge-C2-C4" data-prerequisite="C2" data-skill="C4">
+<path d="M1060 833V800H1160V670H1082" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-C3-C5" data-prerequisite="C3" data-skill="C5">
+<path d="M1350 833V800H1250V670H1318" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-C2-C6" data-prerequisite="C2" data-skill="C6">
+<path d="M1102 875H1190V495H1268" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+<g id="edge-C6-C7" data-prerequisite="C6" data-skill="C7">
+<path d="M1310 453V315H1256" fill="none" stroke="#98a6ac" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+</g>
+</g>
+<g id="node-impact.fault_survey" data-state="purchased" data-implemented="true"><title>Fault Survey</title>
+<rect x="230" y="1015" width="60" height="60" rx="10" fill="#bb653b" stroke="#bb653b" stroke-width="2.5"/>
+<g id="glyph-A1" transform="translate(260 1045)" color="#ffffff"><use href="#symbol-lens"/></g>
+<circle cx="288" cy="1017" r="12" fill="#ffffff" stroke="#bb653b" stroke-width="1.5"/>
+<path d="M282 1017 287 1022 295 1012" fill="none" stroke="#bb653b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<text x="260" y="1103" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Fault Survey</text>
+<text x="260" y="1127" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >1/2 · 1 pt / rank</text>
+</g>
+<g id="node-impact.charged_swing" data-state="purchased" data-implemented="true"><title>Charged Swing</title>
+<path d="M123 833H167L187 856V894L167 917H123L103 894V856Z" fill="#bb653b" stroke="#bb653b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-A2" transform="translate(145 875)" color="#ffffff"><use href="#symbol-pick"/></g>
+<circle cx="185" cy="835" r="12" fill="#ffffff" stroke="#bb653b" stroke-width="1.5"/>
+<path d="M179 835 184 840 192 830" fill="none" stroke="#bb653b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<text x="145" y="945" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Charged Swing</text>
+<text x="145" y="969" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >1/1 · 2 pt / rank</text>
+</g>
+<g id="node-impact.steady_aim" data-state="available" data-implemented="true"><title>Steady Aim</title>
+<rect x="350" y="845" width="60" height="60" rx="10" fill="#ffffff" stroke="#bb653b" stroke-width="2.5"/>
+<g id="glyph-A3" transform="translate(380 875)" color="#bb653b"><use href="#symbol-aim"/></g>
+<circle cx="409" cy="846" r="7" fill="#bb653b" stroke="#f6f7f4" stroke-width="3"/>
+<text x="380" y="933" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Steady Aim</text>
+<text x="380" y="957" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 2 pt / rank</text>
+<text x="380" y="979" font-size="12" font-weight="750" fill="#bb653b" text-anchor="middle" letter-spacing="1">AVAILABLE</text>
+</g>
+<g id="node-impact.crosscut" data-state="locked" data-implemented="false"><title>Crosscut</title>
+<path d="M308 683H352L372 706V744L352 767H308L288 744V706Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-A4" transform="translate(330 725)" color="#61717a"><use href="#symbol-pick"/></g>
+<path d="M306 748H352 M345 742 353 748 345 754" fill="none" stroke="#61717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="lock-A4" transform="translate(369 686)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="330" y="795" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Crosscut</text>
+<text x="330" y="819" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 3 pt / rank · Lv 30</text>
+<rect x="280" y="675" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="289" y="688" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+<text x="330" y="666" font-size="11" font-weight="650" fill="#667782" text-anchor="middle" letter-spacing="1">AND</text>
+</g>
+<g id="node-impact.overbreak" data-state="locked" data-implemented="false"><title>Overbreak</title>
+<path d="M143 553H187L207 576V614L187 637H143L123 614V576Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-A5" transform="translate(165 595)" color="#61717a"><use href="#symbol-shell"/></g>
+<g id="lock-A5" transform="translate(204 556)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="165" y="665" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Overbreak</text>
+<text x="165" y="689" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 4 pt / rank · Lv 50</text>
+<rect x="115" y="545" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="124" y="558" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-impact.fault_mark" data-state="locked" data-implemented="false"><title>Fault Mark</title>
+<path d="M343 453H387L407 476V514L387 537H343L323 514V476Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-A6" transform="translate(365 495)" color="#61717a"><use href="#symbol-mark"/></g>
+<g id="lock-A6" transform="translate(404 456)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="365" y="565" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Fault Mark</text>
+<text x="365" y="589" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 4 pt / rank · Lv 75</text>
+<rect x="315" y="445" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="324" y="458" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-impact.fault_collapse" data-state="locked" data-implemented="false"><title>Fault Collapse</title>
+<path d="M260 259 316 315 260 371 204 315Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-A7" transform="translate(260 315)" color="#61717a"><use href="#symbol-collapse"/></g>
+<g id="lock-A7" transform="translate(313 262)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="260" y="399" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Fault Collapse</text>
+<text x="260" y="423" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 6 pt / rank · Lv 100</text>
+<rect x="196" y="251" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="205" y="264" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-collection.batch_unload" data-state="purchased" data-implemented="true"><title>Batch Unload</title>
+<rect x="705" y="1015" width="60" height="60" rx="10" fill="#258374" stroke="#258374" stroke-width="2.5"/>
+<g id="glyph-B1" transform="translate(735 1045)" color="#ffffff"><use href="#symbol-bucket"/></g>
+<circle cx="763" cy="1017" r="12" fill="#ffffff" stroke="#258374" stroke-width="1.5"/>
+<path d="M757 1017 762 1022 770 1012" fill="none" stroke="#258374" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<text x="735" y="1103" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Batch Unload</text>
+<text x="735" y="1127" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >1/2 · 1 pt / rank</text>
+</g>
+<g id="node-collection.sale_latch" data-state="purchased" data-implemented="true"><title>Sale Latch</title>
+<path d="M598 833H642L662 856V894L642 917H598L578 894V856Z" fill="#258374" stroke="#258374" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-B2" transform="translate(620 875)" color="#ffffff"><use href="#symbol-latch"/></g>
+<circle cx="660" cy="835" r="12" fill="#ffffff" stroke="#258374" stroke-width="1.5"/>
+<path d="M654 835 659 840 667 830" fill="none" stroke="#258374" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<text x="620" y="945" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Sale Latch</text>
+<text x="620" y="969" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >1/1 · 2 pt / rank</text>
+</g>
+<g id="node-collection.sample_packing" data-state="locked" data-implemented="false"><title>Sample Packing</title>
+<rect x="825" y="845" width="60" height="60" rx="10" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2.5"/>
+<g id="glyph-B3" transform="translate(855 875)" color="#61717a"><use href="#symbol-pack"/></g>
+<g id="lock-B3" transform="translate(882 848)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="855" y="933" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Sample Packing</text>
+<text x="855" y="957" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 2 pt / rank · Lv 15</text>
+<rect x="817" y="837" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="826" y="850" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-collection.claim_priorities" data-state="locked" data-implemented="false"><title>Claim Priorities</title>
+<path d="M783 683H827L847 706V744L827 767H783L763 744V706Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-B4" transform="translate(805 725)" color="#61717a"><use href="#symbol-sort"/></g>
+<g id="lock-B4" transform="translate(844 686)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="805" y="795" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Claim Priorities</text>
+<text x="805" y="819" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 3 pt / rank · Lv 30</text>
+<rect x="755" y="675" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="764" y="688" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+<text x="805" y="666" font-size="11" font-weight="650" fill="#667782" text-anchor="middle" letter-spacing="1">AND</text>
+</g>
+<g id="node-collection.clean_extraction" data-state="locked" data-implemented="false"><title>Clean Extraction</title>
+<path d="M618 553H662L682 576V614L662 637H618L598 614V576Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-B5" transform="translate(640 595)" color="#61717a"><use href="#symbol-clean"/></g>
+<g id="lock-B5" transform="translate(679 556)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="640" y="665" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Clean Extraction</text>
+<text x="640" y="689" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 4 pt / rank · Lv 50</text>
+<rect x="590" y="545" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="599" y="558" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-collection.refinery_link" data-state="locked" data-implemented="false"><title>Refinery Link</title>
+<rect x="810" y="465" width="60" height="60" rx="10" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2.5"/>
+<g id="glyph-B6" transform="translate(840 495)" color="#61717a"><use href="#symbol-link"/></g>
+<g id="lock-B6" transform="translate(867 468)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="840" y="553" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Refinery Link</text>
+<text x="840" y="577" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 4 pt / rank · Lv 75</text>
+<rect x="802" y="457" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="811" y="470" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-collection.expedition_harness" data-state="locked" data-implemented="false"><title>Expedition Harness</title>
+<path d="M735 259 791 315 735 371 679 315Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-B7" transform="translate(735 315)" color="#61717a"><use href="#symbol-harness"/></g>
+<g id="lock-B7" transform="translate(788 262)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="735" y="399" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Expedition Harness</text>
+<text x="735" y="423" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 6 pt / rank · Lv 100</text>
+<rect x="671" y="251" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="680" y="264" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-technique.precision_relay" data-state="purchased" data-implemented="true"><title>Precision Relay</title>
+<rect x="1170" y="1015" width="60" height="60" rx="10" fill="#4f6cbb" stroke="#4f6cbb" stroke-width="2.5"/>
+<g id="glyph-C1" transform="translate(1200 1045)" color="#ffffff"><use href="#symbol-relay"/></g>
+<circle cx="1228" cy="1017" r="12" fill="#ffffff" stroke="#4f6cbb" stroke-width="1.5"/>
+<path d="M1222 1017 1227 1022 1235 1012" fill="none" stroke="#4f6cbb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<text x="1200" y="1103" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Precision Relay</text>
+<text x="1200" y="1127" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >1/2 · 1 pt / rank</text>
+</g>
+<g id="node-technique.chain_lightning" data-state="selected" data-implemented="true"><title>Chain Lightning</title>
+<path d="M1004 845V822H1030 M1090 822H1116V845 M1004 905V928H1030 M1090 928H1116V905" fill="none" stroke="#c18a19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M1038 833H1082L1102 856V894L1082 917H1038L1018 894V856Z" fill="#fffdf5" stroke="#c18a19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C2" transform="translate(1060 875)" color="#4f6cbb"><use href="#symbol-lightning"/></g>
+<text x="1060" y="945" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Chain Lightning</text>
+<text x="1060" y="969" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 2 pt / rank</text>
+<text x="1060" y="991" font-size="12" font-weight="750" fill="#c18a19" text-anchor="middle" letter-spacing="1">SELECTED · AVAILABLE</text>
+</g>
+<g id="node-technique.core_drill" data-state="available" data-implemented="true"><title>Flow Drill</title>
+<path d="M1328 833H1372L1392 856V894L1372 917H1328L1308 894V856Z" fill="#ffffff" stroke="#4f6cbb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C3" transform="translate(1350 875)" color="#4f6cbb"><use href="#symbol-drill"/></g>
+<circle cx="1391" cy="834" r="7" fill="#4f6cbb" stroke="#f6f7f4" stroke-width="3"/>
+<text x="1350" y="945" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Flow Drill</text>
+<text x="1350" y="969" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 2 pt / rank</text>
+<text x="1350" y="991" font-size="12" font-weight="750" fill="#4f6cbb" text-anchor="middle" letter-spacing="1">AVAILABLE</text>
+</g>
+<g id="node-technique.shaped_charge" data-state="locked" data-implemented="false"><title>Shaped Charge</title>
+<path d="M1018 628H1062L1082 651V689L1062 712H1018L998 689V651Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C4" transform="translate(1040 670)" color="#61717a"><use href="#symbol-charge"/></g>
+<g id="lock-C4" transform="translate(1079 631)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="1040" y="740" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Shaped Charge</text>
+<text x="1040" y="764" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 3 pt / rank · Lv 30</text>
+<rect x="990" y="620" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="999" y="633" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-technique.pulse_drill" data-state="locked" data-implemented="false"><title>Pulse Drill</title>
+<path d="M1338 628H1382L1402 651V689L1382 712H1338L1318 689V651Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C5" transform="translate(1360 670)" color="#61717a"><use href="#symbol-drill"/></g>
+<path d="M1380 651Q1396 670 1380 689" fill="none" stroke="#61717a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="lock-C5" transform="translate(1399 631)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="1360" y="740" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Pulse Drill</text>
+<text x="1360" y="764" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 4 pt / rank · Lv 50</text>
+<rect x="1310" y="620" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="1319" y="633" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-technique.arc_routing" data-state="locked" data-implemented="false"><title>Arc Routing</title>
+<path d="M1288 453H1332L1352 476V514L1332 537H1288L1268 514V476Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C6" transform="translate(1310 495)" color="#61717a"><use href="#symbol-routing"/></g>
+<g id="lock-C6" transform="translate(1349 456)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="1310" y="565" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Arc Routing</text>
+<text x="1310" y="589" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/2 · 4 pt / rank · Lv 75</text>
+<rect x="1260" y="445" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="1269" y="458" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="node-technique.storm_circuit" data-state="locked" data-implemented="false"><title>Storm Circuit</title>
+<path d="M1200 259 1256 315 1200 371 1144 315Z" fill="#e2e7e7" stroke="#9ca9af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<g id="glyph-C7" transform="translate(1200 315)" color="#61717a"><use href="#symbol-circuit"/></g>
+<g id="lock-C7" transform="translate(1253 262)">
+<circle cx="0" cy="0" r="12" fill="#f6f7f4" stroke="none" stroke-width="1"/>
+<path d="M-5-1V-6Q0-13 5-6V-1 M-7-1H7V10H-7Z" fill="none" stroke="#667782" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+<text x="1200" y="399" font-size="21" font-weight="700" fill="#233440" text-anchor="middle" >Storm Circuit</text>
+<text x="1200" y="423" font-size="16" font-weight="500" fill="#667782" text-anchor="middle" >0/1 · 6 pt / rank · Lv 100</text>
+<rect x="1136" y="251" width="18" height="18" rx="3" fill="#f6f7f4" stroke="#9ca9af" stroke-width="1"/>
+<text x="1145" y="264" font-size="11" font-weight="750" fill="#667782" text-anchor="middle" >P</text>
+</g>
+<g id="field-journal-root">
+<path d="M675 1210H65V1045H230" fill="none" stroke="#b5bfc2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M795 1210H960V1045H765" fill="none" stroke="#b5bfc2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M795 1210H1450V1045H1230" fill="none" stroke="#b5bfc2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="642" y="1160" width="185" height="87" rx="12" fill="#f6f7f4" stroke="#bec8ca" stroke-width="1.5"/>
+<g transform="translate(667 1187) scale(.55)" color="#667782"><use href="#symbol-book"/></g>
+<text x="743" y="1194" font-size="19" font-weight="700" fill="#233440" text-anchor="middle" >Field Journal</text>
+<text x="735" y="1222" font-size="11" font-weight="700" fill="#667782" text-anchor="middle" letter-spacing="1">START · NO POINT COST</text>
+</g>
+<g id="selected-skill-panel">
+<rect x="1480" y="185" width="482" height="1063" rx="18" fill="#ffffff" stroke="#d7dedd" stroke-width="1"/>
+<text x="1512" y="225" font-size="14" font-weight="700" fill="#4f6cbb" text-anchor="start" letter-spacing="1.4">TECHNIQUE / SELECTED SKILL</text>
+<g id="selected-lightning-symbol" transform="translate(1720 340) scale(3.4)" color="#4f6cbb"><use href="#symbol-lightning"/></g>
+<text x="1512" y="466" font-size="34" font-weight="750" fill="#233440" text-anchor="start" >Chain Lightning</text>
+<text x="1512" y="501" font-size="14" font-weight="700" fill="#667782" text-anchor="start" letter-spacing="1">PASSIVE · PICKAXE / DRILL</text>
+<text x="1512" y="547" font-size="23" font-weight="500" fill="#233440" text-anchor="start" >Your strikes can arc into nearby</text>
+<text x="1512" y="580" font-size="23" font-weight="500" fill="#233440" text-anchor="start" >exposed shell sections.</text>
+<path d="M1512 613H1930" fill="none" stroke="#e0e5e5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+<text x="1512" y="650" font-size="12" font-weight="700" fill="#667782" text-anchor="start" letter-spacing="1.5">CURRENT</text>
+<text x="1512" y="680" font-size="23" font-weight="600" fill="#233440" text-anchor="start" >No lightning</text>
+<text x="1770" y="650" font-size="12" font-weight="700" fill="#4f6cbb" text-anchor="start" letter-spacing="1">NEXT · RANK 1/1</text>
+<text x="1770" y="680" font-size="23" font-weight="700" fill="#4f6cbb" text-anchor="start" >2 extra targets</text>
+<text x="1512" y="731" font-size="17" font-weight="500" fill="#667782" text-anchor="start" >Arc damage</text>
+<text x="1930" y="731" font-size="19" font-weight="650" fill="#233440" text-anchor="end" >80% → 50% base power</text>
+<text x="1512" y="776" font-size="18" font-weight="500" fill="#233440" text-anchor="start" >25% chance, checked every 4 seconds.</text>
+<text x="1512" y="805" font-size="18" font-weight="500" fill="#233440" text-anchor="start" >8-second cooldown after a trigger.</text>
+<path d="M1512 838H1930" fill="none" stroke="#e0e5e5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+<text x="1512" y="871" font-size="12" font-weight="750" fill="#667782" text-anchor="start" letter-spacing="1.5">REQUIREMENTS</text>
+<circle cx="1524" cy="905" r="11" fill="#e7f3ec" stroke="none" stroke-width="1"/>
+<path d="M1518 905 1523 910 1530 900" fill="none" stroke="#258374" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="1548" y="912" font-size="20" font-weight="600" fill="#233440" text-anchor="start" >Level 5</text>
+<circle cx="1524" cy="944" r="11" fill="#e7f3ec" stroke="none" stroke-width="1"/>
+<path d="M1518 944 1523 949 1530 939" fill="none" stroke="#258374" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<text x="1548" y="951" font-size="20" font-weight="600" fill="#233440" text-anchor="start" >Precision Relay · rank 1</text>
+<text x="1512" y="1005" font-size="19" font-weight="500" fill="#667782" text-anchor="start" >Cost</text>
+<text x="1930" y="1005" font-size="24" font-weight="750" fill="#233440" text-anchor="end" >2 skill points</text>
+<rect x="1512" y="1038" width="418" height="65" rx="12" fill="#4f6cbb" stroke="none" stroke-width="1"/>
+<text x="1721" y="1079" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle" >Unlock Chain Lightning</text>
+<text x="1721" y="1138" font-size="17" font-weight="500" fill="#667782" text-anchor="middle" >2 available → 0 remaining</text>
+<text x="1512" y="1209" font-size="16" font-weight="500" fill="#667782" text-anchor="start" >Select a node to compare its next rank.</text>
+</g>
+<rect x="0" y="1280" width="2000" height="80" rx="0" fill="#ffffff" stroke="none" stroke-width="1"/>
+<text x="35" y="1310" font-size="11" font-weight="750" fill="#667782" text-anchor="start" letter-spacing="1.5">STATES</text>
+<rect x="35" y="1325" width="13" height="13" rx="3" fill="#258374" stroke="none" stroke-width="1"/>
+<text x="58" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >Purchased</text>
+<rect x="202" y="1325" width="13" height="13" rx="3" fill="#4f6cbb" stroke="none" stroke-width="1"/>
+<text x="225" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >Available</text>
+<rect x="360" y="1325" width="13" height="13" rx="3" fill="#98a6ac" stroke="none" stroke-width="1"/>
+<text x="383" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >Locked</text>
+<rect x="495" y="1325" width="13" height="13" rx="3" fill="#c18a19" stroke="none" stroke-width="1"/>
+<text x="518" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >Selected</text>
+<text x="670" y="1310" font-size="11" font-weight="750" fill="#667782" text-anchor="start" letter-spacing="1.5">NODE HIERARCHY</text>
+<text x="670" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >Rounded: upgrade · Hex: ability · Diamond: capstone</text>
+<text x="1210" y="1310" font-size="11" font-weight="750" fill="#667782" text-anchor="start" letter-spacing="1.5">NAVIGATION</text>
+<text x="1210" y="1337" font-size="16" font-weight="500" fill="#233440" text-anchor="start" >P = planned · Drag / scroll to explore</text>
+<rect x="1690" y="1300" width="45" height="42" rx="8" fill="#edf0ef" stroke="none" stroke-width="1"/>
+<text x="1712" y="1330" font-size="24" font-weight="600" fill="#233440" text-anchor="middle" >−</text>
+<text x="1785" y="1328" font-size="19" font-weight="650" fill="#233440" text-anchor="middle" >100%</text>
+<rect x="1835" y="1300" width="45" height="42" rx="8" fill="#edf0ef" stroke="none" stroke-width="1"/>
+<text x="1857" y="1330" font-size="24" font-weight="600" fill="#233440" text-anchor="middle" >+</text>
+<text x="1930" y="1328" font-size="12" font-weight="700" fill="#667782" text-anchor="middle" >MAP</text>
+</g></svg>
