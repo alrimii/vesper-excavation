@@ -1,0 +1,254 @@
+{
+  "purpose": "Editable design content; not runtime configuration or player data",
+  "sourceSpec": "docs/PHASE_5A_PROGRESSION_SPEC.md",
+  "sourceCatalog": "src/SkillCatalog.luau",
+  "selected": "technique.chain_lightning",
+  "illustrativeState": {
+    "level": 15,
+    "pointsEntitlement": 9,
+    "spent": 7,
+    "available": 2,
+    "ranks": {
+      "A1": 1,
+      "A2": 1,
+      "B1": 1,
+      "B2": 1,
+      "C1": 1
+    }
+  },
+  "nodes": [
+    {
+      "ref": "A1",
+      "id": "impact.fault_survey",
+      "name": "Fault Survey",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "A2",
+      "id": "impact.charged_swing",
+      "name": "Charged Swing",
+      "prerequisites": [
+        "A1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "A3",
+      "id": "impact.steady_aim",
+      "name": "Steady Aim",
+      "prerequisites": [
+        "A1"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "A4",
+      "id": "impact.crosscut",
+      "name": "Crosscut",
+      "prerequisites": [
+        "A2",
+        "A3"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "A5",
+      "id": "impact.overbreak",
+      "name": "Overbreak",
+      "prerequisites": [
+        "A4"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "A6",
+      "id": "impact.fault_mark",
+      "name": "Fault Mark",
+      "prerequisites": [
+        "A5"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "A7",
+      "id": "impact.fault_collapse",
+      "name": "Fault Collapse",
+      "prerequisites": [
+        "A6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    },
+    {
+      "ref": "B1",
+      "id": "collection.batch_unload",
+      "name": "Batch Unload",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "B2",
+      "id": "collection.sale_latch",
+      "name": "Sale Latch",
+      "prerequisites": [
+        "B1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "B3",
+      "id": "collection.sample_packing",
+      "name": "Sample Packing",
+      "prerequisites": [
+        "B1"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "B4",
+      "id": "collection.claim_priorities",
+      "name": "Claim Priorities",
+      "prerequisites": [
+        "B2",
+        "B3"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "B5",
+      "id": "collection.clean_extraction",
+      "name": "Clean Extraction",
+      "prerequisites": [
+        "B4"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "B6",
+      "id": "collection.refinery_link",
+      "name": "Refinery Link",
+      "prerequisites": [
+        "B5"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "B7",
+      "id": "collection.expedition_harness",
+      "name": "Expedition Harness",
+      "prerequisites": [
+        "B6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    },
+    {
+      "ref": "C1",
+      "id": "technique.precision_relay",
+      "name": "Precision Relay",
+      "prerequisites": [
+        "Field Journal"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 1
+    },
+    {
+      "ref": "C2",
+      "id": "technique.chain_lightning",
+      "name": "Chain Lightning",
+      "prerequisites": [
+        "C1"
+      ],
+      "implemented": true,
+      "maxRank": 1,
+      "rankCost": 2
+    },
+    {
+      "ref": "C3",
+      "id": "technique.core_drill",
+      "name": "Flow Drill",
+      "prerequisites": [
+        "C1"
+      ],
+      "implemented": true,
+      "maxRank": 2,
+      "rankCost": 2
+    },
+    {
+      "ref": "C4",
+      "id": "technique.shaped_charge",
+      "name": "Shaped Charge",
+      "prerequisites": [
+        "C2"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 3
+    },
+    {
+      "ref": "C5",
+      "id": "technique.pulse_drill",
+      "name": "Pulse Drill",
+      "prerequisites": [
+        "C3"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 4
+    },
+    {
+      "ref": "C6",
+      "id": "technique.arc_routing",
+      "name": "Arc Routing",
+      "prerequisites": [
+        "C2"
+      ],
+      "implemented": false,
+      "maxRank": 2,
+      "rankCost": 4
+    },
+    {
+      "ref": "C7",
+      "id": "technique.storm_circuit",
+      "name": "Storm Circuit",
+      "prerequisites": [
+        "C6"
+      ],
+      "implemented": false,
+      "maxRank": 1,
+      "rankCost": 6
+    }
+  ]
+}
