@@ -1,5 +1,9 @@
 # Project execution rules
 
+## Current authorization: focused gameplay HUD redesign
+The user rejected Phase 5B.1 visual quality. Rebuild only the gameplay HUD in original place 94763223427049, preserving gameplay/progression rules. Inspect UI Labs, Vide, Kenney UI Pack and official Studio MCP; reuse production components for Edit-mode previews. No new playable place or duplicate implementation. A fresh private native/source backup is required. ONE Play session of at most five minutes is authorized solely to capture one desktop and one landscape-phone HUD. No mining, economy/regression sessions, repeated Play loops or device cycling. If significant defects remain, stop and report. Publication of this completed HUD checkpoint to the SAME existing experience is explicitly authorized and requested; verify actual publication or report its precise blocker. Push current GitHub branch, no main merge. Existing legacy-profile refusal must be disclosed; no save reset/migration or grants. Do not redesign the skill tree now. Stop for visual feedback after delivery. This current bounded authorization supersedes the prior pause and publication prohibition for this checkpoint only.
+
+
 ## Controlling checkpoint: review paused by the user
 Phase 5B.1 visual result is NOT approved. The user has stopped the iterative review. Further Play, gameplay automation, and device switching are paused until the user provides a new bounded scope. Do not make further UI changes under the prior authorization. Preserve current work, save the checkpoint and existing evidence, commit/push this development branch, and stop in Edit mode. No publishing or main merge. The earlier Phase 5B.1 permissions below are historical and do not authorize another session.
 

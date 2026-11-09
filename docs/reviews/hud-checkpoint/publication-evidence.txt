@@ -1,0 +1,12 @@
+Minimal relevant excerpts from the original Roblox Studio local log, 9 November 2026 UTC.
+Original place 94763223427049, existing universe 10773858644.
+No credentials, session identifiers, account metadata or unrelated log content included.
+
+2026-11-09T21:44:42.684Z [PublishSessionStateController] Go to PublishSuccessful
+2026-11-09T21:44:42.684Z [StudioPublishStatusLabel] Publish succeeded for placeId 94763223427049; marking as published (refreshing menu label to "Publish latest version")
+2026-11-09T21:44:42.688Z [CreatorOutput] Published new changes in "Coming Soon" to Roblox.
+2026-11-09T21:44:42.696Z [CreatorOutput] Add publish notes to v136
+2026-11-09T21:44:59.734Z [PublishSessionStateController] Go to PublishSuccessful
+2026-11-09T21:44:59.767Z [CreatorOutput] Published new changes in "Coming Soon" to Roblox.
+
+Studio was stopped in Edit mode. No second Play session or live-client verification was performed.

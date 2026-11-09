@@ -4,6 +4,7 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 
 | Studio path | Local source |
 | --- | --- |
+| `ReplicatedStorage.VesperShared.ExcavationHUDView` | `src/ExcavationHUDView.luau` (HUD checkpoint: production presentation also used by temporary Edit previews) |
 | `ReplicatedFirst.Loading` | `src/Loading.luau` |
 | `ReplicatedFirst.LoadingView` | `src/LoadingView.luau` |
 | `StarterPlayer.StarterPlayerScripts.ExcavationClient` | `src/ExcavationClient.luau` |
