@@ -18,12 +18,15 @@ At break, the section's broken flag and settlement flag prevent a second settlem
 
 1. Assign `floor(B × D_i / T)` base units.
 2. Distribute the remaining base units by descending integer remainder `(B × D_i) % T`; ties go to lower numeric UserId.
-3. Personal Yield bonus is `floor(sum(d_hit × YieldLevelAtHit × 1) / T + 0.5)` for that contributor. Round independently to the nearest integer, with exact halves rounded up.
-4. The contributor earns their allocated base units plus that personal bonus. The final hitter has no special material allocation.
+3. Keep each unrounded personal Yield entitlement `E_i = sum(d_hit × YieldLevelAtHit × 1) / T`. Round the combined bonus pool once: `P = floor(sum(E_i) + 0.5)`, with exact halves rounded up. The implementation sums the integer weighted-Yield numerators before dividing by T to avoid accumulating floating-point fractions.
+4. Assign `floor(E_i)` bonus units, then distribute `P - sum(floor(E_i))` remaining units by descending fractional remainder. Since denominators are equal, compare `weightedYield_i % T`; ties go to lower numeric UserId. Base and bonus allocation are separate largest-remainder passes.
+5. The contributor earns their allocated base units plus that allocated bonus. The final hitter has no special material allocation.
 
-Base allocations sum **exactly to B**, not B per participant. Current B is 3 shell, 3 membrane, 2 tissue. Bonuses use damage-time upgrades, including mixed tool/upgrade histories; they do not use the final hitter's equipment. Independent bonus rounding can make the sum of bonuses differ from the unrounded damage-weighted average. A contribution can legitimately round to zero units. Solo damage at one constant Yield level retains the old full Yield bonus.
+Base allocations sum **exactly to B**, not B per participant. Current B is 3 shell, 3 membrane, 2 tissue. Bonus allocations sum **exactly to P**, the once-rounded combined entitlement. Bonuses use damage-time upgrades, including mixed tool/upgrade histories; they do not use the final hitter's equipment. A contributor can legitimately receive zero units after allocation. Solo damage at one constant Yield level retains the old full Yield bonus; mixed hit-time levels retain their weighted entitlement and nearest-integer total.
 
 Illustrative arithmetic, not an executed test: with B=3 and 80%/20% damage, base shares are 2 and 1. At Yield levels 5 and 10 throughout those hits, personal bonuses are 4 and 2, giving 6 and 3 total units. At B=2 and equal damage, base shares are 1 each. If B=3 and equal damage, the lower UserId gets the remaining base unit.
+
+Focused correction example: two players each remove 90 of 180 HP at Yield level 1. Each unrounded bonus is `90 × 1 / 180 = 0.5`. The combined pool is `floor(0.5 + 0.5 + 0.5) = 1`. Floor shares are 0/0; equal remainders award the one bonus to the lower UserId, producing 1/0 bonus units, never 1/1. With shell base yield 3, base shares remain 2/1 and total materials are 3/1. This arithmetic is illustrative, not a gameplay or automated test.
 
 Each awarded unit keeps `layer.Value × the section's current-round egg Value` at settlement. Current layer values are 2/4/7; existing egg multipliers are 1/2/4. Pending claims group only identical resource IDs and identical original per-unit values. Partial delivery never averages prices. Selling still uses only actual bucket `materialValue`, multiplied by the seller's existing active Value upgrade and rounded by the existing server sale path.
 
@@ -43,7 +46,7 @@ Whole-egg damage has its own UserId ledger and total. It survives death, switchi
 
 Each recipient gets a private material receipt with base/bonus and actual delivered/pending units. Zero rounded shares are labeled. Distant recipients' popups move near their own camera so the receipt is not hidden beyond the world-popup range. The existing bucket card shows total pending units; its existing bag shows each material's bucket and pending counts. Sales report refilled/pending amounts, and same-server recovered claims have a join notice. Shared section debris happens once and falls/fades locally instead of flying to the final hitter. Existing damage/crack feedback, drill/pickaxe behavior, audio bounds and direct joining remain in use.
 
-**Unchanged attribution:** section XP (+2), section cash (+layer index), the 1% relic roll, deep-section sample/+4 XP/+3 cash, Break/Sample contract credit, and legacy Collect contract credit still go to the final hitter. Collect contract credit remains base yield plus that final hitter's current Yield level even if their actual material share is smaller. Sell/Upgrade contract credit remains with the actor. Existing online completion stipends, creature probabilities and online candidate/winner selection are unchanged; contribution percentage is not used for creature selection. No trophies, levels, rebirth or new economy was added.
+**Unchanged attribution, not yet contribution-shared:** section XP (+2), direct section cash (+layer index), the 1% relic roll, deep-section sample/+4 XP/+3 cash, Break/Sample contract credit, and legacy Collect contract credit still go to the final hitter. Collect contract credit remains base yield plus that final hitter's current Yield level even if their actual material share is smaller. Sell/Upgrade contract credit remains with the actor. Existing online completion stipends, creature probabilities and online candidate/winner selection are unchanged; contribution percentage is not used for creature selection. No trophies, levels, rebirth or new economy was added.
 
 ## Applied sources and UI scope
 
@@ -68,6 +71,12 @@ Final reviewed copy: `ComingSoon_94763223427049_phase4_reviewed.rbxl`, **4,102,4
 Native copies cover the serialized original place and hosted asset references, not DataStores, independent hosted audio/image bytes or unsaved external-application state. Copies remain private/ignored on this disk and were never opened as development targets. Existence/size/hash verification does not establish restoration.
 
 ## Manual review in the original place
+
+Focused Yield correction (same Phase 4, not a new phase): only `src/MaterialRewards.luau` changed at runtime, applied to `ServerScriptService.Vesper.MaterialRewards` in original place 94763223427049 and read back against canonical source in Edit mode. Pre-fix commit: `54a8dcbbca6f1331a7daf25c675d464b4b232730`. Existing pending awards are not recalculated and no saves were edited. Manual follow-up: two equal contributors at Yield 1 should receive exactly one total bonus unit, awarded to the lower UserId; solo behavior should remain unchanged.
+
+Fresh private native pre-fix backup: `C:\Users\BOSS\Desktop\egg\Backups\Phase4_YieldFix_20261109_212912\ComingSoon_94763223427049_before.rbxl`, **4,102,446 bytes**, SHA-256 `DE23A101D21E5098771369E68AB898F98E310D3609B1BD71F3C661130749FBD3`. Pre-edit src/assets are also preserved in that folder. The native copy has the same serialized-place/reference coverage and external-data exclusions described above. Restoration was not tested.
+
+Post-fix native copy in the same private folder: `ComingSoon_94763223427049_yield_fixed.rbxl`, **4,102,591 bytes**, SHA-256 `F57B29E54692D96A4574C7287E9651CE55AAF8146477E8036A883370DA191F9F`. Both files' existence, sizes and hashes were verified. No tests, Play/Run, simulations or publishing occurred for this correction.
 
 1. Share a section with another player using all three tools. Compare effective damage and integer material shares; reverse who lands the last hit. Check base-unit conservation, damage-time Yield bonuses and no duplicate receipts on simultaneous hits.
 2. Use an edge blast on a durable section. Confirm reduced HP/cracks persist without guaranteed destruction. Have another player destroy the original target during the fuse; remaining original-layer neighbors should still be hit. Clear that layer before detonation and check a harmless blast with no next-layer damage.

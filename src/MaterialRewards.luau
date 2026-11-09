@@ -14,14 +14,18 @@ end
 
 function M.Allocate(data, baseYield)
 	local rows, total, allocated = {}, 0, 0
+	local totalWeightedYield, allocatedBonus = 0, 0
 	for _, entry in data.contributions or {} do total += entry.damage end
 	if total <= 0 then return rows end
 	for userId, entry in data.contributions do
 		local numerator = baseYield * entry.damage
 		local units = math.floor(numerator / total)
 		allocated += units
+		local bonusFloor = math.floor(entry.weightedYield / total)
+		totalWeightedYield += entry.weightedYield
+		allocatedBonus += bonusFloor
 		table.insert(rows, { userId = userId, base = units, remainder = numerator % total,
-			bonus = math.floor(entry.weightedYield / total + 0.5) })
+			bonus = bonusFloor, bonusRemainder = entry.weightedYield % total })
 	end
 	-- Equal-denominator integer remainders avoid floating-point tie ambiguity.
 	table.sort(rows, function(a, b)
@@ -29,6 +33,14 @@ function M.Allocate(data, baseYield)
 		return a.remainder > b.remainder
 	end)
 	for i = 1, baseYield - allocated do rows[i].base += 1 end
+	-- Round the combined entitlement once, then apportion that exact bonus pool.
+	-- All entitlements share total as denominator, so sum numerators before dividing.
+	local bonusPool = math.floor(totalWeightedYield / total + 0.5)
+	table.sort(rows, function(a, b)
+		if a.bonusRemainder == b.bonusRemainder then return a.userId < b.userId end
+		return a.bonusRemainder > b.bonusRemainder
+	end)
+	for i = 1, bonusPool - allocatedBonus do rows[i].bonus += 1 end
 	table.sort(rows, function(a, b) return a.userId < b.userId end)
 	return rows
 end
