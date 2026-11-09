@@ -9,6 +9,9 @@
 !selene.toml
 !.gitignore
 !.gitattributes
+!AGENTS.md
+!docs/
+!docs/**
 **/.env*
 **/*.log
 **/*.blend1
