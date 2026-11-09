@@ -1,4 +1,6 @@
 # Art direction and asset delivery
+Phase 5A adds a written [skill-tree layout and asset specification](PHASE_5A_PROGRESSION_SPEC.md#6-dedicated-tree-screen-and-art-specification). It does not create art, approve current UI quality or authorize Studio implementation. All proposed art awaits production and manual visual approval.
+
 Status: the user retains the cartoon direction/starter foundation but has closed Phase 1A concept iteration. Both reinforced and fire upgrades are rejected for production. Files remain historical. No finalized game name.
 Phase 1B core breaking has provisional user acceptance with existing in-game visuals. Phase 2 retains the compact gameplay HUD and its outstanding device/visual review. Phase 3 uses existing models for complete individual pickaxe swings, rotating continuous drill contact, and restrained charge/blast cues. Newly discovered mining audio is integrated but audible fit/mixing remain unverified. See [the current handoff](PHASE_3_HANDOFF.md). No new concepts, Blender presentations, GIFs, videos or rejected model imports. Existing art remains temporary; this phase is not approval of either upgrade study.
 
