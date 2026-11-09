@@ -30,61 +30,53 @@ function M.Build(player, remote, feedback)
 		return o
 	end
 	local function image(parent, id, pos, size, z)
-		return make(
-			"ImageLabel",
-			parent,
-			{
-				BackgroundTransparency = 1,
-				Image = Art[id] or "",
-				Position = pos,
-				Size = size,
-				ScaleType = Enum.ScaleType.Fit,
-				ZIndex = z or 2,
-			}
-		)
+		return make("ImageLabel", parent, {
+			BackgroundTransparency = 1,
+			Image = Art[id] or "",
+			Position = pos,
+			Size = size,
+			ScaleType = Enum.ScaleType.Fit,
+			ZIndex = z or 2,
+		})
 	end
 	local function label(parent, text, size, pos, bounds, z)
-		return make(
-			"TextLabel",
-			parent,
-			{
-				BackgroundTransparency = 1,
-				Text = text,
-				TextColor3 = cream,
-				Font = Enum.Font.GothamMedium,
-				TextSize = size,
-				Position = pos,
-				Size = bounds,
-				TextWrapped = true,
-				ZIndex = z or 3,
-			}
-		)
+		return make("TextLabel", parent, {
+			BackgroundTransparency = 1,
+			Text = text,
+			TextColor3 = cream,
+			Font = Enum.Font.GothamMedium,
+			TextSize = size,
+			Position = pos,
+			Size = bounds,
+			TextWrapped = true,
+			ZIndex = z or 3,
+		})
 	end
 	local function button(parent, text, pos, bounds, callback)
-		local b = make(
-			"ImageButton",
-			parent,
-			{
-				BackgroundTransparency = 1,
-				Image = Art.panel or "",
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(180, 180, 1074, 1074),
-				SliceScale = 0.12,
-				Position = pos,
-				Size = bounds,
-				ZIndex = 8,
-				AutoButtonColor = true,
-			}
-		)
+		local b = make("ImageButton", parent, {
+			BackgroundTransparency = 1,
+			Image = Art.panel or "",
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(74, 74, 438, 438),
+			SliceScale = 0.24,
+			Position = pos,
+			Size = bounds,
+			ZIndex = 8,
+			AutoButtonColor = true,
+		})
 		label(b, text, 14, UDim2.fromOffset(6, 3), UDim2.new(1, -12, 1, -6), 9)
+		b.Name = text:gsub("[^%w]", "_")
 		b.Activated:Connect(callback)
 		return b
 	end
-	local root = make(
-		"Frame",
-		ui,
-		{ Size = UDim2.fromScale(1, 1), BackgroundColor3 = ink, BorderSizePixel = 0, Visible = false, Active = true }
-	)
+	local root = make("Frame", ui, {
+		Name = "Root",
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = ink,
+		BorderSizePixel = 0,
+		Visible = false,
+		Active = true,
+	})
 	local backdrop = image(root, "background", UDim2.new(), UDim2.fromScale(1, 1), 1)
 	backdrop.ScaleType = Enum.ScaleType.Crop
 	backdrop.ImageTransparency = 0.62
@@ -93,33 +85,33 @@ function M.Build(player, remote, feedback)
 	local canvas = make(
 		"Frame",
 		root,
-		{ BackgroundTransparency = 1, ClipsDescendants = true, Active = true, ZIndex = 2 }
+		{ Name = "Canvas", BackgroundTransparency = 1, ClipsDescendants = true, Active = true, ZIndex = 2 }
 	)
 	local panel = image(root, "panel", UDim2.new(), UDim2.new(), 5)
+	panel.Name = "Details"
 	panel.ScaleType = Enum.ScaleType.Slice
-	panel.SliceCenter = Rect.new(180, 180, 1074, 1074)
-	panel.SliceScale = 0.18
-	local body = make(
-		"ScrollingFrame",
-		panel,
-		{
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Position = UDim2.fromOffset(18, 34),
-			Size = UDim2.new(1, -36, 1, -48),
-			CanvasSize = UDim2.fromOffset(0, 750),
-			ScrollBarThickness = 5,
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			ZIndex = 6,
-		}
-	)
-	local portrait = image(body, "journal_hub", UDim2.new(0.5, -48, 0, 4), UDim2.fromOffset(96, 96), 7)
-	local title = label(body, "Select a node", 21, UDim2.fromOffset(4, 106), UDim2.new(1, -8, 0, 54), 7)
-	local details = label(body, "", 15, UDim2.fromOffset(4, 166), UDim2.new(1, -8, 0, 340), 7)
+	panel.SliceCenter = Rect.new(74, 74, 438, 438)
+	panel.SliceScale = 0.28
+	local body = make("ScrollingFrame", panel, {
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Position = UDim2.fromOffset(18, 34),
+		Size = UDim2.new(1, -36, 1, -48),
+		CanvasSize = UDim2.fromOffset(0, 750),
+		ScrollBarThickness = 5,
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		Selectable = true,
+		ZIndex = 6,
+	})
+	local portrait = image(body, "journal_hub", UDim2.new(0, 0, 0, 0), UDim2.fromOffset(58, 58), 7)
+	local title = label(body, "Select a node", 19, UDim2.fromOffset(68, 0), UDim2.new(1, -72, 0, 58), 7)
+	local details = label(body, "", 15, UDim2.fromOffset(4, 72), UDim2.new(1, -8, 0, 340), 7)
 	details.TextXAlignment = Enum.TextXAlignment.Left
 	details.TextYAlignment = Enum.TextYAlignment.Top
 	local receipt = label(body, "", 14, UDim2.fromOffset(4, 684), UDim2.new(1, -8, 0, 64), 7)
 	local selected = nil
+	local detailsFocused = false
+	local lastNavigation
 	local ranks, loadout = {}, {}
 	local zoom = 0.9
 	local pan = Vector2.zero
@@ -168,7 +160,7 @@ function M.Build(player, remote, feedback)
 			remote:FireServer("SkillToggle", not player:GetAttribute("SaleLatchEnabled"))
 		end
 	)
-	local collapse = false
+	local collapse = true
 	local fold = button(
 		panel,
 		"DETAILS / EXPAND",
@@ -181,37 +173,42 @@ function M.Build(player, remote, feedback)
 			end
 		end
 	)
+	local positions = {
+		["impact.fault_survey"] = Vector2.new(-300, 0),
+		["collection.batch_unload"] = Vector2.new(0, 0),
+		["technique.precision_relay"] = Vector2.new(300, 0),
+		["impact.charged_swing"] = Vector2.new(-390, 240),
+		["impact.steady_aim"] = Vector2.new(-210, 240),
+		["collection.sale_latch"] = Vector2.new(0, 240),
+		["technique.chain_lightning"] = Vector2.new(210, 240),
+		["technique.core_drill"] = Vector2.new(390, 240),
+	}
 	local function point(x, y)
-		return canvas.AbsoluteSize / 2 + pan + Vector2.new(x, y * 1.35) * zoom
+		return canvas.AbsoluteSize / 2 + pan + Vector2.new(x * 1.25, y) * zoom
 	end
 	local hub = image(canvas, "journal_hub", UDim2.new(), UDim2.fromOffset(90, 90), 3)
 	local function connector(from, to)
-		local f = make(
-			"Frame",
-			canvas,
-			{
-				BackgroundColor3 = Color3.fromRGB(75, 107, 119),
-				BorderSizePixel = 0,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				ZIndex = 2,
-			}
-		)
+		local f = make("Frame", canvas, {
+			BackgroundColor3 = Color3.fromRGB(75, 107, 119),
+			BorderSizePixel = 0,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			ZIndex = 2,
+		})
 		table.insert(lines, { frame = f, from = from, to = to })
 	end
 	for _, id in C.Order do
 		local n = C.Nodes[id]
-		local b = make(
-			"ImageButton",
-			canvas,
-			{
-				Name = id,
-				BackgroundTransparency = 1,
-				Image = Art.node_frame or "",
-				ZIndex = 4,
-				AutoButtonColor = false,
-				AnchorPoint = Vector2.new(0.5, 0.5),
-			}
-		)
+		if not n.Implemented then
+			continue
+		end
+		local b = make("ImageButton", canvas, {
+			Name = id:gsub("%.", "_"),
+			BackgroundTransparency = 1,
+			Image = Art.node_frame or "",
+			ZIndex = 4,
+			AutoButtonColor = false,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+		})
 		local icon = image(
 			b,
 			n.Implemented and id:match("%.(.+)$") or "journal_hub",
@@ -221,22 +218,18 @@ function M.Build(player, remote, feedback)
 		)
 		local focus = image(b, "node_frame", UDim2.fromScale(-0.08, -0.08), UDim2.fromScale(1.16, 1.16), 3)
 		focus.Visible = false
-		local name = label(b, n.Name, 14, UDim2.new(0.5, -64, 1, 1), UDim2.fromOffset(128, 34), 5)
+		local name = label(b, n.Name, 14, UDim2.new(0.5, -58, 1, 1), UDim2.fromOffset(116, 34), 5)
 		local status = label(b, "", 14, UDim2.new(0.5, -68, 1, 33), UDim2.fromOffset(136, 20), 5)
 		local sockets = {}
 		for i = 1, math.max(1, n.MaxRank) do
-			local gem = make(
-				"Frame",
-				b,
-				{
-					Size = UDim2.fromOffset(8, 8),
-					Position = UDim2.new(0.5, (i - (n.MaxRank + 1) / 2) * 14 - 4, 0.88, -4),
-					Rotation = 45,
-					BorderSizePixel = 0,
-					BackgroundColor3 = ink,
-					ZIndex = 6,
-				}
-			)
+			local gem = make("Frame", b, {
+				Size = UDim2.fromOffset(8, 8),
+				Position = UDim2.new(0.5, (i - (n.MaxRank + 1) / 2) * 14 - 4, 0.88, -4),
+				Rotation = 45,
+				BorderSizePixel = 0,
+				BackgroundColor3 = ink,
+				ZIndex = 6,
+			})
 			make("UIStroke", gem, { Thickness = 1.5, Color = cream })
 			sockets[i] = gem
 		end
@@ -258,24 +251,29 @@ function M.Build(player, remote, feedback)
 			end
 		end
 	end
-	for branch, x in { Impact = -260, Collection = 0, Technique = 260 } do
+	for branch, x in { Impact = -300, Collection = 0, Technique = 300 } do
 		local emblem = image(canvas, "branch_" .. branch:lower(), UDim2.new(), UDim2.fromOffset(48, 48), 3)
 		local caption = label(canvas, branch:upper(), 14, UDim2.new(), UDim2.fromOffset(150, 22), 3)
 		caption.TextColor3 = colors[branch]
 		emblems[branch] = { image = emblem, label = caption, x = x }
 	end
 	local function centerOn(x, y)
-		pan = -Vector2.new(x, y * 1.35) * zoom
+		pan = -Vector2.new(x * 1.25, y) * zoom
 		draw()
 	end
 	recenter = function()
-		zoom = root.AbsoluteSize.X < 760 and 0.65 or 0.9
-		centerOn(0, 70)
+		draw()
+		zoom = math.clamp(
+			math.min((canvas.AbsoluteSize.X - 136) / 1000, (canvas.AbsoluteSize.Y - 112) / 430),
+			0.45,
+			1
+		)
+		centerOn(0, 80)
 	end
 	local function setZoom(value, anchor)
 		anchor = anchor or canvas.AbsoluteSize / 2
 		local old = zoom
-		zoom = math.clamp(value, 0.55, 1.4)
+		zoom = math.clamp(value, 0.45, 1.4)
 		pan = anchor - canvas.AbsoluteSize / 2 - (anchor - canvas.AbsoluteSize / 2 - pan) * (zoom / old)
 		draw()
 	end
@@ -307,21 +305,35 @@ function M.Build(player, remote, feedback)
 	button(root, "CLOSE", UDim2.new(1, -72, 0, 8), UDim2.fromOffset(64, 48), function()
 		setOpen(false)
 	end)
+	local branchButtons = {}
+	for i, branch in { "Impact", "Collection", "Technique" } do
+		branchButtons[i] = button(root, branch:upper(), UDim2.new(), UDim2.new(), function()
+			collapse = true
+			centerOn((i - 2) * 300, 70)
+		end)
+	end
 	draw = function()
 		local w, h = root.AbsoluteSize.X, root.AbsoluteSize.Y
-		local narrow = w < 760
+		local narrow = w < 600 or (w < 760 and h >= 500)
 		header.TextSize = narrow and 14 or 18
 		local panelHeight = collapse and 56 or math.max(180, math.floor((h - 120) * 0.42))
 		if narrow then
 			panel.Position = UDim2.new(0, 8, 1, -panelHeight - 58)
 			panel.Size = UDim2.new(1, -16, 0, panelHeight)
-			canvas.Position = UDim2.fromOffset(4, 66)
-			canvas.Size = UDim2.new(1, -8, 1, -124 - panelHeight)
+			canvas.Position = UDim2.fromOffset(4, 116)
+			canvas.Size = UDim2.new(1, -8, 1, -174 - panelHeight)
 		else
-			panel.Position = UDim2.new(1, -354, 0, 66)
-			panel.Size = UDim2.new(0, 346, 1, -124)
+			local panelWidth = w < 900 and 260 or 346
+			panel.Position = UDim2.new(1, -panelWidth - 8, 0, 66)
+			panel.Size = UDim2.new(0, panelWidth, 1, -124)
 			canvas.Position = UDim2.fromOffset(4, 66)
-			canvas.Size = UDim2.new(1, -366, 1, -124)
+			canvas.Size = UDim2.new(1, -panelWidth - 20, 1, -124)
+		end
+		for i, control in branchButtons do
+			control.Visible = narrow
+			control.Position = UDim2.new((i - 1) / 3, 6, 0, 64)
+			control.Size = UDim2.new(1 / 3, -12, 0, 44)
+			control:FindFirstChildOfClass("TextLabel").TextSize = 12
 		end
 		fold.Visible = narrow
 		body.Visible = not (narrow and collapse)
@@ -341,15 +353,18 @@ function M.Build(player, remote, feedback)
 		end
 		for id, view in nodes do
 			local n = C.Nodes[id]
-			local pos = point(n.X, n.Y)
+			local layout = positions[id]
+			local pos = point(layout.X, layout.Y)
 			view.button.Position = UDim2.fromOffset(pos.X, pos.Y)
-			view.button.Size = UDim2.fromOffset(108 * zoom, 108 * zoom)
+			view.button.Size = UDim2.fromOffset(math.max(66, 108 * zoom), math.max(66, 108 * zoom))
 		end
 		for _, edge in lines do
 			local a = edge.from and C.Nodes[edge.from]
 			local b = C.Nodes[edge.to]
-			local first = point(a and a.X or 0, a and a.Y or -190)
-			local last = point(b.X, b.Y)
+			local from = edge.from and positions[edge.from] or Vector2.new(0, -190)
+			local to = positions[edge.to]
+			local first = point(from.X, from.Y)
+			local last = point(to.X, to.Y)
 			local d = last - first
 			local middle = (first + last) / 2
 			edge.frame.Position = UDim2.fromOffset(middle.X, middle.Y)
@@ -361,12 +376,17 @@ function M.Build(player, remote, feedback)
 	end
 	selectNode = function(id, bringIntoView)
 		selected = id
+		detailsFocused = false
+		if root.AbsoluteSize.X < 760 then
+			collapse = false
+			bringIntoView = true
+		end
 		body.CanvasPosition = Vector2.zero
 		confirmRespec = false
 		receipt.Text = ""
 		if bringIntoView then
 			local n = C.Nodes[id]
-			centerOn(n.X, n.Y)
+			centerOn(positions[id].X, positions[id].Y)
 		end
 		refresh()
 	end
@@ -381,12 +401,13 @@ function M.Build(player, remote, feedback)
 		loadout = lok and lv or {}
 		header.Text = level
 				and string.format(
-					"FIELD JOURNAL   /   LEVEL %d\n%s   /   %d SKILL POINTS",
+					"SKILL TREE   /   LEVEL %d\n%s   /   %d POINTS",
 					level,
-					level == 100 and "MAX XP" or string.format(
+					level == 100 and "MAX XP"
+						or string.format(
 							"%.2f / %d XP",
-							xp or 0,
-							C.Threshold(level + 1)
+							(xp or 0) - C.Threshold(level),
+							C.Threshold(level + 1) - C.Threshold(level)
 						),
 					points or 0
 				)
@@ -401,13 +422,11 @@ function M.Build(player, remote, feedback)
 				or not reason and "AVAILABLE"
 				or "LOCKED"
 			view.status.Text = state .. (n.Implemented and (" " .. rank .. "/" .. n.MaxRank) or "")
-			view.status.TextColor3 = (state == "LOCKED" or state == "PLANNED") and Color3.fromRGB(
-				160,
-				174,
-				185
-			) or colors[n.Branch]
+			view.status.TextColor3 = (state == "LOCKED" or state == "PLANNED")
+					and Color3.fromRGB(160, 174, 185)
+				or colors[n.Branch]
 			-- Muted art is supplemented by literal states and filled/empty diamond sockets.
-			view.icon.ImageTransparency = (state == "LOCKED" or state == "PLANNED") and 0.45 or 0
+			view.icon.ImageTransparency = state == "PLANNED" and 0.45 or 0
 			view.focus.Visible = selected == id
 			view.focus.ImageColor3 = colors[n.Branch]
 			for i, gem in view.sockets do
@@ -442,6 +461,10 @@ function M.Build(player, remote, feedback)
 					C.PurchaseReason(level or 0, ranks, selected) or "Available to learn."
 				)
 			purchase.Interactable = level ~= nil and C.PurchaseReason(level, ranks, selected) == nil
+			purchase.ImageTransparency = purchase.Interactable and 0 or 0.45
+			purchase:FindFirstChildOfClass("TextLabel").Text = purchase.Interactable and "LEARN NEXT RANK"
+				or rank == n.MaxRank and "COMPLETE"
+				or "LOCKED / SEE REQUIREMENTS"
 			if n.Active and rank > 0 then
 				slot1.Visible = true
 				slot2.Visible = (level or 0) >= 30
@@ -455,7 +478,7 @@ function M.Build(player, remote, feedback)
 			end
 		else
 			details.Text =
-				"Drag to explore three connected branches. Select a node to inspect it; LEARN spends points only after server confirmation.\n\nMouse wheel or +/- to zoom. Touch drag/pinch. Gamepad D-pad selects, X focuses details, Y recenters, LB/RB zoom, B closes.\n\nRebirth is not implemented. XP multiplier: 1."
+				"Eight skills across three connected branches. Drag to explore. Select a node to inspect it; LEARN spends points only after server confirmation.\n\nMouse wheel or +/- to zoom. Touch drag/pinch. Gamepad D-pad selects, X focuses details, Y recenters, LB/RB zoom, B closes.\n\nRebirth is not implemented. XP multiplier: 1."
 		end
 		respec:FindFirstChildOfClass("TextLabel").Text = confirmRespec and "CONFIRM RESPEC" or "FREE RESPEC"
 		draw()
@@ -467,7 +490,7 @@ function M.Build(player, remote, feedback)
 			Vector2.new(math.max(100, body.AbsoluteSize.X - 8), 10000)
 		).Y + 12
 		details.Size = UDim2.new(1, -8, 0, height)
-		local y = 166 + height + 8
+		local y = 72 + height + 8
 		for _, control in { purchase, slot1, slot2, latch } do
 			if control.Visible then
 				control.Position = UDim2.fromOffset(0, y)
@@ -488,6 +511,10 @@ function M.Build(player, remote, feedback)
 				or player:GetAttribute("EggResultsOpen")
 				or player:GetAttribute("ResearchModal")
 				or player:GetAttribute("MaterialBagOpen")
+				or (
+					player.PlayerGui:FindFirstChild("ExcavationHUD")
+					and player.PlayerGui.ExcavationHUD.Station.Visible
+				)
 			)
 		then
 			return
@@ -496,6 +523,7 @@ function M.Build(player, remote, feedback)
 		player:SetAttribute("SkillTreeOpen", open)
 		remote:FireServer("SkillMenu", open)
 		if open then
+			collapse = true
 			refresh()
 			recenter()
 			if UIS.PreferredInput == Enum.PreferredInput.Gamepad then
@@ -522,7 +550,7 @@ function M.Build(player, remote, feedback)
 			for other, w in nodes do
 				if other ~= id then
 					local m = C.Nodes[other]
-					local delta = Vector2.new(m.X - n.X, m.Y - n.Y)
+					local delta = positions[other] - positions[id]
 					local forward = delta:Dot(direction)
 					if forward > 1 then
 						local candidate = delta.Magnitude + math.abs(delta:Cross(direction)) * 2
@@ -563,7 +591,7 @@ function M.Build(player, remote, feedback)
 				draw()
 			end
 		elseif input.UserInputType == Enum.UserInputType.MouseWheel then
-			local cursor = UIS:GetMouseLocation() - canvas.AbsolutePosition
+			local cursor = UIS:GetMouseLocation() - GS:GetGuiInset() - canvas.AbsolutePosition
 			if
 				cursor.X >= 0
 				and cursor.Y >= 0
@@ -575,6 +603,9 @@ function M.Build(player, remote, feedback)
 		end
 	end)
 	UIS.InputEnded:Connect(function(input)
+		if input == lastNavigation then
+			lastNavigation = nil
+		end
 		if input == drag or input.UserInputType == Enum.UserInputType.MouseButton1 then
 			drag = nil
 		end
@@ -600,6 +631,7 @@ function M.Build(player, remote, feedback)
 		lastDrag = os.clock()
 		setZoom(pinchStart * scale, center)
 	end)
+	local navigate
 	UIS.InputBegan:Connect(function(input, processed)
 		if UIS:GetFocusedTextBox() then
 			return
@@ -622,35 +654,88 @@ function M.Build(player, remote, feedback)
 		elseif input.KeyCode == Enum.KeyCode.ButtonR1 then
 			setZoom(zoom + 0.1)
 		elseif input.KeyCode == Enum.KeyCode.ButtonX then
-			if GS.SelectedObject and GS.SelectedObject:IsDescendantOf(body) and selected then
+			if detailsFocused and selected then
+				detailsFocused = false
 				GS.SelectedObject = nodes[selected].button
-			elseif purchase.Visible then
-				GS.SelectedObject = purchase
-				body.CanvasPosition =
-					Vector2.new(0, math.max(0, purchase.Position.Y.Offset - body.AbsoluteSize.Y / 2))
+			else
+				collapse = false
+				detailsFocused = true
+				draw()
+				GS.SelectedObject = body
+				body.CanvasPosition = Vector2.zero
 			end
-		elseif
-			input.KeyCode == Enum.KeyCode.Up
-			or input.KeyCode == Enum.KeyCode.Down
-			or input.KeyCode == Enum.KeyCode.Left
-			or input.KeyCode == Enum.KeyCode.Right
-		then
-			local current = selected and nodes[selected].button or nodes["technique.precision_relay"].button
-			local direction = ({
-				[Enum.KeyCode.Up] = "NextSelectionUp",
-				[Enum.KeyCode.Down] = "NextSelectionDown",
-				[Enum.KeyCode.Left] = "NextSelectionLeft",
-				[Enum.KeyCode.Right] = "NextSelectionRight",
-			})[input.KeyCode]
-			GS.SelectedObject = current[direction] or current
+		elseif navigate then
+			navigate(input)
 		end
 	end)
+	-- Own tree navigation before Roblox's default GUI navigation moves focus.
+	local directions = {
+		[Enum.KeyCode.Up] = "NextSelectionUp",
+		[Enum.KeyCode.DPadUp] = "NextSelectionUp",
+		[Enum.KeyCode.Down] = "NextSelectionDown",
+		[Enum.KeyCode.DPadDown] = "NextSelectionDown",
+		[Enum.KeyCode.Left] = "NextSelectionLeft",
+		[Enum.KeyCode.DPadLeft] = "NextSelectionLeft",
+		[Enum.KeyCode.Right] = "NextSelectionRight",
+		[Enum.KeyCode.DPadRight] = "NextSelectionRight",
+	}
+	navigate = function(input)
+		local direction = directions[input.KeyCode]
+		if not direction or lastNavigation == input then
+			return
+		end
+		lastNavigation = input
+		if detailsFocused then
+			local step = direction == "NextSelectionDown" and 64
+				or direction == "NextSelectionUp" and -64
+				or 0
+			local target = math.clamp(
+				body.CanvasPosition.Y + step,
+				0,
+				math.max(0, body.AbsoluteCanvasSize.Y - body.AbsoluteSize.Y)
+			)
+			task.defer(function()
+				if root.Visible and detailsFocused then
+					GS.SelectedObject = body
+					body.CanvasPosition = Vector2.new(0, target)
+				end
+			end)
+		else
+			local current = selected and nodes[selected].button or nodes["technique.precision_relay"].button
+			GS.SelectedObject = current[direction] or current
+		end
+	end
+	game:GetService("ContextActionService"):BindActionAtPriority(
+		"VesperTreeNavigation",
+		function(_, state, input)
+			if not root.Visible then
+				return Enum.ContextActionResult.Pass
+			end
+			if state == Enum.UserInputState.Begin then
+				navigate(input)
+			end
+			return Enum.ContextActionResult.Sink
+		end,
+		false,
+		3000,
+		Enum.KeyCode.Up,
+		Enum.KeyCode.Down,
+		Enum.KeyCode.Left,
+		Enum.KeyCode.Right,
+		Enum.KeyCode.DPadUp,
+		Enum.KeyCode.DPadDown,
+		Enum.KeyCode.DPadLeft,
+		Enum.KeyCode.DPadRight
+	)
 	feedback.OnClientEvent:Connect(function(kind, ok, message)
 		if kind ~= "SkillReceipt" then
 			return
 		end
+		collapse = false
 		refresh()
 		receipt.Text = message
+		body.CanvasPosition =
+			Vector2.new(0, math.max(0, receipt.Position.Y.Offset + 72 - body.AbsoluteSize.Y))
 		receipt.TextColor3 = ok and Color3.fromRGB(125, 240, 186) or Color3.fromRGB(255, 190, 144)
 		if ok and selected and not player:GetAttribute("ReducedMotion") then
 			local focus = nodes[selected].focus
@@ -682,6 +767,7 @@ function M.Build(player, remote, feedback)
 	root:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 		if root.Visible then
 			refresh()
+			recenter()
 		end
 	end)
 	return {

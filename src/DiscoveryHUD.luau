@@ -142,6 +142,9 @@ function H.Attach(gui, player)
 		end
 	end
 	local function toggle(open)
+		if open and player:GetAttribute("SkillTreeOpen") then
+			return
+		end
 		journal.Visible = open
 		dim.Visible = open
 		player:SetAttribute("ResearchModal", open)
@@ -162,7 +165,7 @@ function H.Attach(gui, player)
 		toggle(false)
 	end)
 	UIS.InputBegan:Connect(function(input, processed)
-		if processed then
+		if processed or player:GetAttribute("SkillTreeOpen") then
 			return
 		end
 		if input.KeyCode == Enum.KeyCode.J or input.KeyCode == Enum.KeyCode.ButtonX then

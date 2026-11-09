@@ -207,6 +207,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		originalCaption:Destroy()
 	end
 	gui.Use.TextYAlignment = Enum.TextYAlignment.Top
+	gui.Use.AnchorPoint = Vector2.new(0, 1)
 	local usePadding = Instance.new("UIPadding")
 	usePadding.PaddingTop, usePadding.Parent = UDim.new(0, 9), gui.Use
 	local function number(value)
@@ -287,6 +288,9 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			progressEntry.Position = UDim2.fromOffset(10, 164)
 			actionY = 214
 		end
+		if portrait then
+			actionY = 164
+		end
 		local level, xp, points =
 			player:GetAttribute("ResearchLevel"),
 			player:GetAttribute("ResearchXP"),
@@ -307,11 +311,40 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		more.Size, more.Position = UDim2.fromOffset(92, 44), UDim2.fromOffset(10, actionY)
 		upgrade.Size, upgrade.Position = UDim2.fromOffset(100, 44), UDim2.fromOffset(110, actionY)
 		sell.Size, sell.Position = UDim2.fromOffset(92, 44), UDim2.new(1, -102, 0, actionY)
+		if portrait then
+			-- One compact control row instead of a fourth full HUD row.
+			local usable = w - 20
+			progressEntry.Position, progressEntry.Size =
+				UDim2.fromOffset(10, actionY), UDim2.fromOffset(usable * 0.29, 44)
+			more.Position, more.Size =
+				UDim2.fromOffset(14 + usable * 0.29, actionY), UDim2.fromOffset(usable * 0.17 - 4, 44)
+			upgrade.Position, upgrade.Size =
+				UDim2.fromOffset(14 + usable * 0.46, actionY), UDim2.fromOffset(usable * 0.28 - 4, 44)
+			sell.Position, sell.Size =
+				UDim2.fromOffset(14 + usable * 0.74, actionY), UDim2.fromOffset(usable * 0.26 - 4, 44)
+			more.TextSize, upgrade.TextSize, sell.TextSize, progressEntry.TextSize = 12, 12, 12, 12
+			progressEntry.Text = level
+					and string.format(
+						"L%d / %d PT\n%.0f / %d XP",
+						level,
+						points or 0,
+						(xp or 0) - Skills.Threshold(level),
+						level == 100 and 0 or Skills.Threshold(level + 1) - Skills.Threshold(level)
+					)
+				or "SYNCING..."
+		else
+			more.TextSize, upgrade.TextSize, sell.TextSize, progressEntry.TextSize = 14, 14, 14, 14
+		end
 		drawer.Position, drawer.Size =
 			UDim2.fromOffset(10, actionY + 50),
 			UDim2.fromOffset(math.min(340, w - 20), math.max(100, math.min(386, h - actionY - 62)))
-		cash.Text, relics.Text =
-			"$" .. number(player:GetAttribute("Cash")), "Relics  " .. number(player:GetAttribute("Relics"))
+		local balance = player:GetAttribute("Cash")
+		local compactCash = typeof(balance) == "number"
+				and balance >= 1000000
+				and string.format("$%.2fM", balance / 1000000)
+			or typeof(balance) == "number" and balance >= 10000 and string.format("$%.1fK", balance / 1000)
+			or "$" .. number(balance)
+		cash.Text, relics.Text = compactCash, "Relics  " .. number(player:GetAttribute("Relics"))
 		local used, cap = player:GetAttribute("BucketUsed"), player:GetAttribute("BucketCapacity")
 		bucket.Text = number(used) .. " / " .. number(cap)
 		local full = typeof(used) == "number" and typeof(cap) == "number" and used >= cap
@@ -414,8 +447,9 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			and player:GetAttribute("ToolFamily") == "Pickaxe"
 			and ok
 			and table.find(loadout, "impact.charged_swing") ~= nil
+		charged.AnchorPoint = Vector2.new(0, 1)
 		charged.Size = UDim2.fromOffset(touch and 106 or 130, 48)
-		charged.Position = gui.Use.Position - UDim2.fromOffset(0, 54)
+		charged.Position = gui.Use.Position - UDim2.fromOffset(0, 70)
 		local remaining =
 			math.max(0, (player:GetAttribute("ChargedUntil") or 0) - workspace:GetServerTimeNow())
 		charged.Text = remaining > 0 and string.format("READY IN %.1fs", remaining)
@@ -442,14 +476,10 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		local build = now - (player:GetAttribute("FlowLastContact") or 0) > 2 and 0
 			or player:GetAttribute("FlowBuild")
 			or 0
-		flow.Text = boost > now and string.format(
-			"FLOW x%.2f / %.1fs",
-			flowRank == 1 and 1.25 or 1.35,
-			boost - now
-		) or readyUntil > now and "FLOW READY / CONTINUE DRILLING" or string.format(
-			"FLOW %.1f / 4.0s",
-			build
-		)
+		flow.Text = boost > now
+				and string.format("FLOW x%.2f / %.1fs", flowRank == 1 and 1.25 or 1.35, boost - now)
+			or readyUntil > now and "FLOW READY / CONTINUE DRILLING"
+			or string.format("FLOW %.1f / 4.0s", build)
 		gui.Use.Text = not actualTool and "EQUIP"
 			or player:GetAttribute("ToolFamily") == "Drill" and (player:GetAttribute("DrillRunning") and "STOP DRILL" or "START DRILL")
 			or player:GetAttribute("ToolFamily") == "Explosive" and "DETONATE"

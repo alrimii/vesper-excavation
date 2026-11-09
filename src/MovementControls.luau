@@ -25,8 +25,10 @@ function M.Start(player, gui)
 			or UIS:GetFocusedTextBox() ~= nil
 			or GuiService.MenuIsOpen
 			or player:GetAttribute("LabReady") ~= true
-			or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
+			or player:GetAttribute("EggResultsOpen")
+			or player:GetAttribute("ResearchModal")
 			or player:GetAttribute("CoreMenuOpen")
+			or player:GetAttribute("SkillTreeOpen")
 			or player:GetAttribute("MaterialBagOpen")
 			or player:GetAttribute("DiscoveryCinematic")
 			or player:GetAttribute("Training")
@@ -95,7 +97,9 @@ function M.Start(player, gui)
 		end
 	end)
 	local function applyMouse()
-		sprintButton.Visible = UIS.PreferredInput == Enum.PreferredInput.Touch and not blocked() and gui.Toast.Text == ""
+		sprintButton.Visible = UIS.PreferredInput == Enum.PreferredInput.Touch
+			and not blocked()
+			and gui.Toast.Text == ""
 		-- Clear both the native jump control and the mining action button.
 		local size = gui.AbsoluteSize
 		if not gui:GetAttribute("CoreHUDManaged") then

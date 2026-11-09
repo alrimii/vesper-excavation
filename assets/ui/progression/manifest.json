@@ -8,198 +8,275 @@
   "assets": [
     {
       "name": "chain_lightning",
-      "assetId": "rbxassetid://99832335754640",
+      "assetId": "rbxassetid://78441203265195",
       "master": "source/chain_lightning.png",
       "export": "exports/chain_lightning.png",
-      "size": 843423,
+      "size": 52883,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "f716894cc2db59394d95e2b4946388399f23d277ca01fd29dee14260ea853151",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "1c594540e8f935eeb450fdb1ea265f1a20ece2c2bc68397c6bcbd172b88e74ce",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://99832335754640"
     },
     {
       "name": "fault_survey",
-      "assetId": "rbxassetid://93049765524228",
+      "assetId": "rbxassetid://118913090520717",
       "master": "source/fault_survey.png",
       "export": "exports/fault_survey.png",
-      "size": 1593041,
+      "size": 93061,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "266c34810723e8c7c0d0000805d5c0f4223f900c7e5e1bee787385c549a1b955",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "7451a58b1bfd74a6d2cb1922f1a3f48abee6e633217eea156eda5538050c8b1d",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://93049765524228"
     },
     {
       "name": "batch_unload",
-      "assetId": "rbxassetid://101781951198753",
+      "assetId": "rbxassetid://127558201030086",
       "master": "source/batch_unload.png",
       "export": "exports/batch_unload.png",
-      "size": 1665602,
+      "size": 96288,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "2cf8b1f68a9d53294040004fab3d704d65915487ce00d6df2403945f72f1a47b",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "c7cb4d52cc4bbfb3a5f0ac9bac96ee1731977929cbc7b3796abc8f433900210c",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://101781951198753"
     },
     {
       "name": "charged_swing",
-      "assetId": "rbxassetid://74388401118019",
+      "assetId": "rbxassetid://82949303996806",
       "master": "source/charged_swing.png",
       "export": "exports/charged_swing.png",
-      "size": 1459284,
+      "size": 83271,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "d3756cdd9787be4d312414561613cfe29755a0079b4800235d4f57ca26ac5272",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "2daa39eefc7ecf51df7de79cc010a8db0653ff036222a6648a0fa0972d948719",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://74388401118019"
     },
     {
       "name": "core_drill",
-      "assetId": "rbxassetid://131360285368012",
+      "assetId": "rbxassetid://80111142298950",
       "master": "source/core_drill.png",
       "export": "exports/core_drill.png",
-      "size": 2001140,
+      "size": 117708,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "f949fb1acd9d9095c1b4095c92c978c899867f70dfcb21c3471dab80bcd0dc98",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "7b801f7d7b3b207eb779e2d46f3fb3bb175435a391f1b4e254c31ec8540c24ce",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://131360285368012"
     },
     {
       "name": "steady_aim",
-      "assetId": "rbxassetid://99252986343750",
+      "assetId": "rbxassetid://130426459761525",
       "master": "source/steady_aim.png",
       "export": "exports/steady_aim.png",
-      "size": 1983741,
+      "size": 111609,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "2eb3b454007104269cc2ee2f5b781f2783c74ec2d792f80914b372e6f81a6cf1",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "ae0aeab566b09747f2fcaed6221d021593dfef7e14663203f663274e6c8b3e32",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://99252986343750"
     },
     {
       "name": "sale_latch",
-      "assetId": "rbxassetid://71611290567563",
+      "assetId": "rbxassetid://113113623542720",
       "master": "source/sale_latch.png",
       "export": "exports/sale_latch.png",
-      "size": 1575343,
+      "size": 84269,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "bbfab22ec221da857fc39b33b630ee1f1a22f56a86a948a901b4a182c3f1c06d",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "f8d303e9a4ae742b038aeafd4508d3e6f672537dbd5a94dbb2dd7825ff8f0dbb",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://71611290567563"
     },
     {
       "name": "precision_relay",
-      "assetId": "rbxassetid://85375098596022",
+      "assetId": "rbxassetid://96316761308050",
       "master": "source/precision_relay.png",
       "export": "exports/precision_relay.png",
-      "size": 1295290,
+      "size": 75481,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "bd4203b29672cce480b780ab91d5a5067af7c8eba34b2b7bce21ac1f5c042bcf",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "b895d0052de05cb05ae05cd9bc76650a66ab9243d441df44b302ffbfbb153bce",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://85375098596022"
     },
     {
       "name": "journal_hub",
-      "assetId": "rbxassetid://132515093323209",
+      "assetId": "rbxassetid://107667320750383",
       "master": "source/journal_hub.png",
       "export": "exports/journal_hub.png",
-      "size": 2039047,
+      "size": 107346,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "ec42f38e46d52fa87d768acb2c23b697ad2fa3f04f0dc117f89577095a907fb5",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "0efe81c199fc44e44f934271121f32c52ba3556550d659e6d9c9eee118f4d563",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://132515093323209"
     },
     {
       "name": "panel",
-      "assetId": "rbxassetid://112158817140805",
+      "assetId": "rbxassetid://89278413581087",
       "master": "source/panel.png",
       "export": "exports/panel.png",
-      "size": 1688288,
+      "size": 243537,
       "dimensions": [
+        512,
+        512
+      ],
+      "sha256": "1fd942e0318beb0eafd3e2ed1c3b0d7d92d364b7ab61edabe8a3bbf20ffde9eb",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "62bf3cf2205d66f374af6d36f4223902b7c37fe166fd97441dfdabfc5d665156",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://112158817140805"
     },
     {
       "name": "branch_collection",
-      "assetId": "rbxassetid://93420613793876",
+      "assetId": "rbxassetid://122540486084073",
       "master": "source/branch_collection.png",
       "export": "exports/branch_collection.png",
-      "size": 1631463,
+      "size": 92246,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "cc6d668c499388ba27f9b1fe5d841d8b38ef8891ccc8a3f3f0047a37c3c4c29e",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "5e13de154131b85a85c9ba1c10cfabdf323eb53081492ae4cce4da37a3c2c672",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://93420613793876"
     },
     {
       "name": "node_frame",
-      "assetId": "rbxassetid://101667919309734",
+      "assetId": "rbxassetid://83888114535206",
       "master": "source/node_frame.png",
       "export": "exports/node_frame.png",
-      "size": 1254393,
+      "size": 68284,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "a0a061919a2e98b714a4b1f8bc47dfe6eed4da03bbac24820cd6e714bfc81fc9",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "3da4445d720a5158102e1bc296d8b55a2dfe9913acf00daf7e8bd2bc9439bcb7",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://101667919309734"
     },
     {
       "name": "branch_impact",
-      "assetId": "rbxassetid://89855035033121",
+      "assetId": "rbxassetid://90509800938646",
       "master": "source/branch_impact.png",
       "export": "exports/branch_impact.png",
-      "size": 1686854,
+      "size": 91007,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "eb1ba8f4fc8bfee25efb527a7c5303f2aee373afe9b0c4cc8544e8cd56adbb0d",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "a3309ae2ff5bb5abee730ad689ad7c415e07ee86cdc860cff7435506ccfd36d0",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://89855035033121"
     },
     {
       "name": "branch_technique",
-      "assetId": "rbxassetid://100855332186589",
+      "assetId": "rbxassetid://122874428525975",
       "master": "source/branch_technique.png",
       "export": "exports/branch_technique.png",
-      "size": 892157,
+      "size": 52128,
       "dimensions": [
+        256,
+        256
+      ],
+      "sha256": "b3f70a76ae8f830720b428e48bf50358d0ea4cc6d2ab56f6161556d7bbcf3edc",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "0684a205aa4318f2375221513bf8eb4c8761b13a9b1f478db0bc40298a997039",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://100855332186589"
     },
     {
       "name": "background",
-      "assetId": "rbxassetid://100977384899659",
+      "assetId": "rbxassetid://96547618113632",
       "master": "source/background.png",
       "export": "exports/background.png",
-      "size": 3091281,
+      "size": 1856004,
       "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "dc11add7f2c038139d37267e6129188db375e64b5d98faa7738be9e5ecc47d42",
+      "ownerUserId": 291892217,
+      "masterDimensions": [
         1254,
         1254
       ],
-      "sha256": "3058130e0440150a427fbf59368be7a5c6a274ceb82860b52d809c193983a9fd",
-      "ownerUserId": 291892217
+      "previousAssetId": "rbxassetid://100977384899659"
     }
-  ]
+  ],
+  "exportPreparation": "prepare_exports.py; original masters preserved; enclosed panel alpha filled",
+  "renderReview": "All 15 replacement images rendered in original-place Play; final visual approval pending"
 }
