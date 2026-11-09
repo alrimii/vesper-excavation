@@ -1,4 +1,10 @@
 -- Session-locked profiles. Studio uses memory so tests cannot change live progress.
+-- Authorized ONE-TIME fresh start, 10 November 2026. This name is permanent:
+-- never derive it from a date, place version, join, or subsequent publication.
+-- Old servers only know VesperDiscovery_v1 and cannot write this generation.
+-- Retired records are not read, copied or migrated; namespace isolation is NOT deletion.
+local LIVE_STORE = "VesperDiscovery_FreshStart_20261110"
+local GENERATION = "fresh-start-20261110"
 local function create(store, studio, pause)
 	local P = {}
 	local wait = pause or task.wait
@@ -6,7 +12,7 @@ local function create(store, studio, pause)
 		return studio == true or (studio == nil and game:GetService("RunService"):IsStudio())
 	end
 	local Http = game:GetService("HttpService")
-	local DS = store or game:GetService("DataStoreService"):GetDataStore("VesperDiscovery_v1")
+	local DS = store or game:GetService("DataStoreService"):GetDataStore(LIVE_STORE)
 	local C = require(game.ReplicatedStorage.VesperShared.ExcavationConfig)
 	local Progression = require(game.ReplicatedStorage.VesperShared.ProgressionRules)
 	local token = game.JobId .. Http:GenerateGUID(false)
@@ -145,31 +151,46 @@ local function create(store, studio, pause)
 		local sessionToken = token .. Http:GenerateGUID(false)
 		local incompatible = false
 		for attempt = 1, 4 do
+			incompatible = false
 			local ok, result = pcall(function()
 				return DS:UpdateAsync(key, function(old)
-					old = type(old) == "table" and old or {}
+					-- Only an absent key gets defaults. Existing data is never reset on load.
+					if old == nil then
+						return {
+							data = P.Normalize(nil),
+							generation = GENERATION,
+							lock = sessionToken,
+							lease = os.time() + 180,
+						}
+					end
+					if type(old) ~= "table" or old.generation ~= GENERATION or type(old.data) ~= "table" then
+						incompatible = true
+						return nil
+					end
 					if old.lock and old.lock ~= sessionToken and (old.lease or 0) > os.time() then
 						return nil
 					end
-					-- Legacy published data is deliberately NOT migrated, reset, or locked.
-					if old.data ~= nil and (type(old.data) ~= "table" or next(old.data) ~= nil) then
-						local raw = type(old.data) == "table" and old.data.progression
-						local valid = type(raw) == "table" and raw.version == 1
-						if valid then
-							valid = pcall(SkillProgress.Normalize, raw)
-						end
-						if not valid then
-							incompatible = true
-							return nil
-						end
+					local raw = old.data.progression
+					local valid = type(raw) == "table" and raw.version == 1
+					if valid then
+						valid = pcall(P.Normalize, old.data)
 					end
-					return { data = old.data or {}, lock = sessionToken, lease = os.time() + 180 }
+					if not valid then
+						incompatible = true
+						return nil
+					end
+					return {
+						data = old.data,
+						generation = GENERATION,
+						lock = sessionToken,
+						lease = os.time() + 180,
+					}
 				end)
 			end)
 			if incompatible then
 				player:SetAttribute(
 					"ProfileLoadError",
-					"This unpublished progression checkpoint cannot load legacy progress. Your saved data has not been changed. An approved release/reset operation is required."
+					"Your current profile could not be loaded safely. Please contact the developer. Your progress has not been reset."
 				)
 				return nil
 			end
@@ -213,11 +234,12 @@ local function create(store, studio, pause)
 		for attempt = 1, 3 do
 			local ok, result = pcall(function()
 				return DS:UpdateAsync(tostring(player.UserId), function(old)
-					if type(old) ~= "table" or old.lock ~= sessionToken then
+					if type(old) ~= "table" or old.generation ~= GENERATION or old.lock ~= sessionToken then
 						return nil
 					end
 					return {
 						data = snapshot,
+						generation = GENERATION,
 						lock = not release and sessionToken or nil,
 						lease = not release and os.time() + 180 or nil,
 					}
