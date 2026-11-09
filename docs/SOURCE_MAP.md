@@ -4,7 +4,11 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 
 | Studio path | Local source |
 | --- | --- |
-| `ReplicatedStorage.VesperShared.ExcavationHUDView` | `src/ExcavationHUDView.luau` (HUD checkpoint: production presentation also used by temporary Edit previews) |
+| `ReplicatedStorage.VesperShared.FieldHUD` | `src/FieldHUD.luau` |
+| `ReplicatedStorage.VesperShared.ExcavationChrome` | `src/ExcavationChrome.luau` |
+| `ReplicatedStorage.VesperShared.ExcavationArt` | `src/ExcavationArt.luau` |
+| `ReplicatedStorage.VesperShared.EquipmentDock` | `src/EquipmentDock.luau` |
+| `ReplicatedStorage.VesperShared.HUDController` | `src/HUDController.luau` |
 | `ReplicatedFirst.Loading` | `src/Loading.luau` |
 | `ReplicatedFirst.LoadingView` | `src/LoadingView.luau` |
 | `StarterPlayer.StarterPlayerScripts.ExcavationClient` | `src/ExcavationClient.luau` |
@@ -13,8 +17,6 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ReplicatedStorage.VesperShared.Targeting` | `src/Targeting.luau` |
 | `ReplicatedStorage.VesperShared.MotionClips` | `src/MotionClips.luau` |
 | `ReplicatedStorage.VesperShared.UIMotion` | `src/UIMotion.luau` |
-| `ReplicatedStorage.VesperShared.HUDLayout` | `src/HUDLayout.luau` |
-| `ReplicatedStorage.VesperShared.MenuArtwork` | `src/MenuArtwork.luau` |
 | `ReplicatedStorage.VesperShared.ShellMotion` | `src/ShellMotion.luau` |
 | `ReplicatedStorage.VesperShared.SpecimenMotion` | `src/SpecimenMotion.luau` |
 | `ReplicatedStorage.VesperShared.ExcavationCamera` | `src/ExcavationCamera.luau` |
@@ -22,7 +24,6 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ReplicatedStorage.VesperShared.DiscoveryCatalog` | `src/DiscoveryCatalog.luau` |
 | `ReplicatedStorage.VesperShared.SpecimenBuilder` | `src/SpecimenBuilder.luau` |
 | `ReplicatedStorage.VesperShared.DiscoveryHUD` | `src/DiscoveryHUD.luau` |
-| `ReplicatedStorage.VesperShared.ExcavationUI` | `src/ExcavationUI.luau` |
 | `ReplicatedStorage.VesperShared.DiscoveryCinematic` | `src/DiscoveryCinematic.luau` |
 | `ReplicatedStorage.VesperShared.MovementControls` | `src/MovementControls.luau` |
 | `ReplicatedStorage.VesperShared.EggFinishes` | `src/EggFinishes.luau` |
@@ -36,10 +37,8 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ReplicatedStorage.VesperShared.Packages.spr` | `src/vendor/spr.luau` |
 | `ReplicatedStorage.VesperShared.ProgressionRules` | `src/ProgressionRules.luau` |
 | `ReplicatedStorage.VesperShared.EquipmentPreview` | `src/EquipmentPreview.luau` |
-| `ReplicatedStorage.VesperShared.ModernHUD` | `src/ModernHUD.luau` |
 | `ReplicatedStorage.VesperShared.RoomAnimation` | `src/RoomAnimation.luau` |
 | `ReplicatedStorage.VesperShared.DrillHandling` | `src/DrillHandling.luau` |
-| `ReplicatedStorage.VesperShared.Toolbelt` | `src/Toolbelt.luau` |
 | `ReplicatedStorage.VesperShared.TrainingCycle` | `src/TrainingCycle.luau` |
 | `ReplicatedStorage.VesperShared.GuidedRoute` | `src/GuidedRoute.luau` |
 | `ReplicatedStorage.VesperShared.MembraneMotion` | `src/MembraneMotion.luau` |

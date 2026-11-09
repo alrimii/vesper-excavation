@@ -1,0 +1,104 @@
+﻿{
+    "provenance":  "Original built-in image generation; flattened RGBA masters, not layered editable artwork. Cropping/resizing only; no replacement background.",
+    "assets":  [
+                   {
+                       "name":  "credits",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/credits.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "f3a0e682b175f9fddfe7841a8505e77edfcc0a0b5831b1d81a15e51a89b05976",
+                       "robloxImage":  "rbxassetid://120152535735029"
+                   },
+                   {
+                       "name":  "relic",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/relic.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "b3b368414022ed0127f54d742bba9db0aace08a53d6e57abf822ca6b37d1f974",
+                       "robloxImage":  "rbxassetid://100158020850142"
+                   },
+                   {
+                       "name":  "bucket",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/bucket.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "3f818e4a189b6e196c4fdc7608035c7926998dfb16ef5a0be1d5335ec7aa2d57",
+                       "robloxImage":  "rbxassetid://106455923735364"
+                   },
+                   {
+                       "name":  "skills",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/skills.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "d6c45d9ee87d2a805cef5c837cb7f599d35c7f4b6139a3d89579f45bf1163f0d",
+                       "robloxImage":  "rbxassetid://137277061279416"
+                   },
+                   {
+                       "name":  "equipment",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/equipment.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "328dd270fa76a11e6d795de7c8debc0aafbdc379a36b273d64b002c8969302ef",
+                       "robloxImage":  "rbxassetid://98935499569483"
+                   },
+                   {
+                       "name":  "explore",
+                       "master":  "source/navigation-master.png",
+                       "export":  "exports/explore.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "f808bfd2984a4bf937ead3d8e0c7d3e5d041c729837e1b9c62e10a0b57feebd2",
+                       "robloxImage":  "rbxassetid://76377361710932"
+                   },
+                   {
+                       "name":  "bronze",
+                       "master":  "source/eggs-master.png",
+                       "export":  "exports/bronze.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "ebe523079c6dbe6dcadc77901f49a6d405d7b3d9cb83f6129080c307e5be3c2f",
+                       "robloxImage":  "rbxassetid://71909574404622"
+                   },
+                   {
+                       "name":  "golden",
+                       "master":  "source/eggs-master.png",
+                       "export":  "exports/golden.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "50a1891fa780717eae2c0776136a9b34c4de32808dbacb2a82e71df08437ea10",
+                       "robloxImage":  "rbxassetid://83034443748038"
+                   },
+                   {
+                       "name":  "volcanic",
+                       "master":  "source/eggs-master.png",
+                       "export":  "exports/volcanic.png",
+                       "size":  [
+                                    256,
+                                    256
+                                ],
+                       "sha256":  "c774a66047af1a17e0827a4bc024eb9e22f34da0aedc02a484252ba80ad291ee",
+                       "robloxImage":  "rbxassetid://121659115303871"
+                   }
+               ]
+}

@@ -136,13 +136,24 @@ task.spawn(function()
 		image:Destroy()
 	end
 end)
-local backpack = player:WaitForChild("Backpack")
-local toolDeadline = os.clock() + 8
+local toolDeadline = os.clock() + 45
 local function hasTool()
-	for _, container in { backpack, player.Character } do
+	local character = player.Character
+	local human = character and character:FindFirstChildOfClass("Humanoid")
+	if not human or human.Health <= 0 or player:GetAttribute("EquipmentReady") ~= true then
+		return false
+	end
+	-- Reacquire the current Backpack: Roblox replaces it across character lifecycles.
+	for _, container in { player:FindFirstChildOfClass("Backpack"), character } do
 		if container then
 			for _, t in container:GetChildren() do
-				if t:IsA("Tool") and t:GetAttribute("OwnerUserId") == player.UserId then
+				local handle = t:FindFirstChild("Handle")
+				if
+					t:IsA("Tool")
+					and t:GetAttribute("OwnerUserId") == player.UserId
+					and t:GetAttribute("ToolFamily") == player:GetAttribute("ToolFamily")
+					and (not t.RequiresHandle or (handle and handle:IsA("BasePart")))
+				then
 					return true
 				end
 			end
@@ -151,13 +162,20 @@ local function hasTool()
 	return false
 end
 while not hasTool() and os.clock() < toolDeadline do
+	if player:GetAttribute("EquipmentLoadError") then
+		break
+	end
+	status.Text = "Preparing your equipment..."
 	task.wait(0.1)
 end
 if not hasTool() then
-	status.Text = "Your equipment is not available yet. Please reconnect."
+	view:Failure(
+		"EQUIPMENT UNAVAILABLE",
+		player:GetAttribute("EquipmentLoadError") or "Your equipment did not arrive. Please reconnect."
+	)
 	return
 end
-for _, container in { backpack, player.Character } do
+for _, container in { player:FindFirstChildOfClass("Backpack"), player.Character } do
 	if container then
 		for _, part in container:GetDescendants() do
 			if part:IsA("MeshPart") and part:FindFirstAncestorOfClass("Tool") then
@@ -211,6 +229,22 @@ local function prepare()
 end
 enterGame = function()
 	if entered or loading or not assetsReady then
+		return
+	end
+	-- Asset loading may span a death/respawn; do not release control without current equipment.
+	local equipDeadline = os.clock() + 45
+	while not hasTool() and os.clock() < equipDeadline do
+		status.Text = "Waiting for your character and equipment..."
+		if player:GetAttribute("EquipmentLoadError") then
+			break
+		end
+		task.wait(0.1)
+	end
+	if not hasTool() then
+		view:Failure(
+			"EQUIPMENT UNAVAILABLE",
+			player:GetAttribute("EquipmentLoadError") or "Your equipment did not arrive. Please reconnect."
+		)
 		return
 	end
 	entered = true

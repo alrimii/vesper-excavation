@@ -29,9 +29,6 @@ local Feedback = Shared.Remotes:WaitForChild("Feedback")
 local State = Shared:WaitForChild("RoundState")
 local Egg = workspace:WaitForChild("VesperLab"):WaitForChild("Egg")
 local gui = player:WaitForChild("PlayerGui"):WaitForChild("ExcavationHUD")
-local panel = gui.Status
-local Layout = require(Shared:WaitForChild("HUDLayout"))
-Layout.Style(gui)
 local DiscoveryHUD = require(Shared:WaitForChild("DiscoveryHUD")).Attach(gui, player)
 local shopOpen = false
 local skillTree = require(Shared.SkillTreeUI).Build(player, Action, Feedback)
@@ -161,7 +158,7 @@ local function equip(kind)
 		end
 	end
 end
-local modern = require(Shared.ModernHUD).Build(gui, player, Action, function(page)
+local modern = require(Shared.HUDController).Build(gui, player, Action, function(page)
 	cancel()
 	shopOpen = true
 	workshop:Select(page)
@@ -192,7 +189,7 @@ local function selectTool(id)
 	cancel()
 	Action:FireServer("EquipTool", id)
 end
-modern:SetToolbelt(require(Shared.Toolbelt).Build(gui, player, selectTool))
+modern:SetToolbelt(require(Shared.EquipmentDock).Build(gui, player, selectTool))
 local function cycleTool(direction)
 	local order = require(Shared.ProgressionRules).ToolOrder
 	local index = table.find(order, player:GetAttribute("ToolFamily")) or 1
@@ -408,36 +405,15 @@ UIS.InputEnded:Connect(function(input)
 		end
 	end
 end)
-gui.Tools.Pickaxe.Activated:Connect(function()
-	equip("Pickaxe")
-end)
-gui.Tools.Bucket.Visible = false
 for _, name in { "Sell", "Power", "Speed", "Capacity", "NextRound" } do
 	gui.Station[name].Activated:Connect(function()
 		cancel()
 		Action:FireServer(name)
 	end)
 end
-gui.Shop.Activated:Connect(function()
-	cancel()
-	shopOpen = not shopOpen
-end)
 gui.Station.Close.Activated:Connect(function()
 	cancel()
 	shopOpen = false
-end)
-gui.Bag.Activated:Connect(function()
-	cancel()
-	panel.Contents.Visible = not panel.Contents.Visible
-	panel.Contribution.Visible = panel.Contents.Visible
-end)
-gui.Tutorial.Skip.Activated:Connect(function()
-	cancel()
-	Action:FireServer("TutorialSkip")
-end)
-gui.Help.Activated:Connect(function()
-	cancel()
-	-- Journal is controlled by DiscoveryHUD.
 end)
 game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(cancel)
 player.CharacterRemoving:Connect(cancel)
@@ -477,22 +453,6 @@ player.CharacterAdded:Connect(function()
 	disableBackpack()
 end)
 disableBackpack()
-local marker = Instance.new("BillboardGui")
-marker.Name = "DepotObjective"
-marker.Size = UDim2.fromOffset(175, 42)
-marker.StudsOffset = Vector3.new(0, 7, 0)
-marker.AlwaysOnTop = true
-marker.MaxDistance = 500
-marker.Parent = gui
-local markerLabel = Instance.new("TextLabel")
-markerLabel.Size = UDim2.fromScale(1, 1)
-markerLabel.BackgroundColor3 = Color3.fromRGB(29, 46, 48)
-markerLabel.BackgroundTransparency = 0.15
-markerLabel.TextColor3 = Color3.fromRGB(255, 222, 153)
-markerLabel.TextSize = 14
-markerLabel.Font = Enum.Font.GothamBold
-markerLabel.TextWrapped = true
-markerLabel.Parent = marker
 -- Anchored, noncolliding client fragments. Pooled visuals never own resource value.
 local visualFolder = Instance.new("Folder")
 visualFolder.Name = "LocalResourceVisuals"
@@ -740,49 +700,8 @@ Run.Heartbeat:Connect(function(dt)
 		end
 	end
 	local _, kind = equipped()
-	local cash = player:GetAttribute("Cash") or 0
 	local amount = player:GetAttribute("BucketUsed") or 0
 	local cap = player:GetAttribute("BucketCapacity") or C.Collection.Capacity
-	panel.Wallet.Cash.Text = "$"
-		.. (tostring(math.floor(cash)):reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", ""))
-	panel.Equipped.Text = "Tool: " .. (kind or "none")
-	panel.BagCard.Bucket.Text = string.format("%d / %d%s", amount, cap, amount >= cap and " FULL" or "")
-	panel.BagCard.BucketTrack.Fill.Size = UDim2.fromScale(math.clamp(amount / cap, 0, 1), 1)
-	panel.Contents.Text = string.format(
-		"Shell %d  /  Membrane %d  /  Matrix %d",
-		player:GetAttribute("Bucket_Shell") or 0,
-		player:GetAttribute("Bucket_Membrane") or 0,
-		player:GetAttribute("Bucket_Tissue") or 0
-	)
-	panel.Progress.Text = string.format("%.1f%% EXCAVATED", (State:GetAttribute("Progress") or 0) * 100)
-	panel.ProgressTrack.Fill.Size = UDim2.fromScale(State:GetAttribute("Progress") or 0, 1)
-	panel.Contribution.Text = string.format(
-		"Mining %d | Sales $%d",
-		player:GetAttribute("MiningContribution") or 0,
-		player:GetAttribute("CollectionIncome") or 0
-	)
-	local layerIndex = State:GetAttribute("ActiveLayer") or 1
-	panel.Round.Text = string.upper(C.Layers[layerIndex].Name)
-		.. "  /  LAYER "
-		.. layerIndex
-		.. " / "
-		.. #C.Layers
-	panel.Progress.Text = string.format(
-		"%d / %d PLATES LEFT",
-		State:GetAttribute("LayerRemaining") or 0,
-		State:GetAttribute("LayerTotal") or 0
-	)
-	local layerTotal = State:GetAttribute("LayerTotal") or 1
-	panel.ProgressTrack.Fill.Size =
-		UDim2.fromScale(1 - (State:GetAttribute("LayerRemaining") or layerTotal) / math.max(1, layerTotal), 1)
-	gui.Use.Text = player:GetAttribute("ToolFamily") == "Drill"
-			and (drillLatched and "STOP\nDRILL" or "START\nDRILL")
-		or player:GetAttribute("ToolFamily") == "Explosive" and "DETONATE"
-		or "STRIKE"
-	gui.Tools.Pickaxe.BackgroundColor3 = kind == "Pickaxe" and Color3.fromRGB(95, 75, 43)
-		or Color3.fromRGB(27, 42, 51)
-	gui.Tools.Bucket.BackgroundColor3 = kind == "Bucket" and Color3.fromRGB(95, 75, 43)
-		or Color3.fromRGB(27, 42, 51)
 	if os.clock() > toastUntil then
 		gui.Toast.Text = ""
 	end
@@ -794,28 +713,6 @@ Run.Heartbeat:Connect(function(dt)
 	if amount < cap then
 		fullNotified = false
 	end
-	for _, name in { "Pickaxe" } do
-		local button = gui.Tools[name]
-		button.Selection.Color = kind == name and Color3.fromRGB(255, 204, 108) or Color3.fromRGB(76, 91, 97)
-		button.Label.Text = (player:GetAttribute("ToolFamily") or "Pickaxe"):upper()
-		local available = kind == name
-		local pack = player:FindFirstChildOfClass("Backpack")
-		if pack then
-			for _, t in pack:GetChildren() do
-				if t:GetAttribute("ToolKind") == name then
-					available = true
-				end
-			end
-		end
-		button.Icon.ImageTransparency = available and 0 or 0.65
-		button.Label.TextTransparency = available and 0 or 0.5
-	end
-	-- ModernHUD owns onboarding; suppress the retired seven-step overlay.
-	gui.Tutorial.Visible = false
-	gui.Guidance.Visible = false
-	marker.Enabled = false
-	-- ModernHUD alone owns gameplay layout; Workshop owns its modal layout.
-
 	local waitTime =
 		math.max(0, math.ceil((State:GetAttribute("ReadyAt") or 0) - workspace:GetServerTimeNow()))
 	gui.Station.NextRound.Text = State:GetAttribute("Status") == "Revealed"

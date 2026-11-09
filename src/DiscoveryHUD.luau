@@ -59,15 +59,6 @@ function H.Attach(gui, player)
 		b.AutoButtonColor = false
 		return b
 	end
-	gui.Help.Text = "JOURNAL"
-	gui.Help.TextSize = 11
-	gui.Shop.Text = "EQUIPMENT"
-	gui.Station.Title.Text = "FIELD EQUIPMENT"
-	gui.Station.Subtitle.Text = "Upgrade anywhere. Keep exploring."
-	local rank = text(gui, "ResearchRank", "", UDim2.fromOffset(245, 23), UDim2.fromOffset(18, 130), 12, teal)
-	local contract = gui.Tutorial
-	contract.Skip.Visible = false
-	contract.Heading.Text = "RESEARCH CONTRACT"
 	local dim = Instance.new("TextButton")
 	dim.Name = "JournalShade"
 	dim.Size = UDim2.fromScale(1, 1)
@@ -155,9 +146,6 @@ function H.Attach(gui, player)
 			game:GetService("GuiService").SelectedObject = nil
 		end
 	end
-	gui.Help.Activated:Connect(function()
-		toggle(not journal.Visible)
-	end)
 	close.Activated:Connect(function()
 		toggle(false)
 	end)
@@ -267,12 +255,11 @@ function H.Attach(gui, player)
 	require(Shared.SpecimenMotion).Start(workspace.VesperLab.Egg.ContainedSpecimen, State)
 	local api = {}
 	local researchJournal = require(Shared.ResearchJournal).Attach(journal, cards, player)
-	-- ModernHUD owns navigation; preserve the existing journal controller.
+	-- The new HUD owns navigation; this retained controller owns journal/reveal only.
 	api.Toggle = toggle
 	function api.Update(_kind)
 		local v = gui.AbsoluteSize
 		local narrow = v.X < 800
-		rank.Visible = false -- Existing research values remain available in the journal.
 		local portrait = v.X < 600 and v.Y > v.X
 		local journalWidth, journalHeight = portrait and 440 or 650, portrait and 690 or 510
 		local short = v.Y < 450
@@ -306,71 +293,6 @@ function H.Attach(gui, player)
 				card.count.TextSize = 12
 			end
 		end
-		rank.Position = UDim2.fromOffset(18, narrow and 65 or 131)
-		if v.Y < 450 then
-			rank.Position = UDim2.fromOffset(18, 61)
-		end
-		rank.Text = "RESEARCHER "
-			.. (player:GetAttribute("ResearchLevel") or 0)
-			.. "   /   "
-			.. (player:GetAttribute("DiscoveryCount") or 0)
-			.. " SPECIES"
-		if narrow then
-			rank.TextSize = 10
-		else
-			rank.TextSize = 12
-		end
-		local specimen = Catalog.ForRound(math.max(1, State:GetAttribute("RoundId") or 1))
-		local revealed = State:GetAttribute("Status") == "Revealed"
-		gui.Status.Round.Text = revealed and specimen.Name:upper()
-			or (State:GetAttribute("EggName") or "ANCIENT BRONZE")
-		gui.Status.Progress.Text = revealed and "DISCOVERY COMPLETE"
-			or string.format(
-				"LAYER %d / 3   |   %d PLATES LEFT",
-				State:GetAttribute("ActiveLayer") or 1,
-				State:GetAttribute("LayerRemaining") or 0
-			)
-		gui.Status.ProgressTrack.Fill.Size = UDim2.fromScale(State:GetAttribute("Progress") or 0, 1)
-		gui.Status.ProgressTrack.Fill.BackgroundColor3 = specimen.Color
-		contract.Visible = false -- Current contract is in the compact More drawer.
-		contract.Skip.Visible = false
-		contract.Arrow.Visible = false
-		local c = Catalog.Contract(player:GetAttribute("ContractIndex") or 1)
-		contract.Heading.Text = "RESEARCH CONTRACT  /  +" .. c.Reward
-		contract.Instruction.Text = c.Title
-			.. "  ("
-			.. (player:GetAttribute("ContractProgress") or 0)
-			.. "/"
-			.. c.Goal
-			.. ")"
-		contract.Objective.Text = (player:GetAttribute("CoreSamples") or 0) == 0
-				and "Clear the entire active layer. Aim at the gold point."
-			or "The lower cradle stays intact. Clear the upper shell."
-
-		contract.Objective.Position = UDim2.fromOffset(12, 79)
-		if v.Y < 450 then
-			contract.Objective.Position = UDim2.fromOffset(12, 66)
-		end
-		contract.Objective.Size = UDim2.new(1, -24, 0, 24)
-		contract.Objective.TextWrapped = true
-		contract.Objective.TextSize = 10
-		gui.Station.Hint.Text = "Field delivery active. Purchases use earned credits."
-		gui.Station.NextRound.Text = revealed
-				and "NEXT IN " .. math.max(
-					0,
-					math.ceil((State:GetAttribute("ReadyAt") or 0) - workspace:GetServerTimeNow())
-				) .. "s"
-			or "CLEAR ALL THREE LAYERS"
-		local tutorialStep = player:GetAttribute("TutorialStep") or 1
-		if tutorialStep <= 7 then
-			contract.Skip.Visible = true
-			contract.Heading.Text = "FIRST EXPEDITION"
-			contract.Instruction.Text = tutorialStep == 1 and "Equip your field tool to begin."
-				or tutorialStep <= 4 and "Break a plate. Materials collect automatically."
-				or tutorialStep <= 6 and "Open UPGRADES and sell your materials."
-				or "Buy an upgrade for your equipped tool."
-			contract.Objective.Text = "Your progress is saved between expeditions."
-		end
 		if journal.Visible then
 			sub.Text = (player:GetAttribute("DiscoveryCount") or 0)
 				.. " / "
@@ -384,9 +306,6 @@ function H.Attach(gui, player)
 				card.count.Text = count > 0 and "RECOVERED  x" .. count or card.entry.Class .. "  /  LOCKED"
 			end
 		end
-		gui.Guidance.Text = UIS.PreferredInput == Enum.PreferredInput.Touch
-				and "Hold STRIKE  /  Automatic collection  /  Sell from UPGRADES"
-			or "1 PICKAXE   CLICK / E STRIKE   AUTO COLLECT   CTRL LOCK   SHIFT SPRINT"
 		researchJournal.Update()
 	end
 	return api

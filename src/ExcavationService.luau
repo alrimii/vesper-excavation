@@ -1742,9 +1742,21 @@ for _, desc in Depot:GetDescendants() do
 	end
 end
 giveTools = function(p, ch, s)
-	local backpack = p:WaitForChild("Backpack", 15)
+	if sessions[p] ~= s or p.Character ~= ch then
+		return
+	end
+	s.equipRevision = (s.equipRevision or 0) + 1
+	local revision = s.equipRevision
+	p:SetAttribute("EquipmentReady", false)
+	p:SetAttribute("EquipmentLoadError", nil)
 	local human = ch:WaitForChild("Humanoid", 15)
-	if not backpack or not human or sessions[p] ~= s or p.Character ~= ch then
+	local backpack = p:WaitForChild("Backpack", 15)
+	if not backpack or not human or sessions[p] ~= s or p.Character ~= ch or s.equipRevision ~= revision then
+		return
+	end
+	-- A respawn can replace Backpack while a character's Humanoid is arriving.
+	backpack = p:FindFirstChildOfClass("Backpack")
+	if not backpack or human.Health <= 0 then
 		return
 	end
 	cancelAttack(p, s)
@@ -1753,6 +1765,7 @@ giveTools = function(p, ch, s)
 	end
 	s.deathConnection = human.Died:Connect(function()
 		if sessions[p] == s then
+			p:SetAttribute("EquipmentReady", false)
 			cancelAttack(p, s)
 		end
 	end)
@@ -1763,7 +1776,16 @@ giveTools = function(p, ch, s)
 	s.tools = {}
 	for kind, name in { Pickaxe = "StarterPickaxe" } do
 		local a = accounts[p.UserId]
-		local template = Kit:FindFirstChild("Starter" .. effectiveTool(a)) or Kit[name]
+		local template = Kit:FindFirstChild("Starter" .. effectiveTool(a)) or Kit:FindFirstChild(name)
+		if
+			not template
+			or not template:IsA("Tool")
+			or (template.RequiresHandle and not template:FindFirstChild("Handle"))
+		then
+			p:SetAttribute("EquipmentLoadError", "The server could not prepare your tool. Please reconnect.")
+			warn("[Vesper] Equipment template unavailable", effectiveTool(a))
+			return
+		end
 		local t = template:Clone()
 		t.Name = Rules.Tools[effectiveTool(a)].Name
 		t:SetAttribute("ToolFamily", effectiveTool(a))
@@ -1794,6 +1816,7 @@ giveTools = function(p, ch, s)
 		end
 	end
 	syncPlayer(p)
+	p:SetAttribute("EquipmentReady", true)
 end
 local function joined(p)
 	if sessions[p] then

@@ -18,10 +18,10 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		player:SetAttribute("CoreMenuOpen", open)
 		if ui then
 			ui.Drawer.Visible = open
-			ui.More.Label.Text = open and "CLOSE" or "MORE"
+			ui.More.Label.Text = open and "CLOSE" or "EXPLORE"
 		end
 	end
-	ui = require(Shared.ExcavationHUDView).Build(gui, {
+	ui = require(Shared.FieldHUD).Build(gui, {
 		More = function()
 			setMenu(not menuOpen)
 		end,
@@ -208,14 +208,6 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		end
 		ui.Root.Visible = ready and not modal and not bagOpen
 		materialBag.Update(modal or not ready)
-		for _, name in
-			{ "Status", "Shop", "Help", "Bag", "Tools", "Tutorial", "Guidance", "ResearchRank", "FieldGuide" }
-		do
-			local old = gui:FindFirstChild(name)
-			if old and old:IsA("GuiObject") then
-				old.Visible = false
-			end
-		end
 		local w, h = gui.AbsoluteSize.X, gui.AbsoluteSize.Y
 		local touch = UIS.PreferredInput == Enum.PreferredInput.Touch
 		ui:Layout(w, h, touch)
@@ -226,6 +218,11 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		local full = typeof(used) == "number" and typeof(cap) == "number" and used >= cap
 		local pending = player:GetAttribute("PendingMaterials") or 0
 		ui.Bucket.Value.Text = compact(used) .. "/" .. compact(cap)
+		ui.BucketFill.Size = UDim2.fromScale(
+			typeof(used) == "number" and typeof(cap) == "number" and math.clamp(used / math.max(1, cap), 0, 1)
+				or 0,
+			1
+		)
 		ui.Bucket.Caption.Text = pending > 0 and (compact(pending) .. " PENDING")
 			or full and "FULL / SELL"
 			or "BUCKET"
@@ -235,6 +232,8 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		local phase = Phase.Read(State)
 		local progress, layer = State:GetAttribute("Progress"), State:GetAttribute("ActiveLayer")
 		ui.Egg.Label.Text = State:GetAttribute("EggName") or "Loading egg..."
+		ui.Egg.Icon.Image = require(Shared.ExcavationArt)[State:GetAttribute("EggId") or "bronze"]
+			or require(Shared.ExcavationArt).bronze
 		ui.EggPercent.Text = typeof(progress) == "number" and string.format("%.0f%%", progress * 100) or "..."
 		ui.EggFill.Size = UDim2.fromScale(typeof(progress) == "number" and math.clamp(progress, 0, 1) or 0, 1)
 		local personal, total =
@@ -276,7 +275,8 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			player:GetAttribute("ResearchXP"),
 			player:GetAttribute("SkillPoints")
 		ui.Progress.Label.Text = level and ("LV " .. level) or "LV ..."
-		ui.Points.Text = "SKILLS\n" .. (points and (number(points) .. " PT") or "... PT")
+		ui.Points.Text = points and number(points) or "..."
+		ui.Points.Visible = typeof(points) == "number" and points > 0
 		if typeof(level) == "number" and typeof(xp) == "number" then
 			local current, needed =
 				xp - Skills.Threshold(level),
@@ -337,9 +337,9 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			or string.format("FLOW %.1f / 4.0s", build)
 		local sprint = gui:FindFirstChild("SprintToggle")
 		if sprint then
-			sprint.Size, sprint.Position = UDim2.fromOffset(64, 32), UDim2.fromOffset(80, 96)
+			sprint.Size, sprint.Position = UDim2.fromOffset(70, 28), UDim2.fromOffset(w - 80, 108)
 			sprint.BackgroundColor3, sprint.TextColor3 =
-				Color3.fromRGB(255, 246, 220), Color3.fromRGB(37, 56, 64)
+				Color3.fromRGB(255, 253, 248), Color3.fromRGB(26, 29, 67)
 		end
 		trainEntry.Visible = menuOpen and alive and ownedTraining()
 		ui.Training.Button.Visible = not blocked and running

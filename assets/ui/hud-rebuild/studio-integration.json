@@ -1,0 +1,8 @@
+{
+  "placeId": 94763223427049,
+  "presentationModules": ["FieldHUD", "ExcavationChrome", "ExcavationArt", "EquipmentDock", "HUDController"],
+  "removedSharedModules": ["ModernHUD", "ExcavationHUDView", "Toolbelt", "HUDLayout", "MenuArtwork", "ExcavationUI"],
+  "removedStarterGuiChildren": ["Status", "Bag", "Shop", "Help", "Tools", "Tutorial", "Guidance", "FieldGuide", "FieldGuidePanel"],
+  "preservedStarterGuiChildren": ["Station", "Use", "Toast", "Crosshair"],
+  "note": "Use is replaced by FieldHUD before the sole existing combat input route binds. Station and its workshop are a temporary pending-replacement screen. Historical builders/old snapshots must not be run to recreate retired HUDs. Native checkpoint preserves actual original-place UI changes."
+}

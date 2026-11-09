@@ -1,5 +1,22 @@
 # Gameplay HUD redesign checkpoint
 
+## Owner review ledger — all issues open until corrected and reviewed
+
+The owner rejected HUD, loading, menus, skill tree, shop and world presentation. **The owner's screenshots were not supplied; the following are owner-reported observations, not screenshots inspected by the implementation engineer. All described problems predate the progress reset and must not be attributed to it.** The fixed fresh-start save generation is unchanged. This earlier checkpoint is historical, not an approved visual foundation. The new HUD delivery is recorded in [replacement checkpoint](../hud-rebuild/REVIEW.md).
+
+| Area | Preserved feedback / required correction | Status |
+| --- | --- | --- |
+| Joining/loading | Simultaneous “Joining the excavation”, “SYNCHRONIZING” and equipment-unavailable/reconnect error; world strip above backdrop. Correct presentation AND real equipment readiness. Never conceal a failure or release without functional equipment. | Open; narrowly scoped source correction included in HUD replacement, owner recheck required |
+| HUD identity | Unrelated illustrations pasted into generic rectangular navigation; confusing storage art; creature used for egg identity; inconspicuous skill entry. | Open; new composition/illustrations delivered for review, not accepted |
+| HUD devices | Deliberate desktop/landscape layouts, readable mobile labels, guidance/XP/equipment must not crowd the character; essential actions on both devices. | Open; bounded captures only, physical-device review pending |
+| Skill tree | Excess empty space/weak composition, tiny similar framed nodes, poor branch/state distinction, technical confirmation/implementation copy. Needs an exciting navigable progression map, readable connections/prerequisites/states, distinct branches and concise illustrated details; mobile details must preserve map area. Eight skills are partial, not the full progression vision. | Open; separate replacement checkpoint |
+| Equipment/upgrades | Blue-white application panels; plus signs and empty preview areas instead of item artwork; dense current/next text. Needs matching illustrated equipment/upgrade experience. | Open; existing screen temporarily accessible |
+| Targeting | Prominent distant section indicator while OUT OF RANGE. Actionable marker must agree with real range/obstruction; do not increase reach. | Open; no mining/range tests or unrelated targeting rewrite in HUD checkpoint |
+| World/egg surroundings | Oversized room gaps, repetitive dull frontage; unwanted floating/orbiting light-like objects and square fixtures around egg; confusing columns/braces; unfinished ladder entrance, platform and signs. Remove unwanted generation at its source, not only temporary instances. | Open; no world redesign in HUD checkpoint |
+| Physical shop | Sparse three-tool display/small signs. Needs inviting physical destination, approach-based mobile opening and matching illustrated equipment/upgrades. | Open; integrated later milestone |
+| Rooms/creatures | Current layout and adjacent large cabinets do not scale; creature models/presentation unapproved. Organized left-wall shelves/slots, dark undiscovered silhouettes; discovered creature/name/rarity. Separate collection from future incubation/care. | Open; later scoped room/collection work |
+| Broader vision | Remaining skill mechanics, rebirth, more tools and distinct evolutions, eggs/creatures, incubation, customization and worlds remain future work. | Open; no partial implementation labeled complete |
+
 10 November 2026. Original place **94763223427049** only. The prior Phase 5B.1 result was rejected; this is a new composition, not visual acceptance. Skill-tree redesign and additional progression content are excluded.
 
 ## Implementation

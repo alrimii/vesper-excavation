@@ -14,7 +14,9 @@ function UIMotion.Attach(gui, settings)
 	local function connect(signal, callback)
 		table.insert(connections, signal:Connect(callback))
 	end
-	for _, button in gui:GetDescendants() do
+	-- This retained controller belongs only to the pending-replacement workshop.
+	-- New HUD controls own their own feedback and must not receive duplicate handlers.
+	for _, button in station:GetDescendants() do
 		if not button:IsA("GuiButton") then
 			continue
 		end
