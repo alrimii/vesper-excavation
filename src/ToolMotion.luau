@@ -7,8 +7,6 @@ local Clips = require(script.Parent.MotionClips)
 local Drill = require(script.Parent.DrillHandling)
 local Cycle = require(script.Parent.TrainingCycle)
 local actors = {}
-local contactPhase = (C.Animation.Anticipation + C.Animation.Acceleration)
-	/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
 local started = false
 local function capture(ch)
 	local joints = {}
@@ -60,6 +58,7 @@ local function synchronize(a)
 		end
 		a.phase = nil
 		a.drillContact = nil
+		a.drillRunning = nil
 		if tool then a.release = nil end
 		a.tool = tool
 		a.grip = tool and tool.Grip
@@ -76,6 +75,7 @@ function M.Cancel(p)
 	end
 	a.phase = nil
 	a.drillContact = nil
+	a.drillRunning = nil
 	if a.tool and a.grip and a.tool.Parent then
 		a.tool.Grip = a.grip
 	end
@@ -99,6 +99,15 @@ function M.DrillContact(p, enabled, point)
 	end
 	a.drillContact = enabled and typeof(point) == "Vector3" and { point = point, at = os.clock() } or nil
 end
+function M.DrillRun(p, running, point, contact, lease)
+	local a = actor(p)
+	if not a then return end
+	synchronize(a)
+	if not a.drill then return end
+	a.drillRunning = running and { untilTime = os.clock() + (lease or 0.12), point = point } or nil
+	a.drillContact = running and contact and typeof(point) == "Vector3"
+		and { point = point, at = os.clock(), lease = lease or 0.12 } or nil
+end
 function M.Begin(p, duration, sequence, target, expectedTool)
 	local a = actor(p)
 	if not a then
@@ -116,7 +125,7 @@ function M.Begin(p, duration, sequence, target, expectedTool)
 	a.lastSequence = sequence
 	a.release = nil
 	a.phase = { kind = "Strike", at = os.clock(), duration = duration, sequence = sequence, target = target,
-		awaitContact = target ~= nil and tool:GetAttribute("ToolFamily") == "Pickaxe", tool = tool }
+		tool = tool }
 end
 function M.Confirm(p, sequence)
 	local a = actor(p)
@@ -274,16 +283,6 @@ function M.Start()
 				if phase.kind == "Strike" then
 					local elapsed = os.clock() - phase.at
 					local t = math.clamp(elapsed / phase.duration, 0, 1)
-					if phase.awaitContact and not phase.missed then
-						if phase.confirmed then
-							t = math.clamp(contactPhase + (os.clock() - phase.confirmed) / phase.duration, 0, 1)
-						elseif elapsed > phase.duration + 0.65 then
-							M.Miss(p, phase.sequence)
-						else
-							-- Predict preparation, but reserve contact/recoil for the server's result.
-							t = math.min(t, contactPhase - 0.055)
-						end
-					end
 					if tool:GetAttribute("ToolFamily") == "Explosive" then
 						pose = { 38 + math.sin(t * math.pi) * 32, 0, 8, 60, -15 * math.sin(t * math.pi) }
 					else

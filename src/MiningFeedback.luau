@@ -1,15 +1,12 @@
 -- Receipts are presentation only. No client calculation or mutation of rewards.
 local M = {}
--- No suitable permission-verified mining audio exists in the inspected project.
--- Leave empty until supplied/approved; never substitute a jump/landing sound.
-local soundIds = { Hit = "", Break = "", Collection = "" }
+-- ToolFeedback owns distinct tool audio; receipts remain presentation-only.
 function M.Start(folder, roundState)
 	local Players = game:GetService("Players")
 	local Tween = game:GetService("TweenService")
 	local Debris = game:GetService("Debris")
 	local player = Players.LocalPlayer
 	local hits, receipts, receiptOrder, popups = {}, {}, {}, {}
-	local liveSounds = 0
 	local function anchor(position)
 		local part = Instance.new("Part")
 		part.Name, part.Size = "MiningReceipt", Vector3.one * 0.05
@@ -17,20 +14,6 @@ function M.Start(folder, roundState)
 		part.CanCollide, part.CanTouch, part.CanQuery, part.CastShadow = false, false, false, false
 		part.Position, part.Parent = position, folder
 		return part
-	end
-	local function sound(kind, position)
-		local id = soundIds[kind]
-		local camera = workspace.CurrentCamera
-		if id == "" or liveSounds >= 6 or not camera or (camera.CFrame.Position - position).Magnitude > 65 then return end
-		liveSounds += 1
-		local holder = anchor(position)
-		local audio = Instance.new("Sound")
-		audio.SoundId, audio.RollOffMinDistance, audio.RollOffMaxDistance = id, 6, 65
-		audio.Volume = 0.18 * (player:GetAttribute("SFXVolume") or 1)
-		audio.Parent = holder
-		audio:Play()
-		Debris:AddItem(holder, 2)
-		task.delay(2, function() liveSounds -= 1 end)
 	end
 	local function popup(position, text, color, award)
 		local group = award and "Award" or "Damage"
@@ -86,12 +69,17 @@ function M.Start(folder, roundState)
 	local controller = {}
 	function controller:AcceptHit(userId, sequence, result)
 		if typeof(result) ~= "table" or result.RoundId ~= roundState:GetAttribute("RoundId") then return false end
-		if typeof(sequence) ~= "number" or sequence <= (hits[userId] or 0) then return false end
-		hits[userId] = sequence
+		if typeof(sequence) ~= "number" or typeof(result.SectionId) ~= "string" then return false end
+		local previous = hits[userId]
+		if previous and sequence < previous.sequence then return false end
+		if not previous or sequence > previous.sequence then
+			previous = { sequence = sequence, sections = {} }; hits[userId] = previous
+		end
+		if previous.sections[result.SectionId] then return false end
+		previous.sections[result.SectionId] = true
 		return true
 	end
 	function controller:Hit(userId, position, damage, precise, critical, result)
-		sound(result.Broken and "Break" or "Hit", position)
 		if userId ~= player.UserId then return end
 		local prefix = result.Broken and "BREAK  " or critical and "CRITICAL  " or precise and "PRECISE  " or ""
 		popup(position, prefix .. tostring(damage), result.Broken and Color3.fromRGB(160, 243, 204)
@@ -100,7 +88,7 @@ function M.Start(folder, roundState)
 	function controller:Award(amount, receipt)
 		if typeof(receipt) ~= "table" or typeof(amount) ~= "number" or amount <= 0
 			or typeof(receipt.Position) ~= "Vector3" or typeof(receipt.ResourceName) ~= "string" then return end
-		local key = tostring(receipt.RoundId) .. ":" .. tostring(receipt.Sequence)
+		local key = tostring(receipt.RoundId) .. ":" .. tostring(receipt.Sequence) .. ":" .. tostring(receipt.SectionId)
 		if receipts[key] then return end
 		receipts[key] = true
 		table.insert(receiptOrder, key)
@@ -108,7 +96,6 @@ function M.Start(folder, roundState)
 		-- Final receipts remain valid even if next-round replication overtakes them.
 		popup(receipt.Position, "+" .. tostring(amount) .. " " .. receipt.ResourceName,
 			Color3.fromRGB(160, 243, 204), true)
-		sound("Collection", receipt.Position)
 	end
 	return controller
 end

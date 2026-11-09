@@ -7,7 +7,7 @@ function FX.Start()
 	local live = 0
 	local folder = Instance.new("Folder")
 	folder.Name, folder.Parent = "LocalImpactFX", workspace
-	local function emit(position, color, broken, normal, strong)
+	local function emit(position, color, broken, normal, strong, family)
 		local camera = workspace.CurrentCamera
 		if not camera or (camera.CFrame.Position - position).Magnitude > 80 or live >= 8 then return end
 		live += 1
@@ -32,8 +32,8 @@ function FX.Start()
 			NumberSequenceKeypoint.new(0.4, broken and 0.75 or 0.4), NumberSequenceKeypoint.new(1, 0) })
 		dust.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.55), NumberSequenceKeypoint.new(1, 1) })
 		dust.Parent = anchor
-		dust:Emit(reduced and 1 or broken and 6 or strong and 4 or 2)
-		if not reduced then
+		dust:Emit(reduced and 1 or broken and 6 or family == "Drill" and 1 or strong and 4 or 2)
+		if not reduced and (family ~= "Drill" or broken) then
 			for i = 1, broken and 5 or strong and 3 or 2 do
 				local chip = Instance.new("Part")
 				chip.Name, chip.Size = "ImpactChip", Vector3.new(0.09, 0.06, 0.16)

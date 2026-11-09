@@ -62,15 +62,31 @@ local function equipped()
 		return tool, tool:GetAttribute("ToolKind")
 	end
 end
+local toolFeedback
+local cancelledThrough = 0
+local drillConfirmedTarget, drillConfirmedUntil = nil, 0
+local lastDrillStop = -math.huge
 local drillingTarget
 local drillLatched = false
 local function cancel()
 	held = false
 	drillLatched = false
 	drillingTarget = nil
+	drillConfirmedTarget, drillConfirmedUntil = nil, 0
+	cancelledThrough = sequence
+	player:SetAttribute("DrillRunning", false)
+	player:SetAttribute("DrillContact", false)
+	if toolFeedback then toolFeedback:Cancel(player.UserId) end
 	Motion.Cancel(player)
 	Action:FireServer("Cancel")
 end
+State:GetAttributeChangedSignal("Status"):Connect(function()
+	if State:GetAttribute("Status") ~= "Excavating" then cancel() end
+end)
+State:GetAttributeChangedSignal("RoundId"):Connect(function()
+	cancel()
+	if toolFeedback then toolFeedback:Clear() end
+end)
 player:GetAttributeChangedSignal("CoreMenuOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("ResearchModal"):Connect(cancel)
 player:GetAttributeChangedSignal("Training"):Connect(cancel)
@@ -173,15 +189,16 @@ local function use()
 	end
 	local _, kind = equipped()
 	local now = os.clock()
+	local family = player:GetAttribute("ToolFamily")
 	if kind == "Pickaxe" then
 		if
-			Motion.Busy(player)
+			(family ~= "Drill" and Motion.Busy(player))
 			or now - lastUse < (player:GetAttribute("StrikeCooldown") or C.Mining.Cooldown)
 		then
 			return
 		end
 		local section, pos = aimedSection()
-		if player:GetAttribute("ToolFamily") == "Drill" and not section then
+		if family ~= "Pickaxe" and not section then
 			return
 		end
 		local layerIndex = section and section:GetAttribute("Layer")
@@ -195,12 +212,15 @@ local function use()
 				notice("Bucket full for this plate. Tap SELL to make room.")
 				fullNotified = true
 			end
-			held = false
+			cancel()
 			return
 		end
 		lastUse = now
 		sequence += 1
-		Motion.Begin(player, player:GetAttribute("StrikeCooldown") or C.Mining.Cooldown, sequence, pos)
+		if family ~= "Drill" then
+			Motion.Begin(player, family == "Explosive" and C.Tools.Explosive.Fuse
+				or (player:GetAttribute("StrikeCooldown") or C.Mining.Cooldown), sequence, pos)
+		end
 		if section then
 			Action:FireServer("Mine", section, pos, State:GetAttribute("RoundId"), sequence)
 		else
@@ -265,6 +285,8 @@ UIS.InputEnded:Connect(function(input)
 	end
 end)
 UIS.WindowFocusReleased:Connect(cancel)
+UIS.TextBoxFocused:Connect(cancel)
+game:GetService("GuiService").MenuOpened:Connect(cancel)
 local touchInput
 gui.Use.InputBegan:Connect(function(input)
 	if player:GetAttribute("ToolFamily") == "Drill" then
@@ -399,6 +421,7 @@ visualFolder.Parent = workspace
 local CollectionMotion =
 	require(Shared:WaitForChild("CollectionMotion")).Start(visualFolder, ShellMotion, State)
 local MiningFeedback = require(Shared:WaitForChild("MiningFeedback")).Start(visualFolder, State)
+toolFeedback = require(Shared:WaitForChild("ToolFeedback")).Start(visualFolder, State)
 local function burst(from, to, li, section)
 	CollectionMotion:Burst(from, to, li, section)
 end
@@ -438,14 +461,28 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 		if p then
 			Motion.Begin(p, b, c, d, e)
 		end
+	elseif kind == "Charge" then
+		if a ~= player.UserId or b > cancelledThrough then toolFeedback:Charge(a, b, c, d, e, damage) end
+	elseif kind == "ChargeCancel" then
+		toolFeedback:Cancel(a, b)
+	elseif kind == "Blast" then
+		if toolFeedback:Blast(a, b, c, d, e) then
+			ImpactFX.Emit(c, Color3.fromRGB(236, 209, 164), true, d, true, "Explosive")
+		end
 	elseif kind == "Cancel" then
+		if a ~= player.UserId then toolFeedback:Cancel(a) end
 		local p = Players:GetPlayerByUserId(a)
 		if p and p ~= player then
 			Motion.Cancel(p)
 		end
 	elseif kind == "Miss" then
 		Motion.Miss(player, a)
+		toolFeedback:Cancel(player.UserId, a)
 		if a == sequence then
+			toolFeedback:StopDrill(player.UserId)
+			drillConfirmedTarget, drillConfirmedUntil = nil, 0
+		end
+		if a == sequence and player:GetAttribute("ToolFamily") ~= "Drill" then
 			notice("No hit confirmed. Check your aim, range, or bucket.")
 		end
 	elseif kind == "Fragments" then
@@ -454,7 +491,19 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 		if not MiningFeedback:AcceptHit(a, e, result) then return end
 		local attacker = Players:GetPlayerByUserId(a)
 		if attacker then Motion.Confirm(attacker, e) end
-		ImpactFX.Emit(b, c, result.Broken, result.Normal, precise or critical)
+		if result.Family ~= "Explosive" or result.Broken then
+			ImpactFX.Emit(b, c, result.Broken, result.Normal, precise or critical, result.Family)
+		end
+		if result.Family == "Drill" then
+			if a == player.UserId and held and currentTool and currentTool:GetAttribute("ToolFamily") == "Drill" then
+				if result.Broken then drillConfirmedTarget, drillConfirmedUntil = nil, 0
+				else drillConfirmedTarget, drillConfirmedUntil = d, os.clock() + result.Interval + C.Tools.Drill.ContactLeaseGrace end
+				toolFeedback:Hit(a, b, d, result)
+			elseif a ~= player.UserId then
+				if attacker then Motion.DrillRun(attacker, true, b, not result.Broken, result.Interval + C.Tools.Drill.ContactLeaseGrace) end
+				toolFeedback:Hit(a, b, d, result)
+			end
+		else toolFeedback:Hit(a, b, d, result) end
 		if not result.Broken then ShellMotion:Impact(d, b, damage) end
 		MiningFeedback:Hit(a, b, damage, precise, critical, result)
 		if a == player.UserId then targeter:Confirm() end
@@ -489,18 +538,32 @@ Run.Heartbeat:Connect(function(dt)
 		end
 		currentTool = selected
 	end
-	if held then
-		if player:GetAttribute("ToolFamily") == "Drill" then
-			local section, point = aimedSection()
-			if drillingTarget and drillingTarget ~= section then
-				Motion.Cancel(player)
-				Action:FireServer("Cancel")
+	local human = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+	local blocked = player:GetAttribute("LabReady") ~= true or State:GetAttribute("Status") ~= "Excavating"
+		or not State:GetAttribute("Ready") or not human or human.Health <= 0 or shopOpen
+		or player:GetAttribute("CoreMenuOpen") or player:GetAttribute("MaterialBagOpen")
+		or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic") or player:GetAttribute("Training")
+	if held and blocked then cancel() end
+	local running = held and not blocked and selected ~= nil and selected:GetAttribute("ToolFamily") == "Drill"
+	local section, point
+	if running then
+		section, point = aimedSection()
+		if drillingTarget and drillingTarget ~= section then
+			toolFeedback:StopDrill(player.UserId)
+			drillConfirmedTarget, drillConfirmedUntil = nil, 0
+			if os.clock() - lastDrillStop >= C.Tools.Drill.InvalidUpdateInterval then
+				lastDrillStop = os.clock()
+				Action:FireServer("DrillStop")
 			end
-			drillingTarget = section
-			Motion.DrillContact(player, section ~= nil, point)
 		end
-		use()
 	end
+	drillingTarget = section
+	local contact = running and section ~= nil and section == drillConfirmedTarget and os.clock() < drillConfirmedUntil
+	if not player:GetAttribute("Training") then Motion.DrillRun(player, running, point, contact) end
+	player:SetAttribute("DrillRunning", running)
+	player:SetAttribute("DrillContact", contact)
+	toolFeedback:Step(running, section)
+	if held then use() end
 	elapsed += dt
 	if elapsed < 0.15 then
 		return

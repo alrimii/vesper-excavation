@@ -69,4 +69,7 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ServerScriptService.Vesper.RoomTerminals` | `src/RoomTerminals.luau` |
 | `ServerScriptService.Vesper.CollectionCabinet` | `src/CollectionCabinet.luau` |
 | `ReplicatedStorage.VesperShared.MiningFeedback` (added in Phase 1B) | `src/MiningFeedback.luau` |
+| `ReplicatedStorage.VesperShared.ToolFeedback` (added in Phase 3) | `src/ToolFeedback.luau` |
+
+Phase 3 audio references and Sound template properties are recorded in `assets/audio/mining-audio.json`. Templates live under `ReplicatedStorage.VesperShared.MiningAudioAssets`; runtime playback uses the corresponding IDs in ExcavationConfig through ToolFeedback. No equipment model was replaced. Public release snapshots remain historical and must not overwrite the original place.
 

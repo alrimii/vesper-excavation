@@ -9,6 +9,7 @@ local Rules = require(Shared.ProgressionRules)
 local TrainingCycle = require(Shared.TrainingCycle)
 local Delivery = require(Shared.DeliverySequence)
 local giveTools
+local cancelAttack
 local trials = {}
 local trialSelected = {}
 local function effectiveTool(a)
@@ -81,7 +82,7 @@ local function training(p, s, enabled)
 		root.AssemblyAngularVelocity = Vector3.zero
 		root.Anchored = true
 		hum.AutoRotate = false
-		s.attack = (s.attack or 0) + 1
+		cancelAttack(p, s)
 	else
 		if s.trainingRoot and s.trainingRoot.Parent then
 			s.trainingRoot.Anchored = s.trainingAnchored == true
@@ -117,6 +118,14 @@ local Dormant = game.ServerStorage:WaitForChild("EggDormant")
 local Depot = workspace.VesperLab.ResourceDepot
 local Kit = game.ServerStorage.VesperKit
 local sessions, accounts, sections = {}, {}, {}
+cancelAttack = function(p, session)
+	session.attack = (session.attack or 0) + 1
+	session.pending = nil
+	Feedback:FireAllClients("Cancel", p.UserId)
+end
+local function toolLevel(a, key)
+	return Rules.Level(a, effectiveTool(a), key)
+end
 local total, removed, deepRemoved = 0, 0, 0
 local activeLayer = 1
 local layerRemaining = {}
@@ -152,9 +161,9 @@ local function note(p, t)
 end
 local function stats(a)
 	local config = Rules.ToolConfig(effectiveTool(a), C)
-	return math.floor((config.Mining.Power + a.Power * config.Upgrades.Power.Step) * Rules.PowerBonus(a)),
-		math.max(config.Mining.MinimumCooldown, config.Mining.Cooldown - a.Speed * config.Upgrades.Speed.Step),
-		C.Collection.Capacity + a.Capacity * config.Upgrades.Capacity.Step
+	return math.floor((config.Mining.Power + toolLevel(a, "Power") * config.Upgrades.Power.Step) * Rules.PowerBonus(a)),
+		math.max(config.Mining.MinimumCooldown, config.Mining.Cooldown - toolLevel(a, "Speed") * config.Upgrades.Speed.Step),
+		C.Collection.Capacity + toolLevel(a, "Capacity") * config.Upgrades.Capacity.Step
 end
 local function used(a)
 	local n = 0
@@ -164,7 +173,7 @@ local function used(a)
 	return n
 end
 local function price(a, key)
-	return Economy.Price(key, a[key], Rules.ToolConfig(effectiveTool(a), C))
+	return Economy.Price(key, toolLevel(a, key), Rules.ToolConfig(effectiveTool(a), C))
 end
 local function syncPlayer(p)
 	local a = accounts[p.UserId]
@@ -207,11 +216,11 @@ local function syncPlayer(p)
 			BucketCapacity = cap,
 			StrikePower = power,
 			StrikeCooldown = cd,
-			YieldBonus = a.Yield,
-			SaleMultiplier = 1 + a.Value * C.Upgrades.Value.Step,
+			YieldBonus = toolLevel(a, "Yield"),
+			SaleMultiplier = 1 + toolLevel(a, "Value") * C.Upgrades.Value.Step,
 			BucketBaseValue = a.materialValue,
-			PrecisionMultiplier = C.Precision.Multiplier + a.Precision * C.Upgrades.Precision.Step,
-			CriticalChance = a.Critical * C.Upgrades.Critical.Step,
+			PrecisionMultiplier = C.Precision.Multiplier + toolLevel(a, "Precision") * C.Upgrades.Precision.Step,
+			CriticalChance = toolLevel(a, "Critical") * C.Upgrades.Critical.Step,
 		}
 	do
 		p:SetAttribute(k, v)
@@ -220,8 +229,8 @@ local function syncPlayer(p)
 		p:SetAttribute("Bucket_" .. l.Id, a.contents[l.Id] or 0)
 	end
 	for key, u in config.Upgrades do
-		p:SetAttribute(key .. "Level", a[key])
-		p:SetAttribute(key .. "Price", a[key] < u.MaxLevel and price(a, key) or -1)
+		p:SetAttribute(key .. "Level", toolLevel(a, key))
+		p:SetAttribute(key .. "Price", toolLevel(a, key) < u.MaxLevel and price(a, key) or -1)
 	end
 	p:SetAttribute("ResearchXP", a.xp)
 	p:SetAttribute("ResearchLevel", Catalog.Level(a.xp))
@@ -405,6 +414,7 @@ local function nextExpedition(selectedEgg)
 		return
 	end
 	transitioning = true
+	for player, session in sessions do cancelAttack(player, session) end
 	-- Clear moving access platforms before withdrawing them.
 	for _, player in Players:GetPlayers() do
 		local character, root = alive(player)
@@ -444,6 +454,7 @@ local function completion()
 	if status ~= "Excavating" or removed < total then
 		return
 	end
+	for player, session in sessions do cancelAttack(player, session) end
 	status = "Hatching"
 	readyAt = workspace:GetServerTimeNow() + 2.2 + C.Completion.RevealSeconds
 	State:SetAttribute("PhaseStartedAt", workspace:GetServerTimeNow())
@@ -509,212 +520,236 @@ local function completion()
 		end)
 	end)
 end
-local function strike(p, target, point, requestRound, sequence)
-	if
-		typeof(sequence) ~= "number"
-		or sequence ~= sequence
-		or sequence < 1
-		or sequence > 2147483647
-		or sequence % 1 ~= 0
-	then
-		return
-	end
-	local ch, root, head = alive(p)
-	local session = sessions[p]
+-- All three tools use this single atomic damage/award path. No yield occurs here.
+local function applyDamage(p, target, impact, damage, precise, critical, sequence, family, interval)
+	local data = sections[target]
 	local a = accounts[p.UserId]
-	if
-		not ch
-		or not session
-		or session.training
-		or not equipped(p, "Pickaxe")
-		or requestRound ~= round
-		or not finite(point)
-	then
-		return
+	local _, root2 = alive(p)
+	if not a or not root2 or not data or data.broken or data.permanent or data.layer ~= activeLayer
+		or not target:GetAttribute("Exposed") then return false end
+	local _, _, capacity = stats(a)
+	if used(a) + C.Layers[data.layer].Yield + toolLevel(a, "Yield") > capacity then return false, "Capacity" end
+	damage = math.min(data.hp, math.max(1, math.floor(damage + 0.5)))
+	data.hp -= damage
+	a.mining += damage
+	contributors[p.UserId] = true
+	target:SetAttribute("HP", data.hp)
+	Feedback:FireAllClients(
+		"Hit",
+		p.UserId,
+		impact.Position,
+		C.Layers[data.layer].Color,
+		target,
+		sequence,
+		damage,
+		precise,
+		critical,
+		{ RoundId = round, Normal = impact.Normal, Broken = data.hp <= 0, SectionId = target.Name, Family = family, Interval = interval }
+	)
+	if data.hp <= 0 then
+		data.broken = true
+		target:SetAttribute("Intact", false)
+		removed += 1
+		a.xp += 2
+		if random:NextNumber() < 0.01 then
+			a.relics = (a.relics or 0) + 1
+			Feedback:FireClient(p, "Notice", "RARE FIND / Ancient relic recovered for your room.")
+		end
+		a.cash += data.layer
+		advance(p, "Break", 1)
+		layerRemaining[data.layer] -= 1
+		if data.layer == #C.Layers then
+			deepRemoved += 1
+			a.samples += 1
+			a.xp += 4
+			a.cash += 3
+			advance(p, "Sample", 1)
+		end
+		local fragment = {
+			CFrame = data.part.CFrame,
+			Normal = impact.Normal,
+			SectionId = target.Name,
+			RoundId = round,
+			CollectorUserId = p.UserId,
+			Size = data.part.Size,
+			Center = target:GetAttribute("Center"),
+			Template = string.format("L%d_R%02d", data.layer, target:GetAttribute("Row")),
+		}
+		expose(target, false)
+		local layer = C.Layers[data.layer]
+		local amount = layer.Yield + toolLevel(a, "Yield")
+		a.contents[layer.Id] = (a.contents[layer.Id] or 0) + amount
+		if a.introStage <= 2 then
+			a.introStage = 3
+		end
+		a.materialValue += amount * layer.Value * currentEgg.Value
+		advance(p, "Collect", amount)
+		Feedback:FireAllClients(
+			"Fragments",
+			target:GetAttribute("Center"),
+			root2.Position,
+			data.layer,
+			fragment
+		)
+		-- Publish inventory from the same award before its presentation receipt.
+		syncPlayer(p)
+		Feedback:FireClient(p, "Collected", amount, {
+			RoundId = round, Sequence = sequence, SectionId = target.Name,
+			ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
+		})
+		if data.layer == 1 then
+			tutorial(p, "BreakShell")
+			tutorial(p, "EquipBucket")
+			tutorial(p, "Collect")
+		end
+		if layerRemaining[activeLayer] == 0 and activeLayer < #C.Layers then
+			activeLayer += 1
+			for section, info in sections do
+				expose(section, info.layer == activeLayer and not info.broken)
+			end
+			Feedback:FireAllClients(
+				"Notice",
+				C.Layers[activeLayer].Name .. " unlocked - the previous layer is fully cleared."
+			)
+		end
+		syncRound()
+		completion()
 	end
+	syncPlayer(p)
+	return true
+end
+local function eligible(target, layer)
 	local data = typeof(target) == "Instance" and sections[target]
-	if
-		status ~= "Excavating"
-		or not State:GetAttribute("Ready")
-		or not data
-		or data.broken
-		or data.permanent
-		or data.layer ~= activeLayer
-		or not target:GetAttribute("Exposed")
-	then
-		return
+	return data and target.Parent == Sections and data.part.Parent == target and not data.broken
+		and not data.permanent and data.layer == layer and target:GetAttribute("Exposed") == true
+end
+local function contact(p, target, point, grace)
+	local ch, root, head = alive(p)
+	if not ch or not finite(point) then return end
+	local delta = point - head.Position
+	if delta.Magnitude < 0.01 or delta.Magnitude > C.Mining.Reach + grace
+		or (point - root.Position).Magnitude > C.Mining.Reach + grace + 3 then return end
+	local hit = workspace:Raycast(head.Position, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch))
+	if hit and hit.Instance.Parent == target and (hit.Position - point).Magnitude <= 1.3 then return hit end
+end
+local function damageRoll(a, session, target, point, power)
+	local precise = (point - target:GetAttribute("Center")).Magnitude <= C.Precision.Radius
+	local chain = precise and (session.lastTarget == target and session.precisionChain or 0) or 0
+	chain = precise and math.min(chain + 1, C.Precision.MaxChain) or 0
+	session.lastTarget, session.precisionChain = target, chain
+	local multiplier = precise and C.Precision.Multiplier + toolLevel(a, "Precision") * C.Upgrades.Precision.Step
+		+ math.max(0, chain - 1) * C.Precision.ChainStep or 1
+	local critical = random:NextNumber() < toolLevel(a, "Critical") * C.Upgrades.Critical.Step
+	return power * multiplier * (critical and 1.5 or 1), precise, critical
+end
+local function blast(p, target, impact, power, sequence, interval)
+	local a, session = accounts[p.UserId], sessions[p]
+	local cfg, layer = C.Tools.Explosive, activeLayer
+	local origin = impact.Position + impact.Normal * 1
+	local ch, _, head = alive(p)
+	local candidates = {}
+	-- Snapshot eligibility and all visibility rays BEFORE any damage or exposure changes.
+	for section, data in sections do
+		if eligible(section, layer) then
+			local center = section:GetAttribute("Center")
+			local distance = section == target and 0 or (center - impact.Position).Magnitude
+			if distance <= cfg.Radius then
+				local delta = center - origin
+				local ray = section == target and impact or (delta.Magnitude > 0.01
+					and workspace:Raycast(origin, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch)))
+				local sight = ray and ray.Position - head.Position
+				local visible = sight and sight.Magnitude > 0.01 and sight.Magnitude <= C.Mining.Reach + cfg.Radius
+					and workspace:Raycast(head.Position, sight.Unit * (sight.Magnitude + 0.7), rayParams(ch))
+				local surfaceDistance = ray and (ray.Position - impact.Position).Magnitude
+				if ray and ray.Instance.Parent == section and visible and visible.Instance.Parent == section
+					and surfaceDistance <= cfg.Radius then
+					table.insert(candidates, { section = section, impact = ray, distance = surfaceDistance })
+				end
+			end
+		end
 	end
+	table.sort(candidates, function(a, b)
+		if a.distance == b.distance then return a.section.Name < b.section.Name end
+		return a.distance < b.distance
+	end)
+	local centerDamage, precise, critical = damageRoll(a, session, target, impact.Position, power)
+	local applied, limited = 0, 0
+	Feedback:FireAllClients("Blast", p.UserId, sequence, impact.Position, impact.Normal, round)
+	for i = 1, math.min(#candidates, cfg.MaxSections) do
+		local item = candidates[i]
+		local falloff = 1 - (1 - cfg.EdgeMultiplier) * item.distance / cfg.Radius
+		local ok, reason = applyDamage(p, item.section, item.impact, centerDamage * falloff,
+			precise, critical, sequence, "Explosive", interval)
+		if ok then applied += 1 elseif reason == "Capacity" then limited += 1 end
+	end
+	if limited > 0 then
+		note(p, string.format("Blast: %d sections hit; %d skipped for bucket space. SELL to make room.", applied, limited))
+	end
+end
+local function strike(p, target, point, requestRound, sequence)
+	if typeof(sequence) ~= "number" or sequence ~= sequence or sequence < 1 or sequence > 2147483647
+		or sequence % 1 ~= 0 then return end
+	local session, a = sessions[p], accounts[p.UserId]
+	if not session or not a or not alive(p) or session.training or not equipped(p, "Pickaxe")
+		or requestRound ~= round or status ~= "Excavating" or not State:GetAttribute("Ready")
+		or not eligible(target, activeLayer) then return end
+	local family = effectiveTool(a)
+	local attackTool = session.tools.Pickaxe
+	if attackTool:GetAttribute("ToolFamily") ~= family then return end
 	local power, cd, capacity = stats(a)
-	if used(a) + C.Layers[data.layer].Yield + a.Yield > capacity then
+	if used(a) + C.Layers[sections[target].layer].Yield + toolLevel(a, "Yield") > capacity then
 		if os.clock() - (session.fullNotice or 0) > 2 then
 			session.fullNotice = os.clock()
-			note(p, "Bucket full for this plate. Sell your resources from UPGRADES.")
+			note(p, "Not enough bucket space for this section. Tap SELL.")
 		end
 		return
 	end
 	local now = os.clock()
-	if sequence <= (session.lastSequence or 0) or now - session.lastStrike < cd - 0.035 then
-		return
-	end
-	local direction = point - head.Position
-	local distance = direction.Magnitude
-	if
-		distance < 0.01
-		or distance > C.Mining.Reach + 0.5
-		or (point - root.Position).Magnitude > C.Mining.Reach + 3
-	then
-		return
-	end
-	local hit = workspace:Raycast(head.Position, direction.Unit * (distance + 0.7), rayParams(ch))
-	if not hit or hit.Instance.Parent ~= target or (hit.Position - point).Magnitude > 1.3 then
-		return
-	end
+	if session.pending or sequence <= (session.lastSequence or 0) or now - session.lastStrike < cd - 0.035 then return end
+	local hit = contact(p, target, point, 0.5)
+	if not hit then return end
 	point = hit.Position
-	session.lastSequence = sequence
-	session.lastStrike = math.max(now, session.lastStrike + cd)
+	session.lastSequence, session.lastStrike = sequence, math.max(now, session.lastStrike + cd)
 	session.attack = (session.attack or 0) + 1
 	local token = session.attack
-	local attackTool = session.tools.Pickaxe
-	local duration = cd
-	local sum = C.Animation.Anticipation
-		+ C.Animation.Acceleration
-		+ C.Animation.Recoil
-		+ C.Animation.Recovery
-	local windup = duration * (C.Animation.Anticipation + C.Animation.Acceleration) / sum
-	Feedback:FireAllClients("Windup", p.UserId, duration, sequence, point, attackTool)
+	if family == "Drill" then
+		-- One validated immediate tick per request. There is no delayed/overlapping drill loop.
+		local damage, precise, critical = damageRoll(a, session, target, point, power)
+		applyDamage(p, target, hit, damage, precise, critical, sequence, family, cd)
+		return true
+	end
+	local windup = family == "Explosive" and C.Tools.Explosive.Fuse
+		or cd * (C.Animation.Anticipation + C.Animation.Acceleration)
+		/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
+	session.pending = { token = token, target = target, tool = attackTool, round = round }
+	Feedback:FireAllClients("Windup", p.UserId, family == "Explosive" and windup or cd, sequence, point, attackTool)
+	if family == "Explosive" then
+		Feedback:FireAllClients("Charge", p.UserId, sequence, point, hit.Normal, round, workspace:GetServerTimeNow())
+	end
 	task.delay(windup, function()
-		if
-			sessions[p] ~= session
-			or session.attack ~= token
-			or not equipped(p, "Pickaxe")
-			or session.tools.Pickaxe ~= attackTool
-			or requestRound ~= round
-		then
-			return
-		end
-		local ch2, root2, head2 = alive(p)
-		local delta = head2 and point - head2.Position
-		local valid = delta
-			and delta.Magnitude > 0.01
-			and delta.Magnitude <= C.Mining.Reach + C.Mining.ImpactGrace
-			and (point - root2.Position).Magnitude <= C.Mining.Reach + C.Mining.ImpactGrace + 3
-		local impact = valid
-			and workspace:Raycast(head2.Position, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch2))
-		if
-			status ~= "Excavating"
-			or data.broken
-			or data.permanent
-			or data.layer ~= activeLayer
-			or not target:GetAttribute("Exposed")
-			or not impact
-			or impact.Instance.Parent ~= target
-		then
+		if sessions[p] ~= session or session.attack ~= token then return end
+		session.pending = nil
+		if not equipped(p, "Pickaxe") or session.tools.Pickaxe ~= attackTool or requestRound ~= round
+			or session.training or status ~= "Excavating" or not State:GetAttribute("Ready")
+			or effectiveTool(a) ~= family or not eligible(target, activeLayer) then
+			Feedback:FireAllClients("ChargeCancel", p.UserId, sequence)
 			Feedback:FireClient(p, "Miss", sequence)
 			return
 		end
-		local _, _, currentCapacity = stats(a)
-		if used(a) + C.Layers[data.layer].Yield + a.Yield > currentCapacity then
+		local impact = contact(p, target, point, C.Mining.ImpactGrace)
+		if not impact then
+			Feedback:FireAllClients("ChargeCancel", p.UserId, sequence)
 			Feedback:FireClient(p, "Miss", sequence)
 			return
 		end
-		local precise = (impact.Position - target:GetAttribute("Center")).Magnitude <= C.Precision.Radius
-		local chain = precise and (session.lastTarget == target and session.precisionChain or 0) or 0
-		chain = precise and math.min(chain + 1, C.Precision.MaxChain) or 0
-		session.lastTarget, session.precisionChain = target, chain
-		local multiplier = precise
-				and (C.Precision.Multiplier + a.Precision * C.Upgrades.Precision.Step) + math.max(
-					0,
-					chain - 1
-				) * C.Precision.ChainStep
-			or 1
-		local critical = random:NextNumber() < a.Critical * C.Upgrades.Critical.Step
-		local damage = math.min(data.hp, math.floor(power * multiplier * (critical and 1.5 or 1) + 0.5))
-		data.hp -= damage
-		a.mining += damage
-		contributors[p.UserId] = true
-		target:SetAttribute("HP", data.hp)
-		Feedback:FireAllClients(
-			"Hit",
-			p.UserId,
-			impact.Position,
-			C.Layers[data.layer].Color,
-			target,
-			sequence,
-			damage,
-			precise,
-			critical,
-			{ RoundId = round, Normal = impact.Normal, Broken = data.hp <= 0, SectionId = target.Name }
-		)
-		if data.hp <= 0 then
-			data.broken = true
-			target:SetAttribute("Intact", false)
-			removed += 1
-			a.xp += 2
-			if random:NextNumber() < 0.01 then
-				a.relics = (a.relics or 0) + 1
-				Feedback:FireClient(p, "Notice", "RARE FIND / Ancient relic recovered for your room.")
+		if family == "Explosive" then
+			blast(p, target, impact, power, sequence, cd)
+		else
+			local damage, precise, critical = damageRoll(a, session, target, impact.Position, power)
+			if not applyDamage(p, target, impact, damage, precise, critical, sequence, family, cd) then
+				Feedback:FireClient(p, "Miss", sequence)
 			end
-			a.cash += data.layer
-			advance(p, "Break", 1)
-			layerRemaining[data.layer] -= 1
-			if data.layer == #C.Layers then
-				deepRemoved += 1
-				a.samples += 1
-				a.xp += 4
-				a.cash += 3
-				advance(p, "Sample", 1)
-			end
-			local fragment = {
-				CFrame = data.part.CFrame,
-				Normal = impact.Normal,
-				SectionId = target.Name,
-				RoundId = round,
-				CollectorUserId = p.UserId,
-				Size = data.part.Size,
-				Center = target:GetAttribute("Center"),
-				Template = string.format("L%d_R%02d", data.layer, target:GetAttribute("Row")),
-			}
-			expose(target, false)
-			local layer = C.Layers[data.layer]
-			local amount = layer.Yield + a.Yield
-			a.contents[layer.Id] = (a.contents[layer.Id] or 0) + amount
-			if a.introStage <= 2 then
-				a.introStage = 3
-			end
-			a.materialValue += amount * layer.Value * currentEgg.Value
-			advance(p, "Collect", amount)
-			Feedback:FireAllClients(
-				"Fragments",
-				target:GetAttribute("Center"),
-				root2.Position,
-				data.layer,
-				fragment
-			)
-			-- Publish inventory from the same award before its presentation receipt.
-			syncPlayer(p)
-			Feedback:FireClient(p, "Collected", amount, {
-				RoundId = round, Sequence = sequence, SectionId = target.Name,
-				ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
-			})
-			if data.layer == 1 then
-				tutorial(p, "BreakShell")
-				tutorial(p, "EquipBucket")
-				tutorial(p, "Collect")
-			end
-			if layerRemaining[activeLayer] == 0 and activeLayer < #C.Layers then
-				activeLayer += 1
-				for section, info in sections do
-					expose(section, info.layer == activeLayer and not info.broken)
-				end
-				Feedback:FireAllClients(
-					"Notice",
-					C.Layers[activeLayer].Name .. " unlocked - the previous layer is fully cleared."
-				)
-			end
-			syncRound()
-			completion()
 		end
-		syncPlayer(p)
 	end)
 	return true
 end
@@ -750,6 +785,8 @@ local function purchase(p, key, quantity)
 	end
 	a.cash -= cost
 	a[key] += count
+	a.toolLevels[a.toolId] = a.toolLevels[a.toolId] or {}
+	a.toolLevels[a.toolId][key] = a[key]
 	advance(p, "Upgrade", count)
 	tutorial(p, "AtUpgrade")
 	syncPlayer(p)
@@ -768,7 +805,7 @@ local function station(p, action)
 	end
 	if action == "Sell" then
 		tutorial(p, "AtDepot")
-		local value = math.floor(a.materialValue * (1 + a.Value * C.Upgrades.Value.Step) + 0.5)
+		local value = math.floor(a.materialValue * (1 + toolLevel(a, "Value") * C.Upgrades.Value.Step) + 0.5)
 		if value <= 0 then
 			note(p, "Your bucket is empty.")
 			return
@@ -806,6 +843,16 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		return
 	end
 	local now = os.clock()
+	-- Cancellation cannot be lost behind a full ordinary request budget. No damage/refund is granted.
+	if kind == "Cancel" or kind == "DrillStop" then
+		s.attack = (s.attack or 0) + 1
+		s.pending = nil
+		if now - (s.lastCancelBroadcast or -math.huge) >= 0.1 then
+			s.lastCancelBroadcast = now
+			Feedback:FireAllClients("Cancel", p.UserId)
+		end
+		return
+	end
 	if now - (s.window or 0) >= 1 then
 		s.window = now
 		s.requests = 0
@@ -814,11 +861,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	if s.requests > 24 then
 		return
 	end
-	if kind == "Cancel" then
-		s.attack = (s.attack or 0) + 1
-		Feedback:FireAllClients("Cancel", p.UserId)
-		return
-	elseif kind == "EnterLab" then
+	if kind == "EnterLab" then
 		-- Compatibility no-op: player arrival never owns the server egg lifecycle.
 		return
 	elseif kind == "GuideSkip" then
@@ -836,6 +879,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		s.lastStation = now
 		local account = accounts[p.UserId]
 		if kind == "Home" then
+			cancelAttack(p, s)
 			training(p, s, false)
 			local room = ownRoom(p)
 			if room then
@@ -940,8 +984,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 			if a == "Drill" and account.introStage == 4 then
 				account.introStage = 5
 			end
-			s.attack = (s.attack or 0) + 1
-			Feedback:FireAllClients("Cancel", p.UserId)
+			cancelAttack(p, s)
 			giveTools(p, p.Character, s)
 		elseif kind == "DisplayCreature" then
 			if not require(Shared.CollectionSlots).Assign(account.displaySlots, account.creatures, a, b) then
@@ -979,14 +1022,15 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		if typeof(a) ~= "number" or a ~= a or a % 1 ~= 0 or a < 1 or a > 2147483647 then
 			return
 		end
-		if not alive(p) or not equipped(p, "Pickaxe") then
+		if not alive(p) or not equipped(p, "Pickaxe") or effectiveTool(accounts[p.UserId]) ~= "Pickaxe"
+			or s.training or s.pending or status ~= "Excavating" or a <= (s.lastSequence or 0) then
 			return
 		end
 		local _, cooldown = stats(accounts[p.UserId])
 		if now - s.lastStrike < cooldown then
 			return
 		end
-		s.lastStrike = now
+		s.lastStrike, s.lastSequence = now, a
 		Feedback:FireAllClients("Windup", p.UserId, cooldown, a, nil, s.tools.Pickaxe)
 	elseif kind == "Mine" then
 		if now - s.lastRequest < 0.08 then
@@ -1033,6 +1077,9 @@ giveTools = function(p, ch, s)
 	if not backpack or not human or sessions[p] ~= s or p.Character ~= ch then
 		return
 	end
+	cancelAttack(p, s)
+	if s.deathConnection then s.deathConnection:Disconnect() end
+	s.deathConnection = human.Died:Connect(function() if sessions[p] == s then cancelAttack(p, s) end end)
 	human:UnequipTools()
 	for _, old in s.tools do
 		old:Destroy()
@@ -1063,8 +1110,7 @@ giveTools = function(p, ch, s)
 			if sessions[p] ~= s or s.tools[kind] ~= t then
 				return
 			end
-			s.attack = (s.attack or 0) + 1
-			Feedback:FireAllClients("Cancel", p.UserId)
+			cancelAttack(p, s)
 		end)
 		t.Parent = backpack
 		if human.Health > 0 then
@@ -1132,6 +1178,7 @@ Players.PlayerRemoving:Connect(function(p)
 	if s then
 		training(p, s, false)
 		s.connection:Disconnect()
+		if s.deathConnection then s.deathConnection:Disconnect() end
 		for _, t in s.tools do
 			t:Destroy()
 		end

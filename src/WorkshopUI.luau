@@ -222,15 +222,8 @@ function W.Build(gui, player, base, remote)
 		add("TOOLS", id, d.Name, d.Color, assets and assets:FindFirstChild(id), nil, function()
 			local owned = player:GetAttribute("OwnsTool_" .. id)
 			local equipped = player:GetAttribute("ToolFamily") == id
-			local power, speed, pl, sl = Presentation.ToolStats(id, player, Rules, base)
 			return owned and (equipped and "EQUIPPED" or "OWNED") or "LOCKED",
-				string.format(
-					"%d power   /   %.2fs per hit\n\nPower level %d  /  Speed level %d\nEach tool keeps its own upgrades.",
-					power,
-					speed,
-					pl,
-					sl
-				),
+				Presentation.ToolDescription(id, player, Rules, base),
 				owned and (equipped and "EQUIPPED" or "EQUIP") or "UNLOCK  /  " .. number(d.Cost) .. " COINS",
 				owned and not equipped or not owned and (player:GetAttribute("Cash") or 0) >= d.Cost
 		end, function()
@@ -288,9 +281,12 @@ function W.Build(gui, player, base, remote)
 	for _, key in Economy.Order do
 		add("RIG", key, base.Upgrades[key].Name, C.blue, nil, nil, function()
 			local config = Rules.ToolConfig(player:GetAttribute("ToolFamily"), base)
-			local level = player:GetAttribute(key .. "Level") or 0
+			local level = player:GetAttribute("ToolLevel_" .. config.ToolFamily .. "_" .. key) or 0
 			local detail, buy, enabled =
-				Presentation.Upgrade(key, level, player:GetAttribute("Cash") or 0, quantity, config)
+				Presentation.Upgrade(key, level, player:GetAttribute("Cash") or 0, quantity, config, player)
+			if (player:GetAttribute("DrillTrialEndsAt") or 0) > workspace:GetServerTimeNow() then
+				buy, enabled = "TRIAL ACTIVE / UPGRADES LOCKED", false
+			end
 			return "LEVEL " .. level, detail, buy, enabled
 		end, function()
 			remote:FireServer("Upgrade", key, quantity)

@@ -213,15 +213,21 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 			and trialEnd > workspace:GetServerTimeNow() and not player:GetAttribute("OwnsTool_Drill") then
 			toolName.Text ..= " / trial " .. math.ceil(trialEnd - workspace:GetServerTimeNow()) .. "s"
 		end
+		if actualTool and actualTool:GetAttribute("ToolFamily") == "Drill" and player:GetAttribute("DrillRunning") then
+			toolName.Text ..= player:GetAttribute("DrillContact") and " / CONTACT" or " / NO CONTACT"
+		end
 		local touch = UIS.PreferredInput == Enum.PreferredInput.Touch
 		gui.Use.Visible = not blocked and not running and phase == "Excavating"
 		gui.Use.Size = UDim2.fromOffset(touch and 106 or 130, 64)
 		gui.Use.Position = UDim2.new(1, touch and -116 or -140, 1, touch and -100 or -16)
 		gui.Use.Text = not actualTool and "EQUIP" or player:GetAttribute("ToolFamily") == "Drill"
-			and (gui.Use.Text:find("STOP") and "STOP DRILL" or "START DRILL")
+			and (player:GetAttribute("DrillRunning") and "STOP DRILL" or "START DRILL")
 			or player:GetAttribute("ToolFamily") == "Explosive" and "DETONATE" or "STRIKE"
 		prompt.Text = not actualTool and "SELECT TOOL" or touch and (player:GetAttribute("ToolFamily") == "Drill" and "TAP TO TOGGLE" or "HOLD")
 			or UIS.PreferredInput == Enum.PreferredInput.Gamepad and "RT / R2" or "CLICK / E"
+		if actualTool and actualTool:GetAttribute("ToolFamily") == "Drill" and player:GetAttribute("DrillRunning") then
+			prompt.Text = player:GetAttribute("DrillContact") and "CONTACT" or "NO CONTACT"
+		end
 		-- Equip behavior is owned by the original input controller.
 		local sprint = gui:FindFirstChild("SprintToggle")
 		if sprint then

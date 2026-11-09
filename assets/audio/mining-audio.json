@@ -1,0 +1,17 @@
+{
+  "phase": "3",
+  "placeId": "94763223427049",
+  "studioFolder": "ReplicatedStorage.VesperShared.MiningAudioAssets",
+  "runtimeReferences": ["src/ExcavationConfig.luau", "src/ToolFeedback.luau"],
+  "source": "Roblox Creator Store, discovered through the existing Studio integration on 2026-11-09",
+  "status": "All three inserted successfully and reported IsLoaded=true, Playing=false by read-only Studio inspection. No playback or gameplay verification performed.",
+  "ownership": "Third-party Creator Store assets reported free-to-use. No purchase, upload or ownership transfer. Public hosted references; audio bytes/editable sound sources are not included.",
+  "sharedProperties": {"RollOffMinDistance": 6, "RollOffMaxDistance": 70, "RollOffMode": "InverseTapered", "Playing": false, "PlaybackSpeed": 1},
+  "assets": [
+    {"name": "PickaxeImpact", "assetId": "9118617342", "title": "Rock Impact Large Hit Scrape 1 (SFX)", "creator": "ProSoundEffects", "durationObservedSeconds": 0.8640208333, "volume": 0.18, "looped": false, "url": "https://create.roblox.com/store/asset/9118617342"},
+    {"name": "DrillContact", "assetId": "199754867", "title": "Drill Loop", "creator": "Hydrablox", "durationObservedSeconds": 2.5077551020, "volume": 0.14, "looped": true, "url": "https://create.roblox.com/store/asset/199754867"},
+    {"name": "BlastDetonation", "assetId": "120212342534790", "title": "Debris Explosion + Small Rocks Rumbling 2", "creator": "GleonoffG", "durationObservedSeconds": 2.8866041667, "volume": 0.24, "looped": false, "url": "https://create.roblox.com/store/asset/120212342534790"}
+  ],
+  "runtimeBounds": {"maximumSimultaneousMiningSounds": 8, "maximumDrillLoops": 4, "oneShotLifetimeSeconds": 3.2, "maximumDrillLeaseSeconds": 0.55},
+  "reviewNeeded": "Audible suitability, loop seam, mixing, latency and playback permissions in the user's actual runtime. Studio loadability does not establish those results. Existing SFXVolume is applied; Reduced Motion reduces rotor/vibration and visual accents, not sound volume."
+}

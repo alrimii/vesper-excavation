@@ -1,5 +1,7 @@
 # Phase 2: direct joining and core gameplay HUD
 
+Subsequent status: the user explicitly authorized [Phase 3](PHASE_3_HANDOFF.md) without asserting that this checklist passed. The Phase 2 implementation and unresolved checks below remain historical evidence. Phase 3 wires the previously missing mining audio to discovered assets; playback/mixing still require manual review.
+
 9 November 2026. Applied directly in original Studio place **94763223427049**, Coming Soon, Edit mode, place version 55. The user provisionally accepted Phase 1B and explicitly authorized this phase. No second place, gameplay execution or publishing. Branch: `planning/development-foundation`; pre-phase commit: `5cf5dd96ef152b0d159d37ec570f1ef9cf20107c`. The delivery commit containing this document records the Phase 2 changes; its SHA/link are supplied in the delivery message.
 
 ## What is applied

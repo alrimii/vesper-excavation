@@ -143,6 +143,7 @@ function P.ToolConfig(id, base)
 	end
 	local tool = P.Tools[id]
 	local c = table.clone(base)
+	c.ToolFamily = id
 	c.Mining = table.clone(base.Mining)
 	c.Mining.Power, c.Mining.Cooldown, c.Mining.MinimumCooldown =
 		tool.Power, tool.Cooldown, tool.MinimumCooldown
@@ -164,6 +165,10 @@ end
 function P.PowerBonus(account)
 	local creature = P.Creature(account.equippedCreature)
 	return 1 + math.min(1, (account.strength or 0) * 0.0001) + (creature and creature.Power or 0)
+end
+function P.Level(account, id, key)
+	if id == account.toolId then return account[key] or 0 end
+	return (account.toolLevels[id] or {})[key] or 0
 end
 function P.SwitchTool(account, id)
 	if not P.Tools[id] or not account.ownedTools[id] then

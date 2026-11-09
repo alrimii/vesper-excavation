@@ -76,7 +76,7 @@ local function create(store, studio, pause)
 				if raw.profileVersion ~= 3 and id == "Pickaxe" then
 					value = a[key]
 				end
-				if raw.profileVersion == 3 and raw.toolId == id then
+				if raw.profileVersion == 3 and raw.toolId == id and type(raw[key]) == "number" then
 					value = raw[key]
 				end
 				a.toolLevels[id][key] = number(value, config.Upgrades[key].MaxLevel)

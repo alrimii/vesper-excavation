@@ -104,11 +104,13 @@ function D.Update(actor, dt)
 	local now = os.clock()
 	local phase = actor.phase
 	local contact = actor.drillContact
-	local liveContact = contact and now - contact.at < 0.15
+	local liveContact = contact and now - contact.at < (contact.lease or 0.15)
+	local spinning = actor.drillRunning and now < actor.drillRunning.untilTime
 	local driving = liveContact
 		or (phase and phase.kind == "Strike" and now <= phase.at + phase.duration + 0.08)
 	local aim = actor.training and actor.trainingAim
 		or liveContact and contact.point
+		or spinning and actor.drillRunning.point
 		or phase and phase.target
 	local player = Players:GetPlayerFromCharacter(actor.character)
 	local root = actor.character:FindFirstChild("HumanoidRootPart")
@@ -135,8 +137,10 @@ function D.Update(actor, dt)
 	end
 	local requested = actor.training and (actor.trainingPressure or 0) or driving and 1 or 0
 	d.drive += (requested - d.drive) * (1 - math.exp(-dt * (driving and 18 or 12)))
-	d.speed += (requested * 65 - d.speed) * (1 - math.exp(-dt * (driving and 12 or 8)))
-	d.angle = (d.angle + d.speed * dt) % (math.pi * 2)
+	local spin = requested > 0 and requested or spinning and 0.35 or 0
+	d.speed += (spin * 65 - d.speed) * (1 - math.exp(-dt * (driving and 12 or 8)))
+	local reduced = Players.LocalPlayer and Players.LocalPlayer:GetAttribute("ReducedMotion")
+	d.angle = (d.angle + d.speed * dt * (reduced and 0.2 or 1)) % (math.pi * 2)
 	if not d.torso then
 		return
 	end
@@ -146,7 +150,6 @@ function D.Update(actor, dt)
 		pitch = math.clamp(math.atan2(delta.Y, math.sqrt(delta.X ^ 2 + delta.Z ^ 2)), -0.32, 0.32)
 		yaw = math.clamp(math.atan2(-delta.X, -delta.Z), -0.38, 0.38)
 	end
-	local reduced = player and player:GetAttribute("ReducedMotion")
 	local vibration = reduced and 0 or math.sin(now * 71) * 0.006 * d.drive
 	local scale = math.clamp(d.torso.Size.Y / 1.7, 0.7, 1.35)
 	local handleFrame = CFrame.new(Vector3.new(0.52, -0.56 + 0.06 * d.drive, -0.83 - 0.12 * d.drive) * scale)
