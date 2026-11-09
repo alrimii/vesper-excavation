@@ -262,14 +262,21 @@ function W.Build(gui, player, base, remote)
 			function()
 				local owned = player:GetAttribute("Creature_" .. d.Id) or 0
 				local chosen = player:GetAttribute("EquippedCreature") == d.Id
-				local players = math.max(1, shared.RoundState:GetAttribute("DrawPlayers") or 1)
-				local chance = shared.RoundState:GetAttribute("EggDropChance") or 0.08
+				local solo = shared.RoundState:GetAttribute("EggDropChance")
+				local personal = player:GetAttribute("MiningContribution")
+				local total = shared.RoundState:GetAttribute("EffectiveDamage")
+				local odds = "Synchronizing creature chances..."
+				if typeof(solo) == "number" and typeof(personal) == "number" and typeof(total) == "number"
+					and player:GetAttribute("ContributionRound") == shared.RoundState:GetAttribute("RoundId") then
+					local share = total > 0 and personal / total or 0
+					local chance = solo * share
+					local weight = 0
+					for _, variant in Rules.CreatureVariants do weight += variant.Weight end
+					odds = string.format("Egg solo chance: %.6g%%\nYour contribution so far: %.6g%%\nAny creature: %.6g%% / This variant: %.6g%%\nProvisional until completion. Zero damage means no roll.",
+						solo * 100, share * 100, chance * 100, chance * d.Weight / weight * 100)
+				end
 				return d.Rarity .. "  /  " .. owned .. " OWNED",
-					string.format(
-						"+%d%% mining power\n\nYour draw chance: %.4f%%\nChoose a shelf below to display this creature.",
-						math.floor(d.Power * 100 + 0.5),
-						chance * d.Weight / players
-					),
+					string.format("+%d%% mining power\n\n%s\nChoose a shelf below to display this creature.", math.floor(d.Power * 100 + 0.5), odds),
 					chosen and "BUFF ACTIVE" or owned > 0 and "ACTIVATE BUFF" or "NOT DISCOVERED",
 					owned > 0 and not chosen
 			end,

@@ -75,7 +75,7 @@ function T.new(player, gui, egg, C)
 			or player:GetAttribute("CoreMenuOpen")
 			or player:GetAttribute("MaterialBagOpen")
 			or player:GetAttribute("Training")
-			or player:GetAttribute("ResearchModal")
+			or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
 			or player:GetAttribute("DiscoveryCinematic")
 			or UIS:GetFocusedTextBox()
 		then

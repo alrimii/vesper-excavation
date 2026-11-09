@@ -12,6 +12,7 @@ local function create(store, studio, pause)
 	local token = game.JobId .. Http:GenerateGUID(false)
 	local locks, saving, closing, leases = {}, {}, {}, {}
 	local Materials = require(script.Parent.MaterialRewards)
+	local EggRewards = require(script.Parent.EggRewards)
 	local function number(v, max)
 		return type(v) == "number" and v == v and math.clamp(math.floor(v), 0, max) or 0
 	end
@@ -40,6 +41,7 @@ local function create(store, studio, pause)
 			introStage = math.max(1, number(raw.introStage or (raw.tutorial == 8 and 5 or 1), 5)),
 			contents = {},
 			pendingMaterials = Materials.Normalize(raw.pendingMaterials),
+			eggRewardReceipts = EggRewards.NormalizeReceipts(raw.eggRewardReceipts),
 			xp = number(raw.xp, 1e8),
 			samples = number(raw.samples, 1e8),
 			discoveries = {},

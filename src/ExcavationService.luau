@@ -107,11 +107,16 @@ local random = Random.new()
 local Catalog = require(Shared:WaitForChild("DiscoveryCatalog"))
 local Profiles = require(script.Parent.ResearchProfiles)
 local Materials = require(script.Parent.MaterialRewards)
+local EggRewards = require(script.Parent.EggRewards).new(random)
 local Action = Shared.Remotes:WaitForChild("Action")
 local Feedback = Shared.Remotes:WaitForChild("Feedback")
 local State = Shared:WaitForChild("RoundState")
 State:SetAttribute("Initialized", false)
 State:SetAttribute("TransitionStartedAt", 0)
+-- Remove obsolete single-winner state; rewards are personal completion receipts.
+State:SetAttribute("LastWinner", nil)
+State:SetAttribute("LastCreature", nil)
+State:SetAttribute("DrawPlayers", nil)
 local Piles = Shared:WaitForChild("ResourcePiles")
 local Egg = workspace.VesperLab.Egg
 local Sections = Egg.Sections
@@ -133,8 +138,7 @@ local layerRemaining = {}
 local layerTotals = {}
 local round, status, readyAt = 0, "Excavating", 0
 local specimenId = "lumen"
-local contributors = {}
-local eggDamage, eggResults, serverClaims = {}, {}, {}
+local eggDamage, serverClaims = {}, {}
 local totalDamage = 0
 local shuttingDown = false
 local rebuildingShell = false
@@ -270,6 +274,16 @@ local function syncPlayer(p)
 
 	p:SetAttribute("TutorialStep", a.tutorial or 1)
 end
+local function deliverEggRewards(p)
+	local owner, account = writablePlayer(p.UserId)
+	if owner ~= p then return 0 end
+	return EggRewards:Deliver(p.UserId, account)
+end
+local function publishEggResults(p)
+	local history = EggRewards:History(p.UserId)
+	p:SetAttribute("ExpeditionResultHistory", game:GetService("HttpService"):JSONEncode(history))
+	p:SetAttribute("LastExpeditionResult", #history > 0 and game:GetService("HttpService"):JSONEncode(history[#history]) or nil)
+end
 local function advance(p, kind, amount)
 	local a = accounts[p.UserId]
 	if not a then
@@ -386,8 +400,8 @@ local function beginRound(nextEgg)
 	end
 	round += 1
 	specimenId = Catalog.ForRound(round).Id
-	contributors = {}
-	eggDamage, eggResults, totalDamage = {}, {}, 0
+	eggDamage, totalDamage = {}, 0
+	-- EggRewards settlements/undelivered claims deliberately survive the next egg.
 	State:SetAttribute("SpecimenColor", Catalog.ForRound(round).Color)
 	removed = 0
 	deepRemoved = 0
@@ -476,74 +490,39 @@ local function nextExpedition(selectedEgg)
 	end)
 end
 local function completion()
-	if status ~= "Excavating" or removed < total then
-		return
-	end
+	if status ~= "Excavating" or removed < total then return end
 	for player, session in sessions do cancelAttack(player, session) end
 	status = "Hatching"
-	readyAt = workspace:GetServerTimeNow() + 2.2 + C.Completion.RevealSeconds
-	State:SetAttribute("PhaseStartedAt", workspace:GetServerTimeNow())
+	local completedAt = workspace:GetServerTimeNow()
+	readyAt = completedAt + 2.2 + C.Completion.RevealSeconds
+	State:SetAttribute("PhaseStartedAt", completedAt)
 	local completed = round
+	-- Frozen immediately at completion; reveal, rejoin and UI cannot reroll.
+	EggRewards:Freeze(completed, currentEgg, eggDamage, totalDamage, completedAt, readyAt)
 	syncRound()
 	task.delay(2.2, function()
-		if round ~= completed or status ~= "Hatching" then
-			return
-		end
+		if round ~= completed or status ~= "Hatching" then return end
 		status = "Revealed"
-		State:SetAttribute("PhaseStartedAt", workspace:GetServerTimeNow())
-		local candidates = {}
+		local revealedAt = workspace:GetServerTimeNow()
+		State:SetAttribute("PhaseStartedAt", revealedAt)
+		local candidates, onlineLoaded = {}, {}
 		for _, p in Players:GetPlayers() do
 			if accounts[p.UserId] and sessions[p] then
 				table.insert(candidates, p)
+				table.insert(onlineLoaded, p.UserId)
 			end
 		end
-		local winner, creature
-		-- Earned-only draw. Paid luck is deliberately disabled until configured and policy checked.
-		if #candidates > 0 and random:NextNumber() < currentEgg.DropChance then
-			winner = candidates[random:NextInteger(1, #candidates)]
-			creature = Rules.Choose(Rules.CreatureVariants, random)
-			local a = accounts[winner.UserId]
-			a.creatures[creature.Id] = (a.creatures[creature.Id] or 0) + 1
-			a.discoveries.crownback = (a.discoveries.crownback or 0) + 1
-			if a.equippedCreature == "" then
-				a.equippedCreature = creature.Id
-			end
-		end
-		State:SetAttribute("LastWinner", winner and winner.DisplayName or "")
-		State:SetAttribute("LastCreature", creature and creature.Name or "")
+		-- Same stipend roster/timing and amounts as before; creature eligibility is separate.
+		EggRewards:Reveal(completed, onlineLoaded, revealedAt)
 		for _, p in candidates do
-			local a = accounts[p.UserId]
-			if contributors[p.UserId] then
-				local reward = math.floor(250 * currentEgg.Value)
-				a.cash += reward
-				a.xp += 100
-			end
+			deliverEggRewards(p)
 			syncPlayer(p)
+			publishEggResults(p)
 		end
 		syncRound()
-		Feedback:FireAllClients("Reveal", specimenId, completed, State:GetAttribute("PhaseStartedAt"))
-		-- Freeze contribution results for same-server rejoins. Only the original online
-		-- candidates receive the existing stipend; re-presenting a result grants nothing.
-		local online = {}
-		for _, p in candidates do online[p.UserId] = true end
-		local resultUsers = {}
-		for userId in eggDamage do resultUsers[userId] = true end
-		for userId in online do resultUsers[userId] = true end
-		for userId in resultUsers do
-			eggResults[userId] = game:GetService("HttpService"):JSONEncode({
-				round = completed, revealedAt = State:GetAttribute("PhaseStartedAt"), nextAt = readyAt,
-				winnerId = winner and winner.UserId or 0, winnerName = winner and winner.DisplayName or "",
-				creatureId = creature and creature.Id or "",
-				credits = online[userId] and contributors[userId] and math.floor(250 * currentEgg.Value) or 0,
-				xp = online[userId] and contributors[userId] and 100 or 0,
-				damage = eggDamage[userId] or 0, totalDamage = totalDamage,
-			})
-		end
-		for _, p in candidates do p:SetAttribute("LastExpeditionResult", eggResults[p.UserId]) end
+		Feedback:FireAllClients("Reveal", specimenId, completed, revealedAt)
 		task.delay(C.Completion.RevealSeconds, function()
-			if C.Completion.AutoReset and round == completed and status == "Revealed" then
-				nextExpedition()
-			end
+			if C.Completion.AutoReset and round == completed and status == "Revealed" then nextExpedition() end
 		end)
 	end)
 end
@@ -590,7 +569,6 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 	totalDamage += damage
 	a.mining = eggDamage[p.UserId]
 	State:SetAttribute("EffectiveDamage", totalDamage)
-	contributors[p.UserId] = true
 	target:SetAttribute("HP", data.hp)
 	Feedback:FireAllClients(
 		"Hit",
@@ -1212,7 +1190,9 @@ local function joined(p)
 		p:SetAttribute("RecoveredMaterialPending", claimed - delivered)
 	end
 	loaded.mining = eggDamage[p.UserId] or 0
-	if eggResults[p.UserId] then p:SetAttribute("LastExpeditionResult", eggResults[p.UserId]) end
+	EggRewards:IncludeSpectator(round, p.UserId)
+	p:SetAttribute("RecoveredEggCreatures", deliverEggRewards(p))
+	publishEggResults(p)
 	s.connection = p.CharacterAdded:Connect(function(ch)
 		training(p, s, false)
 		giveTools(p, ch, s)
@@ -1318,9 +1298,7 @@ end)
 task.spawn(function()
 	while true do
 		task.wait(0.25)
-		local eligible = 0
 		for p, session in sessions do
-			eligible += 1
 			if session.training then
 				local _, root = alive(p)
 				local a = accounts[p.UserId]
@@ -1357,7 +1335,6 @@ task.spawn(function()
 				end
 			end
 		end
-		State:SetAttribute("DrawPlayers", eligible)
 	end
 end)
 for _, room in workspace.VesperLab.Rooms:GetChildren() do

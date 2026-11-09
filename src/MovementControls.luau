@@ -25,7 +25,7 @@ function M.Start(player, gui)
 			or UIS:GetFocusedTextBox() ~= nil
 			or GuiService.MenuIsOpen
 			or player:GetAttribute("LabReady") ~= true
-			or player:GetAttribute("ResearchModal")
+			or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
 			or player:GetAttribute("CoreMenuOpen")
 			or player:GetAttribute("MaterialBagOpen")
 			or player:GetAttribute("DiscoveryCinematic")

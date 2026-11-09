@@ -62,6 +62,7 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ServerScriptService.Vesper.ExcavationService` | `src/ExcavationService.luau` |
 | `ServerScriptService.Vesper.ResearchProfiles` | `src/ResearchProfiles.luau` |
 | `ServerScriptService.Vesper.MaterialRewards` (added in Phase 4) | `src/MaterialRewards.luau` |
+| `ServerScriptService.Vesper.EggRewards` (added in Phase 4B) | `src/EggRewards.luau` |
 | `ServerScriptService.Vesper.DiscoveryWorld` | `src/DiscoveryWorld.luau` |
 | `ServerScriptService.Vesper.MovementService` | `src/MovementService.luau` |
 | `ServerScriptService.Vesper.ExpeditionWorld` | `src/ExpeditionWorld.luau` |

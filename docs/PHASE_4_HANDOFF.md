@@ -1,5 +1,7 @@
 # Phase 4: persistent placement, shared materials and contribution
 
+Historical Phase 4 delivery, including its corrected Yield allocation. Phase 4B subsequently replaces the single-winner creature policy and extends result/claim handling; see [Phase 4B handoff](PHASE_4B_HANDOFF.md). Section XP/cash, relic rolls and contract attribution remain unchanged. Phase 4 gameplay verification is still pending.
+
 9 November 2026. Applied directly in **Coming Soon, original Studio place 94763223427049**, Edit mode. Branch `planning/development-foundation`; pre-phase commit `80cdb430861a41302af468d0bf85907784bd83dd`. The delivery message supplies the new commit. Earlier unperformed gameplay/audio checks remain unverified.
 
 ## Blast placement

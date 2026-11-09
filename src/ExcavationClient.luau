@@ -102,6 +102,7 @@ State:GetAttributeChangedSignal("RoundId"):Connect(function()
 end)
 player:GetAttributeChangedSignal("CoreMenuOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("ResearchModal"):Connect(cancel)
+player:GetAttributeChangedSignal("EggResultsOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("Training"):Connect(cancel)
 player:GetAttributeChangedSignal("MaterialBagOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("DiscoveryCinematic"):Connect(function()
@@ -147,7 +148,7 @@ local function selectTool(id)
 	if
 		player:GetAttribute("LabReady") ~= true
 		or player:GetAttribute("DiscoveryCinematic")
-		or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
 	then
@@ -191,7 +192,7 @@ local function use()
 		player:GetAttribute("LabReady") ~= true
 		or State:GetAttribute("Status") ~= "Excavating"
 		or not State:GetAttribute("Ready")
-		or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
 		or player:GetAttribute("DiscoveryCinematic")
@@ -323,7 +324,7 @@ gui.Use.Activated:Connect(function()
 		or shopOpen
 		or player:GetAttribute("Training")
 		or player:GetAttribute("DiscoveryCinematic")
-		or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
 	then
@@ -554,7 +555,7 @@ Run.Heartbeat:Connect(function(dt)
 	local blocked = player:GetAttribute("LabReady") ~= true or State:GetAttribute("Status") ~= "Excavating"
 		or not State:GetAttribute("Ready") or not human or human.Health <= 0 or shopOpen
 		or player:GetAttribute("CoreMenuOpen") or player:GetAttribute("MaterialBagOpen")
-		or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic") or player:GetAttribute("Training")
+		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic") or player:GetAttribute("Training")
 	if held and blocked then cancel() end
 	local running = held and not blocked and selected ~= nil and selected:GetAttribute("ToolFamily") == "Drill"
 	local section, point

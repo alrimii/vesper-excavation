@@ -89,13 +89,14 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		{ "Decorate", "Room collection", function() openEquipment("ROOM") end },
 		{ "Settings", "Settings", function() openEquipment("OPTIONS") end },
 		{ "Help", "Controls & guidance", function() showHelp = not showHelp end },
+		{ "EggResults", "Egg results / this server", function() player:SetAttribute("EggResultsRequested", (player:GetAttribute("EggResultsRequested") or 0) + 1) end },
 	}
 	for index, entry in entries do
 		local b = button(list, entry[1], entry[2], cream, function() setMenu(false); entry[3]() end)
 		b.Size, b.LayoutOrder, b.ZIndex = UDim2.new(1, -6, 0, 44), index, 12
 	end
 	local contract = text(list, "Contract", 14, UDim2.new(), UDim2.new(1, -6, 0, 120), mint)
-	contract.LayoutOrder, contract.TextWrapped, contract.TextTruncate, contract.ZIndex = 9, true, Enum.TextTruncate.None, 12
+	contract.LayoutOrder, contract.TextWrapped, contract.TextTruncate, contract.ZIndex = 10, true, Enum.TextTruncate.None, 12
 	local guide = card("ContextHint")
 	guide.BackgroundTransparency = 0.08
 	local hint = text(guide, "Text", 14, UDim2.fromOffset(10, 4), UDim2.new(1, -58, 1, -8))
@@ -145,7 +146,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 	function api:SetToolbelt(controller) belt = controller end
 	function api:Update()
 		local ready = player:GetAttribute("LabReady") == true and player:GetAttribute("ProfileReady") == true
-		local externalModal = gui.Station.Visible or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic")
+		local externalModal = gui.Station.Visible or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic")
 		local bagOpen = player:GetAttribute("MaterialBagOpen") == true
 		if not ready or externalModal or bagOpen then setMenu(false) end
 		root.Visible = ready and not externalModal and not bagOpen
@@ -241,7 +242,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 			sprint.Size, sprint.Position = UDim2.fromOffset(compactPortrait and 64 or 84, 44), UDim2.fromOffset(10, actionY + (portrait and 116 or 54))
 		end
 		training.Parent = running and root or list
-		training.LayoutOrder = 8
+		training.LayoutOrder = 9
 		training.Visible = root.Visible and alive and (running or (menuOpen and ownedTraining()))
 		training.AnchorPoint = running and Vector2.new(0.5, 1) or Vector2.zero
 		training.Size, training.Position = running and UDim2.fromOffset(160, 44) or UDim2.new(1, -6, 0, 44), UDim2.new(0.5, 0, 1, -14)
