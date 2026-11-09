@@ -3,6 +3,7 @@
 ## Authority and scope
 Communicate exclusively in English unless the user explicitly requests otherwise.
 Current authorization is Phase 1A: a complete native backup, read-only asset/context inspection, isolated visual concepts and Blender geometry/motion/effects studies, documentation, and commit/push on the current development branch. Already-installed Blender/BlendRelay components may be launched. Production modeling, live asset replacement, runtime changes, economy changes and gameplay integration require approval of the proposal. The vision does not authorize later phases.
+Current focused revision supersedes the earlier motion-preview permission: preserve the starter and shell; propose ONE fire-themed replacement pickaxe through exactly TWO compact static boards and an editable study. Do not produce GIFs, videos, animated renders or frame sequences. Fire identity is visual only; no mechanic, rarity, currency or progression position is approved. The previous reinforced upgrade was rejected. Stop after delivering this revision.
 Preserve useful systems. Historical completion reports are leads, not acceptance evidence. Do not rewrite the project by default.
 
 ## Execution restrictions

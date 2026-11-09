@@ -1,5 +1,6 @@
 # Art direction and asset delivery
 Status: Phase 1A cartoon direction established by the user; specific asset proposal pending approval. No finalized game name.
+Focused review update: preserve the supported starter and stylized foundation. The reinforced upgrade was rejected; one fire-themed replacement is proposed through exactly two static boards in assets/studies/phase1a/fire_revision. No new animation or shell changes are authorized in this revision. Fire is a visual identity only, with no approved damage mechanic, rarity or progression position.
 
 ## Intent
 Create a coherent, readable laboratory excavation experience with satisfying physical tools and recognizable egg/creature themes. Preserve useful existing art while reviewing actual in-game appearance. Interfaces should feel integrated into a Roblox game. Avoid accumulated decoration that obscures interaction.

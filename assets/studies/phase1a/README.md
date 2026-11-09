@@ -1,8 +1,20 @@
 # Phase 1A: playful discovery workshop
 
-Status: recommended direction for approval. Geometry and authored motion studies only. No production modeling, live asset replacement, gameplay integration, economy change or Roblox upload has occurred. The original place 94763223427049 remains the only implementation target; these scenes contain no playable environment.
+Status: the user supports the stylized foundation and starter pickaxe. The original reinforced upgrade is rejected. The focused fire-themed replacement below is pending appearance approval. No production modeling, live asset replacement, gameplay integration, economy change or Roblox upload has occurred. The original place 94763223427049 remains the only implementation target; these scenes contain no playable environment.
 
-## Review the actual deliverables
+## Current focused revision: fire-themed pickaxe
+Exactly one replacement proposal, delivered as two compact static boards:
+- [Starter and fire proposal: front, side, three-quarter](fire_revision/01_starter_and_fire.png)
+- [Held fire proposal: close and gameplay-distance approximation](fire_revision/02_held_scale.png)
+- [Editable static Blender model/scenes](fire_revision/fire_pickaxe_study.blend), [authoring source](fire_revision/build_fire_study.py), [board layout source](fire_revision/package_boards.py).
+
+Design: a continuous, balanced crescent forging flows into an integral eye and bronze socket sleeve. Broad charcoal metal faces, honed pale tips and copper bevels establish the silhouette without stacked reinforcement plates. An oxblood shaft, palm-swollen leather grip, one continuous wrap seam and compact forged pommel form a deliberate full-tool design. Small amber enamel details suggest embers; no emissive materials, particles, bloom or other effects are used. The shared shaft/grip scale, warm-metal accents and readable swept head retain the starter's visual family while giving the replacement its own construction and material identity.
+
+The accepted starter is copied directly from the previous editable study without mesh/material changes. The existing mannequin and lighting are reused. The shell and all earlier source assets remain untouched. Five necessary component stills are local layout intermediates; only the two boards are delivered as new images. No GIF, video, animated render or frame sequence was produced for this revision. Earlier motion deliverables below are historical, not part of this revision.
+
+Appearance limits: Blender materials are conceptual and still need production UVs/maps and Roblox material implementation. The enamel is reflective color, not a promised glowing effect. The static 5.5-stud mannequin is a scale/hold reference, not final R15 grip fitting; contact clearance across avatars and Roblox lighting remain unverified. No new Roblox asset IDs or production exports exist. Fire damage, rarity, currency, stats and progression position are not approved or assigned. Approval is requested only for this silhouette, construction and material direction; implementation requires a subsequent explicit scope and must target the original place directly.
+
+## Original Phase 1A deliverables (historical; reinforced upgrade rejected)
 - [Design board: three-quarter, front, side and character scale](01_design_board.png)
 - [Shell states and approximate gameplay distance](02_shell_and_distance.png)
 - [Animated motion study: 120 authored frames, 12 fps, silent](03_authored_motion.gif)
@@ -16,7 +28,7 @@ Keep the laboratory lighthearted through warm ivory ceramic, sea-green enamel, d
 
 The starter has a swept asymmetrical forging, a distinct striking tooth, rounded eye socket, tapered shaft, palm grip lands and a visible captive axle. It should feel like a thoughtfully made discovery tool, leaving head breadth, layered construction and mechanical reinforcement available for later tiers.
 
-The first upgrade keeps the familiar grip language but adds a broader/thicker impact head, layered ceramic spine, twin cheek plates and double neck collars. The proposed functional improvement is stronger impact only. Exact damage values, costs and acquisition rules are not set. No lightning, new currency or progression system is introduced. The upgrade reception in the film is a presentation example, not an acquisition flow.
+The rejected first upgrade added a broader/thicker impact head, layered ceramic spine, twin cheek plates and double neck collars. It is retained below only as historical review evidence and is superseded by the focused fire-themed visual proposal above. The old film's upgrade reception is not an approved design or acquisition flow.
 
 The ancient shell uses a warm glazed face, cool mineral fracture interior and restrained strata marks. The small curved patch is a construction study, not the final egg silhouette or texture solution. Its intact/damaged/broken versions share matched edges. The current broad polygon facets need smoother curvature and a more authored mineral motif during approved production; the study must not be mistaken for a completed egg surface.
 
