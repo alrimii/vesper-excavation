@@ -1,6 +1,6 @@
 # Phase review handoff template
 
-Current delivery: [Phase 3 distinct tools and upgrades](PHASE_3_HANDOFF.md). Applied in the original Studio place with source readback and native saves. Mining audio is wired to discovered, loaded assets but has not been auditioned or gameplay-verified. Phase 2's outstanding checks remain unverified; Phase 1B retains provisional user acceptance. The reusable template below remains for subsequent authorized deliveries.
+Current delivery: [Phase 4 shared materials and contribution](PHASE_4_HANDOFF.md). Applied in the original Studio place with source readback and native saves. Review allocation, persistent blast placement, pending capacity and same-server rejoin behavior manually; source readback does not verify gameplay or DataStore persistence. Phase 2/3 outstanding checks and mining-audio quality remain unverified; Phase 1B retains provisional user acceptance. Current UI is functional interim work, not final visual approval or a completed skill tree. The reusable template below remains for subsequent authorized deliveries.
 
 ## Identity and authorization
 - Phase, approved scope, date and remaining scope boundaries:

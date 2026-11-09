@@ -35,18 +35,19 @@ function M.Start(folder, roundState)
 		end
 		local part = anchor(position)
 		local gui = Instance.new("BillboardGui")
-		gui.Name, gui.Size = group, UDim2.fromOffset(230, 36)
+		gui.Name, gui.Size = group, UDim2.fromOffset(award and 290 or 230, award and 48 or 36)
 		gui.MaxDistance, gui.AlwaysOnTop = 80, true
 		gui.StudsOffsetWorldSpace = Vector3.new(0, award and 3 or 0.6, 0)
 		gui.Adornee, gui.Parent = part, part
 		local label = Instance.new("TextLabel")
 		label.Size, label.BackgroundTransparency = UDim2.fromScale(1, 1), 1
-		label.Font, label.TextSize = Enum.Font.GothamBold, award and 17 or 21
+		label.Font, label.TextSize = Enum.Font.GothamBold, award and 14 or 21
+		label.TextWrapped = award
 		label.TextColor3, label.TextStrokeTransparency = color, 0.25
 		label.Text, label.Parent = text, gui
 		local entry = { part = part, gui = gui, group = group, row = 0 }
 		table.insert(popups, entry)
-		local life = award and 1.2 or 0.75
+		local life = award and 1.8 or 0.75
 		if not player:GetAttribute("ReducedMotion") then
 			Tween:Create(part, TweenInfo.new(life, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 				{ Position = position + Vector3.yAxis * 0.6 }):Play()
@@ -86,7 +87,7 @@ function M.Start(folder, roundState)
 			or (precise or critical) and Color3.fromRGB(255, 218, 145) or Color3.fromRGB(246, 241, 224), false)
 	end
 	function controller:Award(amount, receipt)
-		if typeof(receipt) ~= "table" or typeof(amount) ~= "number" or amount <= 0
+		if typeof(receipt) ~= "table" or typeof(amount) ~= "number" or amount < 0
 			or typeof(receipt.Position) ~= "Vector3" or typeof(receipt.ResourceName) ~= "string" then return end
 		local key = tostring(receipt.RoundId) .. ":" .. tostring(receipt.Sequence) .. ":" .. tostring(receipt.SectionId)
 		if receipts[key] then return end
@@ -94,7 +95,16 @@ function M.Start(folder, roundState)
 		table.insert(receiptOrder, key)
 		if #receiptOrder > 64 then receipts[table.remove(receiptOrder, 1)] = nil end
 		-- Final receipts remain valid even if next-round replication overtakes them.
-		popup(receipt.Position, "+" .. tostring(amount) .. " " .. receipt.ResourceName,
+		local delivered, pending = receipt.Delivered or amount, receipt.Pending or 0
+		local caption = amount == 0 and (receipt.ResourceName .. ": 0 units (rounded share)")
+			or string.format("%s: +%d bucket / +%d pending", receipt.ResourceName, delivered, pending)
+		local position = receipt.Position
+		local camera = workspace.CurrentCamera
+		if camera and (camera.CFrame.Position - position).Magnitude > 60 then
+			-- Contributors may have moved away before settlement; keep their receipt visible.
+			position = camera.CFrame.Position + camera.CFrame.LookVector * 12
+		end
+		popup(position, caption,
 			Color3.fromRGB(160, 243, 204), true)
 	end
 	return controller

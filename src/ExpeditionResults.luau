@@ -7,7 +7,7 @@ function M.Attach(gui, player)
 	local Run = game:GetService("RunService")
 	local panel = Instance.new("CanvasGroup")
 	panel.Name = "ExpeditionResults"
-	panel.Size = UDim2.fromOffset(440, 398)
+	panel.Size = UDim2.fromOffset(440, 438)
 	panel.AnchorPoint = Vector2.new(0.5, 0.5)
 	panel.Position = UDim2.fromScale(0.5, 0.5)
 	panel.BackgroundColor3 = Color3.fromRGB(13, 23, 34)
@@ -39,10 +39,11 @@ function M.Attach(gui, player)
 	local outcome = label("Outcome", 191, 43, 15)
 	local benefits = label("Benefits", 237, 24, 12, Color3.fromRGB(164, 185, 202))
 	local earnings = label("Earnings", 269, 30, 18, Color3.fromRGB(255, 213, 138))
-	local nextRound = label("Next", 306, 20, 11, Color3.fromRGB(164, 185, 202))
+	local contribution = label("Contribution", 303, 36, 12, Color3.fromRGB(113, 236, 210))
+	local nextRound = label("Next", 346, 20, 11, Color3.fromRGB(164, 185, 202))
 	local close = Instance.new("TextButton")
 	close.Name, close.Text = "Continue", "CONTINUE EXPLORING"
-	close.Size, close.Position = UDim2.new(1, -48, 0, 42), UDim2.fromOffset(24, 337)
+	close.Size, close.Position = UDim2.new(1, -48, 0, 42), UDim2.fromOffset(24, 377)
 	close.BackgroundColor3, close.TextColor3 = Color3.fromRGB(113, 236, 210), Color3.fromRGB(13, 23, 34)
 	close.Font, close.TextSize, close.BorderSizePixel = Enum.Font.GothamBold, 13, 0
 	close.ZIndex, close.Parent = 71, panel
@@ -106,6 +107,8 @@ function M.Attach(gui, player)
 			or "Your collected materials remain yours."
 		earnings.Text = data.credits > 0 and string.format("+%d CREDITS    +%d XP", data.credits, data.xp)
 			or "Contribute to earn the completion stipend"
+		local personal, allDamage = data.damage or 0, data.totalDamage or 0
+		contribution.Text = string.format("Your effective damage: %d / %.1f%%\nYour damage divided by all damage dealt to this egg", personal, allDamage > 0 and personal / allDamage * 100 or 0)
 		panel.Visible, panel.GroupTransparency = true, 1
 		animation = Tween:Create(
 			panel,
@@ -145,7 +148,7 @@ function M.Attach(gui, player)
 			end
 			if panel.Visible then
 				local size = gui.AbsoluteSize
-				fit.Scale = math.min(1, (size.X - 28) / 440, (size.Y - 28) / 398)
+				fit.Scale = math.min(1, (size.X - 28) / 440, (size.Y - 28) / 438)
 				nextRound.Text = string.format(
 					"Next expedition in %ds / Rewards already added",
 					math.max(0, math.ceil(data.nextAt - now))

@@ -1,4 +1,4 @@
--- Cosmetic collection only; the server awards the full yield at the final hit.
+-- One shared cosmetic break. Personal material shares arrive through private server receipts.
 local M = {}
 function M.Start(folder, shell, roundState)
 	local Players = game:GetService("Players")
@@ -137,6 +137,13 @@ function M.Start(folder, shell, roundState)
 				if f.organic then
 					f.part.Size = f.size * Vector3.new(1 + t * 0.12, 1 - t * 0.18, 1 + t * 0.06)
 				end
+			elseif not f.collector then
+				-- Shared fragments fall/fade near the surface; no flight to a final hitter.
+				local t = (time - 0.38) / 0.67
+				position = f.peel + f.normal * (0.9 + t * 0.6) + f.lateral * 0.3
+					- Vector3.yAxis * (1.25 + t * t * 2)
+				rotation *= CFrame.Angles(t * 0.5, t * 0.3, 0.1)
+				f.part.Transparency = math.clamp(t, 0, 1)
 			else
 				local t = (time - 0.38) / 0.67
 				local travel = t * t * (3 - 2 * t)

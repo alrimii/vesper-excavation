@@ -21,6 +21,7 @@ local function effective(key, level, config, player)
 			or family == "Explosive" and string.format("%.3fs cooldown", cd)
 			or string.format("%.3fs / strike", cd)
 	end
+	if key == "Yield" then return string.format("+%d at 100%% section contribution", level * config.Upgrades.Yield.Step) end
 	return E.Effect(key, level, config)
 end
 function M.Upgrade(key, level, cash, quantity, config, player)
@@ -36,6 +37,8 @@ function M.Upgrade(key, level, cash, quantity, config, player)
 		description = config.ToolFamily == "Drill" and "Shorter interval between focused damage ticks."
 			or config.ToolFamily == "Explosive" and "Shorter time between charges; fuse stays fixed."
 			or "Shorter full swing cycle while holding attack."
+	elseif key == "Yield" then
+		description = "Personal extra materials, weighted by your effective damage and Yield level at each hit; rounded at section break."
 	elseif key == "Precision" and config.ToolFamily == "Explosive" then
 		description = "Accurate placement on the gold point boosts the whole blast before distance falloff."
 	elseif key == "Critical" and config.ToolFamily == "Explosive" then
@@ -65,7 +68,7 @@ function M.ToolDescription(id, player, rules, base)
 		detail = string.format("Focused contact: %d damage / %.3fs tick = %.1f DPS.\nHold desktop attack; tap the touch button to toggle. No contact means no damage.", power, cd, power / cd)
 	elseif id == "Explosive" then
 		local b = base.Tools.Explosive
-		detail = string.format("%d center damage / %.3fs cooldown.\n%.2fs fuse; %g-stud radius; at most %d visible exposed sections. Linear falloff to %d%% at the edge. Bucket space limits each section.\nF, switching tools or opening a menu cancels the fuse; releasing attack stops repeats.", power, cd, b.Fuse, b.Radius, b.MaxSections, b.EdgeMultiplier * 100)
+		detail = string.format("%d center damage / %.3fs cooldown.\n%.2fs fuse; %g-stud radius; at most %d visible exposed sections. Linear falloff to %d%% at the edge. One free bucket slot is required to mine; earned overflow stays pending. Placement survives the original section breaking.\nF, switching tools or opening a menu cancels the fuse; releasing attack stops repeats.", power, cd, b.Fuse, b.Radius, b.MaxSections, b.EdgeMultiplier * 100)
 	else
 		detail = string.format("Deliberate strikes: %d damage / %.3fs swing.\nHold attack to repeat. Aim at the gold point for precision.", power, cd)
 	end

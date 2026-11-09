@@ -10,7 +10,8 @@ local function create(store, studio, pause)
 	local C = require(game.ReplicatedStorage.VesperShared.ExcavationConfig)
 	local Progression = require(game.ReplicatedStorage.VesperShared.ProgressionRules)
 	local token = game.JobId .. Http:GenerateGUID(false)
-	local locks, saving, closing = {}, {}, {}
+	local locks, saving, closing, leases = {}, {}, {}, {}
+	local Materials = require(script.Parent.MaterialRewards)
 	local function number(v, max)
 		return type(v) == "number" and v == v and math.clamp(math.floor(v), 0, max) or 0
 	end
@@ -38,6 +39,7 @@ local function create(store, studio, pause)
 			drillTrialUsed = raw.drillTrialUsed == true,
 			introStage = math.max(1, number(raw.introStage or (raw.tutorial == 8 and 5 or 1), 5)),
 			contents = {},
+			pendingMaterials = Materials.Normalize(raw.pendingMaterials),
 			xp = number(raw.xp, 1e8),
 			samples = number(raw.samples, 1e8),
 			discoveries = {},
@@ -109,6 +111,9 @@ local function create(store, studio, pause)
 		end
 		return a
 	end
+	function P.CanMutate(player)
+		return not closing[player] and (isStudio() or (locks[player] ~= nil and (leases[player] or 0) > os.time()))
+	end
 	function P.Load(player)
 		if isStudio() then
 			player:SetAttribute("SaveStatus", "STUDIO PREVIEW")
@@ -145,6 +150,7 @@ local function create(store, studio, pause)
 			end)
 			if ok and result and result.lock == sessionToken then
 				locks[player] = sessionToken
+				leases[player] = result.lease
 				player:SetAttribute("SaveStatus", "SAVED")
 				return P.Normalize(result.data)
 			end
@@ -193,6 +199,7 @@ local function create(store, studio, pause)
 				end)
 			end)
 			if ok and result then
+				leases[player] = result.lease
 				success = true
 				break
 			end
@@ -208,6 +215,7 @@ local function create(store, studio, pause)
 		else
 			player:SetAttribute("SaveStatus", "SAVE RETRY")
 			if not release then
+				closing[player] = true
 				player:Kick("Your research could not be saved safely. Please reconnect.")
 			end
 		end

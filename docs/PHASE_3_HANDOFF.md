@@ -1,5 +1,7 @@
 # Phase 3: distinct tools and per-tool upgrades
 
+Historical delivery. Phase 4 supersedes the original-target cancellation, full-section capacity reservation and final-hit material ownership described below; see [the Phase 4 handoff](PHASE_4_HANDOFF.md). Advancing phases does not establish that this delivery's unperformed checks passed. Current menus/HUD are functional interim UI, not final visual approval.
+
 9 November 2026. Implemented directly in original place **94763223427049**, Coming Soon, Edit mode, place version 55. Pre-phase commit: `9498861fcd426792bcc490232b3a4236c9b708b6`; branch: `planning/development-foundation`. The delivery message supplies this commit's SHA/link. Phase 3 authorization does not establish that outstanding Phase 2 gameplay checks passed.
 
 ## Tool behavior

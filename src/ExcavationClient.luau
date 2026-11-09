@@ -55,6 +55,19 @@ local function notice(t)
 	gui.Toast.Text = t
 	toastUntil = os.clock() + 3.2
 end
+local recoveryShown = false
+local function recoveredClaim()
+	if recoveryShown or not player:GetAttribute("LabReady") or not player:GetAttribute("ProfileReady") then return end
+	local amount = player:GetAttribute("RecoveredMaterialClaim")
+	local delivered, pending = player:GetAttribute("RecoveredMaterialDelivered"), player:GetAttribute("RecoveredMaterialPending")
+	if typeof(amount) ~= "number" or typeof(delivered) ~= "number" or typeof(pending) ~= "number" then return end
+	recoveryShown = true
+	notice(string.format("Recovered %d earned materials: %d in bucket / %d pending", amount, delivered, pending))
+end
+for _, attribute in { "LabReady", "ProfileReady", "RecoveredMaterialClaim", "RecoveredMaterialDelivered", "RecoveredMaterialPending" } do
+	player:GetAttributeChangedSignal(attribute):Connect(recoveredClaim)
+end
+recoveredClaim()
 local function equipped()
 	local ch = player.Character
 	local tool = ch and ch:FindFirstChildOfClass("Tool")
@@ -201,15 +214,11 @@ local function use()
 		if family ~= "Pickaxe" and not section then
 			return
 		end
-		local layerIndex = section and section:GetAttribute("Layer")
-		local yieldAmount = (layerIndex and C.Layers[layerIndex].Yield or 1)
-			+ (player:GetAttribute("YieldBonus") or 0)
-		if
-			(player:GetAttribute("BucketUsed") or 0) + yieldAmount
-			> (player:GetAttribute("BucketCapacity") or 40)
+		if (player:GetAttribute("BucketUsed") or 0) >= (player:GetAttribute("BucketCapacity") or 40)
+			or (player:GetAttribute("PendingMaterials") or 0) > 0
 		then
 			if not fullNotified then
-				notice("Bucket full for this plate. Tap SELL to make room.")
+				notice("Bucket full or materials pending. Tap SELL to make room.")
 				fullNotified = true
 			end
 			cancel()
@@ -511,8 +520,11 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 		notice(C.Upgrades[a].Name .. " +" .. tostring(b) .. " levels")
 	elseif kind == "Collected" then
 		MiningFeedback:Award(a, b)
+	elseif kind == "PendingDelivered" then
+		notice(string.format("%d pending materials moved to bucket / %d still pending", a, b))
 	elseif kind == "Sold" then
-		notice("Unloaded resources  /  +$" .. a)
+		notice((b or 0) > 0 and string.format("Sold +$%d / %d pending moved to bucket / %d remain", a, b, c or 0)
+			or ("Unloaded resources  /  +$" .. a))
 		-- Selling no longer requires an equipped bucket.
 		local ch = player.Character
 		local root = ch and ch:FindFirstChild("HumanoidRootPart")

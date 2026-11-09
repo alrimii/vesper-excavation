@@ -40,7 +40,7 @@ function M.Attach(gui, player, remote, counter)
 	local total = text("Total", "", 200, 25, 18, Color3.fromRGB(255, 213, 138))
 	text(
 		"Note",
-		"Sale total includes egg value and your active value upgrade.",
+		"Only bucket contents sell. Pending units refill freed space and keep their original egg value.",
 		229,
 		32,
 		11,
@@ -121,13 +121,13 @@ function M.Attach(gui, player, remote, counter)
 			"%d / %d stored  /  %s",
 			used,
 			cap,
-			used >= cap and "FULL" or tostring(cap - used) .. " free"
+			string.format("%d pending", player:GetAttribute("PendingMaterials") or 0)
 		)
 		fill.Size = UDim2.fromScale(math.clamp(used / cap, 0, 1), 1)
 		fill.BackgroundColor3 = used >= cap and Color3.fromRGB(255, 141, 91) or Color3.fromRGB(113, 236, 210)
 		for _, layer in config.Layers do
 			rows[layer.Id].Text =
-				string.format("%s   x%d", layer.Name, player:GetAttribute("Bucket_" .. layer.Id) or 0)
+				string.format("%s  x%d / %d pending", layer.Name, player:GetAttribute("Bucket_" .. layer.Id) or 0, player:GetAttribute("Pending_" .. layer.Id) or 0)
 		end
 		local value = M.Value(player)
 		total.Text = string.format("TOTAL SALE VALUE  $%d", value)

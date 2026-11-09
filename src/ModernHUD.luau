@@ -57,6 +57,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 	local egg = card("CurrentEgg")
 	local eggName = text(egg, "Name", 17, UDim2.fromOffset(12, 5), UDim2.new(1, -24, 0, 23))
 	local progress = text(egg, "Progress", 13, UDim2.fromOffset(12, 29), UDim2.new(1, -24, 0, 18), mint)
+	local contribution = text(egg, "Contribution", 12, UDim2.fromOffset(12, 64), UDim2.new(1, -24, 0, 18), cream)
 	local track = card("Track", egg, Color3.fromRGB(51, 72, 80))
 	track.Position, track.Size = UDim2.fromOffset(12, 53), UDim2.new(1, -24, 0, 6)
 	local fill = Instance.new("Frame")
@@ -93,7 +94,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		local b = button(list, entry[1], entry[2], cream, function() setMenu(false); entry[3]() end)
 		b.Size, b.LayoutOrder, b.ZIndex = UDim2.new(1, -6, 0, 44), index, 12
 	end
-	local contract = text(list, "Contract", 14, UDim2.new(), UDim2.new(1, -6, 0, 88), mint)
+	local contract = text(list, "Contract", 14, UDim2.new(), UDim2.new(1, -6, 0, 120), mint)
 	contract.LayoutOrder, contract.TextWrapped, contract.TextTruncate, contract.ZIndex = 9, true, Enum.TextTruncate.None, 12
 	local guide = card("ContextHint")
 	guide.BackgroundTransparency = 0.08
@@ -163,8 +164,8 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		bag.Size, bag.Position = UDim2.fromOffset(side, 54), UDim2.new(1, -side - 10, 0, 8)
 		local eggWidth = stacked and math.min(400, w - 20) or math.min(360, w - 2 * side - 48)
 		egg.AnchorPoint, egg.Position = Vector2.new(0.5, 0), UDim2.new(0.5, 0, 0, stacked and 70 or 8)
-		egg.Size = UDim2.fromOffset(math.max(160, eggWidth), 66)
-		local actionY = stacked and 144 or 82
+		egg.Size = UDim2.fromOffset(math.max(160, eggWidth), 86)
+		local actionY = stacked and 164 or 102
 		more.Size, more.Position = UDim2.fromOffset(92, 44), UDim2.fromOffset(10, actionY)
 		upgrade.Size, upgrade.Position = UDim2.fromOffset(100, 44), UDim2.fromOffset(110, actionY)
 		sell.Size, sell.Position = UDim2.fromOffset(92, 44), UDim2.new(1, -102, 0, actionY)
@@ -173,10 +174,16 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		local used, cap = player:GetAttribute("BucketUsed"), player:GetAttribute("BucketCapacity")
 		bucket.Text = number(used) .. " / " .. number(cap)
 		local full = typeof(used) == "number" and typeof(cap) == "number" and used >= cap
-		local activeLayer = Config.Layers[State:GetAttribute("ActiveLayer")]
-		local noRoom = typeof(used) == "number" and typeof(cap) == "number" and activeLayer
-			and used + activeLayer.Yield + (player:GetAttribute("YieldBonus") or 0) > cap
-		bagCaption.Text, bucket.TextColor3 = full and "FULL / SELL" or noRoom and "SELL TO MAKE ROOM" or "BUCKET / OPEN", noRoom and gold or mint
+		local pending = player:GetAttribute("PendingMaterials") or 0
+		local noRoom = full or pending > 0
+		bagCaption.Text = pending > 0 and string.format("%d PENDING / OPEN", pending)
+			or full and "FULL / SELL" or "BUCKET / OPEN"
+		bucket.TextColor3 = noRoom and gold or mint
+		local personal, allDamage = player:GetAttribute("MiningContribution"), State:GetAttribute("EffectiveDamage")
+		if typeof(personal) == "number" and typeof(allDamage) == "number"
+			and player:GetAttribute("ContributionRound") == State:GetAttribute("RoundId") then
+			contribution.Text = string.format("Your damage: %.1f%% / %s HP", allDamage > 0 and personal / allDamage * 100 or 0, number(personal))
+		else contribution.Text = "Synchronizing contribution..." end
 		sell.Interactable, sell.Selectable = ready and typeof(used) == "number" and used > 0, ready and typeof(used) == "number" and used > 0
 		sell.BackgroundTransparency = sell.Interactable and 0 or 0.4
 		local phase = Phase.Read(State)
@@ -195,7 +202,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		local index, done = player:GetAttribute("ContractIndex"), player:GetAttribute("ContractProgress")
 		if index and done then
 			local item = Catalog.Contract(index)
-			contract.Text = "CURRENT CONTRACT\n" .. item.Title .. "\n" .. number(done) .. " / " .. number(item.Goal) .. "  |  Reward $" .. number(item.Reward)
+			contract.Text = "Your % = your damage / all egg damage so far.\nCURRENT CONTRACT\n" .. item.Title .. "\n" .. number(done) .. " / " .. number(item.Goal) .. "  |  Reward $" .. number(item.Reward)
 		else contract.Text = "Synchronizing contract..." end
 		local ch = player.Character
 		local actualTool = ch and ch:FindFirstChildOfClass("Tool")
@@ -241,7 +248,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal)
 		training.ZIndex = running and 8 or 12
 		training.Text = running and "STOP TRAINING" or "TRAIN / OPTIONAL"
 		local step = player:GetAttribute("TutorialStep")
-		local guideText = noRoom and "Make room for the next section: tap SELL, then UPGRADES."
+		local guideText = noRoom and "Tap SELL to make room. Earned pending materials refill your bucket."
 			or showHelp and (touch and "Aim at the shell and hold STRIKE. Materials collect automatically." or "Click / E to strike. 1-3 select tools. Shift sprints; Ctrl locks aim.")
 			or step and step <= 1 and "Select your pickaxe, aim at the egg and strike."
 			or step and step <= 4 and "Break a shell section. Materials collect automatically."

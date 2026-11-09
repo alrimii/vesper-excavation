@@ -1,4 +1,4 @@
--- Sole authority: mining, direct bucket awards, sales and purchases.
+-- Sole authority: damage, shared material settlement, pending claims, sales and purchases.
 local Players = game:GetService("Players")
 local Shared = game.ReplicatedStorage:WaitForChild("VesperShared")
 require(script.Parent:WaitForChild("ProgressiveFractureBuilder")).Prepare(Shared)
@@ -106,6 +106,7 @@ local transitioning = false
 local random = Random.new()
 local Catalog = require(Shared:WaitForChild("DiscoveryCatalog"))
 local Profiles = require(script.Parent.ResearchProfiles)
+local Materials = require(script.Parent.MaterialRewards)
 local Action = Shared.Remotes:WaitForChild("Action")
 local Feedback = Shared.Remotes:WaitForChild("Feedback")
 local State = Shared:WaitForChild("RoundState")
@@ -133,6 +134,9 @@ local layerTotals = {}
 local round, status, readyAt = 0, "Excavating", 0
 local specimenId = "lumen"
 local contributors = {}
+local eggDamage, eggResults, serverClaims = {}, {}, {}
+local totalDamage = 0
+local shuttingDown = false
 local rebuildingShell = false
 local function expose(s, visible)
 	local data = sections[s]
@@ -175,12 +179,27 @@ end
 local function price(a, key)
 	return Economy.Price(key, toolLevel(a, key), Rules.ToolConfig(effectiveTool(a), C))
 end
+-- Accounts are writable only while this Player owns a loaded, non-closing profile.
+local function writablePlayer(userId)
+	local p = Players:GetPlayerByUserId(userId)
+	if not shuttingDown and p and p.Parent == Players and sessions[p] and accounts[userId] and Profiles.CanMutate(p) then
+		return p, accounts[userId]
+	end
+end
+local function drainPending(p, a, cap, quiet)
+	local delivered = Materials.Drain(a, cap)
+	if delivered > 0 and not quiet then
+		Feedback:FireClient(p, "PendingDelivered", delivered, Materials.Count(a.pendingMaterials))
+	end
+	return delivered
+end
 local function syncPlayer(p)
 	local a = accounts[p.UserId]
 	if not a then
 		return
 	end
 	local power, cd, cap = stats(a)
+	if writablePlayer(p.UserId) == p then drainPending(p, a, cap) end
 	local config = Rules.ToolConfig(effectiveTool(a), C)
 	p:SetAttribute("ToolFamily", effectiveTool(a))
 	p:SetAttribute("IntroStage", a.introStage)
@@ -210,7 +229,9 @@ local function syncPlayer(p)
 	for k, v in
 		{
 			Cash = a.cash,
-			MiningContribution = a.mining,
+			MiningContribution = eggDamage[p.UserId] or 0,
+			ContributionRound = round,
+			PendingMaterials = Materials.Count(a.pendingMaterials),
 			CollectionIncome = a.income,
 			BucketUsed = used(a),
 			BucketCapacity = cap,
@@ -227,6 +248,7 @@ local function syncPlayer(p)
 	end
 	for _, l in C.Layers do
 		p:SetAttribute("Bucket_" .. l.Id, a.contents[l.Id] or 0)
+		p:SetAttribute("Pending_" .. l.Id, Materials.Count(a.pendingMaterials, l.Id))
 	end
 	for key, u in config.Upgrades do
 		p:SetAttribute(key .. "Level", toolLevel(a, key))
@@ -299,6 +321,7 @@ end
 local function syncRound()
 	for k, v in
 		{
+			EffectiveDamage = totalDamage,
 			ActiveLayer = activeLayer,
 			LayerRemaining = layerRemaining[activeLayer] or 0,
 			LayerTotal = layerTotals[activeLayer] or 0,
@@ -364,6 +387,7 @@ local function beginRound(nextEgg)
 	round += 1
 	specimenId = Catalog.ForRound(round).Id
 	contributors = {}
+	eggDamage, eggResults, totalDamage = {}, {}, 0
 	State:SetAttribute("SpecimenColor", Catalog.ForRound(round).Color)
 	removed = 0
 	deepRemoved = 0
@@ -388,6 +412,7 @@ local function beginRound(nextEgg)
 		data.hp = math.floor(C.Layers[data.layer].Durability * currentEgg.Durability)
 		s:SetAttribute("MaxHP", data.hp)
 		data.broken = false
+		data.contributions, data.settled = {}, false
 		s:SetAttribute("HP", data.hp)
 		s:SetAttribute("Intact", true)
 		expose(s, data.layer == 1)
@@ -497,22 +522,24 @@ local function completion()
 		end
 		syncRound()
 		Feedback:FireAllClients("Reveal", specimenId, completed, State:GetAttribute("PhaseStartedAt"))
-		-- One immutable personal receipt; displaying it never grants rewards again.
-		for _, p in candidates do
-			p:SetAttribute(
-				"LastExpeditionResult",
-				game:GetService("HttpService"):JSONEncode({
-					round = completed,
-					revealedAt = State:GetAttribute("PhaseStartedAt"),
-					nextAt = readyAt,
-					winnerId = winner and winner.UserId or 0,
-					winnerName = winner and winner.DisplayName or "",
-					creatureId = creature and creature.Id or "",
-					credits = contributors[p.UserId] and math.floor(250 * currentEgg.Value) or 0,
-					xp = contributors[p.UserId] and 100 or 0,
-				})
-			)
+		-- Freeze contribution results for same-server rejoins. Only the original online
+		-- candidates receive the existing stipend; re-presenting a result grants nothing.
+		local online = {}
+		for _, p in candidates do online[p.UserId] = true end
+		local resultUsers = {}
+		for userId in eggDamage do resultUsers[userId] = true end
+		for userId in online do resultUsers[userId] = true end
+		for userId in resultUsers do
+			eggResults[userId] = game:GetService("HttpService"):JSONEncode({
+				round = completed, revealedAt = State:GetAttribute("PhaseStartedAt"), nextAt = readyAt,
+				winnerId = winner and winner.UserId or 0, winnerName = winner and winner.DisplayName or "",
+				creatureId = creature and creature.Id or "",
+				credits = online[userId] and contributors[userId] and math.floor(250 * currentEgg.Value) or 0,
+				xp = online[userId] and contributors[userId] and 100 or 0,
+				damage = eggDamage[userId] or 0, totalDamage = totalDamage,
+			})
 		end
+		for _, p in candidates do p:SetAttribute("LastExpeditionResult", eggResults[p.UserId]) end
 		task.delay(C.Completion.RevealSeconds, function()
 			if C.Completion.AutoReset and round == completed and status == "Revealed" then
 				nextExpedition()
@@ -520,18 +547,49 @@ local function completion()
 		end)
 	end)
 end
--- All three tools use this single atomic damage/award path. No yield occurs here.
+-- One frozen section settlement. This and transfers below never yield.
+local function settleMaterials(data, target, impact, sequence)
+	if data.settled then return end
+	data.settled = true
+	local layer = C.Layers[data.layer]
+	for _, share in Materials.Allocate(data, layer.Yield) do
+		local amount = share.base + share.bonus
+		local recipient, account = writablePlayer(share.userId)
+		if recipient then
+			local _, _, cap = stats(account)
+			drainPending(recipient, account, cap)
+			Materials.Add(account.pendingMaterials, layer.Id, layer.Value * currentEgg.Value, amount)
+			local delivered = drainPending(recipient, account, cap, true)
+			if amount > 0 and account.introStage <= 2 then account.introStage = 3 end
+			syncPlayer(recipient)
+			Feedback:FireClient(recipient, "Collected", amount, {
+				RoundId = round, Sequence = sequence, SectionId = target.Name,
+				ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
+				Delivered = delivered, Pending = amount - delivered, Base = share.base, Bonus = share.bonus,
+			})
+		elseif amount > 0 then
+			local claims = serverClaims[share.userId] or {}
+			Materials.Add(claims, layer.Id, layer.Value * currentEgg.Value, amount)
+			serverClaims[share.userId] = claims
+		end
+	end
+end
+-- All tools share this atomic effective-damage/settlement path. No yield occurs here.
 local function applyDamage(p, target, impact, damage, precise, critical, sequence, family, interval)
 	local data = sections[target]
 	local a = accounts[p.UserId]
 	local _, root2 = alive(p)
-	if not a or not root2 or not data or data.broken or data.permanent or data.layer ~= activeLayer
+	if writablePlayer(p.UserId) ~= p or not a or not root2 or not data or data.broken or data.permanent or data.layer ~= activeLayer
 		or not target:GetAttribute("Exposed") then return false end
 	local _, _, capacity = stats(a)
-	if used(a) + C.Layers[data.layer].Yield + toolLevel(a, "Yield") > capacity then return false, "Capacity" end
+	if used(a) >= capacity or Materials.Count(a.pendingMaterials) > 0 then return false, "Capacity" end
 	damage = math.min(data.hp, math.max(1, math.floor(damage + 0.5)))
 	data.hp -= damage
-	a.mining += damage
+	Materials.Record(data, p.UserId, damage, toolLevel(a, "Yield"))
+	eggDamage[p.UserId] = (eggDamage[p.UserId] or 0) + damage
+	totalDamage += damage
+	a.mining = eggDamage[p.UserId]
+	State:SetAttribute("EffectiveDamage", totalDamage)
 	contributors[p.UserId] = true
 	target:SetAttribute("HP", data.hp)
 	Feedback:FireAllClients(
@@ -570,33 +628,17 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 			Normal = impact.Normal,
 			SectionId = target.Name,
 			RoundId = round,
-			CollectorUserId = p.UserId,
+			CollectorUserId = 0, -- shared break debris does not imply final-hit material ownership
 			Size = data.part.Size,
 			Center = target:GetAttribute("Center"),
 			Template = string.format("L%d_R%02d", data.layer, target:GetAttribute("Row")),
 		}
 		expose(target, false)
-		local layer = C.Layers[data.layer]
-		local amount = layer.Yield + toolLevel(a, "Yield")
-		a.contents[layer.Id] = (a.contents[layer.Id] or 0) + amount
-		if a.introStage <= 2 then
-			a.introStage = 3
-		end
-		a.materialValue += amount * layer.Value * currentEgg.Value
-		advance(p, "Collect", amount)
-		Feedback:FireAllClients(
-			"Fragments",
-			target:GetAttribute("Center"),
-			root2.Position,
-			data.layer,
-			fragment
-		)
-		-- Publish inventory from the same award before its presentation receipt.
-		syncPlayer(p)
-		Feedback:FireClient(p, "Collected", amount, {
-			RoundId = round, Sequence = sequence, SectionId = target.Name,
-			ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
-		})
+		-- Contract credit is deliberately unchanged: the final hitter still receives
+		-- the old base + their current Yield Collect credit, independent of material shares.
+		advance(p, "Collect", C.Layers[data.layer].Yield + toolLevel(a, "Yield"))
+		settleMaterials(data, target, impact, sequence)
+		Feedback:FireAllClients("Fragments", target:GetAttribute("Center"), impact.Position, data.layer, fragment)
 		if data.layer == 1 then
 			tutorial(p, "BreakShell")
 			tutorial(p, "EquipBucket")
@@ -642,9 +684,9 @@ local function damageRoll(a, session, target, point, power)
 	local critical = random:NextNumber() < toolLevel(a, "Critical") * C.Upgrades.Critical.Step
 	return power * multiplier * (critical and 1.5 or 1), precise, critical
 end
-local function blast(p, target, impact, power, sequence, interval)
-	local a, session = accounts[p.UserId], sessions[p]
-	local cfg, layer = C.Tools.Explosive, activeLayer
+local function blast(p, placement, sequence, interval)
+	local cfg, layer = C.Tools.Explosive, placement.layer
+	local target, impact = placement.target, placement.impact
 	local origin = impact.Position + impact.Normal * 1
 	local ch, _, head = alive(p)
 	local candidates = {}
@@ -672,7 +714,7 @@ local function blast(p, target, impact, power, sequence, interval)
 		if a.distance == b.distance then return a.section.Name < b.section.Name end
 		return a.distance < b.distance
 	end)
-	local centerDamage, precise, critical = damageRoll(a, session, target, impact.Position, power)
+	local centerDamage, precise, critical = placement.damage, placement.precise, placement.critical
 	local applied, limited = 0, 0
 	Feedback:FireAllClients("Blast", p.UserId, sequence, impact.Position, impact.Normal, round)
 	for i = 1, math.min(#candidates, cfg.MaxSections) do
@@ -697,10 +739,12 @@ local function strike(p, target, point, requestRound, sequence)
 	local attackTool = session.tools.Pickaxe
 	if attackTool:GetAttribute("ToolFamily") ~= family then return end
 	local power, cd, capacity = stats(a)
-	if used(a) + C.Layers[sections[target].layer].Yield + toolLevel(a, "Yield") > capacity then
+	if writablePlayer(p.UserId) ~= p then return end
+	drainPending(p, a, capacity)
+	if used(a) >= capacity or Materials.Count(a.pendingMaterials) > 0 then
 		if os.clock() - (session.fullNotice or 0) > 2 then
 			session.fullNotice = os.clock()
-			note(p, "Not enough bucket space for this section. Tap SELL.")
+			note(p, "Bucket full or earned materials pending. Tap SELL to make room.")
 		end
 		return
 	end
@@ -721,7 +765,12 @@ local function strike(p, target, point, requestRound, sequence)
 	local windup = family == "Explosive" and C.Tools.Explosive.Fuse
 		or cd * (C.Animation.Anticipation + C.Animation.Acceleration)
 		/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
-	session.pending = { token = token, target = target, tool = attackTool, round = round }
+	local placement = { token = token, target = target, tool = attackTool, round = round,
+		layer = activeLayer, impact = { Position = hit.Position, Normal = hit.Normal, Instance = hit.Instance } }
+	if family == "Explosive" then
+		placement.damage, placement.precise, placement.critical = damageRoll(a, session, target, point, power)
+	end
+	session.pending = placement
 	Feedback:FireAllClients("Windup", p.UserId, family == "Explosive" and windup or cd, sequence, point, attackTool)
 	if family == "Explosive" then
 		Feedback:FireAllClients("Charge", p.UserId, sequence, point, hit.Normal, round, workspace:GetServerTimeNow())
@@ -731,20 +780,18 @@ local function strike(p, target, point, requestRound, sequence)
 		session.pending = nil
 		if not equipped(p, "Pickaxe") or session.tools.Pickaxe ~= attackTool or requestRound ~= round
 			or session.training or status ~= "Excavating" or not State:GetAttribute("Ready")
-			or effectiveTool(a) ~= family or not eligible(target, activeLayer) then
-			Feedback:FireAllClients("ChargeCancel", p.UserId, sequence)
-			Feedback:FireClient(p, "Miss", sequence)
-			return
-		end
-		local impact = contact(p, target, point, C.Mining.ImpactGrace)
-		if not impact then
+			or effectiveTool(a) ~= family or not alive(p) or writablePlayer(p.UserId) ~= p then
 			Feedback:FireAllClients("ChargeCancel", p.UserId, sequence)
 			Feedback:FireClient(p, "Miss", sequence)
 			return
 		end
 		if family == "Explosive" then
-			blast(p, target, impact, power, sequence, cd)
+			-- Validated placement survives destruction of its original plate. Do not
+			-- raycast that plate again or substitute the newly exposed layer.
+			blast(p, placement, sequence, cd)
 		else
+			local impact = eligible(target, activeLayer) and contact(p, target, point, C.Mining.ImpactGrace)
+			if not impact then Feedback:FireClient(p, "Miss", sequence); return end
 			local damage, precise, critical = damageRoll(a, session, target, impact.Position, power)
 			if not applyDamage(p, target, impact, damage, precise, critical, sequence, family, cd) then
 				Feedback:FireClient(p, "Miss", sequence)
@@ -761,6 +808,7 @@ local terminalByAction = {
 	NextRound = "NextTerminal",
 }
 local function purchase(p, key, quantity)
+	if writablePlayer(p.UserId) ~= p then return end
 	if trials[accounts[p.UserId]] then
 		note(p, "Finish your drill trial before buying upgrades.")
 		return
@@ -793,6 +841,7 @@ local function purchase(p, key, quantity)
 	Feedback:FireClient(p, "UpgradeBought", key, count)
 end
 local function station(p, action)
+	if writablePlayer(p.UserId) ~= p then return end
 	local ch = alive(p)
 	local name = terminalByAction[action]
 	local terminal = name and Depot:FindFirstChild(name)
@@ -821,8 +870,10 @@ local function station(p, action)
 		a.income += value
 		advance(p, "Sell", 1)
 		tutorial(p, "Sell")
+		local pendingBefore = Materials.Count(a.pendingMaterials)
 		syncPlayer(p)
-		Feedback:FireClient(p, "Sold", value)
+		local pendingAfter = Materials.Count(a.pendingMaterials)
+		Feedback:FireClient(p, "Sold", value, pendingBefore - pendingAfter, pendingAfter)
 	elseif action == "NextRound" then
 		if status ~= "Revealed" then
 			note(p, "Excavate more outer and deep sections to uncover the specimen.")
@@ -853,6 +904,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		end
 		return
 	end
+	if writablePlayer(p.UserId) ~= p then return end
 	if now - (s.window or 0) >= 1 then
 		s.window = now
 		s.requests = 0
@@ -1146,6 +1198,21 @@ local function joined(p)
 		lastStation = -math.huge,
 	}
 	sessions[p] = s
+	-- Transfer once, into the newly locked loaded profile; never write an offline profile.
+	local claims = serverClaims[p.UserId]
+	if claims and writablePlayer(p.UserId) == p then
+		local claimed = Materials.Count(claims)
+		local _, _, cap = stats(loaded)
+		drainPending(p, loaded, cap, true)
+		for _, entry in claims do Materials.Add(loaded.pendingMaterials, entry.id, entry.unitValue, entry.units) end
+		serverClaims[p.UserId] = nil
+		local delivered = drainPending(p, loaded, cap, true)
+		p:SetAttribute("RecoveredMaterialClaim", claimed)
+		p:SetAttribute("RecoveredMaterialDelivered", delivered)
+		p:SetAttribute("RecoveredMaterialPending", claimed - delivered)
+	end
+	loaded.mining = eggDamage[p.UserId] or 0
+	if eggResults[p.UserId] then p:SetAttribute("LastExpeditionResult", eggResults[p.UserId]) end
 	s.connection = p.CharacterAdded:Connect(function(ch)
 		training(p, s, false)
 		giveTools(p, ch, s)
@@ -1188,10 +1255,8 @@ Players.PlayerRemoving:Connect(function(p)
 	if a then
 		trials[a] = nil
 		trialSelected[a] = nil
+		if accounts[p.UserId] == a then accounts[p.UserId] = nil end
 		Profiles.Save(p, a, true)
-		if accounts[p.UserId] == a then
-			accounts[p.UserId] = nil
-		end
 	end
 end)
 beginRound()
@@ -1231,6 +1296,8 @@ task.spawn(function()
 	end
 end)
 game:BindToClose(function()
+	shuttingDown = true
+	for p, session in sessions do cancelAttack(p, session) end
 	local pending = 0
 	for p in sessions do
 		local a = accounts[p.UserId]

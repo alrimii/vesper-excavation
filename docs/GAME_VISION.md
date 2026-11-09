@@ -6,6 +6,9 @@ The central loop is cooperative destruction of a giant laboratory egg, automatic
 Breaking the egg must itself feel satisfying. Stronger or different actions, evolving equipment, clear feedback and desirable unlocks must connect short-term rewards to long-term achievements. Avoid tedious repetition as the main retention mechanism.
 Polish includes coherent Roblox interfaces, readable feedback, animation, rewards and movement. Flicker, overlapping surfaces, awkward movement and poor tool handling are acceptance problems even when code reports no errors.
 
+Subsequent clarification, 9 November 2026: current menus/HUD are functional interim interfaces, not approved final visual quality. The final direction requires dedicated illustrated equipment/upgrade screens and a navigable skill-tree screen with connected nodes, branches, prerequisites and locked/available/unlocked states. A text upgrade list does not fulfill this requirement. Skill-tree mechanics and final UI art direction still require a separate scoped design/implementation phase; see the roadmap.
+Phase 4 separately authorizes damage-based material sharing, damage-time contribution-weighted Yield bonuses, pending materials and whole-egg effective-damage tracking. Exact implemented rules and same-server offline limitations are recorded in [the Phase 4 handoff](PHASE_4_HANDOFF.md). This does not finalize contribution-based creature eligibility.
+
 ### Shared egg lifecycle
 An egg is an ongoing server-wide activity. Joining players inherit the current egg/progress without resetting it or replaying the introduction for everyone. A newly initialized server may show selection/delivery once. Completion triggers hatch/reveal/results, then selection and delivery of the next egg without unnecessary idle time. Timings and durations remain open.
 
