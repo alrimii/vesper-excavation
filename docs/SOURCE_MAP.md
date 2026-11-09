@@ -68,4 +68,5 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 | `ServerScriptService.Vesper.MembraneBuilder` | `src/MembraneBuilder.luau` |
 | `ServerScriptService.Vesper.RoomTerminals` | `src/RoomTerminals.luau` |
 | `ServerScriptService.Vesper.CollectionCabinet` | `src/CollectionCabinet.luau` |
+| `ReplicatedStorage.VesperShared.MiningFeedback` (added in Phase 1B) | `src/MiningFeedback.luau` |
 

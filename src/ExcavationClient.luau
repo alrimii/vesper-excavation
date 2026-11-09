@@ -2,7 +2,6 @@
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local Run = game:GetService("RunService")
-local Tween = game:GetService("TweenService")
 local player = Players.LocalPlayer
 player:SetAttribute("OuterFracturesClientReady", false)
 local Shared = game.ReplicatedStorage:WaitForChild("VesperShared")
@@ -338,6 +337,16 @@ gui.Help.Activated:Connect(function()
 end)
 game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(cancel)
 player.CharacterRemoving:Connect(cancel)
+local deathConnection
+local function bindDeath(character)
+	if deathConnection then deathConnection:Disconnect() end
+	local human = character:WaitForChild("Humanoid", 10)
+	if human and character == player.Character then
+		deathConnection = human.Died:Connect(cancel)
+	end
+end
+player.CharacterAdded:Connect(bindDeath)
+if player.Character then task.spawn(bindDeath, player.Character) end
 local function disableBackpack()
 	task.spawn(function()
 		for _ = 1, 8 do
@@ -381,6 +390,7 @@ visualFolder.Name = "LocalResourceVisuals"
 visualFolder.Parent = workspace
 local CollectionMotion =
 	require(Shared:WaitForChild("CollectionMotion")).Start(visualFolder, ShellMotion, State)
+local MiningFeedback = require(Shared:WaitForChild("MiningFeedback")).Start(visualFolder, State)
 local function burst(from, to, li, section)
 	CollectionMotion:Burst(from, to, li, section)
 end
@@ -403,7 +413,7 @@ local function soundAt(pos, volume)
 	s:Play()
 	game:GetService("Debris"):AddItem(holder, 2)
 end
-Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, critical)
+Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, critical, result)
 	if kind == "TrainingPulse" then
 		-- The shared training clock owns poses and reactions; no numeric toast.
 	elseif kind == "TrialStarted" then
@@ -418,7 +428,7 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 	elseif kind == "Windup" then
 		local p = Players:GetPlayerByUserId(a)
 		if p then
-			Motion.Begin(p, b, c, d)
+			Motion.Begin(p, b, c, d, e)
 		end
 	elseif kind == "Cancel" then
 		local p = Players:GetPlayerByUserId(a)
@@ -426,77 +436,24 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 			Motion.Cancel(p)
 		end
 	elseif kind == "Miss" then
+		Motion.Miss(player, a)
 		if a == sequence then
-			notice("Strike blocked - aim at a clear surface.")
+			notice("No hit confirmed. Check your aim, range, or bucket.")
 		end
 	elseif kind == "Fragments" then
 		burst(a, b, c, d)
 	elseif kind == "Hit" then
+		if not MiningFeedback:AcceptHit(a, e, result) then return end
 		local attacker = Players:GetPlayerByUserId(a)
-		ImpactFX.Emit(b, c, attacker and attacker:GetAttribute("ToolFamily") == "Explosive")
-		ShellMotion:Impact(d, b, damage)
-		local p = Players:GetPlayerByUserId(a)
-		if p then
-			Motion.Confirm(p, e)
-		end
-		if a == player.UserId then
-			targeter:Confirm()
-			if typeof(damage) == "number" then
-				local point = Instance.new("Part")
-				point.Name = "DamageFeedback"
-				point.Size = Vector3.one * 0.05
-				point.Transparency = 1
-				point.Anchored = true
-				point.CanCollide = false
-				point.CanTouch = false
-				point.CanQuery = false
-				point.Position = b
-				point.Parent = visualFolder
-				local popup = Instance.new("BillboardGui")
-				popup.Size = UDim2.fromOffset(170, 40)
-				popup.AlwaysOnTop = true
-				popup.StudsOffsetWorldSpace = Vector3.new(0, 1, 0)
-				popup.Adornee = point
-				popup.Parent = point
-				local label = Instance.new("TextLabel")
-				label.Size = UDim2.fromScale(1, 1)
-				label.BackgroundTransparency = 1
-				label.Font = Enum.Font.GothamBold
-				label.TextSize = 24
-				label.TextColor3 = Color3.fromRGB(255, 218, 145)
-				label.TextStrokeTransparency = 0.5
-				label.Text = (critical and "CRITICAL  " or precise and "PRECISE  " or "") .. tostring(damage)
-				label.Parent = popup
-				Tween:Create(
-					popup,
-					TweenInfo.new(0.65, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-					{ StudsOffsetWorldSpace = Vector3.new(0, 3, 0) }
-				):Play()
-				Tween:Create(
-					label,
-					TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In, 0, false, 0.15),
-					{ TextTransparency = 1, TextStrokeTransparency = 1 }
-				):Play()
-				game:GetService("Debris"):AddItem(point, 0.7)
-			end
-		end
-		local camera = workspace.CurrentCamera
-		if camera and (camera.CFrame.Position - b).Magnitude < 120 then
-			soundAt(b, C.Animation.ImpactVolume)
-			local highlight = Instance.new("Highlight")
-			highlight.Adornee = d
-			highlight.FillColor = c
-			highlight.FillTransparency = 0.86
-			highlight.OutlineTransparency = 1
-			highlight.DepthMode = Enum.HighlightDepthMode.Occluded
-			highlight.Parent = visualFolder
-			Tween:Create(highlight, TweenInfo.new(C.Appearance.ImpactPulse), { FillTransparency = 1 }):Play()
-			game:GetService("Debris"):AddItem(highlight, C.Appearance.ImpactPulse + 0.05)
-		end
+		if attacker then Motion.Confirm(attacker, e) end
+		ImpactFX.Emit(b, c, result.Broken, result.Normal, precise or critical)
+		if not result.Broken then ShellMotion:Impact(d, b, damage) end
+		MiningFeedback:Hit(a, b, damage, precise, critical, result)
+		if a == player.UserId then targeter:Confirm() end
 	elseif kind == "UpgradeBought" then
 		notice(C.Upgrades[a].Name .. " +" .. tostring(b) .. " levels")
 	elseif kind == "Collected" then
-		notice("+" .. tostring(a) .. " collected into your bucket")
+		MiningFeedback:Award(a, b)
 	elseif kind == "Sold" then
 		notice("Unloaded resources  /  +$" .. a)
 		-- Selling no longer requires an equipped bucket.

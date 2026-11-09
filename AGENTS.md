@@ -2,8 +2,8 @@
 
 ## Authority and scope
 Communicate exclusively in English unless the user explicitly requests otherwise.
-Current authorization is Phase 1A: a complete native backup, read-only asset/context inspection, isolated visual concepts and Blender geometry/motion/effects studies, documentation, and commit/push on the current development branch. Already-installed Blender/BlendRelay components may be launched. Production modeling, live asset replacement, runtime changes, economy changes and gameplay integration require approval of the proposal. The vision does not authorize later phases.
-Current focused revision supersedes the earlier motion-preview permission: preserve the starter and shell; propose ONE fire-themed replacement pickaxe through exactly TWO compact static boards and an editable study. Do not produce GIFs, videos, animated renders or frame sequences. Fire identity is visual only; no mechanic, rarity, currency or progression position is approved. The previous reinforced upgrade was rejected. Stop after delivering this revision.
+Current authorization is Phase 1B: implement the core breaking interaction directly in original Studio place 94763223427049 and its canonical source, after a fresh full native recovery backup. Improve existing pickaxe handling/swing/cancellation, confirmed surface impacts, bounded shell effects, damage numbers and actual material collection feedback. Preserve server validation, damage/economy values, reward eligibility and useful systems. Commit/push this milestone on the current development branch and deliver the edited original place for the user's manual review.
+Both reinforced and fire upgrade studies are rejected for production. Preserve historical files; stop concept boards, alternate designs, Blender presentations, GIFs and videos. Use existing in-game tool and shell assets as temporary visuals. No new weapons, upgrade trees, fire mechanics, currencies, rebirth, worlds, purchases or creature systems. No full egg architecture or HUD rewrite. Later phases still require approval.
 Preserve useful systems. Historical completion reports are leads, not acceptance evidence. Do not rewrite the project by default.
 
 ## Execution restrictions
@@ -15,12 +15,12 @@ The user performs gameplay testing in Studio. Without an explicit exception:
 - Do not bypass restrictions through scripts, alternate tools or agents. Do not delegate unless explicitly requested.
 - If Studio is running, leave it running; continue independent read-only work and identify work requiring Edit mode.
 Never claim tested, performant, glitch-free or visually approved without evidence. Tool descriptions suggesting starting/stopping play do not override these rules.
-Phase 1A exception: narrowly scoped Studio UI automation is authorized solely to save a fresh full native place backup. It does not permit gameplay input, Play/Run or testing. Authored Blender animation/effects previews are permitted as non-playable design deliverables.
+Retained native-backup exception: narrowly scoped Studio UI automation is authorized solely to save a full native place recovery copy. It does not permit gameplay input, Play/Run or testing. No new visual or animated previews in Phase 1B.
 
 ## Single implementation target
 The existing original Studio place (Coming Soon, place ID 94763223427049) is the sole implementation target. Never create a separate test/development place, staging world, duplicated map or parallel playable implementation for later transfer.
 Backups are recovery copies only; never open them as development targets. When implementation is approved, edit the original place's actual assets and systems directly, with scoped recoverable changes. The user manually playtests that same place.
-Keep repository source and editable Blender assets synchronized with the actual implementation. Concept previews and Blender design studies are allowed but must not become a second playable environment. This workflow does not authorize publishing, tests or advancement beyond the approved phase.
+Keep repository source and editable assets synchronized with the actual implementation. Historical concept studies must not become a second playable environment. This workflow does not authorize publishing, tests or advancement beyond the approved phase.
 
 ## Preservation and synchronization
 Inspect Git status and intended Studio place/mode before changes. Preserve unrelated and ignored work. Never reset, clean, force-push, merge into main, or restore a snapshot over the open place.

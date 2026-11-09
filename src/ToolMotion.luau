@@ -7,6 +7,8 @@ local Clips = require(script.Parent.MotionClips)
 local Drill = require(script.Parent.DrillHandling)
 local Cycle = require(script.Parent.TrainingCycle)
 local actors = {}
+local contactPhase = (C.Animation.Anticipation + C.Animation.Acceleration)
+	/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
 local started = false
 local function capture(ch)
 	local joints = {}
@@ -47,10 +49,18 @@ end
 local function synchronize(a)
 	local tool = a.character:FindFirstChildOfClass("Tool")
 	if tool ~= a.tool then
+		if a.tool and not tool and not a.release then
+			a.release = { at = os.clock(), poses = {} }
+			for name, joint in a.joints do
+				if joint.Parent then a.release.poses[name] = joint.Transform end
+			end
+		end
 		if a.tool and a.grip and a.tool.Parent then
 			a.tool.Grip = a.grip
 		end
 		a.phase = nil
+		a.drillContact = nil
+		if tool then a.release = nil end
 		a.tool = tool
 		a.grip = tool and tool.Grip
 		a.equippedAt = os.clock()
@@ -69,6 +79,12 @@ function M.Cancel(p)
 	if a.tool and a.grip and a.tool.Parent then
 		a.tool.Grip = a.grip
 	end
+	for joint, addition in a.additive do
+		if joint.Parent then
+			joint.Transform = joint.Transform * addition:Inverse()
+		end
+	end
+	table.clear(a.additive)
 	a.release = { at = os.clock(), poses = {} }
 	for name, j in a.joints do
 		if j.Parent then
@@ -83,25 +99,39 @@ function M.DrillContact(p, enabled, point)
 	end
 	a.drillContact = enabled and typeof(point) == "Vector3" and { point = point, at = os.clock() } or nil
 end
-function M.Begin(p, duration, sequence, target)
+function M.Begin(p, duration, sequence, target, expectedTool)
 	local a = actor(p)
 	if not a then
 		return
 	end
 	local tool = synchronize(a)
-	if not tool or tool:GetAttribute("ToolKind") ~= "Pickaxe" then
+	local human = a.character:FindFirstChildOfClass("Humanoid")
+	if not human or human.Health <= 0 or (expectedTool and tool ~= expectedTool)
+		or not tool or tool:GetAttribute("ToolKind") ~= "Pickaxe" then
 		return
 	end
-	if a.lastSequence == sequence then
+	if sequence and a.lastSequence and sequence <= a.lastSequence then
 		return
 	end
 	a.lastSequence = sequence
-	a.phase = { kind = "Strike", at = os.clock(), duration = duration, sequence = sequence, target = target }
+	a.release = nil
+	a.phase = { kind = "Strike", at = os.clock(), duration = duration, sequence = sequence, target = target,
+		awaitContact = target ~= nil and tool:GetAttribute("ToolFamily") == "Pickaxe", tool = tool }
 end
 function M.Confirm(p, sequence)
 	local a = actor(p)
-	if a and a.phase and a.phase.sequence == sequence then
+	if not a then return end
+	local tool = synchronize(a)
+	if a.phase and a.phase.sequence == sequence and a.phase.tool == tool then
 		a.phase.confirmed = os.clock()
+	end
+end
+function M.Miss(p, sequence)
+	local a = actors[p]
+	if a and a.phase and a.phase.sequence == sequence then
+		-- A rejected request has no contact accent, damage number or collection cue.
+		a.phase.missed = os.clock()
+		a.phase.missPose = a.lastPose or Clips.PickaxeIdle
 	end
 end
 function M.Bucket(p, unload)
@@ -205,7 +235,14 @@ function M.Start()
 			local tool = synchronize(a)
 			local h = a.character:FindFirstChildOfClass("Humanoid")
 			if not h or h.Health <= 0 then
-				M.Cancel(p)
+				if not a.dead then
+					M.Cancel(p)
+					Drill.Release(a)
+					for _, joint in a.joints do
+						if joint.Parent then joint.Transform = CFrame.identity end
+					end
+					a.dead = true
+				end
 				continue
 			end
 			if not tool or not tool:GetAttribute("ToolKind") then
@@ -236,13 +273,30 @@ function M.Start()
 			if phase then
 				if phase.kind == "Strike" then
 					local elapsed = os.clock() - phase.at
-					-- Predict the full swing continuously; server acknowledgement only confirms effects.
 					local t = math.clamp(elapsed / phase.duration, 0, 1)
+					if phase.awaitContact and not phase.missed then
+						if phase.confirmed then
+							t = math.clamp(contactPhase + (os.clock() - phase.confirmed) / phase.duration, 0, 1)
+						elseif elapsed > phase.duration + 0.65 then
+							M.Miss(p, phase.sequence)
+						else
+							-- Predict preparation, but reserve contact/recoil for the server's result.
+							t = math.min(t, contactPhase - 0.055)
+						end
+					end
 					if tool:GetAttribute("ToolFamily") == "Explosive" then
 						pose = { 38 + math.sin(t * math.pi) * 32, 0, 8, 60, -15 * math.sin(t * math.pi) }
 					else
 						pose = sample(t)
 					end
+					if phase.missed then
+						local recovery = math.clamp((os.clock() - phase.missed) / 0.16, 0, 1)
+						for i, value in phase.missPose do
+							pose[i] = value + (Clips.PickaxeIdle[i] - value) * recovery
+						end
+						t = recovery >= 1 and 1 or 0
+					end
+					a.visualPhase = t
 					if t >= 1 then
 						a.phase = nil
 					end
@@ -267,6 +321,17 @@ function M.Start()
 					end
 				end
 			end
+			-- Aim the arm within comfortable limits; never move the player or extend reach.
+			if phase and phase.target and tool:GetAttribute("ToolFamily") == "Pickaxe" and not phase.missed then
+				local root = a.character:FindFirstChild("HumanoidRootPart")
+				if root then
+					local aim = root.CFrame:PointToObjectSpace(phase.target) - Vector3.new(0, 1.5, 0)
+					local weight = math.sin(math.clamp(a.visualPhase or 0, 0, 1) * math.pi)
+					pose[2] += math.clamp(math.deg(math.atan2(-aim.X, -aim.Z)), -25, 25) * weight
+					pose[1] += math.clamp(math.deg(math.atan2(aim.Y, math.max(0.1, Vector2.new(aim.X, aim.Z).Magnitude))), -20, 20) * weight
+				end
+			end
+			a.lastPose = pose
 			local blend = math.clamp((os.clock() - a.equippedAt) / C.Animation.EquipTime, 0, 1)
 			local sway = math.sin(os.clock() * 8) * h.MoveDirection.Magnitude * math.deg(C.Animation.WalkSway)
 			local shoulder = a.joints.RightShoulder or a.joints["Right Shoulder"]
@@ -289,7 +354,7 @@ function M.Start()
 			-- Keep the handle rigid in the hand; the wrist supplies the tool rotation.
 			local strike = a.phase and a.phase.kind == "Strike"
 			local energy = strike
-					and math.sin(math.clamp((os.clock() - a.phase.at) / a.phase.duration, 0, 1) * math.pi)
+					and math.sin(math.clamp(a.visualPhase or 0, 0, 1) * math.pi)
 				or 0
 			local left = a.joints.LeftShoulder or a.joints["Left Shoulder"]
 			if left and energy > 0 then
@@ -301,7 +366,7 @@ function M.Start()
 			local waist = a.joints.Waist
 			if waist and energy > 0 then
 				local twist =
-					math.sin(math.clamp((os.clock() - a.phase.at) / a.phase.duration, 0, 1) * math.pi * 2)
+					math.sin(math.clamp(a.visualPhase or 0, 0, 1) * math.pi * 2)
 				local addition =
 					CFrame.Angles(math.rad(-5 * energy), math.rad(12 * twist), math.rad(-3 * energy))
 				waist.Transform = waist.Transform * addition

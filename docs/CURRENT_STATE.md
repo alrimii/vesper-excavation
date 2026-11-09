@@ -1,5 +1,9 @@
 # Current state and development baseline
-Inspection date: 9 November 2026. Read-only source inspection and file preservation only; no tests, diagnostics execution, simulations or gameplay sessions were run.
+Latest status, 9 November 2026: Phase 1B interaction edits are applied in original place 94763223427049, still Edit mode, with eight source readback matches and a saved post-edit native copy. Branch: planning/development-foundation. See [Phase 1B handoff](PHASE_1B_HANDOFF.md) for changed paths, backup sizes/coverage, incomplete mining audio and manual review. Both upgrade studies are rejected; no concept iteration is active. No tests, diagnostic execution, simulations, gameplay sessions or publishing were performed.
+
+The sections below preserve the dated Phase 0/1A evidence. Their earlier backup gaps and approval gates are historical, superseded where specified by the Phase 1B handoff. In particular, a fresh full native copy was saved before Phase 1B edits; the user does not need to create that backup.
+
+Phase 0 inspection date: 9 November 2026. At that stage only read-only inspection and file preservation were performed.
 
 ## Repository and place
 - Workspace: C:/Users/BOSS/Desktop/egg.

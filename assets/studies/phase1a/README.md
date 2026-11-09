@@ -1,8 +1,8 @@
 # Phase 1A: playful discovery workshop
 
-Status: the user supports the stylized foundation and starter pickaxe. The original reinforced upgrade is rejected. The focused fire-themed replacement below is pending appearance approval. No production modeling, live asset replacement, gameplay integration, economy change or Roblox upload has occurred. The original place 94763223427049 remains the only implementation target; these scenes contain no playable environment.
+Status: historical work. The user supports the stylized foundation and starter, but has rejected BOTH the reinforced and fire upgrades for production and ended concept iteration. No study has been imported into the original place. Preserve these files; produce no additional concepts or animation previews. Phase 1B now changes the original game's interaction using its existing temporary visuals; see [the current handoff](../../../docs/PHASE_1B_HANDOFF.md). Statements below describe the past design-study delivery, not current authorization.
 
-## Current focused revision: fire-themed pickaxe
+## Historical focused revision: rejected fire-themed pickaxe
 Exactly one replacement proposal, delivered as two compact static boards:
 - [Starter and fire proposal: front, side, three-quarter](fire_revision/01_starter_and_fire.png)
 - [Held fire proposal: close and gameplay-distance approximation](fire_revision/02_held_scale.png)

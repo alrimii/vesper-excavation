@@ -30,14 +30,24 @@ function M.Start(folder, shell, roundState)
 			return
 		end
 		local collector = Players:GetPlayerByUserId(data.CollectorUserId)
-		local templates = source:GetChildren()
+		local reduced = Players.LocalPlayer:GetAttribute("ReducedMotion")
+		local templates = {}
+		for _, child in source:GetChildren() do
+			if child:IsA("BasePart") and typeof(child:GetAttribute("RelativeCFrame")) == "CFrame"
+				and not child:GetAttribute("CrackInterior") then
+				table.insert(templates, child)
+			end
+		end
 		table.sort(templates, function(a, b)
 			return a.Name < b.Name
 		end)
-		for index, template in templates do
+		local budget = reduced and 2 or 8
+		local stride = math.max(1, math.ceil(#templates / budget))
+		for index = 1, math.min(#templates, budget * stride), stride do
+			local template = templates[index]
 			-- Rapid one-hit breaks must still show a shatter. Retire the oldest
 			-- cosmetic flight rather than dropping the newly broken plate.
-			if #flights >= 168 then
+			if #flights >= 48 then
 				flights[1].part:Destroy()
 				table.remove(flights, 1)
 			end
@@ -71,7 +81,7 @@ function M.Start(folder, shell, roundState)
 				or data.CFrame * template:GetAttribute("RelativeCFrame")
 			local normal =
 				data.CFrame:VectorToWorldSpace(template:GetAttribute("SurfaceNormal") or Vector3.zAxis)
-			local lateral = data.CFrame:VectorToWorldSpace(template:GetAttribute("FractureDirection"))
+			local lateral = data.CFrame:VectorToWorldSpace((template:GetAttribute("FractureDirection") or Vector3.xAxis))
 			local pivotFrame = part:GetPivot()
 			local start = pivotFrame.Position
 			part.Parent = folder
@@ -88,7 +98,8 @@ function M.Start(folder, shell, roundState)
 				destination = destination + Vector3.yAxis,
 				time = 0,
 				organic = layer > 1,
-				delay = (index - 1) * (layer == 1 and 0.002 or 0.025),
+				reduced = reduced,
+				delay = math.floor((index - 1) / stride) * 0.012,
 			})
 		end
 	end
@@ -100,6 +111,14 @@ function M.Start(folder, shell, roundState)
 			if time >= 1.05 then
 				f.part:Destroy()
 				table.remove(flights, i)
+				continue
+			end
+			if f.reduced then
+				f.part.Transparency = math.clamp(time / 0.35, 0, 1)
+				if time >= 0.35 then
+					f.part:Destroy()
+					table.remove(flights, i)
+				end
 				continue
 			end
 			local position, rotation = f.start, f.rotation
@@ -122,7 +141,8 @@ function M.Start(folder, shell, roundState)
 				local t = (time - 0.38) / 0.67
 				local travel = t * t * (3 - 2 * t)
 				local character = f.collector and f.collector.Character
-				local root = character and character:FindFirstChild("HumanoidRootPart")
+				local human = character and character:FindFirstChildOfClass("Humanoid")
+				local root = human and human.Health > 0 and character:FindFirstChild("HumanoidRootPart")
 				local destination = root and root.Position + Vector3.yAxis * 0.35 or f.destination
 				if (destination - f.start).Magnitude > 40 then
 					destination = f.destination

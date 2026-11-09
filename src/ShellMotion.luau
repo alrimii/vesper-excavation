@@ -102,6 +102,7 @@ function S.Start(egg, config)
 			state = { info = info, model = model, stress = stress, impulse = impulse, expires = 0 }
 			active[p] = state
 			fill(state, fractured)
+			p.LocalTransparencyModifier = 1
 			model.Parent = folder
 		elseif fractured and not state.fractured then
 			fill(state, true)
@@ -295,7 +296,7 @@ function S.Start(egg, config)
 				continue
 			end
 			local stress = math.clamp(state.stress.Value, 0, 1)
-			local impulse = state.impulse.Value
+			local impulse = math.clamp(state.impulse.Value, -0.06, 0.035)
 			if
 				not state.organic
 				and now > (state.crackSettlingUntil or 0)
@@ -308,7 +309,7 @@ function S.Start(egg, config)
 			state.lastStress, state.lastImpulse = stress, impulse
 			local loosen = math.clamp((stress - 0.55) / 0.45, 0, 1)
 			local displacement = info.normal
-				* math.clamp(state.impulse.Value, -A.RippleAmplitude * 2, A.RippleAmplitude)
+				* impulse
 			for _, piece in state.model:GetChildren() do
 				if piece:IsA("BasePart") then
 					if info.layer == 1 then
@@ -510,7 +511,7 @@ function S.Start(egg, config)
 		table.sort(candidates, function(a, b)
 			return a.distance < b.distance
 		end)
-		for i = 1, math.min(#candidates, A.RippleMaxPlates) do
+		for i = 1, math.min(#candidates, A.RippleMaxPlates, 3) do
 			local c = candidates[i]
 			local atRound = roundState:GetAttribute("RoundId")
 			task.delay(c.distance * 0.018, function()
@@ -521,13 +522,15 @@ function S.Start(egg, config)
 					or roundState:GetAttribute("RoundId") ~= atRound
 					or released[c.part]
 					or not c.part.Parent
+					or not c.part.Parent:GetAttribute("Intact")
+					or not c.part.Parent:GetAttribute("Exposed")
 				then
 					return
 				end
 				local state = ensure(c.part, false)
 				local weight = c.distance < 0.01 and 1.4 or 0.65 * (1 - c.distance / A.RippleRadius)
 				state.expires = os.clock() + A.RippleDuration
-				state.impulse.Value = -A.RippleAmplitude * weight
+				state.impulse.Value = -math.min(A.RippleAmplitude, 0.045) * weight
 				spr.target(state.impulse, li == 1 and 0.38 or 0.24, li == 1 and 8 or 3.8, { Value = 0 })
 			end)
 		end

@@ -1,5 +1,7 @@
 # Phase review handoff template
 
+Current delivery: [Phase 1B core breaking handoff](PHASE_1B_HANDOFF.md). Applied in the original Studio place; gameplay review and suitable mining audio remain outstanding. The reusable template below remains for subsequent authorized deliveries.
+
 ## Identity and authorization
 - Phase, approved scope, date and remaining scope boundaries:
 - Repository branch, full commit SHA and GitHub commit link:

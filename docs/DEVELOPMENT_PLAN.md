@@ -1,5 +1,5 @@
 # Phased development plan
-Phase 0 documentation is reviewed. Phase 1A is authorized for native backup and isolated visual/geometry/authored-motion proposals only. Production assets and live integration remain gated on approval. Unresolved balancing values are not implicit approvals.
+Phase 0 documentation is reviewed. Phase 1A concept iteration is closed: both upgrade studies are rejected for production. Phase 1B core breaking implementation is explicitly authorized in the original place using existing temporary visuals. The scoped changes are applied for manual review; mining audio remains incomplete. See [Phase 1B handoff](PHASE_1B_HANDOFF.md). Unresolved balancing values are not implicit approvals.
 
 | Phase | Scope and dependencies | Concrete deliverables and user checkpoint |
 | --- | --- | --- |
@@ -14,14 +14,14 @@ Phase 0 documentation is reviewed. Phase 1A is authorized for native backup and 
 | 8: Additional worlds | Stable prior systems and approved unlock criteria | New world-specific eggs/equipment/creatures/challenge with preserved prior achievements; manual transition and progression review |
 
 ## Phase 1 boundary
-Phase 1A prepares the cartoon starter pickaxe, reinforced impact upgrade, mineral/ceramic shell states, character-scale views and authored motion study. Deliverables and approval status live in assets/studies/phase1a/README.md. No gameplay implementation is part of 1A.
-Review update: the user supports the starter and overall style but rejects the reinforced upgrade. Current work is limited to one fire-themed visual replacement, two static boards and its editable model. Preserve the starter/shell; produce no new GIFs, videos or animation frames. Progression position remains undecided. Appearance approval and a separate implementation authorization are still required.
+Phase 1A files remain historical. The supported cartoon foundation is retained, but neither upgrade is approved. Stop concepts, Blender presentations and animated previews.
+Phase 1B covers grip/rest pose, swing timing/cancellation, confirmed surface effects, readable damage and actual collection receipts. Preserve damage/economy/eligibility and existing useful systems. No new weapon, upgrade tree, fire mechanic, currency or other progression system. Current status and concrete limits are in the Phase 1B handoff; manual acceptance and suitable mining audio remain outstanding.
 There is one implementation target: the original Studio place, 94763223427049. No test/development place, staging world, duplicated map or parallel playable environment is permitted. Recovery copies must not be used as development targets. After approval, scoped implementation happens directly in the original, synchronized with repository source/editable assets, and the user manually reviews that same place.
-Begin with a representative slice of the existing game, not a whole egg/world/UI rewrite. Select the shell area and pickaxe reference together. Specify one meaningful upgrade and its tradeoff before implementing it. Review existing targeting, tool motion, feedback and collection paths to preserve useful behavior.
-Acceptance is a coherent visible and audible strike: comfortable grip, contact aligned with damage and sound, readable shell damage, clear material gain and a noticeable upgrade. Check clipping, flicker, overlap and motion quality through the user's manual review. Do not claim these are currently verified.
+Work on a representative slice of the existing game, not a whole egg/world/UI rewrite. Use the actual existing tool/shell as temporary visuals for Phase 1B; no upgrade implementation is included. The larger milestone's desirable upgrade remains a later approved scope.
+Phase 1B acceptance is comfortable handling, coherent contact/confirmed damage, readable shell damage and clear material gain. Audible impact still requires a suitable permitted asset. Check clipping, flicker, overlap, cadence and motion quality through the user's manual review; these are not verified by source inspection.
 Do not include new currencies, creature-rate changes, contribution redesign, rebirth, purchases or broad art replacement in this milestone.
 
 ## Phase gates and dependencies
-Before edits: confirm the intended place, create a fresh native place backup, resolve the documented source synchronization choice, agree the visual reference and approve Phase 1.
+Before edits: confirm the original place and Edit mode, create a fresh native place backup, compare mapped source and follow the specifically approved scope. Phase 1B has explicit implementation authorization and does not depend on accepting either rejected upgrade.
 Before each later phase: approve its scope and only the decisions needed for that scope. Do not block the first quality milestone on all future economy values.
 Every delivery includes saved sources/assets, Git branch/SHA/link, limitations and a short manual checklist. The user runs Studio; agents do not run tests or play modes unless expressly authorized. User feedback and approval gate the next phase.

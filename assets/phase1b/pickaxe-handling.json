@@ -1,0 +1,18 @@
+{
+  "phase": "1B",
+  "placeId": "94763223427049",
+  "templatePath": "ServerStorage.VesperKit.StarterPickaxe",
+  "sourceOfTruth": "src/MotionClips.luau",
+  "retainedMeshId": "rbxassetid://108416490695072",
+  "grip": {
+    "positionStuds": [0, -0.9, 0],
+    "rotationDegreesXYZ": [0, 90, 0],
+    "construction": "CFrame.new(0, -0.9, 0) * CFrame.Angles(0, math.pi / 2, 0)"
+  },
+  "strikeTipPath": "Handle.StrikeTip",
+  "strikeTipPositionStuds": [-1.510829, 1, 0],
+  "retainedMeshTransform": "Existing translation (0.0595855, 0.09, 0) and 180-degree Y rotation; weld unchanged",
+  "assetStatus": "Existing temporary production visuals retained; rejected studies not imported",
+  "verification": "Studio properties read back; gameplay grip/contact fitting unverified",
+  "audio": "No suitable permitted mining audio asset established; IDs remain empty in MiningFeedback"
+}

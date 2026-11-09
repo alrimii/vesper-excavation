@@ -3,6 +3,7 @@ local Players = game:GetService("Players")
 local Shared = game.ReplicatedStorage:WaitForChild("VesperShared")
 require(script.Parent:WaitForChild("ProgressiveFractureBuilder")).Prepare(Shared)
 local C = require(Shared:WaitForChild("ExcavationConfig"))
+local Clips = require(Shared:WaitForChild("MotionClips"))
 local Economy = require(Shared.UpgradeEconomy)
 local Rules = require(Shared.ProgressionRules)
 local TrainingCycle = require(Shared.TrainingCycle)
@@ -576,7 +577,7 @@ local function strike(p, target, point, requestRound, sequence)
 		+ C.Animation.Recoil
 		+ C.Animation.Recovery
 	local windup = duration * (C.Animation.Anticipation + C.Animation.Acceleration) / sum
-	Feedback:FireAllClients("Windup", p.UserId, duration, sequence, point)
+	Feedback:FireAllClients("Windup", p.UserId, duration, sequence, point, attackTool)
 	task.delay(windup, function()
 		if
 			sessions[p] ~= session
@@ -637,7 +638,8 @@ local function strike(p, target, point, requestRound, sequence)
 			sequence,
 			damage,
 			precise,
-			critical
+			critical,
+			{ RoundId = round, Normal = impact.Normal, Broken = data.hp <= 0, SectionId = target.Name }
 		)
 		if data.hp <= 0 then
 			data.broken = true
@@ -684,7 +686,12 @@ local function strike(p, target, point, requestRound, sequence)
 				data.layer,
 				fragment
 			)
-			Feedback:FireClient(p, "Collected", amount)
+			-- Publish inventory from the same award before its presentation receipt.
+			syncPlayer(p)
+			Feedback:FireClient(p, "Collected", amount, {
+				RoundId = round, Sequence = sequence, SectionId = target.Name,
+				ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
+			})
 			if data.layer == 1 then
 				tutorial(p, "BreakShell")
 				tutorial(p, "EquipBucket")
@@ -705,6 +712,7 @@ local function strike(p, target, point, requestRound, sequence)
 		end
 		syncPlayer(p)
 	end)
+	return true
 end
 local terminalByAction = {
 	Sell = "SellTerminal",
@@ -982,13 +990,16 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 			return
 		end
 		s.lastStrike = now
-		Feedback:FireAllClients("Windup", p.UserId, cooldown, a, nil)
+		Feedback:FireAllClients("Windup", p.UserId, cooldown, a, nil, s.tools.Pickaxe)
 	elseif kind == "Mine" then
 		if now - s.lastRequest < 0.08 then
 			return
 		end
 		s.lastRequest = now
-		strike(p, a, b, c, d)
+		local accepted = strike(p, a, b, c, d)
+		if not accepted and typeof(d) == "number" and d == d and d >= 1 and d <= 2147483647 and d % 1 == 0 then
+			Feedback:FireClient(p, "Miss", d)
+		end
 	elseif kind == "Upgrade" then
 		if typeof(a) ~= "string" or not C.Upgrades[a] or now - s.lastStation < 0.20 then
 			return
@@ -1038,6 +1049,13 @@ giveTools = function(p, ch, s)
 		t:SetAttribute("ToolFamily", effectiveTool(a))
 		t:SetAttribute("ToolKind", kind)
 		t:SetAttribute("OwnerUserId", p.UserId)
+		if effectiveTool(a) == "Pickaxe" then
+			t.Grip = Clips.PickaxeGrip
+			local tip = t:FindFirstChild("StrikeTip", true)
+			if tip and tip:IsA("Attachment") then
+				tip.Position = Clips.PickaxeStrikeTip
+			end
+		end
 		s.tools[kind] = t
 		t.Equipped:Connect(function()
 			if sessions[p] == s then
