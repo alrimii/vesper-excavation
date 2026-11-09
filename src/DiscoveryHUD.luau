@@ -226,9 +226,13 @@ function H.Attach(gui, player)
 			else
 				enqueue()
 			end
-		elseif kind == "Reveal" and player:GetAttribute("LabReady") == true
-			and b == State:GetAttribute("RoundId") and typeof(c) == "number"
-			and c > (player:GetAttribute("GameplayArrivalAt") or math.huge) then
+		elseif
+			kind == "Reveal"
+			and player:GetAttribute("LabReady") == true
+			and b == State:GetAttribute("RoundId")
+			and typeof(c) == "number"
+			and c > (player:GetAttribute("GameplayArrivalAt") or math.huge)
+		then
 			for _, entry in Catalog.Specimens do
 				if entry.Id == a then
 					toggle(false)
@@ -304,7 +308,7 @@ function H.Attach(gui, player)
 			rank.Position = UDim2.fromOffset(18, 61)
 		end
 		rank.Text = "RESEARCHER "
-			.. (player:GetAttribute("ResearchLevel") or 1)
+			.. (player:GetAttribute("ResearchLevel") or 0)
 			.. "   /   "
 			.. (player:GetAttribute("DiscoveryCount") or 0)
 			.. " SPECIES"

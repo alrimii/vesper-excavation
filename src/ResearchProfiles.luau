@@ -13,6 +13,7 @@ local function create(store, studio, pause)
 	local locks, saving, closing, leases = {}, {}, {}, {}
 	local Materials = require(script.Parent.MaterialRewards)
 	local EggRewards = require(script.Parent.EggRewards)
+	local SkillProgress = require(script.Parent.PlayerProgression)
 	local function number(v, max)
 		return type(v) == "number" and v == v and math.clamp(math.floor(v), 0, max) or 0
 	end
@@ -42,7 +43,8 @@ local function create(store, studio, pause)
 			contents = {},
 			pendingMaterials = Materials.Normalize(raw.pendingMaterials),
 			eggRewardReceipts = EggRewards.NormalizeReceipts(raw.eggRewardReceipts),
-			xp = number(raw.xp, 1e8),
+			xp = number(raw.xp, 1e8), -- untouched legacy field; never displayed or credited in schema 1
+			progression = SkillProgress.Normalize(raw.progression),
 			samples = number(raw.samples, 1e8),
 			discoveries = {},
 			contract = math.max(1, number(raw.contract, 1e6)),
@@ -114,7 +116,8 @@ local function create(store, studio, pause)
 		return a
 	end
 	function P.CanMutate(player)
-		return not closing[player] and (isStudio() or (locks[player] ~= nil and (leases[player] or 0) > os.time()))
+		return not closing[player]
+			and (isStudio() or (locks[player] ~= nil and (leases[player] or 0) > os.time()))
 	end
 	function P.Load(player)
 		if isStudio() then
@@ -140,6 +143,7 @@ local function create(store, studio, pause)
 		end
 		local key = tostring(player.UserId)
 		local sessionToken = token .. Http:GenerateGUID(false)
+		local incompatible = false
 		for attempt = 1, 4 do
 			local ok, result = pcall(function()
 				return DS:UpdateAsync(key, function(old)
@@ -147,9 +151,28 @@ local function create(store, studio, pause)
 					if old.lock and old.lock ~= sessionToken and (old.lease or 0) > os.time() then
 						return nil
 					end
+					-- Legacy published data is deliberately NOT migrated, reset, or locked.
+					if old.data ~= nil and (type(old.data) ~= "table" or next(old.data) ~= nil) then
+						local raw = type(old.data) == "table" and old.data.progression
+						local valid = type(raw) == "table" and raw.version == 1
+						if valid then
+							valid = pcall(SkillProgress.Normalize, raw)
+						end
+						if not valid then
+							incompatible = true
+							return nil
+						end
+					end
 					return { data = old.data or {}, lock = sessionToken, lease = os.time() + 180 }
 				end)
 			end)
+			if incompatible then
+				player:SetAttribute(
+					"ProfileLoadError",
+					"This unpublished progression checkpoint cannot load legacy progress. Your saved data has not been changed. An approved release/reset operation is required."
+				)
+				return nil
+			end
 			if ok and result and result.lock == sessionToken then
 				locks[player] = sessionToken
 				leases[player] = result.lease

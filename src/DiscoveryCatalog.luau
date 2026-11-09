@@ -16,7 +16,7 @@ function D.ForRound(_round)
 	return D.Specimens[1]
 end
 function D.Level(xp)
-	return math.floor(math.sqrt(math.max(0, xp) / 60)) + 1
+	return require(script.Parent.SkillCatalog).Level(math.max(0, xp))
 end
 function D.Contract(index)
 	local templates = {

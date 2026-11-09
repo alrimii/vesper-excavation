@@ -8,6 +8,12 @@ local Economy = require(Shared.UpgradeEconomy)
 local Rules = require(Shared.ProgressionRules)
 local TrainingCycle = require(Shared.TrainingCycle)
 local Delivery = require(Shared.DeliverySequence)
+local Skills = require(Shared.SkillCatalog)
+local Progress = require(script.Parent.PlayerProgression)
+local sellLoads
+local function skill(a, id)
+	return Skills.Rank(a, id)
+end
 local giveTools
 local cancelAttack
 local trials = {}
@@ -124,10 +130,19 @@ local Dormant = game.ServerStorage:WaitForChild("EggDormant")
 local Depot = workspace.VesperLab.ResourceDepot
 local Kit = game.ServerStorage.VesperKit
 local sessions, accounts, sections = {}, {}, {}
+local serverSkillGuards = {} -- retained by UserId across same-server reconnects, including Studio previews
 cancelAttack = function(p, session)
 	session.attack = (session.attack or 0) + 1
 	session.pending = nil
-	Feedback:FireAllClients("Cancel", p.UserId)
+	session.flow, session.relay = nil, nil
+	session.inputUntil = 0
+	p:SetAttribute("FlowBuild", 0)
+	p:SetAttribute("FlowUntil", 0)
+	p:SetAttribute("FlowReadyUntil", 0)
+	if os.clock() - (session.lastCancelBroadcast or -math.huge) >= 0.1 then
+		session.lastCancelBroadcast = os.clock()
+		Feedback:FireAllClients("Cancel", p.UserId)
+	end
 end
 local function toolLevel(a, key)
 	return Rules.Level(a, effectiveTool(a), key)
@@ -138,7 +153,7 @@ local layerRemaining = {}
 local layerTotals = {}
 local round, status, readyAt = 0, "Excavating", 0
 local specimenId = "lumen"
-local eggDamage, serverClaims = {}, {}
+local eggDamage, serverClaims, eggXP = {}, {}, {}
 local totalDamage = 0
 local shuttingDown = false
 local rebuildingShell = false
@@ -169,8 +184,13 @@ local function note(p, t)
 end
 local function stats(a)
 	local config = Rules.ToolConfig(effectiveTool(a), C)
-	return math.floor((config.Mining.Power + toolLevel(a, "Power") * config.Upgrades.Power.Step) * Rules.PowerBonus(a)),
-		math.max(config.Mining.MinimumCooldown, config.Mining.Cooldown - toolLevel(a, "Speed") * config.Upgrades.Speed.Step),
+	return math.floor(
+		(config.Mining.Power + toolLevel(a, "Power") * config.Upgrades.Power.Step) * Rules.PowerBonus(a)
+	),
+		math.max(
+			config.Mining.MinimumCooldown,
+			config.Mining.Cooldown - toolLevel(a, "Speed") * config.Upgrades.Speed.Step
+		),
 		C.Collection.Capacity + toolLevel(a, "Capacity") * config.Upgrades.Capacity.Step
 end
 local function used(a)
@@ -186,7 +206,14 @@ end
 -- Accounts are writable only while this Player owns a loaded, non-closing profile.
 local function writablePlayer(userId)
 	local p = Players:GetPlayerByUserId(userId)
-	if not shuttingDown and p and p.Parent == Players and sessions[p] and accounts[userId] and Profiles.CanMutate(p) then
+	if
+		not shuttingDown
+		and p
+		and p.Parent == Players
+		and sessions[p]
+		and accounts[userId]
+		and Profiles.CanMutate(p)
+	then
 		return p, accounts[userId]
 	end
 end
@@ -203,7 +230,9 @@ local function syncPlayer(p)
 		return
 	end
 	local power, cd, cap = stats(a)
-	if writablePlayer(p.UserId) == p then drainPending(p, a, cap) end
+	if writablePlayer(p.UserId) == p then
+		drainPending(p, a, cap)
+	end
 	local config = Rules.ToolConfig(effectiveTool(a), C)
 	p:SetAttribute("ToolFamily", effectiveTool(a))
 	p:SetAttribute("IntroStage", a.introStage)
@@ -244,7 +273,8 @@ local function syncPlayer(p)
 			YieldBonus = toolLevel(a, "Yield"),
 			SaleMultiplier = 1 + toolLevel(a, "Value") * C.Upgrades.Value.Step,
 			BucketBaseValue = a.materialValue,
-			PrecisionMultiplier = C.Precision.Multiplier + toolLevel(a, "Precision") * C.Upgrades.Precision.Step,
+			PrecisionMultiplier = C.Precision.Multiplier
+				+ toolLevel(a, "Precision") * C.Upgrades.Precision.Step,
 			CriticalChance = toolLevel(a, "Critical") * C.Upgrades.Critical.Step,
 		}
 	do
@@ -258,8 +288,19 @@ local function syncPlayer(p)
 		p:SetAttribute(key .. "Level", toolLevel(a, key))
 		p:SetAttribute(key .. "Price", toolLevel(a, key) < u.MaxLevel and price(a, key) or -1)
 	end
-	p:SetAttribute("ResearchXP", a.xp)
-	p:SetAttribute("ResearchLevel", Catalog.Level(a.xp))
+	local prog = a.progression
+	local level = Skills.Level(prog.xpUnits / Skills.XPScale)
+	p:SetAttribute("ResearchXP", prog.xpUnits / Skills.XPScale)
+	p:SetAttribute("ResearchLevel", level)
+	p:SetAttribute("SkillPoints", Skills.Points(level) - Skills.Spent(prog.ranks))
+	p:SetAttribute("SkillRanks", game:GetService("HttpService"):JSONEncode(prog.ranks))
+	p:SetAttribute("SkillLoadout", game:GetService("HttpService"):JSONEncode(prog.loadout))
+	p:SetAttribute("SaleLatchEnabled", prog.saleLatch)
+	p:SetAttribute("ChargedUntil", prog.guards.chargedUntil or 0)
+	p:SetAttribute(
+		"PrecisionRadius",
+		effectiveTool(a) ~= "Explosive" and ({ [0] = 0.75, 1, 1.2 })[skill(a, "impact.steady_aim")] or 0.75
+	)
 	p:SetAttribute("CoreSamples", a.samples)
 	p:SetAttribute("ContractIndex", a.contract)
 	p:SetAttribute("ContractProgress", a.contractProgress)
@@ -276,13 +317,18 @@ local function syncPlayer(p)
 end
 local function deliverEggRewards(p)
 	local owner, account = writablePlayer(p.UserId)
-	if owner ~= p then return 0 end
+	if owner ~= p then
+		return 0
+	end
 	return EggRewards:Deliver(p.UserId, account)
 end
 local function publishEggResults(p)
 	local history = EggRewards:History(p.UserId)
 	p:SetAttribute("ExpeditionResultHistory", game:GetService("HttpService"):JSONEncode(history))
-	p:SetAttribute("LastExpeditionResult", #history > 0 and game:GetService("HttpService"):JSONEncode(history[#history]) or nil)
+	p:SetAttribute(
+		"LastExpeditionResult",
+		#history > 0 and game:GetService("HttpService"):JSONEncode(history[#history]) or nil
+	)
 end
 local function advance(p, kind, amount)
 	local a = accounts[p.UserId]
@@ -296,7 +342,6 @@ local function advance(p, kind, amount)
 	a.contractProgress += amount
 	if a.contractProgress >= contract.Goal then
 		a.cash += contract.Reward
-		a.xp += 30
 		a.contract += 1
 		a.contractProgress = 0
 		Feedback:FireClient(p, "ResearchReward", "CONTRACT COMPLETE", contract.Title, contract.Reward)
@@ -400,7 +445,7 @@ local function beginRound(nextEgg)
 	end
 	round += 1
 	specimenId = Catalog.ForRound(round).Id
-	eggDamage, totalDamage = {}, 0
+	eggDamage, totalDamage, eggXP = {}, 0, {}
 	-- EggRewards settlements/undelivered claims deliberately survive the next egg.
 	State:SetAttribute("SpecimenColor", Catalog.ForRound(round).Color)
 	removed = 0
@@ -453,7 +498,9 @@ local function nextExpedition(selectedEgg)
 		return
 	end
 	transitioning = true
-	for player, session in sessions do cancelAttack(player, session) end
+	for player, session in sessions do
+		cancelAttack(player, session)
+	end
 	-- Clear moving access platforms before withdrawing them.
 	for _, player in Players:GetPlayers() do
 		local character, root = alive(player)
@@ -490,18 +537,24 @@ local function nextExpedition(selectedEgg)
 	end)
 end
 local function completion()
-	if status ~= "Excavating" or removed < total then return end
-	for player, session in sessions do cancelAttack(player, session) end
+	if status ~= "Excavating" or removed < total then
+		return
+	end
+	for player, session in sessions do
+		cancelAttack(player, session)
+	end
 	status = "Hatching"
 	local completedAt = workspace:GetServerTimeNow()
 	readyAt = completedAt + 2.2 + C.Completion.RevealSeconds
 	State:SetAttribute("PhaseStartedAt", completedAt)
 	local completed = round
 	-- Frozen immediately at completion; reveal, rejoin and UI cannot reroll.
-	EggRewards:Freeze(completed, currentEgg, eggDamage, totalDamage, completedAt, readyAt)
+	EggRewards:Freeze(completed, currentEgg, eggDamage, totalDamage, completedAt, readyAt, eggXP)
 	syncRound()
 	task.delay(2.2, function()
-		if round ~= completed or status ~= "Hatching" then return end
+		if round ~= completed or status ~= "Hatching" then
+			return
+		end
 		status = "Revealed"
 		local revealedAt = workspace:GetServerTimeNow()
 		State:SetAttribute("PhaseStartedAt", revealedAt)
@@ -522,13 +575,17 @@ local function completion()
 		syncRound()
 		Feedback:FireAllClients("Reveal", specimenId, completed, revealedAt)
 		task.delay(C.Completion.RevealSeconds, function()
-			if C.Completion.AutoReset and round == completed and status == "Revealed" then nextExpedition() end
+			if C.Completion.AutoReset and round == completed and status == "Revealed" then
+				nextExpedition()
+			end
 		end)
 	end)
 end
 -- One frozen section settlement. This and transfers below never yield.
 local function settleMaterials(data, target, impact, sequence)
-	if data.settled then return end
+	if data.settled then
+		return
+	end
 	data.settled = true
 	local layer = C.Layers[data.layer]
 	for _, share in Materials.Allocate(data, layer.Yield) do
@@ -539,12 +596,21 @@ local function settleMaterials(data, target, impact, sequence)
 			drainPending(recipient, account, cap)
 			Materials.Add(account.pendingMaterials, layer.Id, layer.Value * currentEgg.Value, amount)
 			local delivered = drainPending(recipient, account, cap, true)
-			if amount > 0 and account.introStage <= 2 then account.introStage = 3 end
+			if amount > 0 and account.introStage <= 2 then
+				account.introStage = 3
+			end
 			syncPlayer(recipient)
 			Feedback:FireClient(recipient, "Collected", amount, {
-				RoundId = round, Sequence = sequence, SectionId = target.Name,
-				ResourceId = layer.Id, ResourceName = layer.Name, Position = impact.Position,
-				Delivered = delivered, Pending = amount - delivered, Base = share.base, Bonus = share.bonus,
+				RoundId = round,
+				Sequence = sequence,
+				SectionId = target.Name,
+				ResourceId = layer.Id,
+				ResourceName = layer.Name,
+				Position = impact.Position,
+				Delivered = delivered,
+				Pending = amount - delivered,
+				Base = share.base,
+				Bonus = share.bonus,
 			})
 		elseif amount > 0 then
 			local claims = serverClaims[share.userId] or {}
@@ -554,16 +620,70 @@ local function settleMaterials(data, target, impact, sequence)
 	end
 end
 -- All tools share this atomic effective-damage/settlement path. No yield occurs here.
-local function applyDamage(p, target, impact, damage, precise, critical, sequence, family, interval)
+local function applyDamage(
+	p,
+	target,
+	impact,
+	damage,
+	precise,
+	critical,
+	sequence,
+	family,
+	interval,
+	secondary
+)
 	local data = sections[target]
 	local a = accounts[p.UserId]
 	local _, root2 = alive(p)
-	if writablePlayer(p.UserId) ~= p or not a or not root2 or not data or data.broken or data.permanent or data.layer ~= activeLayer
-		or not target:GetAttribute("Exposed") then return false end
+	if
+		writablePlayer(p.UserId) ~= p
+		or not a
+		or not root2
+		or not data
+		or data.broken
+		or data.permanent
+		or data.layer ~= activeLayer
+		or not target:GetAttribute("Exposed")
+	then
+		return false
+	end
 	local _, _, capacity = stats(a)
-	if used(a) >= capacity or Materials.Count(a.pendingMaterials) > 0 then return false, "Capacity" end
-	damage = math.min(data.hp, math.max(1, math.floor(damage + 0.5)))
+	if used(a) >= capacity or Materials.Count(a.pendingMaterials) > 0 then
+		return false, "Capacity"
+	end
+	if type(damage) ~= "number" or damage ~= damage or damage <= 0 or damage == math.huge then
+		return false
+	end
+	damage = math.min(data.hp, math.floor(damage + 0.5))
+	if damage <= 0 then
+		return false
+	end
 	data.hp -= damage
+	local xp, beforeLevel, afterLevel = Progress.Credit(a, damage, currentEgg.Id)
+	eggXP[p.UserId] = (eggXP[p.UserId] or 0) + xp
+	a.progression.guards.lastDamageAt = workspace:GetServerTimeNow()
+	if afterLevel > beforeLevel then
+		local session = sessions[p]
+		if session.levelReceipt then
+			session.levelReceipt.after = afterLevel
+		else
+			local receipt = { before = beforeLevel, after = afterLevel }
+			session.levelReceipt = receipt
+			task.delay(0.5, function()
+				if sessions[p] ~= session then
+					return
+				end
+				session.levelReceipt = nil
+				Feedback:FireClient(
+					p,
+					"LevelUp",
+					receipt.before,
+					receipt.after,
+					Skills.Points(receipt.after) - Skills.Points(receipt.before)
+				)
+			end)
+		end
+	end
 	Materials.Record(data, p.UserId, damage, toolLevel(a, "Yield"))
 	eggDamage[p.UserId] = (eggDamage[p.UserId] or 0) + damage
 	totalDamage += damage
@@ -580,13 +700,20 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 		damage,
 		precise,
 		critical,
-		{ RoundId = round, Normal = impact.Normal, Broken = data.hp <= 0, SectionId = target.Name, Family = family, Interval = interval }
+		{
+			RoundId = round,
+			Normal = impact.Normal,
+			Broken = data.hp <= 0,
+			SectionId = target.Name,
+			Family = family,
+			Interval = interval,
+			Secondary = secondary == true,
+		}
 	)
 	if data.hp <= 0 then
 		data.broken = true
 		target:SetAttribute("Intact", false)
 		removed += 1
-		a.xp += 2
 		if random:NextNumber() < 0.01 then
 			a.relics = (a.relics or 0) + 1
 			Feedback:FireClient(p, "Notice", "RARE FIND / Ancient relic recovered for your room.")
@@ -597,7 +724,6 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 		if data.layer == #C.Layers then
 			deepRemoved += 1
 			a.samples += 1
-			a.xp += 4
 			a.cash += 3
 			advance(p, "Sample", 1)
 		end
@@ -616,7 +742,13 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 		-- the old base + their current Yield Collect credit, independent of material shares.
 		advance(p, "Collect", C.Layers[data.layer].Yield + toolLevel(a, "Yield"))
 		settleMaterials(data, target, impact, sequence)
-		Feedback:FireAllClients("Fragments", target:GetAttribute("Center"), impact.Position, data.layer, fragment)
+		Feedback:FireAllClients(
+			"Fragments",
+			target:GetAttribute("Center"),
+			impact.Position,
+			data.layer,
+			fragment
+		)
 		if data.layer == 1 then
 			tutorial(p, "BreakShell")
 			tutorial(p, "EquipBucket")
@@ -640,27 +772,264 @@ local function applyDamage(p, target, impact, damage, precise, critical, sequenc
 end
 local function eligible(target, layer)
 	local data = typeof(target) == "Instance" and sections[target]
-	return data and target.Parent == Sections and data.part.Parent == target and not data.broken
-		and not data.permanent and data.layer == layer and target:GetAttribute("Exposed") == true
+	return data
+		and target.Parent == Sections
+		and data.part.Parent == target
+		and not data.broken
+		and not data.permanent
+		and data.layer == layer
+		and target:GetAttribute("Exposed") == true
 end
 local function contact(p, target, point, grace)
 	local ch, root, head = alive(p)
-	if not ch or not finite(point) then return end
+	if not ch or not finite(point) then
+		return
+	end
 	local delta = point - head.Position
-	if delta.Magnitude < 0.01 or delta.Magnitude > C.Mining.Reach + grace
-		or (point - root.Position).Magnitude > C.Mining.Reach + grace + 3 then return end
+	if
+		delta.Magnitude < 0.01
+		or delta.Magnitude > C.Mining.Reach + grace
+		or (point - root.Position).Magnitude > C.Mining.Reach + grace + 3
+	then
+		return
+	end
 	local hit = workspace:Raycast(head.Position, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch))
-	if hit and hit.Instance.Parent == target and (hit.Position - point).Magnitude <= 1.3 then return hit end
+	if hit and hit.Instance.Parent == target and (hit.Position - point).Magnitude <= 1.3 then
+		return hit
+	end
 end
-local function damageRoll(a, session, target, point, power)
-	local precise = (point - target:GetAttribute("Center")).Magnitude <= C.Precision.Radius
+local function damageRoll(a, session, target, point, power, ordinary)
+	local radius = ordinary and ({ [0] = 0.75, 1, 1.2 })[skill(a, "impact.steady_aim")] or C.Precision.Radius
+	local precise = (point - target:GetAttribute("Center")).Magnitude <= radius
 	local chain = precise and (session.lastTarget == target and session.precisionChain or 0) or 0
+	local relay = session.relay
+	if ordinary and relay then
+		session.relay = nil -- the next ordinary hit consumes the offer, precise or not
+		if
+			precise
+			and workspace:GetServerTimeNow() <= relay.untilTime
+			and target ~= relay.target
+			and sections[target].layer == relay.layer
+			and (point - relay.position).Magnitude <= 4
+		then
+			chain = math.max(chain, relay.chain)
+		end
+	end
 	chain = precise and math.min(chain + 1, C.Precision.MaxChain) or 0
 	session.lastTarget, session.precisionChain = target, chain
-	local multiplier = precise and C.Precision.Multiplier + toolLevel(a, "Precision") * C.Upgrades.Precision.Step
-		+ math.max(0, chain - 1) * C.Precision.ChainStep or 1
+	local multiplier = precise
+			and C.Precision.Multiplier + toolLevel(a, "Precision") * C.Upgrades.Precision.Step + math.max(
+				0,
+				chain - 1
+			) * C.Precision.ChainStep
+		or 1
 	local critical = random:NextNumber() < toolLevel(a, "Critical") * C.Upgrades.Critical.Step
 	return power * multiplier * (critical and 1.5 or 1), precise, critical
+end
+-- Secondary target snapshot is made before primary mutation. No new exposure can enter it.
+local function lightningSnapshot(p, primary, impact)
+	local ch, _, head = alive(p)
+	if not ch then
+		return {}
+	end
+	local layer, origin = sections[primary].layer, impact.Position
+	local chosen, seen, previous = {}, { [primary] = true }, impact
+	for _ = 1, 2 do
+		local candidates = {}
+		for section in sections do
+			if not seen[section] and eligible(section, layer) then
+				local center = section:GetAttribute("Center")
+				local distance = (center - previous.Position).Magnitude
+				if distance <= 4 and (center - origin).Magnitude <= 6 then
+					local from = previous.Position + previous.Normal * 0.35
+					local delta = center - from
+					local ray = delta.Magnitude > 0.01
+						and workspace:Raycast(from, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch))
+					local sight = ray and ray.Position - head.Position
+					local visible = sight
+						and sight.Magnitude > 0.01
+						and sight.Magnitude <= C.Mining.Reach + 6
+						and workspace:Raycast(
+							head.Position,
+							sight.Unit * (sight.Magnitude + 0.7),
+							rayParams(ch)
+						)
+					if
+						ray
+						and ray.Instance.Parent == section
+						and visible
+						and visible.Instance.Parent == section
+						and (ray.Position - previous.Position).Magnitude <= 4
+						and (ray.Position - origin).Magnitude <= 6
+					then
+						table.insert(
+							candidates,
+							{ section = section, impact = ray, distance = distance, layer = layer }
+						)
+					end
+				end
+			end
+		end
+		table.sort(candidates, function(a, b)
+			if a.distance == b.distance then
+				return a.section.Name < b.section.Name
+			end
+			return a.distance < b.distance
+		end)
+		local item = candidates[1]
+		if not item then
+			break
+		end
+		table.insert(chosen, item)
+		seen[item.section] = true
+		previous = item.impact
+	end
+	return chosen
+end
+local function flowMultiplier(p, a, session, interval, now)
+	local rank = skill(a, "technique.core_drill")
+	if rank == 0 then
+		return 1
+	end
+	local flow = session.flow or { build = 0, last = now }
+	session.flow = flow
+	if flow.boostUntil and now >= flow.boostUntil then
+		flow.boostUntil = nil
+		flow.build = 0
+		flow.last = now
+	end
+	if flow.readyUntil and now > flow.readyUntil then
+		flow.readyUntil = nil
+		flow.build = 0
+		flow.last = now
+	end
+	if flow.readyUntil then
+		flow.boostUntil = now + 3
+		flow.readyUntil = nil
+		flow.build = 0
+	end
+	local multiplier = flow.boostUntil and (rank == 1 and 1.25 or 1.35) or 1
+	if not flow.boostUntil then
+		local elapsed = now - flow.last
+		if elapsed > 2 then
+			flow.build = 0
+		else
+			flow.build += math.min(interval, math.max(0, elapsed))
+		end
+		if flow.build >= 4 then
+			flow.build = 4
+			flow.readyUntil = now + 4
+		end
+	end
+	flow.last = now
+	p:SetAttribute("FlowBuild", flow.build)
+	p:SetAttribute("FlowReadyUntil", flow.readyUntil or 0)
+	p:SetAttribute("FlowUntil", flow.boostUntil or 0)
+	p:SetAttribute("FlowLastContact", now)
+	return multiplier
+end
+local function afterRoot(p, a, session)
+	local now = workspace:GetServerTimeNow()
+	local _, _, cap = stats(a)
+	local guards = a.progression.guards
+	if
+		a.progression.saleLatch
+		and skill(a, "collection.sale_latch") > 0
+		and used(a) >= cap
+		and now <= (session.inputUntil or 0)
+		and now - (guards.lastDamageAt or 0) <= 3
+		and now >= (guards.latchUntil or 0)
+	then
+		guards.latchUntil = now + 8
+		sellLoads(p, 1, true) -- once after the entire root, never between blast/arc targets
+	end
+end
+local function ordinaryHit(p, a, session, target, impact, power, sequence, family, interval, charged)
+	local now = workspace:GetServerTimeNow()
+	local guards = a.progression.guards
+	local window = math.floor(now / 4)
+	local opportunity = not charged
+		and skill(a, "technique.chain_lightning") > 0
+		and guards.lastWindow ~= window
+	local neighbors = opportunity and now >= (guards.lightningUntil or 0) and lightningSnapshot(
+		p,
+		target,
+		impact
+	) or {}
+	local relayWasReady = session.relay ~= nil
+	local damage, precise, critical = damageRoll(a, session, target, impact.Position, power, not charged)
+	if relayWasReady and not charged then
+		Feedback:FireClient(p, "PrecisionRelay", impact.Position, 0)
+	end
+	-- All eligibility/capacity checks ran before this non-yielding path; only positive HP advances Flow.
+	local _, _, cap = stats(a)
+	if used(a) >= cap or Materials.Count(a.pendingMaterials) > 0 or not eligible(target, activeLayer) then
+		return false
+	end
+	if charged then
+		damage *= 1.6
+	elseif family == "Drill" then
+		damage *= flowMultiplier(p, a, session, interval, now)
+	end
+	local layer = sections[target].layer
+	local ok = applyDamage(p, target, impact, damage, precise, critical, sequence, family, interval)
+	if not ok then
+		return false
+	end
+	if
+		status == "Excavating"
+		and not charged
+		and sections[target].broken
+		and skill(a, "technique.precision_relay") > 0
+		and (session.precisionChain or 0) > 0
+		and now >= (guards.relayUntil or 0)
+	then
+		guards.relayUntil = now + 6
+		session.relay = {
+			target = target,
+			layer = layer,
+			position = impact.Position,
+			chain = session.precisionChain,
+			untilTime = now + (skill(a, "technique.precision_relay") == 1 and 3 or 5),
+		}
+		Feedback:FireClient(p, "PrecisionRelay", impact.Position, session.relay.untilTime)
+	end
+	if opportunity then
+		guards.lastWindow = window
+		if now >= (guards.lightningUntil or 0) and random:NextNumber() < 0.25 then
+			guards.lightningUntil = now + 8
+			local points = { impact.Position }
+			for index, item in neighbors do
+				-- No replacement for disappeared candidates; range, life, capacity rechecked.
+				local ch, _, head = alive(p)
+				if
+					status == "Excavating"
+					and ch
+					and eligible(item.section, layer)
+					and (head.Position - item.impact.Position).Magnitude <= C.Mining.Reach + 6
+				then
+					local applied = applyDamage(
+						p,
+						item.section,
+						item.impact,
+						power * (index == 1 and 0.8 or 0.5),
+						false,
+						false,
+						sequence,
+						family,
+						interval,
+						true
+					)
+					if applied then
+						table.insert(points, item.impact.Position)
+					end
+				end
+			end
+			Feedback:FireAllClients("SkillLightning", p.UserId, round, sequence, points)
+		end
+	end
+	afterRoot(p, a, session)
+	return true
 end
 local function blast(p, placement, sequence, interval)
 	local cfg, layer = C.Tools.Explosive, placement.layer
@@ -675,21 +1044,33 @@ local function blast(p, placement, sequence, interval)
 			local distance = section == target and 0 or (center - impact.Position).Magnitude
 			if distance <= cfg.Radius then
 				local delta = center - origin
-				local ray = section == target and impact or (delta.Magnitude > 0.01
-					and workspace:Raycast(origin, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch)))
+				local ray = section == target and impact
+					or (
+						delta.Magnitude > 0.01
+						and workspace:Raycast(origin, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch))
+					)
 				local sight = ray and ray.Position - head.Position
-				local visible = sight and sight.Magnitude > 0.01 and sight.Magnitude <= C.Mining.Reach + cfg.Radius
+				local visible = sight
+					and sight.Magnitude > 0.01
+					and sight.Magnitude <= C.Mining.Reach + cfg.Radius
 					and workspace:Raycast(head.Position, sight.Unit * (sight.Magnitude + 0.7), rayParams(ch))
 				local surfaceDistance = ray and (ray.Position - impact.Position).Magnitude
-				if ray and ray.Instance.Parent == section and visible and visible.Instance.Parent == section
-					and surfaceDistance <= cfg.Radius then
+				if
+					ray
+					and ray.Instance.Parent == section
+					and visible
+					and visible.Instance.Parent == section
+					and surfaceDistance <= cfg.Radius
+				then
 					table.insert(candidates, { section = section, impact = ray, distance = surfaceDistance })
 				end
 			end
 		end
 	end
 	table.sort(candidates, function(a, b)
-		if a.distance == b.distance then return a.section.Name < b.section.Name end
+		if a.distance == b.distance then
+			return a.section.Name < b.section.Name
+		end
 		return a.distance < b.distance
 	end)
 	local centerDamage, precise, critical = placement.damage, placement.precise, placement.critical
@@ -698,26 +1079,84 @@ local function blast(p, placement, sequence, interval)
 	for i = 1, math.min(#candidates, cfg.MaxSections) do
 		local item = candidates[i]
 		local falloff = 1 - (1 - cfg.EdgeMultiplier) * item.distance / cfg.Radius
-		local ok, reason = applyDamage(p, item.section, item.impact, centerDamage * falloff,
-			precise, critical, sequence, "Explosive", interval)
-		if ok then applied += 1 elseif reason == "Capacity" then limited += 1 end
+		local ok, reason = applyDamage(
+			p,
+			item.section,
+			item.impact,
+			centerDamage * falloff,
+			precise,
+			critical,
+			sequence,
+			"Explosive",
+			interval
+		)
+		if ok then
+			applied += 1
+		elseif reason == "Capacity" then
+			limited += 1
+		end
 	end
 	if limited > 0 then
-		note(p, string.format("Blast: %d sections hit; %d skipped for bucket space. SELL to make room.", applied, limited))
+		note(
+			p,
+			string.format(
+				"Blast: %d sections hit; %d skipped for bucket space. SELL to make room.",
+				applied,
+				limited
+			)
+		)
 	end
 end
-local function strike(p, target, point, requestRound, sequence)
-	if typeof(sequence) ~= "number" or sequence ~= sequence or sequence < 1 or sequence > 2147483647
-		or sequence % 1 ~= 0 then return end
+local function strike(p, target, point, requestRound, sequence, charged)
+	if
+		typeof(sequence) ~= "number"
+		or sequence ~= sequence
+		or sequence < 1
+		or sequence > 2147483647
+		or sequence % 1 ~= 0
+	then
+		return
+	end
 	local session, a = sessions[p], accounts[p.UserId]
-	if not session or not a or not alive(p) or session.training or not equipped(p, "Pickaxe")
-		or requestRound ~= round or status ~= "Excavating" or not State:GetAttribute("Ready")
-		or not eligible(target, activeLayer) then return end
+	if
+		not session
+		or not a
+		or not alive(p)
+		or session.training
+		or not equipped(p, "Pickaxe")
+		or requestRound ~= round
+		or status ~= "Excavating"
+		or not State:GetAttribute("Ready")
+		or not eligible(target, activeLayer)
+	then
+		return
+	end
 	local family = effectiveTool(a)
+	local guards = a.progression.guards
+	local serverNow = workspace:GetServerTimeNow()
+	if session.blocking or serverNow < (guards.nextAttackAt or 0) then
+		return
+	end
+	if
+		charged
+		and (
+			family ~= "Pickaxe"
+			or skill(a, "impact.charged_swing") == 0
+			or not table.find(a.progression.loadout, "impact.charged_swing")
+			or serverNow < (guards.chargedUntil or 0)
+		)
+	then
+		note(p, "Charged Swing needs an equipped skill slot, pickaxe, and a ready 8s cooldown.")
+		return
+	end
 	local attackTool = session.tools.Pickaxe
-	if attackTool:GetAttribute("ToolFamily") ~= family then return end
+	if attackTool:GetAttribute("ToolFamily") ~= family then
+		return
+	end
 	local power, cd, capacity = stats(a)
-	if writablePlayer(p.UserId) ~= p then return end
+	if writablePlayer(p.UserId) ~= p then
+		return
+	end
 	drainPending(p, a, capacity)
 	if used(a) >= capacity or Materials.Count(a.pendingMaterials) > 0 then
 		if os.clock() - (session.fullNotice or 0) > 2 then
@@ -727,38 +1166,87 @@ local function strike(p, target, point, requestRound, sequence)
 		return
 	end
 	local now = os.clock()
-	if session.pending or sequence <= (session.lastSequence or 0) or now - session.lastStrike < cd - 0.035 then return end
+	if
+		session.pending
+		or sequence <= (session.lastSequence or 0)
+		or now - session.lastStrike < cd - 0.035
+	then
+		return
+	end
 	local hit = contact(p, target, point, 0.5)
-	if not hit then return end
+	if not hit then
+		return
+	end
 	point = hit.Position
 	session.lastSequence, session.lastStrike = sequence, math.max(now, session.lastStrike + cd)
 	session.attack = (session.attack or 0) + 1
 	local token = session.attack
+	guards.nextAttackAt = serverNow + cd - 0.035
+	guards.lastMiningAt = serverNow
+	if charged then
+		guards.chargedUntil = serverNow + 8
+		p:SetAttribute("ChargedUntil", guards.chargedUntil)
+	end
 	if family == "Drill" then
 		-- One validated immediate tick per request. There is no delayed/overlapping drill loop.
-		local damage, precise, critical = damageRoll(a, session, target, point, power)
-		applyDamage(p, target, hit, damage, precise, critical, sequence, family, cd)
+		ordinaryHit(p, a, session, target, hit, power, sequence, family, cd, false)
 		return true
 	end
-	local windup = family == "Explosive" and C.Tools.Explosive.Fuse
-		or cd * (C.Animation.Anticipation + C.Animation.Acceleration)
-		/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
-	local placement = { token = token, target = target, tool = attackTool, round = round,
-		layer = activeLayer, impact = { Position = hit.Position, Normal = hit.Normal, Instance = hit.Instance } }
+	local windup = charged and 0.45
+		or family == "Explosive" and C.Tools.Explosive.Fuse
+		or cd
+			* (C.Animation.Anticipation + C.Animation.Acceleration)
+			/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
+	local placement = {
+		token = token,
+		target = target,
+		tool = attackTool,
+		round = round,
+		layer = activeLayer,
+		impact = { Position = hit.Position, Normal = hit.Normal, Instance = hit.Instance },
+	}
 	if family == "Explosive" then
 		placement.damage, placement.precise, placement.critical = damageRoll(a, session, target, point, power)
 	end
 	session.pending = placement
-	Feedback:FireAllClients("Windup", p.UserId, family == "Explosive" and windup or cd, sequence, point, attackTool)
+	Feedback:FireAllClients(
+		"Windup",
+		p.UserId,
+		charged
+				and (0.45 / (C.Animation.Anticipation + C.Animation.Acceleration) * (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery))
+			or family == "Explosive" and windup
+			or cd,
+		sequence,
+		point,
+		attackTool
+	)
 	if family == "Explosive" then
-		Feedback:FireAllClients("Charge", p.UserId, sequence, point, hit.Normal, round, workspace:GetServerTimeNow())
+		Feedback:FireAllClients(
+			"Charge",
+			p.UserId,
+			sequence,
+			point,
+			hit.Normal,
+			round,
+			workspace:GetServerTimeNow()
+		)
 	end
 	task.delay(windup, function()
-		if sessions[p] ~= session or session.attack ~= token then return end
+		if sessions[p] ~= session or session.attack ~= token then
+			return
+		end
 		session.pending = nil
-		if not equipped(p, "Pickaxe") or session.tools.Pickaxe ~= attackTool or requestRound ~= round
-			or session.training or status ~= "Excavating" or not State:GetAttribute("Ready")
-			or effectiveTool(a) ~= family or not alive(p) or writablePlayer(p.UserId) ~= p then
+		if
+			not equipped(p, "Pickaxe")
+			or session.tools.Pickaxe ~= attackTool
+			or requestRound ~= round
+			or session.training
+			or status ~= "Excavating"
+			or not State:GetAttribute("Ready")
+			or effectiveTool(a) ~= family
+			or not alive(p)
+			or writablePlayer(p.UserId) ~= p
+		then
 			Feedback:FireAllClients("ChargeCancel", p.UserId, sequence)
 			Feedback:FireClient(p, "Miss", sequence)
 			return
@@ -767,11 +1255,14 @@ local function strike(p, target, point, requestRound, sequence)
 			-- Validated placement survives destruction of its original plate. Do not
 			-- raycast that plate again or substitute the newly exposed layer.
 			blast(p, placement, sequence, cd)
+			afterRoot(p, a, session)
 		else
 			local impact = eligible(target, activeLayer) and contact(p, target, point, C.Mining.ImpactGrace)
-			if not impact then Feedback:FireClient(p, "Miss", sequence); return end
-			local damage, precise, critical = damageRoll(a, session, target, impact.Position, power)
-			if not applyDamage(p, target, impact, damage, precise, critical, sequence, family, cd) then
+			if not impact then
+				Feedback:FireClient(p, "Miss", sequence)
+				return
+			end
+			if not ordinaryHit(p, a, session, target, impact, power, sequence, family, cd, charged) then
 				Feedback:FireClient(p, "Miss", sequence)
 			end
 		end
@@ -786,7 +1277,9 @@ local terminalByAction = {
 	NextRound = "NextTerminal",
 }
 local function purchase(p, key, quantity)
-	if writablePlayer(p.UserId) ~= p then return end
+	if writablePlayer(p.UserId) ~= p then
+		return
+	end
 	if trials[accounts[p.UserId]] then
 		note(p, "Finish your drill trial before buying upgrades.")
 		return
@@ -818,8 +1311,46 @@ local function purchase(p, key, quantity)
 	syncPlayer(p)
 	Feedback:FireClient(p, "UpgradeBought", key, count)
 end
+sellLoads = function(p, maximum, automatic)
+	if writablePlayer(p.UserId) ~= p or not alive(p) or not Depot:FindFirstChild("SellTerminal") then
+		return
+	end
+	local a = accounts[p.UserId]
+	local totalValue, moved = 0, 0
+	local loads = {}
+	for _ = 1, maximum do
+		local value = math.floor(a.materialValue * (1 + toolLevel(a, "Value") * C.Upgrades.Value.Step) + 0.5)
+		if value <= 0 then
+			break
+		end
+		table.insert(loads, { credits = value, units = used(a) })
+		tutorial(p, "AtDepot")
+		for _, l in C.Layers do
+			a.contents[l.Id] = 0
+		end
+		a.materialValue = 0
+		if a.introStage <= 3 then
+			a.introStage = 4
+		end
+		a.cash += value
+		a.income += value
+		totalValue += value
+		advance(p, "Sell", 1)
+		tutorial(p, "Sell")
+		local _, _, cap = stats(a)
+		moved += drainPending(p, a, cap, true)
+	end
+	syncPlayer(p)
+	if totalValue > 0 then
+		Feedback:FireClient(p, "Sold", totalValue, moved, Materials.Count(a.pendingMaterials), loads)
+	elseif not automatic then
+		note(p, "Your bucket is empty.")
+	end
+end
 local function station(p, action)
-	if writablePlayer(p.UserId) ~= p then return end
+	if writablePlayer(p.UserId) ~= p then
+		return
+	end
 	local ch = alive(p)
 	local name = terminalByAction[action]
 	local terminal = name and Depot:FindFirstChild(name)
@@ -831,27 +1362,7 @@ local function station(p, action)
 		return
 	end
 	if action == "Sell" then
-		tutorial(p, "AtDepot")
-		local value = math.floor(a.materialValue * (1 + toolLevel(a, "Value") * C.Upgrades.Value.Step) + 0.5)
-		if value <= 0 then
-			note(p, "Your bucket is empty.")
-			return
-		end
-		for _, l in C.Layers do
-			a.contents[l.Id] = 0
-		end
-		a.materialValue = 0
-		if a.introStage <= 3 then
-			a.introStage = 4
-		end
-		a.cash += value
-		a.income += value
-		advance(p, "Sell", 1)
-		tutorial(p, "Sell")
-		local pendingBefore = Materials.Count(a.pendingMaterials)
-		syncPlayer(p)
-		local pendingAfter = Materials.Count(a.pendingMaterials)
-		Feedback:FireClient(p, "Sold", value, pendingBefore - pendingAfter, pendingAfter)
+		sellLoads(p, 1 + skill(a, "collection.batch_unload"), false)
 	elseif action == "NextRound" then
 		if status ~= "Revealed" then
 			note(p, "Excavate more outer and deep sections to uncover the specimen.")
@@ -873,16 +1384,42 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	end
 	local now = os.clock()
 	-- Cancellation cannot be lost behind a full ordinary request budget. No damage/refund is granted.
+	if kind == "InputHeld" then
+		if typeof(a) == "boolean" and (not a or now - (s.lastHeldUpdate or -math.huge) >= 0.2) then
+			s.lastHeldUpdate = now
+			s.inputUntil = a and workspace:GetServerTimeNow() + 1.2 or 0
+		end
+		return
+	end
+	if (kind == "SkillMenu" or kind == "BlockingMenu") and typeof(a) == "boolean" then
+		if kind == "SkillMenu" then
+			s.skillMenu = a
+		else
+			s.menu = a
+		end
+		s.blocking = s.skillMenu or s.menu
+		if s.blocking then
+			cancelAttack(p, s)
+		end
+		return
+	end
 	if kind == "Cancel" or kind == "DrillStop" then
 		s.attack = (s.attack or 0) + 1
 		s.pending = nil
+		s.flow, s.relay = nil, nil
+		s.inputUntil = 0
+		p:SetAttribute("FlowBuild", 0)
+		p:SetAttribute("FlowUntil", 0)
+		p:SetAttribute("FlowReadyUntil", 0)
 		if now - (s.lastCancelBroadcast or -math.huge) >= 0.1 then
 			s.lastCancelBroadcast = now
 			Feedback:FireAllClients("Cancel", p.UserId)
 		end
 		return
 	end
-	if writablePlayer(p.UserId) ~= p then return end
+	if writablePlayer(p.UserId) ~= p then
+		return
+	end
 	if now - (s.window or 0) >= 1 then
 		s.window = now
 		s.requests = 0
@@ -891,7 +1428,96 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	if s.requests > 24 then
 		return
 	end
-	if kind == "EnterLab" then
+	if
+		kind == "SkillPurchase"
+		or kind == "SkillRespec"
+		or kind == "SkillLoadout"
+		or kind == "SkillToggle"
+	then
+		if now - (s.lastSkillRequest or -math.huge) < 0.25 then
+			return
+		end
+		s.lastSkillRequest = now
+		local account = accounts[p.UserId]
+		local prog = account.progression
+		local level = Skills.Level(prog.xpUnits / Skills.XPScale)
+		local failure
+		if not alive(p) or s.training then
+			failure = "Finish training and use a living character."
+		elseif kind == "SkillPurchase" then
+			if typeof(a) ~= "string" or #a > 80 then
+				return
+			end
+			failure = Skills.PurchaseReason(level, prog.ranks, a)
+			if not failure then
+				prog.ranks[a] = (prog.ranks[a] or 0) + 1
+			end
+		elseif kind == "SkillToggle" then
+			if skill(account, "collection.sale_latch") == 0 then
+				failure = "Learn Sale Latch first."
+			elseif typeof(a) ~= "boolean" then
+				return
+			else
+				prog.saleLatch = a
+			end
+		else
+			local room = ownRoom(p)
+			local _, root = alive(p)
+			local floor = room and room:FindFirstChild("Floor")
+			local localPos = floor and floor.CFrame:PointToObjectSpace(root.Position)
+			local ceiling = room and room:FindFirstChild("Ceiling")
+			local inside = localPos
+				and math.abs(localPos.X) < floor.Size.X / 2 - 1
+				and math.abs(localPos.Z) < floor.Size.Z / 2 - 1
+				and localPos.Y >= 0
+				and ceiling
+				and root.Position.Y < ceiling.Position.Y
+			if not inside then
+				failure = "Go inside your own room to change your build."
+			elseif
+				s.pending
+				or workspace:GetServerTimeNow()
+						- math.max(prog.guards.lastDamageAt or 0, prog.guards.lastMiningAt or 0)
+					< 10
+			then
+				failure = "Wait 10 seconds after mining, with no pending action."
+			elseif kind == "SkillRespec" then
+				if workspace:GetServerTimeNow() < (prog.guards.respecUntil or 0) then
+					failure = "Free respec is available once every 60 seconds."
+				else
+					prog.ranks = {}
+					prog.loadout = { "", "" }
+					prog.saleLatch = false
+					prog.guards.respecUntil = workspace:GetServerTimeNow() + 60
+					cancelAttack(p, s)
+				end
+			else
+				local slots = level >= 30 and 2 or level >= 5 and 1 or 0
+				if typeof(a) ~= "number" or a % 1 ~= 0 or a < 1 or a > slots then
+					failure = "That active slot is locked."
+				elseif b ~= "" and (b ~= "impact.charged_swing" or skill(account, b) == 0) then
+					failure = "Learn a supported active skill first."
+				else
+					for i = 1, 2 do
+						if prog.loadout[i] == b then
+							prog.loadout[i] = ""
+						end
+					end
+					prog.loadout[a] = b
+					cancelAttack(p, s)
+				end
+			end
+		end
+		syncPlayer(p)
+		Feedback:FireClient(
+			p,
+			"SkillReceipt",
+			not failure,
+			failure or (kind == "SkillPurchase" and "Skill rank learned." or "Build updated."),
+			a
+		)
+		return
+	elseif kind == "EnterLab" then
 		-- Compatibility no-op: player arrival never owns the server egg lifecycle.
 		return
 	elseif kind == "GuideSkip" then
@@ -1052,8 +1678,15 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		if typeof(a) ~= "number" or a ~= a or a % 1 ~= 0 or a < 1 or a > 2147483647 then
 			return
 		end
-		if not alive(p) or not equipped(p, "Pickaxe") or effectiveTool(accounts[p.UserId]) ~= "Pickaxe"
-			or s.training or s.pending or status ~= "Excavating" or a <= (s.lastSequence or 0) then
+		if
+			not alive(p)
+			or not equipped(p, "Pickaxe")
+			or effectiveTool(accounts[p.UserId]) ~= "Pickaxe"
+			or s.training
+			or s.pending
+			or status ~= "Excavating"
+			or a <= (s.lastSequence or 0)
+		then
 			return
 		end
 		local _, cooldown = stats(accounts[p.UserId])
@@ -1062,13 +1695,20 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		end
 		s.lastStrike, s.lastSequence = now, a
 		Feedback:FireAllClients("Windup", p.UserId, cooldown, a, nil, s.tools.Pickaxe)
-	elseif kind == "Mine" then
+	elseif kind == "Mine" or kind == "ChargedMine" then
 		if now - s.lastRequest < 0.08 then
 			return
 		end
 		s.lastRequest = now
-		local accepted = strike(p, a, b, c, d)
-		if not accepted and typeof(d) == "number" and d == d and d >= 1 and d <= 2147483647 and d % 1 == 0 then
+		local accepted = strike(p, a, b, c, d, kind == "ChargedMine")
+		if
+			not accepted
+			and typeof(d) == "number"
+			and d == d
+			and d >= 1
+			and d <= 2147483647
+			and d % 1 == 0
+		then
 			Feedback:FireClient(p, "Miss", d)
 		end
 	elseif kind == "Upgrade" then
@@ -1108,8 +1748,14 @@ giveTools = function(p, ch, s)
 		return
 	end
 	cancelAttack(p, s)
-	if s.deathConnection then s.deathConnection:Disconnect() end
-	s.deathConnection = human.Died:Connect(function() if sessions[p] == s then cancelAttack(p, s) end end)
+	if s.deathConnection then
+		s.deathConnection:Disconnect()
+	end
+	s.deathConnection = human.Died:Connect(function()
+		if sessions[p] == s then
+			cancelAttack(p, s)
+		end
+	end)
 	human:UnequipTools()
 	for _, old in s.tools do
 		old:Destroy()
@@ -1156,7 +1802,10 @@ local function joined(p)
 	p:SetAttribute("ProfileReady", false)
 	local loaded = Profiles.Load(p)
 	if not loaded then
-		p:Kick("Your research is still saving or unavailable. Please reconnect shortly.")
+		p:Kick(
+			p:GetAttribute("ProfileLoadError")
+				or "Your research is still saving or unavailable. Please reconnect shortly."
+		)
 		return
 	end
 	if p.Parent ~= Players then
@@ -1167,6 +1816,13 @@ local function joined(p)
 		loaded.tutorial = 5
 	end
 	accounts[p.UserId] = loaded
+	local retained = serverSkillGuards[p.UserId]
+	if retained then
+		for key, value in retained do
+			loaded.progression.guards[key] = math.max(value, loaded.progression.guards[key] or 0)
+		end
+	end
+	serverSkillGuards[p.UserId] = loaded.progression.guards
 
 	local s = {
 		tools = {},
@@ -1182,7 +1838,9 @@ local function joined(p)
 		local claimed = Materials.Count(claims)
 		local _, _, cap = stats(loaded)
 		drainPending(p, loaded, cap, true)
-		for _, entry in claims do Materials.Add(loaded.pendingMaterials, entry.id, entry.unitValue, entry.units) end
+		for _, entry in claims do
+			Materials.Add(loaded.pendingMaterials, entry.id, entry.unitValue, entry.units)
+		end
 		serverClaims[p.UserId] = nil
 		local delivered = drainPending(p, loaded, cap, true)
 		p:SetAttribute("RecoveredMaterialClaim", claimed)
@@ -1225,7 +1883,9 @@ Players.PlayerRemoving:Connect(function(p)
 	if s then
 		training(p, s, false)
 		s.connection:Disconnect()
-		if s.deathConnection then s.deathConnection:Disconnect() end
+		if s.deathConnection then
+			s.deathConnection:Disconnect()
+		end
 		for _, t in s.tools do
 			t:Destroy()
 		end
@@ -1235,7 +1895,9 @@ Players.PlayerRemoving:Connect(function(p)
 	if a then
 		trials[a] = nil
 		trialSelected[a] = nil
-		if accounts[p.UserId] == a then accounts[p.UserId] = nil end
+		if accounts[p.UserId] == a then
+			accounts[p.UserId] = nil
+		end
 		Profiles.Save(p, a, true)
 	end
 end)
@@ -1277,7 +1939,9 @@ task.spawn(function()
 end)
 game:BindToClose(function()
 	shuttingDown = true
-	for p, session in sessions do cancelAttack(p, session) end
+	for p, session in sessions do
+		cancelAttack(p, session)
+	end
 	local pending = 0
 	for p in sessions do
 		local a = accounts[p.UserId]

@@ -1,0 +1,205 @@
+{
+  "placeId": 94763223427049,
+  "ownerUserId": 291892217,
+  "generator": "built-in image_gen",
+  "layeredRasterSources": false,
+  "gameplayVerified": false,
+  "visualApproval": "pending",
+  "assets": [
+    {
+      "name": "chain_lightning",
+      "assetId": "rbxassetid://99832335754640",
+      "master": "source/chain_lightning.png",
+      "export": "exports/chain_lightning.png",
+      "size": 843423,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "1c594540e8f935eeb450fdb1ea265f1a20ece2c2bc68397c6bcbd172b88e74ce",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "fault_survey",
+      "assetId": "rbxassetid://93049765524228",
+      "master": "source/fault_survey.png",
+      "export": "exports/fault_survey.png",
+      "size": 1593041,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "7451a58b1bfd74a6d2cb1922f1a3f48abee6e633217eea156eda5538050c8b1d",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "batch_unload",
+      "assetId": "rbxassetid://101781951198753",
+      "master": "source/batch_unload.png",
+      "export": "exports/batch_unload.png",
+      "size": 1665602,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "c7cb4d52cc4bbfb3a5f0ac9bac96ee1731977929cbc7b3796abc8f433900210c",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "charged_swing",
+      "assetId": "rbxassetid://74388401118019",
+      "master": "source/charged_swing.png",
+      "export": "exports/charged_swing.png",
+      "size": 1459284,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "2daa39eefc7ecf51df7de79cc010a8db0653ff036222a6648a0fa0972d948719",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "core_drill",
+      "assetId": "rbxassetid://131360285368012",
+      "master": "source/core_drill.png",
+      "export": "exports/core_drill.png",
+      "size": 2001140,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "7b801f7d7b3b207eb779e2d46f3fb3bb175435a391f1b4e254c31ec8540c24ce",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "steady_aim",
+      "assetId": "rbxassetid://99252986343750",
+      "master": "source/steady_aim.png",
+      "export": "exports/steady_aim.png",
+      "size": 1983741,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "ae0aeab566b09747f2fcaed6221d021593dfef7e14663203f663274e6c8b3e32",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "sale_latch",
+      "assetId": "rbxassetid://71611290567563",
+      "master": "source/sale_latch.png",
+      "export": "exports/sale_latch.png",
+      "size": 1575343,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "f8d303e9a4ae742b038aeafd4508d3e6f672537dbd5a94dbb2dd7825ff8f0dbb",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "precision_relay",
+      "assetId": "rbxassetid://85375098596022",
+      "master": "source/precision_relay.png",
+      "export": "exports/precision_relay.png",
+      "size": 1295290,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "b895d0052de05cb05ae05cd9bc76650a66ab9243d441df44b302ffbfbb153bce",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "journal_hub",
+      "assetId": "rbxassetid://132515093323209",
+      "master": "source/journal_hub.png",
+      "export": "exports/journal_hub.png",
+      "size": 2039047,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "0efe81c199fc44e44f934271121f32c52ba3556550d659e6d9c9eee118f4d563",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "panel",
+      "assetId": "rbxassetid://112158817140805",
+      "master": "source/panel.png",
+      "export": "exports/panel.png",
+      "size": 1688288,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "62bf3cf2205d66f374af6d36f4223902b7c37fe166fd97441dfdabfc5d665156",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "branch_collection",
+      "assetId": "rbxassetid://93420613793876",
+      "master": "source/branch_collection.png",
+      "export": "exports/branch_collection.png",
+      "size": 1631463,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "5e13de154131b85a85c9ba1c10cfabdf323eb53081492ae4cce4da37a3c2c672",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "node_frame",
+      "assetId": "rbxassetid://101667919309734",
+      "master": "source/node_frame.png",
+      "export": "exports/node_frame.png",
+      "size": 1254393,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "3da4445d720a5158102e1bc296d8b55a2dfe9913acf00daf7e8bd2bc9439bcb7",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "branch_impact",
+      "assetId": "rbxassetid://89855035033121",
+      "master": "source/branch_impact.png",
+      "export": "exports/branch_impact.png",
+      "size": 1686854,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "a3309ae2ff5bb5abee730ad689ad7c415e07ee86cdc860cff7435506ccfd36d0",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "branch_technique",
+      "assetId": "rbxassetid://100855332186589",
+      "master": "source/branch_technique.png",
+      "export": "exports/branch_technique.png",
+      "size": 892157,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "0684a205aa4318f2375221513bf8eb4c8761b13a9b1f478db0bc40298a997039",
+      "ownerUserId": 291892217
+    },
+    {
+      "name": "background",
+      "assetId": "rbxassetid://100977384899659",
+      "master": "source/background.png",
+      "export": "exports/background.png",
+      "size": 3091281,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "3058130e0440150a427fbf59368be7a5c6a274ceb82860b52d809c193983a9fd",
+      "ownerUserId": 291892217
+    }
+  ]
+}

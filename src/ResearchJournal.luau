@@ -58,7 +58,7 @@ function M.Attach(journal, cards, player)
 	local rankTitle = text(rank, "Rank", 12, 25, 20, teal)
 	local xpText = text(rank, "XP", 42, 20, 12)
 	local xpBar = bar(rank, 72)
-	text(rank, "Hint", 83, 18, 10).Text = "Contracts and expedition contributions earn research XP."
+	text(rank, "Hint", 83, 18, 10).Text = "Actual excavation damage earns XP. Contracts award credits."
 	local current = block("CurrentContract", 124, 190)
 	local label = text(current, "Label", 12, 18, 11, teal)
 	local title = text(current, "Title", 36, 28, 19, Color3.fromRGB(240, 246, 251))
@@ -93,18 +93,28 @@ function M.Attach(journal, cards, player)
 			return
 		end
 		journal.Title.Text = "Your research journal"
-		local xp = player:GetAttribute("ResearchXP") or 0
-		local level = Catalog.Level(xp)
-		local floorXP, nextXP = 60 * (level - 1) ^ 2, 60 * level ^ 2
-		rankTitle.Text = "RESEARCHER " .. level
-		xpText.Text = string.format(
-			"%d / %d XP this rank  /  %d XP to rank %d",
-			xp - floorXP,
-			nextXP - floorXP,
-			nextXP - xp,
-			level + 1
-		)
-		xpBar.Size = UDim2.fromScale(math.clamp((xp - floorXP) / (nextXP - floorXP), 0, 1), 1)
+		local xp, level = player:GetAttribute("ResearchXP"), player:GetAttribute("ResearchLevel")
+		local Skills = require(script.Parent.SkillCatalog)
+		if typeof(xp) == "number" and typeof(level) == "number" then
+			local floorXP, nextXP = Skills.Threshold(level), Skills.Threshold(math.min(100, level + 1))
+			rankTitle.Text = "RESEARCHER " .. level
+			xpText.Text = level == 100 and "MAX LEVEL / Open the Skill Tree to change your build"
+				or string.format(
+					"%.2f / %d XP this level / %.2f XP to level %d",
+					xp - floorXP,
+					nextXP - floorXP,
+					nextXP - xp,
+					level + 1
+				)
+			xpBar.Size = UDim2.fromScale(
+				level == 100 and 1 or math.clamp((xp - floorXP) / math.max(1, nextXP - floorXP), 0, 1),
+				1
+			)
+		else
+			rankTitle.Text = "Synchronizing progression..."
+			xpText.Text = ""
+			xpBar.Size = UDim2.fromScale(0, 1)
+		end
 		local index = player:GetAttribute("ContractIndex") or 1
 		local contract = Catalog.Contract(index)
 		local done = math.clamp(player:GetAttribute("ContractProgress") or 0, 0, contract.Goal)
@@ -112,14 +122,12 @@ function M.Attach(journal, cards, player)
 			"ACTIVE CONTRACT / " .. index, contract.Title, hints[contract.Kind] or ""
 		progress.Text = string.format("%d / %d complete", done, contract.Goal)
 		progressBar.Size = UDim2.fromScale(done / contract.Goal, 1)
-		payout.Text = string.format("+%d credits  /  +30 XP  /  Awarded automatically", contract.Reward)
+		payout.Text = string.format("+%d credits / XP comes from actual excavation damage", contract.Reward)
 		for i, row in upcoming do
 			local nextContract = Catalog.Contract(index + i)
 			row.title.Text = "NEXT " .. i .. "  /  " .. nextContract.Title
-			row.reward.Text = string.format(
-				"+%d credits / +30 XP / Unlocks after the previous contract",
-				nextContract.Reward
-			)
+			row.reward.Text =
+				string.format("+%d credits / Unlocks after the previous contract", nextContract.Reward)
 		end
 		for name, page in pages do
 			page.Visible = name == active

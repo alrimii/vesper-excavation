@@ -1,6 +1,14 @@
 # Phase 5A: player progression, skill tree and rebirth
 
-Status: **revised design for approval, not implementation**. Supersedes the level-50, ten-rebirth, remote-sale and same-section drill proposals in commit `e8976fcb82a6b8a85361a5fdfbb0be72a54a5c32`. Levels 0..100 and the uncapped rebirth requirement below are the user's approved direction; the other numbers, mechanics and equipment purchase milestones remain recommendations. Phase 4B implementation was reviewed; prior gameplay, device, audio and persistence checks remain unverified. Documentation only: no runtime/Studio/data edits, reset, migration, grants, tests, simulations, artwork or publishing.
+Status: **Phase 5B authorized development implementation**, pending user gameplay and visual review. The user approved the revised specification at commit `61fea9c446e4c071ee3c11422dfc09d33814a14a` with these controlling overrides:
+
+- T(L)=200L+20L²+floor(L⁴/10) is provisional configurable balance; levels 0..100 and P(0)=0, P(L)=1+floor(L/2)+floor(L/10) are implemented for this checkpoint.
+- **No lifetime-level 60/85 equipment purchase gates.** Existing equipment purchasing is preserved.
+- **XP multiplier = 1.** Rebirth requirements 10,20,...100,then100 remain agreed design. The diminishing-benefit formula and arbitrary-precision proposal below are historical, **NOT APPROVED and NOT IMPLEMENTED**. No rebirth transaction or misleading benefit preview.
+- Exactly A1/A2/A3/B1/B2/C1/C2/C3, all their specified ranks, plus the genuine tree and original node/common art. Remaining mechanics are PLANNED; this is an unpublished checkpoint, not a capped or completed public progression release.
+- No reset, migration, codes, grants, tests, Play/Run or publishing. Legacy profile compatibility fails closed without rewriting old data; the existing memory-only Studio preview starts new progression at L0 with no skills and retains unrelated existing preview behavior.
+
+See [Phase 5B handoff](PHASE_5B_HANDOFF.md) for exact implementation, assets, compatibility and review limitations. Prior gameplay and persistence checks are still unverified. The later design sections retain their historical arithmetic for review; they do not override these decisions.
 
 ## 1. Responsibilities and corrected source assumptions
 
@@ -8,10 +16,10 @@ Credits buy durable equipment; actual excavation earns levels and build points; 
 
 | System | Responsibility and rebirth treatment |
 | --- | --- |
-| Equipment | Existing owned Pickaxe, Drill and Explosive, and per-tool Power, Speed, Capacity, Precision, Yield, Value and Critical purchases. Existing credits/prices/purchased ranks remain. Final unpurchased ranks receive the explicit lifetime-level gates below; owned ranks are never disabled. |
+| Equipment | Existing owned Pickaxe, Drill and Explosive, and per-tool Power, Speed, Capacity, Precision, Yield, Value and Critical purchases. Existing credits/prices/purchased ranks remain. No lifetime-level purchase gates; preserve all current purchasing rules. |
 | Level | Levels 0..100, effective damage as the single XP source. Level/XP reset to 0 on rebirth; no buying XP or compulsory training. |
 | Skill tree | 21 mechanics, 33 rank purchases, 96 points to fully rank everything; level 100 supplies 61 points. Ranks/allocations reset. Free respecs. Not a duplicate equipment percentage ladder. |
-| Rebirth | No hard count limit. Strictly increasing permanent XP multiplier below 2x; no damage, loot or creature-probability multiplier. |
+| Rebirth | No hard count limit in the agreed requirement direction. Permanent benefit remains unapproved; no transaction in Phase 5B. XP multiplier is 1. Historical benefit arithmetic below is not implemented. |
 | Permanent acquisitions | Equipment, strength, creatures, inventory, currencies, cosmetics, achievements, worlds and acquired permanent buffs remain. Temporary skill effects never become permanent. |
 
 Focused read-only source review: ExcavationService, ProgressionRules, ExcavationConfig, UpgradeEconomy, MaterialRewards, ResearchProfiles, DiscoveryCatalog and the existing EggRewards contract. No gameplay code executed.
@@ -69,15 +77,15 @@ One point at L1, one every even level, plus one extra each ten-level milestone: 
 | 30 | 105,000 | 19 | Crosscut, claim priorities, shaped charge; second active slot |
 | 40 | 296,000 | 25 | Second accuracy/packing/Flow ranks |
 | 50 | 685,000 | 31 | Overbreak, precision salvage, lateral drilling |
-| 60 | 1,380,000 | 37 | Mid-tree second ranks; veteran equipment purchase access |
+| 60 | 1,380,000 | 37 | Planned mid-tree second ranks; no equipment purchase gate |
 | 75 | 3,291,562 | 45 | Cooperative fault marks, independent refinery, arc routing |
-| 85 | 5,381,562 | 51 | Final equipment ranks become purchasable, not free |
+| 85 | 5,381,562 | 51 | Larger build budget; equipment purchasing remains unchanged |
 | 90 | 6,741,000 | 55 | Advanced mark/refinery/routing configurations |
 | 100 | 10,220,000 | 61 | Choose up to two distinct capstones; full build budget |
 
 The curve sets a budget, not the content. Each tier adds different aiming, secondary-contact, sustained drill, handling or cooperative mechanics. There is no hundred-rank damage ladder or arbitrary published L20 ceiling.
 
-### Equipment completion also needs sustained play
+### Historical equipment gate proposal — rejected for Phase 5B
 
 XP alone cannot prevent unusually high income from maxing equipment. Recommend explicit **new-purchase-only gates**, using permanent highestLevelReached (retained through rebirth):
 
@@ -234,7 +242,7 @@ Approved requirement with R completed rebirths:
 
 First L10, second L20, ... tenth L100. For exact-count implementation, compare R with 9 first: R>=9 directly gives 100, without multiplying a huge counter. Eleventh and every later rebirth still L100. No hard ten-rebirth limit, fee, timer, paid bypass or egg-final-hit requirement. Players may continue/stay at 100 instead.
 
-### One permanent-benefit formula
+### Historical permanent-benefit formula — NOT APPROVED
 
 Recommend `M(R)=1+R/(R+5)=(2R+5)/(R+5)` for player XP only.
 
@@ -255,7 +263,7 @@ Strictly increasing, diminishing marginal gains, **always below 2x**, never expo
 
 After first/second/third rebirth, 100 base XP earns 116.6667/128.5714/137.5 including carried fractions. At R100 it earns 195.2381; R101 earns 195.2830. This is not a damage/loot grant. At extremely large counts gains are positive but small: disclose that rather than promising every late reset is dramatic. Keeping a full build is a valid choice.
 
-### Numerical correctness and honest display
+### Historical numerical proposal — deferred, not implemented
 
 Do not repeatedly multiply a stored bonus. Store R as a canonical nonnegative decimal integer string and derive exact numerator/denominator; use exact integer/rational XP accumulation. No gameplay count cap, floating-point overflow or silent saturation.
 
@@ -309,14 +317,14 @@ Final illustrated equipment/upgrade screens remain separately unmet. A functiona
 
 ## 7. First milestone and exact follow-ons
 
-### Proposed Phase 5B: signature excavation and genuine tree
+### Authorized Phase 5B: signature excavation and genuine tree
 
 A development checkpoint **in the original Studio place**, not a separate place or published partial release:
 
-1. Server XP/points foundation with the full **0..100** curve and highest-level record; replace legacy XP writes together, report already-credited egg XP. No arbitrary L20 cap. Apply approved equipment purchase gates without revoking purchases.
+1. Server XP/points foundation with the full **0..100** curve and highest-level record; replace legacy XP writes together, report already-credited egg XP. No arbitrary L20 cap. Preserve equipment purchase rules; the proposed lifetime-level gates are not approved.
 2. Actual pannable connected tree, prerequisites, free respec and level-based slot rules. Exactly eight implemented nodes, all listed ranks: **A1 Fault Survey, A2 Charged Swing, A3 Steady Aim, B1 Batch Unload, B2 Sale Latch, C1 Precision Relay, C2 passive Chain Lightning, C3 Flow Drill**. Lightning at L5: C1 cost 1+C2 cost 2=P5=3; works with starter pickaxe, no Drill/Explosive/future ownership prerequisite.
 3. Lightning window/ICD, exposed snapshot, contribution/claims/cancellation and bounded feedback; drill flow across successful breaks. These signature behaviors are required, not deferred behind a utility-only release.
-4. Eight illustrations/common graph kit after mechanic approval, or explicit art-incomplete status if blocked. Other nodes show PLANNED/no purchase. Rebirth has factual requirement/benefit/retention preview but mutation disabled until next checkpoint. Never pretend incomplete mechanics shipped.
+4. Eight illustrations/common graph kit after mechanic approval, or explicit art-incomplete status if blocked. Other nodes show PLANNED/no purchase. Rebirth is deferred: no multiplier preview or transaction; XP multiplier is explicitly 1. Never pretend incomplete mechanics shipped.
 5. User manual review: signature feel, retargeting/breaks, shared rewards, near-full bucket/free Sell, invalid point requests, respec, rejoining and desktop/touch graph. No agent tests, gameplay automation or artificial save/resources.
 
 This is **not a public-ready complete progression release** while rebirth/later nodes are missing. No low player-facing level ceiling substitutes for that work. Previewing higher levels does not authorize test save manipulation. Finish the following separately approved checkpoints before considering release:
@@ -336,6 +344,6 @@ Reserve typed EggRewards payloads behind current settlement identities for a fut
 
 Public redeem codes/per-account limits and the 100,000,000-credit restricted tester code remain notes only. No code strings, authorized tester IDs, grants, migration or reset execution in this revision. Existing published-state uncertainty is retained; owner-reported manual publishing is not ignored.
 
-**Material approval:** accept the recommended curve/points/bounded benefit and 21-node mechanics; specifically approve or reject the new lifetime-level gates on final unpurchased equipment ranks. The user's 0..100/uncapped requirement direction is already accepted, not up for reconfirmation. Approve the eight-node signature 5B checkpoint before implementation. Reset/publication timing may wait for its separate operation; it does not block this revision or preparation of the original-place checkpoint.
+**Next approval:** manual review of the Phase 5B implementation and actual artwork. Later node batches and a permanent rebirth benefit need separate approval. Reset/publication timing remains a separate operation. No approved benefit formula is implied by the historical examples above.
 
-No runtime scripts, Studio assets, player data or published experience changed. No tests, Play/Run, simulations, synthetic players, installations, generated artwork or publishing. Arithmetic is formula evaluation, not gameplay verification. Current UI/assets remain unapproved final art. Stop after documentation commit/push.
+Historical Phase 5A revisions were documentation-only. Phase 5B implementation/art status is in its handoff. No gameplay tests, Play/Run, simulations, save manipulation or publishing are authorized; numerical arithmetic and source readback are not gameplay verification. Stop after delivery for user feedback.

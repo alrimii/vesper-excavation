@@ -34,6 +34,7 @@ local Layout = require(Shared:WaitForChild("HUDLayout"))
 Layout.Style(gui)
 local DiscoveryHUD = require(Shared:WaitForChild("DiscoveryHUD")).Attach(gui, player)
 local shopOpen = false
+local skillTree = require(Shared.SkillTreeUI).Build(player, Action, Feedback)
 local workshop = require(Shared.WorkshopUI).Build(gui, player, C, Action)
 require(Shared.RoomTerminalHints).Start(player, gui)
 local uiMotion = require(Shared:WaitForChild("UIMotion")).Attach(gui, C.UIMotion)
@@ -57,14 +58,29 @@ local function notice(t)
 end
 local recoveryShown = false
 local function recoveredClaim()
-	if recoveryShown or not player:GetAttribute("LabReady") or not player:GetAttribute("ProfileReady") then return end
+	if recoveryShown or not player:GetAttribute("LabReady") or not player:GetAttribute("ProfileReady") then
+		return
+	end
 	local amount = player:GetAttribute("RecoveredMaterialClaim")
-	local delivered, pending = player:GetAttribute("RecoveredMaterialDelivered"), player:GetAttribute("RecoveredMaterialPending")
-	if typeof(amount) ~= "number" or typeof(delivered) ~= "number" or typeof(pending) ~= "number" then return end
+	local delivered, pending =
+		player:GetAttribute("RecoveredMaterialDelivered"), player:GetAttribute("RecoveredMaterialPending")
+	if typeof(amount) ~= "number" or typeof(delivered) ~= "number" or typeof(pending) ~= "number" then
+		return
+	end
 	recoveryShown = true
-	notice(string.format("Recovered %d earned materials: %d in bucket / %d pending", amount, delivered, pending))
+	notice(
+		string.format("Recovered %d earned materials: %d in bucket / %d pending", amount, delivered, pending)
+	)
 end
-for _, attribute in { "LabReady", "ProfileReady", "RecoveredMaterialClaim", "RecoveredMaterialDelivered", "RecoveredMaterialPending" } do
+for _, attribute in
+	{
+		"LabReady",
+		"ProfileReady",
+		"RecoveredMaterialClaim",
+		"RecoveredMaterialDelivered",
+		"RecoveredMaterialPending",
+	}
+do
 	player:GetAttributeChangedSignal(attribute):Connect(recoveredClaim)
 end
 recoveredClaim()
@@ -89,18 +105,26 @@ local function cancel()
 	cancelledThrough = sequence
 	player:SetAttribute("DrillRunning", false)
 	player:SetAttribute("DrillContact", false)
-	if toolFeedback then toolFeedback:Cancel(player.UserId) end
+	player:SetAttribute("PrecisionRelayUntil", 0)
+	if toolFeedback then
+		toolFeedback:Cancel(player.UserId)
+	end
 	Motion.Cancel(player)
 	Action:FireServer("Cancel")
 end
 State:GetAttributeChangedSignal("Status"):Connect(function()
-	if State:GetAttribute("Status") ~= "Excavating" then cancel() end
+	if State:GetAttribute("Status") ~= "Excavating" then
+		cancel()
+	end
 end)
 State:GetAttributeChangedSignal("RoundId"):Connect(function()
 	cancel()
-	if toolFeedback then toolFeedback:Clear() end
+	if toolFeedback then
+		toolFeedback:Clear()
+	end
 end)
 player:GetAttributeChangedSignal("CoreMenuOpen"):Connect(cancel)
+player:GetAttributeChangedSignal("SkillTreeOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("ResearchModal"):Connect(cancel)
 player:GetAttributeChangedSignal("EggResultsOpen"):Connect(cancel)
 player:GetAttributeChangedSignal("Training"):Connect(cancel)
@@ -143,14 +167,16 @@ local modern = require(Shared.ModernHUD).Build(gui, player, Action, function(pag
 	workshop:Select(page)
 end, function()
 	equip("Pickaxe")
-end, DiscoveryHUD.Toggle)
+end, DiscoveryHUD.Toggle, skillTree.Toggle)
 local function selectTool(id)
 	if
 		player:GetAttribute("LabReady") ~= true
 		or player:GetAttribute("DiscoveryCinematic")
-		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen")
+		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
+		or player:GetAttribute("SkillTreeOpen")
 	then
 		return
 	end
@@ -184,17 +210,20 @@ local function cycleTool(direction)
 end
 require(Shared.RoomAnimation).Start(player)
 local targeter = require(Shared:WaitForChild("Targeting")).new(player, gui, Egg, C)
-local function aimedSection()
-	return targeter:Get()
+require(Shared.SkillFeedback).Start(player, gui, targeter)
+local function aimedSection(centerAim)
+	return targeter:Get(centerAim)
 end
-local function use()
+local function use(charged, centerAim)
 	if
 		player:GetAttribute("LabReady") ~= true
 		or State:GetAttribute("Status") ~= "Excavating"
 		or not State:GetAttribute("Ready")
-		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen")
+		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
+		or player:GetAttribute("SkillTreeOpen")
 		or player:GetAttribute("DiscoveryCinematic")
 		or shopOpen
 		or player:GetAttribute("Training")
@@ -204,6 +233,13 @@ local function use()
 	local _, kind = equipped()
 	local now = os.clock()
 	local family = player:GetAttribute("ToolFamily")
+	if charged and family ~= "Pickaxe" then
+		notice("Charged Swing requires a pickaxe.")
+		return
+	end
+	if charged and workspace:GetServerTimeNow() < (player:GetAttribute("ChargedUntil") or 0) then
+		return
+	end
 	if kind == "Pickaxe" then
 		if
 			(family ~= "Drill" and Motion.Busy(player))
@@ -211,11 +247,12 @@ local function use()
 		then
 			return
 		end
-		local section, pos = aimedSection()
+		local section, pos = aimedSection(centerAim)
 		if family ~= "Pickaxe" and not section then
 			return
 		end
-		if (player:GetAttribute("BucketUsed") or 0) >= (player:GetAttribute("BucketCapacity") or 40)
+		if
+			(player:GetAttribute("BucketUsed") or 0) >= (player:GetAttribute("BucketCapacity") or 40)
 			or (player:GetAttribute("PendingMaterials") or 0) > 0
 		then
 			if not fullNotified then
@@ -225,14 +262,30 @@ local function use()
 			cancel()
 			return
 		end
+		if charged and not section then
+			return
+		end
 		lastUse = now
 		sequence += 1
 		if family ~= "Drill" then
-			Motion.Begin(player, family == "Explosive" and C.Tools.Explosive.Fuse
-				or (player:GetAttribute("StrikeCooldown") or C.Mining.Cooldown), sequence, pos)
+			Motion.Begin(
+				player,
+				charged
+						and (0.45 / (C.Animation.Anticipation + C.Animation.Acceleration) * (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery))
+					or family == "Explosive" and C.Tools.Explosive.Fuse
+					or (player:GetAttribute("StrikeCooldown") or C.Mining.Cooldown),
+				sequence,
+				pos
+			)
 		end
 		if section then
-			Action:FireServer("Mine", section, pos, State:GetAttribute("RoundId"), sequence)
+			Action:FireServer(
+				charged and "ChargedMine" or "Mine",
+				section,
+				pos,
+				State:GetAttribute("RoundId"),
+				sequence
+			)
 		else
 			Action:FireServer("Swing", sequence)
 		end
@@ -240,6 +293,9 @@ local function use()
 		equip("Pickaxe")
 	end
 end
+modern:SetSkillAction(function()
+	use(true, true)
+end)
 -- No Tool.Activated handlers: manual activation and one GUI-aware input route.
 local function overControl(position)
 	for _, object in player.PlayerGui:GetGuiObjectsAtPosition(position.X, position.Y) do
@@ -250,10 +306,17 @@ local function overControl(position)
 	return false
 end
 UIS.InputBegan:Connect(function(input, processed)
-	if processed or UIS:GetFocusedTextBox() or player:GetAttribute("LabReady") ~= true then
+	if
+		processed
+		or UIS:GetFocusedTextBox()
+		or player:GetAttribute("LabReady") ~= true
+		or player:GetAttribute("SkillTreeOpen")
+	then
 		return
 	end
-	if input.KeyCode == Enum.KeyCode.One then
+	if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.ButtonY then
+		use(true)
+	elseif input.KeyCode == Enum.KeyCode.One then
 		selectTool("Pickaxe")
 	elseif input.KeyCode == Enum.KeyCode.Two then
 		selectTool("Drill")
@@ -324,9 +387,11 @@ gui.Use.Activated:Connect(function()
 		or shopOpen
 		or player:GetAttribute("Training")
 		or player:GetAttribute("DiscoveryCinematic")
-		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("EggResultsOpen")
+		or player:GetAttribute("ResearchModal")
 		or player:GetAttribute("MaterialBagOpen")
 		or player:GetAttribute("CoreMenuOpen")
+		or player:GetAttribute("SkillTreeOpen")
 	then
 		return
 	end
@@ -378,14 +443,18 @@ game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(cancel)
 player.CharacterRemoving:Connect(cancel)
 local deathConnection
 local function bindDeath(character)
-	if deathConnection then deathConnection:Disconnect() end
+	if deathConnection then
+		deathConnection:Disconnect()
+	end
 	local human = character:WaitForChild("Humanoid", 10)
 	if human and character == player.Character then
 		deathConnection = human.Died:Connect(cancel)
 	end
 end
 player.CharacterAdded:Connect(bindDeath)
-if player.Character then task.spawn(bindDeath, player.Character) end
+if player.Character then
+	task.spawn(bindDeath, player.Character)
+end
 local function disableBackpack()
 	task.spawn(function()
 		for _ = 1, 8 do
@@ -472,7 +541,9 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 			Motion.Begin(p, b, c, d, e)
 		end
 	elseif kind == "Charge" then
-		if a ~= player.UserId or b > cancelledThrough then toolFeedback:Charge(a, b, c, d, e, damage) end
+		if a ~= player.UserId or b > cancelledThrough then
+			toolFeedback:Charge(a, b, c, d, e, damage)
+		end
 	elseif kind == "ChargeCancel" then
 		toolFeedback:Cancel(a, b)
 	elseif kind == "Blast" then
@@ -480,7 +551,9 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 			ImpactFX.Emit(c, Color3.fromRGB(236, 209, 164), true, d, true, "Explosive")
 		end
 	elseif kind == "Cancel" then
-		if a ~= player.UserId then toolFeedback:Cancel(a) end
+		if a ~= player.UserId then
+			toolFeedback:Cancel(a)
+		end
 		local p = Players:GetPlayerByUserId(a)
 		if p and p ~= player then
 			Motion.Cancel(p)
@@ -498,25 +571,62 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 	elseif kind == "Fragments" then
 		burst(a, b, c, d)
 	elseif kind == "Hit" then
-		if not MiningFeedback:AcceptHit(a, e, result) then return end
+		if not MiningFeedback:AcceptHit(a, e, result) then
+			return
+		end
 		local attacker = Players:GetPlayerByUserId(a)
-		if attacker then Motion.Confirm(attacker, e) end
+		if attacker and not result.Secondary then
+			Motion.Confirm(attacker, e)
+		end
 		if result.Family ~= "Explosive" or result.Broken then
 			ImpactFX.Emit(b, c, result.Broken, result.Normal, precise or critical, result.Family)
 		end
-		if result.Family == "Drill" then
-			if a == player.UserId and held and currentTool and currentTool:GetAttribute("ToolFamily") == "Drill" then
-				if result.Broken then drillConfirmedTarget, drillConfirmedUntil = nil, 0
-				else drillConfirmedTarget, drillConfirmedUntil = d, os.clock() + result.Interval + C.Tools.Drill.ContactLeaseGrace end
+		if not result.Secondary and result.Family == "Drill" then
+			if
+				a == player.UserId
+				and held
+				and currentTool
+				and currentTool:GetAttribute("ToolFamily") == "Drill"
+			then
+				if result.Broken then
+					drillConfirmedTarget, drillConfirmedUntil = nil, 0
+				else
+					drillConfirmedTarget, drillConfirmedUntil =
+						d, os.clock() + result.Interval + C.Tools.Drill.ContactLeaseGrace
+				end
 				toolFeedback:Hit(a, b, d, result)
 			elseif a ~= player.UserId then
-				if attacker then Motion.DrillRun(attacker, true, b, not result.Broken, result.Interval + C.Tools.Drill.ContactLeaseGrace) end
+				if attacker then
+					Motion.DrillRun(
+						attacker,
+						true,
+						b,
+						not result.Broken,
+						result.Interval + C.Tools.Drill.ContactLeaseGrace
+					)
+				end
 				toolFeedback:Hit(a, b, d, result)
 			end
-		else toolFeedback:Hit(a, b, d, result) end
-		if not result.Broken then ShellMotion:Impact(d, b, damage) end
+		elseif not result.Secondary then
+			toolFeedback:Hit(a, b, d, result)
+		end
+		if not result.Broken then
+			ShellMotion:Impact(d, b, damage)
+		end
 		MiningFeedback:Hit(a, b, damage, precise, critical, result)
-		if a == player.UserId then targeter:Confirm() end
+		if a == player.UserId then
+			targeter:Confirm()
+		end
+	elseif kind == "LevelUp" then
+		notice(
+			string.format("LEVEL %d%s / +%d skill points", b, b - a > 1 and (" (from " .. a .. ")") or "", c)
+		)
+	elseif kind == "PrecisionRelay" then
+		player:SetAttribute("PrecisionRelayUntil", b)
+	elseif kind == "SkillReceipt" then
+		if not player:GetAttribute("SkillTreeOpen") then
+			notice(b)
+		end
 	elseif kind == "UpgradeBought" then
 		notice(C.Upgrades[a].Name .. " +" .. tostring(b) .. " levels")
 	elseif kind == "Collected" then
@@ -524,8 +634,18 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 	elseif kind == "PendingDelivered" then
 		notice(string.format("%d pending materials moved to bucket / %d still pending", a, b))
 	elseif kind == "Sold" then
-		notice((b or 0) > 0 and string.format("Sold +$%d / %d pending moved to bucket / %d remain", a, b, c or 0)
-			or ("Unloaded resources  /  +$" .. a))
+		notice(
+			type(d) == "table"
+					and #d > 1
+					and string.format("Sold %d loads / +$%d / %d pending remain", #d, a, c or 0)
+				or (b or 0) > 0 and string.format(
+					"Sold +$%d / %d pending moved to bucket / %d remain",
+					a,
+					b,
+					c or 0
+				)
+				or ("Unloaded resources  /  +$" .. a)
+		)
 		-- Selling no longer requires an equipped bucket.
 		local ch = player.Character
 		local root = ch and ch:FindFirstChild("HumanoidRootPart")
@@ -542,6 +662,8 @@ for _, p in specimen:GetChildren() do
 	end
 end
 local elapsed = 0
+local lastHeldReport, reportedHeld = -math.huge, false
+local reportedBlocked = false
 Run.Heartbeat:Connect(function(dt)
 	CollectionMotion:Step(dt)
 	local selected = equipped()
@@ -552,31 +674,60 @@ Run.Heartbeat:Connect(function(dt)
 		currentTool = selected
 	end
 	local human = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-	local blocked = player:GetAttribute("LabReady") ~= true or State:GetAttribute("Status") ~= "Excavating"
-		or not State:GetAttribute("Ready") or not human or human.Health <= 0 or shopOpen
-		or player:GetAttribute("CoreMenuOpen") or player:GetAttribute("MaterialBagOpen")
-		or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal") or player:GetAttribute("DiscoveryCinematic") or player:GetAttribute("Training")
-	if held and blocked then cancel() end
-	local running = held and not blocked and selected ~= nil and selected:GetAttribute("ToolFamily") == "Drill"
+	local blocked = player:GetAttribute("LabReady") ~= true
+		or State:GetAttribute("Status") ~= "Excavating"
+		or not State:GetAttribute("Ready")
+		or not human
+		or human.Health <= 0
+		or shopOpen
+		or player:GetAttribute("CoreMenuOpen")
+		or player:GetAttribute("SkillTreeOpen")
+		or player:GetAttribute("MaterialBagOpen")
+		or player:GetAttribute("EggResultsOpen")
+		or player:GetAttribute("ResearchModal")
+		or player:GetAttribute("DiscoveryCinematic")
+		or player:GetAttribute("Training")
+	blocked = not not blocked
+	if blocked ~= reportedBlocked then
+		reportedBlocked = not not blocked
+		Action:FireServer("BlockingMenu", reportedBlocked)
+	end
+	if held and blocked then
+		cancel()
+	end
+	if held ~= reportedHeld or (held and os.clock() - lastHeldReport >= 0.5) then
+		reportedHeld = held
+		lastHeldReport = os.clock()
+		Action:FireServer("InputHeld", held)
+	end
+	local running = held
+		and not blocked
+		and selected ~= nil
+		and selected:GetAttribute("ToolFamily") == "Drill"
 	local section, point
 	if running then
 		section, point = aimedSection()
 		if drillingTarget and drillingTarget ~= section then
 			toolFeedback:StopDrill(player.UserId)
 			drillConfirmedTarget, drillConfirmedUntil = nil, 0
-			if os.clock() - lastDrillStop >= C.Tools.Drill.InvalidUpdateInterval then
-				lastDrillStop = os.clock()
-				Action:FireServer("DrillStop")
-			end
+			-- Retargeting only stops the local contact loop. Flow is player work,
+			-- and the server grants no damage or buildup without a validated tick.
 		end
 	end
 	drillingTarget = section
-	local contact = running and section ~= nil and section == drillConfirmedTarget and os.clock() < drillConfirmedUntil
-	if not player:GetAttribute("Training") then Motion.DrillRun(player, running, point, contact) end
+	local contact = running
+		and section ~= nil
+		and section == drillConfirmedTarget
+		and os.clock() < drillConfirmedUntil
+	if not player:GetAttribute("Training") then
+		Motion.DrillRun(player, running, point, contact)
+	end
 	player:SetAttribute("DrillRunning", running)
 	player:SetAttribute("DrillContact", contact)
 	toolFeedback:Step(running, section)
-	if held then use() end
+	if held then
+		use()
+	end
 	elapsed += dt
 	if elapsed < 0.15 then
 		return

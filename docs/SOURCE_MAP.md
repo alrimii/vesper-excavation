@@ -75,3 +75,17 @@ Read-only capture: 9 November 2026, place 94763223427049, version 55. This is a 
 
 Phase 3 audio references and Sound template properties are recorded in `assets/audio/mining-audio.json`. Templates live under `ReplicatedStorage.VesperShared.MiningAudioAssets`; runtime playback uses the corresponding IDs in ExcavationConfig through ToolFeedback. No equipment model was replaced. Public release snapshots remain historical and must not overwrite the original place.
 
+## Phase 5B additions
+
+The existing mapped runtime paths remain in place. New canonical modules:
+
+| Repository source | Original Studio location |
+| --- | --- |
+| `src/SkillCatalog.luau` | `ReplicatedStorage.VesperShared.SkillCatalog` |
+| `src/SkillArt.luau` | `ReplicatedStorage.VesperShared.SkillArt` |
+| `src/SkillTreeUI.luau` | `ReplicatedStorage.VesperShared.SkillTreeUI` |
+| `src/SkillFeedback.luau` | `ReplicatedStorage.VesperShared.SkillFeedback` |
+| `src/PlayerProgression.luau` | `ServerScriptService.Vesper.PlayerProgression` |
+
+These modules are consumed by the original ExcavationService/ExcavationClient paths, not a second environment. SkillTreeUI creates the player's GUI during ordinary runtime; no module was executed for inspection in Edit mode. Artwork IDs and source/export hashes are in `assets/ui/progression/manifest.json`. Existing builders and release snapshots remain historical, not synchronization targets.
+

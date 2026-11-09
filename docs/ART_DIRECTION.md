@@ -1,5 +1,5 @@
 # Art direction and asset delivery
-Phase 5A adds a written [skill-tree layout and asset specification](PHASE_5A_PROGRESSION_SPEC.md#6-dedicated-tree-screen-and-art-specification). It does not create art, approve current UI quality or authorize Studio implementation. All proposed art awaits production and manual visual approval.
+Phase 5B now delivers the eight-node tree and common UI artwork described in the status section below. The [progression specification](PHASE_5A_PROGRESSION_SPEC.md) records the approved scope and overrides. Actual gameplay appearance and visual approval remain pending; final equipment-shop artwork is separate.
 
 Status: the user retains the cartoon direction/starter foundation but has closed Phase 1A concept iteration. Both reinforced and fire upgrades are rejected for production. Files remain historical. No finalized game name.
 Phase 1B core breaking has provisional user acceptance with existing in-game visuals. Phase 2 retains the compact gameplay HUD and its outstanding device/visual review. Phase 3 uses existing models for complete individual pickaxe swings, rotating continuous drill contact, and restrained charge/blast cues. Newly discovered mining audio is integrated but audible fit/mixing remain unverified. See [the current handoff](PHASE_3_HANDOFF.md). No new concepts, Blender presentations, GIFs, videos or rejected model imports. Existing art remains temporary; this phase is not approval of either upgrade study.
@@ -37,3 +37,9 @@ Balance geometry and texture sizes with actual gameplay visibility and mobile pe
 Keep editable Blender files, texture sources, exports and metadata together under existing src/models conventions. Record scale/orientation, grip/pivot locations, moving parts, texture/map roles, export settings, uploaded asset IDs, owner and permission dependencies.
 Preserve existing assets before replacements. Explain large-file storage limitations rather than silently omitting sources.
 First quality checkpoint: one representative shell area plus one pickaxe and one meaningful upgrade, reviewed as an integrated strike/impact/collection experience.
+## Phase 5B tree asset delivery status
+
+The authorized progression checkpoint includes eight original illustrated node icons, journal hub, three branch emblems, a crafted common node frame, scalable panel/navigation skin and restrained workshop-map backdrop. Masters/actual exports/prompts and returned Roblox IDs are preserved in [the progression art directory](../assets/ui/progression/README.md). Rank/focus/locked/complete states compose the shared illustration with editable UI geometry, sockets and explicit labels. Raster masters are flattened, not fabricated layered sources.
+
+All fifteen uploaded Image assets report the original experience owner, User 291892217. Actual in-game appearance, small-size readability, device layouts, moderation/loading and texture-memory cost remain unverified; native 1254px exports have not been presented as optimized 256px textures. This delivery is **not visual approval**. Final equipment-shop illustrations and later-node art remain separately scoped. Both rejected pickaxe upgrade studies stay historical; original tool/shell models were retained.
+

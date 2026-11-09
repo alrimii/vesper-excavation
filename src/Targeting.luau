@@ -29,7 +29,7 @@ function T.new(player, gui, egg, C)
 	mark.Enabled = false
 	mark.Parent = gui
 	local ring = Instance.new("Frame")
-	ring.Size = UDim2.fromScale(0.7, 0.7)
+	ring.Size = UDim2.fromScale(1, 1)
 	ring.AnchorPoint = Vector2.new(0.5, 0.5)
 	ring.Position = UDim2.fromScale(0.5, 0.5)
 	ring.BackgroundTransparency = 1
@@ -68,20 +68,22 @@ function T.new(player, gui, egg, C)
 	hp.Parent = status
 	local ready = Color3.fromRGB(126, 228, 190)
 	local distant = Color3.fromRGB(246, 177, 72)
-	local function blockedByUI()
+	local function blockedByUI(ignorePointer)
 		if
 			gui.Station.Visible
 			or player:GetAttribute("LabReady") ~= true
 			or player:GetAttribute("CoreMenuOpen")
+			or player:GetAttribute("SkillTreeOpen")
 			or player:GetAttribute("MaterialBagOpen")
 			or player:GetAttribute("Training")
-			or player:GetAttribute("EggResultsOpen") or player:GetAttribute("ResearchModal")
+			or player:GetAttribute("EggResultsOpen")
+			or player:GetAttribute("ResearchModal")
 			or player:GetAttribute("DiscoveryCinematic")
 			or UIS:GetFocusedTextBox()
 		then
 			return true
 		end
-		if UIS.PreferredInput == Enum.PreferredInput.KeyboardAndMouse then
+		if not ignorePointer and UIS.PreferredInput == Enum.PreferredInput.KeyboardAndMouse then
 			local cursor = UIS:GetMouseLocation()
 			for _, object in player.PlayerGui:GetGuiObjectsAtPosition(cursor.X, cursor.Y) do
 				if object:IsA("GuiButton") or (object:IsA("Frame") and object.Active) then
@@ -96,8 +98,8 @@ function T.new(player, gui, egg, C)
 		mark.Enabled = false
 		status.Visible = false
 	end
-	local function solve()
-		if blockedByUI() then
+	local function solve(centerAim)
+		if blockedByUI(centerAim) then
 			return
 		end
 		local ch = player.Character
@@ -110,7 +112,8 @@ function T.new(player, gui, egg, C)
 		params.FilterType = Enum.RaycastFilterType.Exclude
 		params.FilterDescendantsInstances = { ch, anchor }
 		local ray = (
-			player:GetAttribute("CenteredAim")
+			centerAim
+			or player:GetAttribute("CenteredAim")
 			or UIS.PreferredInput ~= Enum.PreferredInput.KeyboardAndMouse
 		)
 				and camera:ViewportPointToRay(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
@@ -132,8 +135,8 @@ function T.new(player, gui, egg, C)
 			distance,
 			exposed
 	end
-	function targeter:Get()
-		local section, point, _, valid = solve()
+	function targeter:Get(centerAim)
+		local section, point, _, valid = solve(centerAim)
 		if valid then
 			return section, point
 		end
@@ -204,7 +207,10 @@ function T.new(player, gui, egg, C)
 			hp.BackgroundColor3 = color
 			local permanent = section:GetAttribute("Permanent")
 			hp.Visible = not permanent
-			local precise = (point - section:GetAttribute("Center")).Magnitude <= C.Precision.Radius
+			local precise = (point - section:GetAttribute("Center")).Magnitude
+				<= (player:GetAttribute("PrecisionRadius") or C.Precision.Radius)
+			local radius = player:GetAttribute("PrecisionRadius") or C.Precision.Radius
+			mark.Size = valid and UDim2.fromScale(radius * 2, radius * 2) or UDim2.fromOffset(36, 36)
 			if valid then
 				anchor.Position = section:GetAttribute("Center") + normal * 0.05
 				stroke.Color = Color3.fromRGB(255, 200, 90)
@@ -222,6 +228,9 @@ function T.new(player, gui, egg, C)
 					maxHealth,
 					precise and "PRECISION" or "AIM AT GOLD POINT"
 				)
+			if valid and (player:GetAttribute("PrecisionRelayUntil") or 0) > workspace:GetServerTimeNow() then
+				status.Text ..= " / RELAY READY"
+			end
 		elseif kind == "Bucket" then
 			local root = ch:FindFirstChild("HumanoidRootPart")
 			if not root then
