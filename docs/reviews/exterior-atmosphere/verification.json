@@ -1,0 +1,53 @@
+{
+  "before": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"signature\":834804654,\"parts\":15219,\"quality\":\"Enum.QualityLevel.Automatic\",\"editorQuality\":\"Enum.QualityLevel.Automatic\"}"
+      }
+    ],
+    "isError": false
+  },
+  "after": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"signature\":834804654,\"running\":false,\"parts\":15219,\"textureCreator\":291892217}"
+      }
+    ],
+    "isError": false
+  },
+  "start": {
+    "current_time": "2026-11-10 18:23:02 UTC"
+  },
+  "stop": {
+    "current_time": "2026-11-10 18:26:15 UTC"
+  },
+  "low": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"camera\":{\"1\":2.9543299674987795,\"3\":-23.497339248657228,\"2\":95.64250183105469,\"5\":0.005373131949454546,\"4\":-0.7812251448631287,\"7\":0,\"6\":-0.6242263317108154,\"9\":0.008607347495853901,\"8\":0.9999630451202393,\"12\":-0.7811961770057678,\"11\":0.00672427611425519,\"10\":0.6242494583129883},\"ridgePresent\":true,\"quality\":\"Enum.QualityLevel.Level01\"}"
+      }
+    ],
+    "isError": false
+  },
+  "high": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"a\":\"-273.6795959472656, 5.468786716461182, 176.13766479492188\",\"camera\":{\"1\":2.9543299674987795,\"3\":-23.497339248657228,\"2\":95.64250183105469,\"5\":0.005373131949454546,\"4\":-0.7812251448631287,\"7\":0,\"6\":-0.6242263317108154,\"9\":0.008607347495853901,\"8\":0.9999630451202393,\"12\":-0.7811961770057678,\"11\":0.00672427611425519,\"10\":0.6242494583129883},\"quality\":\"Enum.QualityLevel.Level21\"}"
+      }
+    ],
+    "isError": false
+  },
+  "restored": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"density\":0.20499999821186067,\"playerQuality\":\"Enum.SavedQualitySetting.Automatic\",\"restoredQuality\":\"Enum.QualityLevel.Automatic\",\"wind\":\"7, 0, 3\"}"
+      }
+    ],
+    "isError": false
+  }
+}

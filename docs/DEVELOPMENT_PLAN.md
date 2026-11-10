@@ -1,8 +1,10 @@
-# Current roadmap checkpoint — after v184
+# Current roadmap checkpoint — after v188 atmosphere pass
 
-The accepted landscape direction continues. [Ground/grass and ridge checkpoint published and frozen](reviews/exterior-grass/REVIEW.md): static fitted short-grass patches, meadow/soil variation, selected foothill grading, regrouped recent vegetation, readable rock structure, and a closer ridge visible in the bounded Studio client check. Grass readability from player cameras is still limited; broad lawn areas, source mountain footprints/rectangular ridge edge and frontage occlusion remain. Published-client/device visibility and exact renderer culling behavior remain unverified. No autonomous art loop or next phase starts automatically.
+[Atmosphere checkpoint and evidence](reviews/exterior-atmosphere/REVIEW.md) are published and frozen. Native clouds/wind and localized animated mist are implemented, but player-view mist is faint and minimum graphics removes distant scenery. Motion evidence is partial because the recording includes loading. No autonomous correction loop follows. Joining, player data, fixed save generation and all gameplay remain unchanged.
 
-Joining remains owner-confirmed and closed. Preserve `VesperDiscovery_FreshStart_20261110`, player progress, dome/interior/hoist/gameplay and unresolved historical source rights. No deferred system below was implemented.
+## Next major focus — dome interior, recorded only
+
+Potentially rebuild the layout from scratch where necessary: reorganize rooms/frontage; remove excessive purposeless circulation gaps; improve room proportions, navigation and useful spaces; replace flat/token decoration with convincing three-dimensional arrangements. Add selective climbing plants around ladder/stair structures, deliberate planting on chosen dome-frame/glass-border sections, and restrained vines on suitable fixed hoist parts. Keep moving joints, mining targets, important signs and access routes clear. Use asymmetric intentional arrangements rather than blanket coverage. Coordinate the substantial metal entrance gate and aligned scenic approach road with this architectural rebuild. The exterior remains inaccessible. None of this was implemented in the atmosphere pass.
 
 ## Deferred owner requests — recorded, not implemented
 

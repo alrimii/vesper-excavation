@@ -160,46 +160,8 @@ function B.Build()
 			task.wait()
 		end
 	end
-	local mist = group(root, "ValleyMist")
-	for i, d in { { 1650, 16, 56, 300 }, { 2350, 25, 56, 410 } } do
-		local p = point(d[3], d[1])
-		local host = Instance.new("Part")
-		host.Name = "ValleyWisp" .. i
-		host.Size = Vector3.one
-		host.Transparency = 1
-		host.Anchored = true
-		host.CanCollide = false
-		host.CanTouch = false
-		host.CanQuery = false
-		host.CFrame = CFrame.new(p.X, groundHeight(p.X, p.Z) + 12, p.Z)
-		host.Parent = mist
-		local a, b = Instance.new("Attachment"), Instance.new("Attachment")
-		a.Position = Vector3.new(-d[4], 0, d[4] * 0.5)
-		b.Position = -a.Position
-		a.Parent = host
-		b.Parent = host
-		local beam = Instance.new("Beam")
-		beam.Name = "LowValleyHaze"
-		beam.Attachment0 = a
-		beam.Attachment1 = b
-		beam.FaceCamera = true
-		beam.Width0 = 70
-		beam.Width1 = 90
-		beam.Texture = "rbxasset://textures/particles/smoke_main.dds"
-		beam.TextureMode = Enum.TextureMode.Stretch
-		beam.TextureSpeed = 0.015
-		beam.Segments = 12
-		beam.Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 1),
-			NumberSequenceKeypoint.new(0.3, 0.94),
-			NumberSequenceKeypoint.new(0.7, 0.94),
-			NumberSequenceKeypoint.new(1, 1),
-		})
-		beam.Color = ColorSequence.new(Color3.fromRGB(217, 224, 211))
-		beam.LightInfluence = 0
-		beam.Parent = host
-	end
-	-- Keep the v180 sky, shared lighting, glazing and atmosphere unchanged.
+	require(script.Parent.ExteriorAtmosphereBuilder).Build()
+	-- Preserve scenery/glazing; the atmosphere-only recipe owns the sky effects.
 	lab:SetAttribute("ExteriorCompositionRevision", 3)
 	return "Fitted short-grass patches, connected ground materials, regrouped woodland and readable source rock"
 end
