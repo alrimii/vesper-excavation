@@ -12,36 +12,10 @@ function M.Start(gui, state, egg)
 	local access = require(script.Parent.AccessRetraction).new(workspace.VesperLab)
 	local dispatch = require(script.Parent.DispatchUI).new(gui, script.Parent)
 	local impact = require(script.Parent.CradleImpact).new(folder)
-	-- The retired arm/yoke rig had no gameplay authority. Delivery cables now attach
-	-- to the saved dome-crown sockets and exist only during actual delivery.
-	local cables = {}
-	local function updateDeliveryCables(delivering, eggLift)
-		if not delivering then
-			for _, cable in cables do cable:Destroy() end
-			table.clear(cables)
-			return
-		end
-		local dock = workspace.VesperLab:FindFirstChild("CrownDeliveryDock")
-		if not dock then return end
-		for i = 1, 4 do
-			local socket = dock:FindFirstChild("DeliverySocket" .. i)
-			if not socket then continue end
-			local cable = cables[i]
-			if not cable then
-				cable = Instance.new("Part")
-				cable.Name = "AttachedDeliveryCable" .. i
-				cable.Anchored = true
-				cable.CanCollide, cable.CanTouch, cable.CanQuery, cable.CastShadow = false, false, false, false
-				cable.Material, cable.Color = Enum.Material.Metal, dark
-				cable.Parent = folder
-				cables[i] = cable
-			end
-			local top = socket.Position
-			local bottom = Vector3.new(top.X, 101 + eggLift, top.Z)
-			cable.Size = Vector3.new(0.22, 0.22, math.max(0.01, (top-bottom).Magnitude))
-			cable.CFrame = CFrame.lookAt((top+bottom)/2, bottom)
-		end
-	end
+	local hoist = require(script.Parent.DeliveryHoist).new(
+		folder,
+		workspace.VesperLab:FindFirstChild("CrownDeliveryDock")
+	)
 	local proxy = require(script.Parent.DeliverySurface).Build(egg)
 	proxy.Parent = folder
 	local lastActive, lastVariant, lastLift
@@ -133,7 +107,7 @@ function M.Start(gui, state, egg)
 				lastLift = sample.eggLift
 			end
 		end
-		updateDeliveryCables(delivery, sample.eggLift)
+		hoist:Update(delivery, sample)
 	end)
 end
 return M

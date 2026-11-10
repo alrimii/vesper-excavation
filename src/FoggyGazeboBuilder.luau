@@ -3,6 +3,7 @@ local Builder = {}
 function Builder.Build()
  assert(game.PlaceId == 94763223427049 and not game:GetService('RunService'):IsRunning(), 'Original Edit place only')
  local lab=workspace.VesperLab
+ assert(not lab:GetAttribute("DomeLandscapeRevision"), "Historical placement recipe retired by DomeLandscapeBuilder; preserve accepted landscape layers")
  local exterior=lab.DecorativeExterior
  local assets=game.ServerStorage:FindFirstChild('FoggyGazeboAssets')
  assert(assets and #assets:GetChildren()>40,'Converted source templates required')

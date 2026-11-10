@@ -1,3 +1,7 @@
+# Current authorization: joining and bounded dome/landscape completion
+
+The owner accepts the distant Foggy exterior direction. Fix published equipment initialization without altering the fixed save generation, publish a distinct join checkpoint, then complete distant layers, matte tinted enclosure/dark framing, solid crown and retracting hoist using existing delivery timing. Original place 94763223427049 only. Fresh private native backup; source/Edit inspection; one short combined equipment/one cosmetic delivery check and final captures, then freeze art. No mining/economy/device loops, new source search, interior/UI redesign or deferred mechanics. Save/publish same place and push planning/development-foundation. Current user instructions supersede historical scopes below.
+
 # Project execution rules
 
 ## Current authorization: bounded v170 Foggy Gazebo correction

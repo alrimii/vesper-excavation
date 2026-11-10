@@ -1,3 +1,5 @@
+Owner update, 10 November 2026: the distant exterior direction is accepted. Earlier defect observations remain historical evidence, not a direction rejection. [Current v177 continuation and open issues](../join-dome/REVIEW.md).
+
 # Selected Foggy Gazebo scene transfer
 
 Original target: **94763223427049**, published checkpoint **v170**. Branch: `planning/development-foundation`. This is an implementation checkpoint, not visual approval. Resumed the existing applied transfer without rebuilding it. One 59-second capture-only Play session ended in Edit mode; runtime camera capture failed, so the three requested views are explicitly labeled Edit-mode fallbacks. No implementation changes were made during or after capture.

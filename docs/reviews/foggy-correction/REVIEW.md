@@ -1,3 +1,5 @@
+Owner update, 10 November 2026: the distant exterior direction is accepted. Earlier defect observations remain historical evidence, not a direction rejection. [Current v177 continuation and open issues](../join-dome/REVIEW.md).
+
 # Focused Foggy Gazebo correction after v170
 
 This is a **partial correction**, published as **v174**, not recovery of the selected scene's full atmosphere or visual approval. Original place: **94763223427049**. No new source scene, scenery expansion, interior redesign or gameplay/data change.
