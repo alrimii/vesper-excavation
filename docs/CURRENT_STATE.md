@@ -1,6 +1,6 @@
 # Current checkpoint — exterior ground, grass and ridge integration
 
-Published **v184** to original place **94763223427049**, confirmed **2026-11-10 17:54:17 UTC**. Branch `planning/development-foundation`. Started from clean **e92ab1134060db758672f0a14322f8e795690b5d / v182**. [Current review, screenshots and recovery](reviews/exterior-grass/REVIEW.md). The following continuity entry records the implementation/evidence commit.
+Published **v184** to original place **94763223427049**, confirmed **2026-11-10 17:54:17 UTC**. Branch `planning/development-foundation`. Started from clean **e92ab1134060db758672f0a14322f8e795690b5d / v182**. Implementation/evidence commit: [d169e2afce76e6a84d87aab3b5aeb124d2a6aceb](https://github.com/alrimii/vesper-excavation/commit/d169e2afce76e6a84d87aab3b5aeb124d2a6aceb). [Current review, screenshots and recovery](reviews/exterior-grass/REVIEW.md). The following documentation-only commit records this identifier.
 
 Kept the accepted exterior direction. Added sixteen static, terrain-fitted patches using existing CC0 short grass; improved ground/foothill material variation; restored readable original-resolution rock structure; regrouped recent trees while retaining the original good vegetation. Exterior estimate **1,196,205 source triangles**, down 30,005; **454 parts**, down 12. These are inventory figures, not mobile-performance evidence.
 

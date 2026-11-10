@@ -2,7 +2,7 @@
 
 Original place **94763223427049**, branch **planning/development-foundation**. Began from clean **e92ab1134060db758672f0a14322f8e795690b5d / v182**. The fresh native backup is byte-identical to the v182 final recovery file. The accepted landscape direction and useful source assets are retained. Joining remains owner-confirmed and closed.
 
-Published **v184** to the same original place at **2026-11-10 17:54:17 UTC**, confirmed by Studio's `publishType=1`, successful place ID, “Add publish notes to v184” and “Published new changes” log entries. The implementation/evidence commit is recorded in the following continuity entry. Artwork is frozen following the one runtime session and final Edit captures. No post-capture art correction was performed; the validated runtime ridge transform was synchronized exactly into Edit/source before the Edit captures.
+Published **v184** to the same original place at **2026-11-10 17:54:17 UTC**, confirmed by Studio's `publishType=1`, successful place ID, “Add publish notes to v184” and “Published new changes” log entries. Implementation/evidence commit: [d169e2afce76e6a84d87aab3b5aeb124d2a6aceb](https://github.com/alrimii/vesper-excavation/commit/d169e2afce76e6a84d87aab3b5aeb124d2a6aceb); a following documentation-only commit records this identifier. Artwork is frozen following the one runtime session and final Edit captures. No post-capture art correction was performed; the validated runtime ridge transform was synchronized exactly into Edit/source before the Edit captures.
 
 ## Actual camera evidence
 
