@@ -1,5 +1,8 @@
 # Project execution rules
 
+## Current authorization: exact Blendkit scene inspection only
+Inspect asset dc5632f8-2513-4b53-9f5f-096fd493e261, privately download its source, preserve the original, and work from a copy. Export original-camera and two horizontal-offset renders plus a solid geometry/camera overview; document license, dependencies and portability. The owner explicitly authorizes the latest official stable Blender portable installation alongside existing tools. No Studio changes, Play, publishing, world implementation or player-data operations. Push only permitted previews, inspection notes and original inspection scripts; keep restricted source and textures private. Stop for transfer-direction selection.
+
 ## Controlling authorization: one exterior valley sector after v156
 Rebuild only the waterfall-facing exterior sector in original place 94763223427049: connected forested valley, broad cliff, sourced waterfall and visible basin. Preserve every interior/gameplay/save system and other exterior sectors. Fresh private native/source backup first; inspect example.png and three interior sightlines. Use compatible actual free assets with provenance, original Blender geometry, Edit-mode inspection. One desktop capture-only Play session <=3 minutes, three predefined interior views, no device changes/gameplay actions/tests. Freeze after capture, report all visible defects, save/publish same place and push planning/development-foundation. No expansion around dome or interior work. No delegates. Stop for review; earlier scopes below are historical.
 
