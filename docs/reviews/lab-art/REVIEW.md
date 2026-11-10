@@ -1,3 +1,5 @@
+Follow-up in progress: focused eastern waterfall/valley sector only. See [sector boundaries and capture positions](../valley-sector/REVIEW.md). Version 156 remains visually unapproved.
+
 # Living laboratory art pass — published checkpoint 156
 
 Original place **94763223427049**, universe **10773858644**.

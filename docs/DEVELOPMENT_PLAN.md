@@ -1,3 +1,5 @@
+Focused exterior milestone v162 is published and frozen for owner review: [valley sector and actual captures](reviews/valley-sector/REVIEW.md). No expansion around the dome or interior work until feedback. Existing UI/world/skill/rebirth milestones remain open; no new gameplay phase is authorized by this delivery.
+
 Environment art checkpoint v156 is published and frozen for owner review: [implementation, five runtime views and open defects](reviews/lab-art/REVIEW.md). Next work depends on owner feedback; do not advance to UI/tree/progression or claim full world completion. Existing unfinished systems and interface rebuild milestones remain open.
 
 Living laboratory checkpoint delivered and frozen for owner review: [version 149, actual screenshots and open issues](reviews/living-lab/REVIEW.md). No next phase is authorized by this delivery. Resolve environmental composition/machinery feedback before expanding scope; HUD/loading, skill tree, shop/room/secondary interfaces and broader art remain unapproved.

@@ -101,6 +101,7 @@ function B.Planting()
 	return 'Four platform crescents, three substantial destination gardens, access-side planting'
 end
 function B.Exterior()
+	assert(not workspace.VesperLab:GetAttribute('ValleySectorRevision'),'Exterior recipe superseded locally by ValleySectorBuilder; preserve reviewed sector')
 	local r=lab();local m=model(r,'DecorativeExterior');m:SetAttribute('SceneryOnly',true)
 	local ground=part(m,'ScenicBase',Vector3.new(2,3000,3000),CFrame.new(0,-5,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(83,111,69),Enum.Material.Grass,false);ground.Shape=Enum.PartType.Cylinder
 	local groups={{8,460,1.3},{42,465,1.4},{78,490,1.6},{112,468,1.3},{151,490,1.5},{189,455,1.2},{229,520,1.9},{269,477,1.5},{307,455,1.35},{340,472,1.4}}

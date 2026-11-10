@@ -1,0 +1,176 @@
+{
+  "placeId": 94763223427049,
+  "ownerUserId": 291892217,
+  "worldPath": "Workspace.VesperLab.DecorativeExterior.EastValleySector",
+  "templatePath": "ServerStorage.ValleySectorAssets",
+  "nativeMeshAxisMapping": "Blender X -> -Roblox X, Blender Z -> Roblox Y, Blender Y -> Roblox Z; SourceCenter corrects native bounding-box origin",
+  "waterFlowImage": "rbxassetid://109793194125471",
+  "lights": 0,
+  "uses": {
+    "ValleyRidgeFar": 1,
+    "RiverCliffMass": 1,
+    "BasinFoam": 1,
+    "TwinCascade": 1,
+    "RockLedge": 9,
+    "ValleyOutflow": 1,
+    "CanopyYoung": 21,
+    "ValleyRidgeNear": 1,
+    "ForestFern": 24,
+    "RockShoulder": 13,
+    "CanopyOak": 64,
+    "LeafShrub": 92,
+    "ConnectedValley": 1,
+    "ReceivingBasin": 1
+  },
+  "beams": 18,
+  "interactive": 0,
+  "templates": [
+    {
+      "normal": "",
+      "roughness": "",
+      "name": "ValleyRidgeNear",
+      "triangles": 2912,
+      "color": "rbxassetid://110999735039595",
+      "center": [
+        0,
+        154.1405029296875,
+        1008.1754150390625
+      ],
+      "mesh": "rbxassetid://109790814546491",
+      "size": [
+        1300,
+        244.281005859375,
+        352.85894775390625
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "",
+      "name": "ValleyRidgeFar",
+      "triangles": 2912,
+      "color": "rbxassetid://110999735039595",
+      "center": [
+        0,
+        222.24050903320312,
+        1248.17529296875
+      ],
+      "mesh": "rbxassetid://80777723465680",
+      "size": [
+        1300,
+        308.48101806640625,
+        352.8590087890625
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "",
+      "name": "ValleyOutflow",
+      "triangles": 24,
+      "color": "rbxassetid://110999735039595",
+      "center": [
+        -49.66325378417969,
+        50.69999694824219,
+        460
+      ],
+      "mesh": "rbxassetid://79509558733562",
+      "size": [
+        42.326507568359375,
+        50.999996185302734,
+        120
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "",
+      "name": "BasinFoam",
+      "triangles": 130,
+      "color": "rbxassetid://110999735039595",
+      "center": [
+        -44.48169708251953,
+        77.19999694824219,
+        558.3056640625
+      ],
+      "mesh": "rbxassetid://80207644546201",
+      "size": [
+        50.0976448059082,
+        0.0010000000474974513,
+        28.92431640625
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "",
+      "name": "ReceivingBasin",
+      "triangles": 64,
+      "color": "rbxassetid://110999735039595",
+      "center": [
+        -40.835227966308594,
+        76.80000305175781,
+        517.249755859375
+      ],
+      "mesh": "rbxassetid://127427334766466",
+      "size": [
+        158.55332946777344,
+        0.0010000000474974513,
+        107.10275268554688
+      ]
+    },
+    {
+      "normal": "rbxassetid://114721086355926",
+      "roughness": "rbxassetid://113355786572368",
+      "name": "RiverCliffMass",
+      "triangles": 1856,
+      "color": "rbxassetid://135981184703894",
+      "center": [
+        0,
+        181.1706085205078,
+        679.37060546875
+      ],
+      "mesh": "rbxassetid://123634154838357",
+      "size": [
+        550,
+        292.3412170410156,
+        281.25885009765625
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "rbxassetid://113355786572368",
+      "name": "ConnectedValley",
+      "triangles": 7560,
+      "color": "rbxassetid://81981460046629",
+      "center": [
+        0,
+        181.4366912841797,
+        725
+      ],
+      "mesh": "rbxassetid://98817362571517",
+      "size": [
+        960,
+        368.9246520996094,
+        750
+      ]
+    },
+    {
+      "normal": "",
+      "roughness": "rbxassetid://113355786572368",
+      "name": "TwinCascade",
+      "triangles": 360,
+      "color": "rbxassetid://79037540564696",
+      "center": [
+        -6.25,
+        154.02218627929688,
+        667.5001831054688
+      ],
+      "mesh": "rbxassetid://111798333460497",
+      "size": [
+        115.5,
+        154.3904571533203,
+        235.7996826171875
+      ]
+    }
+  ],
+  "triangles": 586345,
+  "particles": 0,
+  "parts": 232
+}
