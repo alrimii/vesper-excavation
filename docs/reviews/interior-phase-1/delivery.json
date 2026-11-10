@@ -1,0 +1,23 @@
+{
+  "phase": "Interior Phase 1 — integrated services, architecture, structural cleanup and shared GUI clipping",
+  "repository": "https://github.com/alrimii/vesper-excavation",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "a5eeeb597cefa358e761ed8b3a6f19d4aa13d3c5",
+  "implementationCommit": "03021c8fcbfbc3837a00ab86c66aabedd91fdefc",
+  "implementationCommitUrl": "https://github.com/alrimii/vesper-excavation/commit/03021c8fcbfbc3837a00ab86c66aabedd91fdefc",
+  "placeId": 94763223427049,
+  "publishedVersion": 208,
+  "publishedAtUtc": "2026-11-10T22:35:16.489Z",
+  "publicationEvidence": "publication.json",
+  "captureRecord": "capture-record.json",
+  "review": "REVIEW.md",
+  "temporaryAssetLedger": "TEMPORARY_ASSETS.md",
+  "remainingRequirements": "PLAN.md",
+  "backupRoot": "C:/Users/BOSS/Desktop/egg/Backups/InteriorPhase1_20261111/",
+  "studioMode": "Edit",
+  "implementationFrozen": true,
+  "ownerVisualApproval": false,
+  "gameplayTested": false,
+  "otherDevicesTested": false,
+  "note": "This metadata commit follows the implementation commit. The development branch tip includes both; no main merge."
+}
