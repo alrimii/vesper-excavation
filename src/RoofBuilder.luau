@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 -- Fitted roof sectors remove overlapping rectangular panels and invalid basis transforms.
 local B = {}
 local function triangle(parent, a, b, c)

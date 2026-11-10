@@ -32,6 +32,7 @@ local function beam(parent,name,a,b,width,color)
 	return part(parent,name,Vector3.new(width,width,(b-a).Magnitude),CFrame.lookAt((a+b)/2,b),color,true,Enum.Material.Metal)
 end
 local function guard()
+	assert(not workspace.VesperLab:GetAttribute("LivingLabRevision"), "Historical cleanup recipe retired; use LivingLabBuilder")
 	assert(not game:GetService("RunService"):IsRunning(),"Edit-mode recipe only")
 	assert(game.PlaceId==94763223427049,"Original place only")
 	return workspace.VesperLab

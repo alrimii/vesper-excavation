@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 -- Edit-time repair recipe; original instances remain in ServerStorage.
 local lab = workspace.VesperLab
 local backup = game.ServerStorage:FindFirstChild("Stage28ReviewBackup")

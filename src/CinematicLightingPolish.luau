@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 assert(not game:GetService("RunService"):IsRunning(),"Edit only")
 local lab=workspace.VesperLab
 local lighting=game:GetService("Lighting")

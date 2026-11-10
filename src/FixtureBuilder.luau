@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 -- Fused hollow housings with recessed lenses; no overlapping bezel/end-cap faces.
 local B = {}
 local function part(parent, name, size, cf, color)

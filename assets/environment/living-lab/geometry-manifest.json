@@ -1,0 +1,92 @@
+[
+  {
+    "name": "PlantBush",
+    "triangles": 32,
+    "vertices": 80,
+    "source": "Kenney Nature Kit, CC0"
+  },
+  {
+    "name": "PlantLeaves",
+    "triangles": 32,
+    "vertices": 50,
+    "source": "Kenney Nature Kit, CC0"
+  },
+  {
+    "name": "ScenicTree",
+    "triangles": 114,
+    "vertices": 192,
+    "source": "Kenney Nature Kit, CC0"
+  },
+  {
+    "name": "ScenicRock",
+    "triangles": 80,
+    "vertices": 146,
+    "source": "Kenney Nature Kit, CC0"
+  },
+  {
+    "name": "FossilSkull",
+    "triangles": 2424,
+    "vertices": 1230,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "FossilBone",
+    "triangles": 1120,
+    "vertices": 570,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "Ammonite",
+    "triangles": 948,
+    "vertices": 480,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "StoneSlab1",
+    "triangles": 92,
+    "vertices": 48,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "StoneSlab2",
+    "triangles": 92,
+    "vertices": 48,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "StoneSlab3",
+    "triangles": 92,
+    "vertices": 48,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "DomePane1",
+    "triangles": 2,
+    "vertices": 4,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "DomePane2",
+    "triangles": 2,
+    "vertices": 4,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "DomePane3",
+    "triangles": 2,
+    "vertices": 4,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "DomePane4",
+    "triangles": 2,
+    "vertices": 4,
+    "source": "Original project geometry"
+  },
+  {
+    "name": "DomePane5",
+    "triangles": 1,
+    "vertices": 3,
+    "source": "Original project geometry"
+  }
+]

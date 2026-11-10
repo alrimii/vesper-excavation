@@ -1,3 +1,5 @@
+Current checkpoint: living discovery laboratory published as **version 149** in original place **94763223427049**. [Actual captures, preservation evidence and unresolved defects](reviews/living-lab/REVIEW.md). Current egg/access geometry and all room spawn/training anchors preserved; source and native place saved. One 47-second capture-only session; no gameplay verification or visual approval. Hanging lifecycle machinery, coarse scenery, broad circulation and partial workshop occlusion remain open. Prior status below is historical.
+
 Current checkpoint: equipment outfitter replacement applied to original place 94763223427049 and frozen after one capture-only session. See [shop review/evidence](reviews/outfitter/REVIEW.md). Mobile scrolling/action visibility and visual approval remain unresolved; no purchase or persistence verification. Previous status below is historical.
 
 # Current state and development baseline

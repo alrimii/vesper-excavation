@@ -1,3 +1,5 @@
+Environment follow-up: [living-lab version 149](../living-lab/REVIEW.md) replaces dome/perimeter architecture, floor and shop setting, with planting/fossils/scenery. Owner issues are not marked accepted: floating lifecycle machinery, broad circulation, coarse scenery and frontage/readability remain open. UI/tree/shop-menu/room-art feedback remains open.
+
 # Gameplay HUD redesign checkpoint
 
 Map cleanup delivery: [scoped implementation and evidence](../map-cleanup/REVIEW.md). World/ladder/frontage/shop/room and targeting corrections are delivered for review, **not closed or visually accepted**. HUD/menu/tree redesign remains paused. The mobile dark-boundary cause remains unresolved.

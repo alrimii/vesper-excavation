@@ -1,3 +1,5 @@
+Current environment direction: a living discovery laboratory, using owner example.png selectively. Bright mineral circulation and an enclosed glass dome balance darker blue-grey research bays, muted teal structure, warm task lights, integrated planting, shaped stone slab joints, curated fossils/specimens, and inaccessible layered exterior scenery. Preserve the current egg. [Implemented checkpoint and visible limitations](reviews/living-lab/REVIEW.md); appearance remains unapproved. Earlier art statuses below are historical.
+
 # Art direction and asset delivery
 Phase 5B now delivers the eight-node tree and common UI artwork described in the status section below. The [progression specification](PHASE_5A_PROGRESSION_SPEC.md) records the approved scope and overrides. Actual gameplay appearance and visual approval remain pending; final equipment-shop artwork is separate.
 

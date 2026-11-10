@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 -- Edit-time cleanup of the six retired upper-shell lamp housings.
 -- Keep the originals outside Workspace for restoration.
 assert(not game:GetService("RunService"):IsRunning(), "Edit only")

@@ -1,3 +1,5 @@
+-- Retired after the living-laboratory checkpoint.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("LivingLabRevision")), "Historical environment recipe retired; use LivingLabBuilder")
 -- Edit-time: bridge entry-lamp mounting points into their actual portal headers.
 assert(not game:GetService("RunService"):IsRunning(), "Edit only")
 local lab = workspace.VesperLab

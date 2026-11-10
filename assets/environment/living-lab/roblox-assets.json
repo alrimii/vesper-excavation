@@ -1,0 +1,249 @@
+{
+  "ownerUserId": 291892217,
+  "placeId": 94763223427049,
+  "method": "Native Studio FBX import, Upload to Roblox, creator Me. Reusable templates in ServerStorage.LivingLabAssets.",
+  "assets": [
+    {
+      "center": [
+        0,
+        0.1558849960565567,
+        0
+      ],
+      "meshId": "rbxassetid://121975476631162",
+      "name": "Ammonite",
+      "size": [
+        3.1501479148864746,
+        0.3117690086364746,
+        3.371515989303589
+      ]
+    },
+    {
+      "center": [
+        0,
+        80.5,
+        335.1083679199219
+      ],
+      "meshId": "rbxassetid://130342989139793",
+      "name": "DomePane1",
+      "size": [
+        91.36833190917969,
+        57,
+        23.794677734375
+      ]
+    },
+    {
+      "center": [
+        0,
+        139.5,
+        292.4762268066406
+      ],
+      "meshId": "rbxassetid://93880768210380",
+      "name": "DomePane2",
+      "size": [
+        85.10308074951172,
+        61,
+        61.469573974609375
+      ]
+    },
+    {
+      "center": [
+        0,
+        194,
+        219.60504150390625
+      ],
+      "meshId": "rbxassetid://136144886906091",
+      "name": "DomePane3",
+      "size": [
+        68.91783142089844,
+        48,
+        84.2728271484375
+      ]
+    },
+    {
+      "center": [
+        0,
+        232.5,
+        132.35789489746094
+      ],
+      "meshId": "rbxassetid://94207269246155",
+      "name": "DomePane4",
+      "size": [
+        46.72837829589844,
+        29,
+        90.22148132324219
+      ]
+    },
+    {
+      "center": [
+        0,
+        252.5,
+        43.623573303222656
+      ],
+      "meshId": "rbxassetid://108700048056870",
+      "name": "DomePane5",
+      "size": [
+        22.972610473632812,
+        11,
+        87.24714660644531
+      ]
+    },
+    {
+      "center": [
+        0,
+        0.4300000071525574,
+        0
+      ],
+      "meshId": "rbxassetid://112921691686981",
+      "name": "FossilBone",
+      "size": [
+        1.4800000190734863,
+        0.8600000143051147,
+        4.400000095367432
+      ]
+    },
+    {
+      "center": [
+        0,
+        1.2999999523162842,
+        0
+      ],
+      "meshId": "rbxassetid://83301964293961",
+      "name": "FossilSkull",
+      "size": [
+        2.3744959831237793,
+        2.5999999046325684,
+        4.349999904632568
+      ]
+    },
+    {
+      "center": [
+        0,
+        1.7999999523162842,
+        0
+      ],
+      "meshId": "rbxassetid://133855662882300",
+      "name": "PlantBush",
+      "size": [
+        5.832019805908203,
+        3.5999999046325684,
+        5.832019805908203
+      ]
+    },
+    {
+      "center": [
+        0,
+        1.899999976158142,
+        0
+      ],
+      "meshId": "rbxassetid://84517512605357",
+      "name": "PlantLeaves",
+      "size": [
+        3.6308720111846924,
+        3.799999952316284,
+        3.6308720111846924
+      ]
+    },
+    {
+      "center": [
+        0,
+        7.5,
+        0
+      ],
+      "meshId": "rbxassetid://102607272313633",
+      "name": "ScenicRock",
+      "size": [
+        45.32212829589844,
+        15,
+        58.63483810424805
+      ]
+    },
+    {
+      "center": [
+        0,
+        10.999999046325684,
+        0
+      ],
+      "meshId": "rbxassetid://92062290116223",
+      "name": "ScenicTree",
+      "size": [
+        9.725465774536133,
+        21.999998092651367,
+        8.422497749328613
+      ]
+    },
+    {
+      "center": [
+        0,
+        0.1599999964237213,
+        0
+      ],
+      "meshId": "rbxassetid://114430492198990",
+      "name": "StoneSlab1",
+      "size": [
+        24,
+        0.3199999928474426,
+        18
+      ]
+    },
+    {
+      "center": [
+        0,
+        0.1599999964237213,
+        0
+      ],
+      "meshId": "rbxassetid://87756552187355",
+      "name": "StoneSlab2",
+      "size": [
+        24,
+        0.3199999928474426,
+        18
+      ]
+    },
+    {
+      "center": [
+        0,
+        0.1599999964237213,
+        0
+      ],
+      "meshId": "rbxassetid://138145982110673",
+      "name": "StoneSlab3",
+      "size": [
+        24,
+        0.3199999928474426,
+        18
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "exports/living-lab-assets.fbx",
+      "sha256": "a4c9b575a0b94092373a945709c204b103f2756ce1f6542b840b7288f0e195e7",
+      "bytes": 144156
+    },
+    {
+      "path": "living-lab-assets.blend",
+      "sha256": "2a88ea2be47de3a182d3aaea858c5bf8d942f6838150b83f96ff605874e25c64",
+      "bytes": 918246
+    },
+    {
+      "path": "source/kenney/plant_bush.glb",
+      "sha256": "ae7b1beb39e242b13f5f29e3ec23ef21034b814f82297b8aa00a9bf4e1b09590",
+      "bytes": 4396
+    },
+    {
+      "path": "source/kenney/plant_flatTall.glb",
+      "sha256": "b192523736f32754788de4dc7a5dcf30a58322b260ec8969120c91432a10b633",
+      "bytes": 3480
+    },
+    {
+      "path": "source/kenney/rock_largeA.glb",
+      "sha256": "6dd15390fd96501dcd1454765a17ba61dbbd8d47705dfe5149c8dd92b353ce25",
+      "bytes": 7552
+    },
+    {
+      "path": "source/kenney/tree_default.glb",
+      "sha256": "562d29638c902de3c7bee465d3a53bb77117efbc392ae04ed894faf6b5dc691d",
+      "bytes": 9428
+    }
+  ]
+}
