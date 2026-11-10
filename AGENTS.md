@@ -1,4 +1,10 @@
-# Current authorization: exterior composition and legacy cleanup after v177
+# Current authorization: integrate and balance the v180 landscape
+
+The owner likes the substantial improvement and existing direction. Keep and moderately integrate current sourced mountains/vegetation: graded foreground and foothills, connected irregular planting, softer material detail, asymmetric ranges and an open valley. Original place 94763223427049 / planning/development-foundation only. Preserve dome/framing, crown/hoist/egg, all interior/access/HUD/gameplay, player progress and VesperDiscovery_FreshStart_20261110. Joining remains resolved. Fresh native/source recovery first; initial overhead and highest-access above-egg camera; final vertical overview, opposing obliques, same high camera in four directions, and floor view. At most one brief capture-only Play session; no gameplay/device loops. Freeze after final capture, record visible gaps, save/publish same place and push. No gate/road/interior redesign or delegates.
+
+Delivered v182: docs/reviews/exterior-integration/REVIEW.md. Art is frozen after the 66-second session. The far valley ridge is missing in the runtime capture despite appearing in Edit; this remains unresolved, with no post-capture correction authorized. Earlier scopes below are historical; future work requires owner feedback/new scope.
+
+# Historical authorization: exterior composition and legacy cleanup after v177
 
 The owner confirmed published joining works; do not reopen it without new evidence. Use exterior-direction.png for asymmetric rocky mountains, separate forest layers and a valley, preserving current dome/interior/crown/hoist/egg/HUD/camera and every gameplay/save system. Remove obsolete exterior placements and recreation paths after a fresh private native backup; reuse good vegetation and adapt actual ready-made licensed mountain assets. Original place 94763223427049, branch planning/development-foundation only. One brief capture-only Play session, immediate Edit fallback if camera fails; freeze after final capture, record defects, save/publish same place and push. No gate/road/interior/UI/progression work. No delegates. Player progress and VesperDiscovery_FreshStart_20261110 remain unchanged.
 

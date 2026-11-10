@@ -1,6 +1,8 @@
-# Current roadmap checkpoint — after v180
+# Current roadmap checkpoint — after v182
 
-Owner-confirmed published joining is complete; do not reopen it without new evidence. The bounded exterior composition/legacy cleanup is [published and frozen for owner review](reviews/exterior-composition/REVIEW.md). Preserve `VesperDiscovery_FreshStart_20261110`, all progress, the current dome/interior/hoist and unresolved historical source rights. No new phase begins automatically. Room-frontage occlusion, sparse ground composition and source/style repetition remain documented rather than silently approved.
+Owner likes the existing landscape direction. [Bounded integration is published and frozen](reviews/exterior-integration/REVIEW.md): graded ground/foothills, retained and extended vegetation, softer existing rock materials and quieter distant sectors. The far valley ridge is visible in Edit but absent from runtime; this gap, discrete mountain footprints, sparse areas and frontage occlusion remain open for owner review. No autonomous correction loop or next phase begins automatically.
+
+Joining remains owner-confirmed and closed. Preserve `VesperDiscovery_FreshStart_20261110`, player progress, the existing dome/interior/hoist and unresolved historical source rights. No deferred system below was implemented.
 
 ## Deferred owner requests — recorded, not implemented
 

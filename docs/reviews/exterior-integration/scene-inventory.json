@@ -1,0 +1,13 @@
+{
+  "retained": 190,
+  "roots": {
+    "ValleyMist": 2,
+    "RockyFoothills": 7,
+    "IrregularForestIslands": 196,
+    "SparseMeadowPockets": 192,
+    "SeparatedRockMassifs": 5,
+    "ContinuousLowGround": 64
+  },
+  "queryOrCollision": 0,
+  "total": 466
+}

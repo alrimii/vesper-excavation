@@ -1,3 +1,5 @@
+Owner continuation: the v180 direction received positive feedback. [v182 integration and complete layout/high-view evidence](../exterior-integration/REVIEW.md) is now current. Existing mountains/vegetation were retained and integrated; the new checkpoint has an explicit unresolved runtime far-ridge visibility gap.
+
 # Exterior composition and legacy cleanup — v180
 
 Published to original place **94763223427049** at **2026-11-10 16:44:15 UTC**, branch `planning/development-foundation`. Studio log confirms `publishType=1`, “Published new changes” and “Add publish notes to v180”. The prior native download was a cloud save, not the publication evidence. Started from clean commit `378fc85545cd848f79aa8a31ca79623e3633ad5d` / v177. Implementation and captured evidence: [95804375129062de0b3b1a2284675033f8522b26](https://github.com/alrimii/vesper-excavation/commit/95804375129062de0b3b1a2284675033f8522b26). A following documentation-only commit records this identifier; it does not change the frozen scene.
