@@ -13,7 +13,7 @@ function B.Frontage()
 	return interior().Frontage()
 end
 function B.Fossils()
-	return interior().Commons()
+	return interior().Specimen()
 end
 function B.WorkshopAndAccess()
 	return { interior().Workshop(), interior().Access() }

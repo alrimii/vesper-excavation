@@ -1,4 +1,16 @@
-# Current checkpoint — first laboratory interior rebuild, published v192
+# Current checkpoint — compact interior replacement, published v203
+
+Original place **94763223427049**, branch `planning/development-foundation`. **Published v203**, confirmed by Studio's original-place publish log at **2026-11-10 21:28:47 UTC**. Baseline `bbd3f1bd8994fcb161c57951a7529efebd9142da`; [Git delivery identity](reviews/compact-interior/delivery.json). Final private native checkpoint saved; Studio is in Edit. Artwork is frozen for owner review.
+
+[Complete review, eight owner references, before/after and actual runtime screenshots](reviews/compact-interior/REVIEW.md). Twelve unchanged-size rooms now form four compact wings. Clear distances reduced from 185–190 to 57.85/84.48 studs; lower dome explicitly refitted from approximately 700 to 428 studs maximum width, retaining crown/delivery geometry. Forward workshop/laboratory counters, finished fossil/microscope/charge meshes, selected planting, connected vines and muted stone replace old assemblies and their generation paths. LabInteriorBuilder is the sole active Edit recipe.
+
+Eight protected roots (six geometry groups plus atmosphere/cloud roots), 81 runtime source signatures, 39 anchor references and exterior atmosphere/cloud settings match. Room spawns, thresholds and world-space training rest poses moved coherently; no data/progression/economy/joining/mining/delivery changes. Exactly one **69-second** capture-only session, no gameplay actions or device changes. All 504 temporary cutaway parts restored; no art edits after capture. Findings include repeated frontage, sparse overall planting, dark floor seams, pale fossil contrast and existing HUD obstruction. Gameplay usability, other devices/performance and owner visual approval remain unverified.
+
+Private native recovery: `Backups/CompactInterior_20261110/ComingSoon_94763223427049_before.rbxl` and `ComingSoon_94763223427049_final.rbxl`. Do not open recovery copies as implementation targets. Exterior and deferred personal-room/collection, UI/menus/shop UI, skill tree/remaining skills, broader tools/creatures, gate/road, rebirth, monetization and worlds remain outside this delivery.
+
+## Previous v192 checkpoint — rejected by owner and superseded
+
+# First laboratory interior rebuild, published v192 (historical)
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v192**, confirmed by Studio's successful publish log on 2026-11-10 at 19:31:55 UTC. Implementation commit **c92908dcbadd665c3733a43616d57a05eef902fd**, based on v191 / c8ec194cdfbb417af0b75703ade46b3f4dc9678b. Final native copy and actual Edit/runtime evidence are saved. Artwork is frozen for owner review; Studio is in Edit. Publication does not imply visual approval.
 

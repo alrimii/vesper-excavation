@@ -1,6 +1,6 @@
 # Phase review handoff template
 
-Current delivery: [Phase 4B personal creature rolls](PHASE_4B_HANDOFF.md). Applied in the original Studio place with source readback and native saves. Review personal probabilities/outcomes, duplicate prevention, online stipends and same-server rejoin claims manually; source readback does not verify gameplay or DataStore persistence. Phase 2/3/4 outstanding checks and mining-audio quality remain unverified; Phase 1B retains provisional user acceptance. Current UI is functional interim work, not final visual approval or a completed skill tree. The reusable template below remains for subsequent authorized deliveries.
+Current delivery: [Compact interior replacement, published v203](reviews/compact-interior/REVIEW.md). The original place is saved/published and stopped in Edit. All twelve rooms and dependent anchors moved coherently; superseded assemblies/generators removed. One 69-second capture-only session is complete; art is frozen with findings recorded. [Delivery identity](reviews/compact-interior/delivery.json), exact measurements, preservation checks, actual captures, asset provenance and private native backup are linked in that review. Visual approval and gameplay usability remain unverified. The reusable template below remains for subsequent authorized deliveries.
 
 ## Identity and authorization
 - Phase, approved scope, date and remaining scope boundaries:

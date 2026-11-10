@@ -13,7 +13,7 @@ function B.BaysAndRooms()
 	return interior().Frontage()
 end
 function B.Envelope()
-	error("Existing dome/glazing are frozen; retired foundation recipe")
+	return interior().Enclosure()
 end
 function B.Exterior()
 	error("Exterior frozen; this recipe cannot regenerate scenery")

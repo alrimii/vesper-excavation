@@ -1,0 +1,76 @@
+[
+  {
+    "file": "src\\LabBuilder.luau",
+    "methods": [
+      "Build"
+    ]
+  },
+  {
+    "file": "src\\MapCleanupBuilder.luau",
+    "methods": [
+      "Central",
+      "Ladder",
+      "Rooms",
+      "Shop"
+    ]
+  },
+  {
+    "file": "src\\RoofBuilder.luau",
+    "methods": [
+      "Build"
+    ]
+  },
+  {
+    "file": "src\\FixtureBuilder.luau",
+    "methods": [
+      "Build"
+    ]
+  },
+  {
+    "file": "src\\CinematicLightingPolish.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\RepairEntryFixtures.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\UtilityPolishBuilder.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\PropSupportCleanup.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\ReviewFixtureRefit.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\RetireOrphanFixtures.luau",
+    "methods": []
+  },
+  {
+    "file": "src\\PresentationBuilder.luau",
+    "methods": [
+      "Build"
+    ]
+  },
+  {
+    "file": "src\\DiscoveryEnvironment.luau",
+    "methods": [
+      "standalone installer"
+    ]
+  },
+  {
+    "file": "src\\UpgradeWorldBuilder.luau",
+    "methods": [
+      "standalone installer"
+    ]
+  },
+  {"file":"src/SharedWorkshopBuilder.luau","methods":["standalone installer"]},
+  {"file":"src/ToolworksPolishBuilder.luau","methods":["standalone installer"]},
+  {"file":"src/WayfindingPolishBuilder.luau","methods":["standalone installer"]},
+  {"file":"src/AssetIntegration.luau","methods":["Lighting only; Tools preserved"]},
+  {"file":"src/PlatformPolish.luau","methods":["standalone decorative overlay installer"]}
+]

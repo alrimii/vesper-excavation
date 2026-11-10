@@ -1,4 +1,10 @@
-# Active authorization: first shared laboratory interior rebuild
+# Current checkpoint: compact interior replacement delivered, frozen for review
+
+The owner authorized the complete eight-image brief in interior-rebuild-feedback/IMPLEMENTATION_BRIEF.md, superseding the v192 review pause. Delivered **published v203** in original place **94763223427049**, branch **planning/development-foundation**. See docs/reviews/compact-interior/REVIEW.md and delivery.json. Twelve original rooms and dependent anchors relocated coherently; lower dome explicitly refitted to 428 studs; rejected architecture/assets and their creation paths removed. Gameplay/player data, fixed generation VesperDiscovery_FreshStart_20261110, original egg/access/crown/hoist and exterior geometry/atmosphere preserved.
+
+Exactly one 69-second capture-only Play session is complete. Studio is stopped in Edit; all temporary cutaway visibility restored. No post-capture art changes. Final native saved and original publication verified. Artwork is frozen; visual approval and gameplay usability remain unverified. Wait for owner feedback before any new implementation or Play. No delegates, gameplay simulations, mining/purchases/grants, device loops, reset, deferred UI/progression/personal-room/gate-road work or exterior iteration. Communicate exclusively in English.
+
+# Historical authorization: first shared laboratory interior rebuild
 
 Current owner scope permits rebuilding shared interior floor/frontage/fixtures around the preserved original dome and functional anchors. Exterior frozen. All twelve rooms, egg/access/hoist, shop functionality, player data and fixed generation preserved. One cohesive layout, before/after saved cameras, one brief capture-only Play session, then freeze; save native, publish original place 94763223427049 and push planning/development-foundation. No delegates, gameplay simulations, mining/purchases/grants, device loops, gate/road or deferred UI/progression work.
 

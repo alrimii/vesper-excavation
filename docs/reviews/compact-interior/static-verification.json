@@ -1,0 +1,357 @@
+{
+  "activeOldCharges": [],
+  "solidBases": {
+    "Workspace.VesperLab.CompactCommons.SouthwestFernCourt.SolidStoneBase": true,
+    "Workspace.VesperLab.CompactCommons.LabFernBed.SolidStoneBase": true,
+    "Workspace.VesperLab.SharedLaboratory.ResearchCounter.CabinetBody": true,
+    "Workspace.VesperLab.SharedWorkshop.CompactWorkshop.StoneWorktop": true,
+    "Workspace.VesperLab.CompactSpecimenStudy.SolidSpecimenPlinth": true,
+    "Workspace.VesperLab.SharedWorkshop.CompactWorkshop.CabinetBody": true,
+    "Workspace.VesperLab.CompactCommons.WorkshopBotanicalBed.SolidStoneBase": true,
+    "Workspace.VesperLab.CompactSpecimenStudy.FossilBearingPost": true,
+    "Workspace.VesperLab.SharedLaboratory.ResearchCounter.StoneWorktop": true
+  },
+  "duplicateRoots": [],
+  "foliageColliders": [],
+  "glazingIntersections": [],
+  "rooms": {
+    "Room11": {
+      "radialClearDistance": 57.850006103515625,
+      "anchorErrors": {
+        "Threshold": 0.000003211666580682504,
+        "RoomSpawn": 0.0000036382791677169735,
+        "PracticeEgg": 0.0000019660499219753547
+      },
+      "id": 11,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.00003104938514297828,
+        "PracticeEgg": 0.00003105304858763702
+      }
+    },
+    "Room07": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 7,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      }
+    },
+    "Room12": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 12,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.00000762939453125,
+        "PracticeEgg": 0.00000764428114052862
+      }
+    },
+    "Room05": {
+      "radialClearDistance": 57.850006103515625,
+      "anchorErrors": {
+        "Threshold": 0.0000034862187021644786,
+        "RoomSpawn": 0.00003057807043660432,
+        "PracticeEgg": 0.00000384438408218557
+      },
+      "id": 5,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.000003814697265625,
+        "PracticeEgg": 0.00000384438408218557
+      }
+    },
+    "Room06": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 6,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.000034119690099032596,
+        "PracticeEgg": 0.00003412302248761989
+      }
+    },
+    "Room01": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 1,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      }
+    },
+    "Room08": {
+      "radialClearDistance": 57.850006103515625,
+      "anchorErrors": {
+        "Threshold": 0.000006972438313823659,
+        "RoomSpawn": 0.000003844888851745054,
+        "PracticeEgg": 0.00001526623782410752
+      },
+      "id": 8,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.000030517578125,
+        "PracticeEgg": 0.00003052130341529846
+      }
+    },
+    "Room02": {
+      "radialClearDistance": 57.850006103515625,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 0.0000019660499219753547
+      },
+      "id": 2,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.0000171661376953125,
+        "PracticeEgg": 0.000017172758816741407
+      }
+    },
+    "Room03": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 3,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.00000762939453125,
+        "PracticeEgg": 0.00000764428114052862
+      }
+    },
+    "Room04": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 4,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      }
+    },
+    "Room09": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0.00000762939453125,
+        "RoomSpawn": 0.00000762939453125,
+        "PracticeEgg": 0.00001526623782410752
+      },
+      "id": 9,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0.000034119690099032596,
+        "PracticeEgg": 0.00003412302248761989
+      }
+    },
+    "Room10": {
+      "radialClearDistance": 84.47747802734375,
+      "anchorErrors": {
+        "Threshold": 0,
+        "RoomSpawn": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      },
+      "id": 10,
+      "floorSize": [
+        86.4000015258789,
+        0.8100000619888306,
+        70.20000457763672
+      ],
+      "restPoseErrors": {
+        "PressHead": 0,
+        "PracticeEgg": 4.76837158203125e-7
+      }
+    }
+  },
+  "obsoleteRoots": [],
+  "anchorCount": 39,
+  "roomCount": 12,
+  "enclosureHalfWidth": 214,
+  "clearances": {
+    "Workshop": {
+      "colliders": [],
+      "size": [
+        30,
+        6,
+        10
+      ]
+    },
+    "Room11": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Laboratory": {
+      "colliders": [],
+      "size": [
+        30,
+        6,
+        10
+      ]
+    },
+    "Room07": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room12": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room05": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room06": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room01": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room08": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room02": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room03": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room04": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room09": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    },
+    "Room10": {
+      "colliders": [],
+      "size": [
+        12,
+        6,
+        24
+      ]
+    }
+  },
+  "emptyRuntimeDependencies": {
+    "CinematicFixtures": 0,
+    "ResearchGallery": 0
+  }
+}

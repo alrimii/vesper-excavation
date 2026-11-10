@@ -1,0 +1,1544 @@
+{
+  "protected": {
+    "Workspace.VesperLab.ResourceDepot": {
+      "count": 47,
+      "signature": 100925195
+    },
+    "Workspace.VesperLab.DecorativeExterior": {
+      "count": 460,
+      "signature": 1795755957
+    },
+    "Workspace.VesperLab.ExcavationAccess": {
+      "count": 1976,
+      "signature": 858756390
+    },
+    "Workspace.VesperLab.CrownDeliveryDock": {
+      "count": 35,
+      "signature": 1590113374
+    },
+    "Workspace.Terrain.Clouds": {
+      "count": 0,
+      "signature": 0
+    },
+    "Lighting.Atmosphere": {
+      "count": 0,
+      "signature": 0
+    },
+    "Workspace.VesperLab.CentralPlatform": {
+      "count": 265,
+      "signature": 1127447119
+    },
+    "Workspace.VesperLab.Egg": {
+      "count": 8169,
+      "signature": 188845255
+    }
+  },
+  "anchors": {
+    "Room02_Spawn": "Workspace.VesperLab.Rooms.Room02.RoomSpawn",
+    "Room09_Spawn": "Workspace.VesperLab.Rooms.Room09.RoomSpawn",
+    "Room11_Training": "Workspace.VesperLab.Rooms.Room11.TrainingStation.TrainingSpot",
+    "Room12_Training": "Workspace.VesperLab.Rooms.Room12.TrainingStation.TrainingSpot",
+    "Room08_Entrance": "Workspace.VesperLab.Rooms.Room08.Threshold",
+    "Room06_Entrance": "Workspace.VesperLab.Rooms.Room06.Threshold",
+    "Room10_Spawn": "Workspace.VesperLab.Rooms.Room10.RoomSpawn",
+    "Room04_Training": "Workspace.VesperLab.Rooms.Room04.TrainingStation.TrainingSpot",
+    "Room12_Spawn": "Workspace.VesperLab.Rooms.Room12.RoomSpawn",
+    "Room04_Entrance": "Workspace.VesperLab.Rooms.Room04.Threshold",
+    "Room03_Training": "Workspace.VesperLab.Rooms.Room03.TrainingStation.TrainingSpot",
+    "Room08_Spawn": "Workspace.VesperLab.Rooms.Room08.RoomSpawn",
+    "Room07_Training": "Workspace.VesperLab.Rooms.Room07.TrainingStation.TrainingSpot",
+    "Room12_Entrance": "Workspace.VesperLab.Rooms.Room12.Threshold",
+    "WorkshopInteraction": "Workspace.VesperLab.SharedWorkshop.ApproachZone",
+    "Room04_Spawn": "Workspace.VesperLab.Rooms.Room04.RoomSpawn",
+    "Room10_Training": "Workspace.VesperLab.Rooms.Room10.TrainingStation.TrainingSpot",
+    "Room05_Entrance": "Workspace.VesperLab.Rooms.Room05.Threshold",
+    "Room07_Entrance": "Workspace.VesperLab.Rooms.Room07.Threshold",
+    "Room11_Spawn": "Workspace.VesperLab.Rooms.Room11.RoomSpawn",
+    "Room06_Spawn": "Workspace.VesperLab.Rooms.Room06.RoomSpawn",
+    "Room09_Entrance": "Workspace.VesperLab.Rooms.Room09.Threshold",
+    "Room03_Entrance": "Workspace.VesperLab.Rooms.Room03.Threshold",
+    "ExcavationAccess": "Workspace.VesperLab.ExcavationAccess",
+    "Room11_Entrance": "Workspace.VesperLab.Rooms.Room11.Threshold",
+    "Room05_Training": "Workspace.VesperLab.Rooms.Room05.TrainingStation.TrainingSpot",
+    "Room02_Training": "Workspace.VesperLab.Rooms.Room02.TrainingStation.TrainingSpot",
+    "Room08_Training": "Workspace.VesperLab.Rooms.Room08.TrainingStation.TrainingSpot",
+    "Room02_Entrance": "Workspace.VesperLab.Rooms.Room02.Threshold",
+    "CurrentEgg": "Workspace.VesperLab.Egg",
+    "Room05_Spawn": "Workspace.VesperLab.Rooms.Room05.RoomSpawn",
+    "Room01_Training": "Workspace.VesperLab.Rooms.Room01.TrainingStation.TrainingSpot",
+    "Room10_Entrance": "Workspace.VesperLab.Rooms.Room10.Threshold",
+    "Room06_Training": "Workspace.VesperLab.Rooms.Room06.TrainingStation.TrainingSpot",
+    "Room07_Spawn": "Workspace.VesperLab.Rooms.Room07.RoomSpawn",
+    "Room03_Spawn": "Workspace.VesperLab.Rooms.Room03.RoomSpawn",
+    "Room01_Entrance": "Workspace.VesperLab.Rooms.Room01.Threshold",
+    "Room01_Spawn": "Workspace.VesperLab.Rooms.Room01.RoomSpawn",
+    "Room09_Training": "Workspace.VesperLab.Rooms.Room09.TrainingStation.TrainingSpot"
+  },
+  "rooms": {
+    "Room11": {
+      "poses": {
+        "Threshold": [
+          -133.32501220703125,
+          1.350000023841858,
+          0.000001589884732311475,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "NumberSign": [
+          -132.8000030517578,
+          12,
+          -24.299997329711914,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "OwnerSign": [
+          -132.8000030517578,
+          19.100000381469727,
+          0.0000015836242255318211,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "RoomSpawn": [
+          -169.10000610351562,
+          1.4580000638961792,
+          0.0000020164973193459446,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ]
+      },
+      "training": [
+        -153.5,
+        5.28249979019165,
+        22,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "id": 11,
+      "structure": {
+        "count": 145,
+        "signature": 694918890
+      },
+      "pivot": [
+        -169.10000610351562,
+        0,
+        0.0000020164973193459446,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ]
+    },
+    "Room07": {
+      "poses": {
+        "Threshold": [
+          87.99998474121094,
+          1.350000023841858,
+          -133.3250274658203,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "NumberSign": [
+          112.29998779296875,
+          12,
+          -132.80001831054688,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "OwnerSign": [
+          87.99998474121094,
+          19.100000381469727,
+          -132.80001831054688,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "RoomSpawn": [
+          87.99998474121094,
+          1.4580000638961792,
+          -169.1000213623047,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ]
+      },
+      "training": [
+        65.99998474121094,
+        5.28249979019165,
+        -153.50001525878906,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "id": 7,
+      "structure": {
+        "count": 145,
+        "signature": 942741670
+      },
+      "pivot": [
+        87.99998474121094,
+        0,
+        -169.1000213623047,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ]
+    },
+    "Room12": {
+      "poses": {
+        "Threshold": [
+          -133.32498168945312,
+          1.350000023841858,
+          88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "NumberSign": [
+          -132.8000030517578,
+          12,
+          63.70000076293945,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "OwnerSign": [
+          -132.8000030517578,
+          19.100000381469727,
+          88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "RoomSpawn": [
+          -169.10000610351562,
+          1.4580000638961792,
+          88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ]
+      },
+      "training": [
+        -153.49996948242188,
+        5.28249979019165,
+        110,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "id": 12,
+      "structure": {
+        "count": 145,
+        "signature": 1973496167
+      },
+      "pivot": [
+        -169.10000610351562,
+        0,
+        88,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ]
+    },
+    "Room05": {
+      "poses": {
+        "Threshold": [
+          133.32498168945312,
+          1.350000023841858,
+          -0.0000058278201322536916,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "NumberSign": [
+          132.8000030517578,
+          12,
+          24.29999351501465,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "OwnerSign": [
+          132.8000030517578,
+          19.100000381469727,
+          -0.000005804872671433259,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "RoomSpawn": [
+          169.10000610351562,
+          1.4580000638961792,
+          -0.000007391596227535047,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ]
+      },
+      "training": [
+        153.49996948242188,
+        5.28249979019165,
+        -21.999990463256836,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "id": 5,
+      "structure": {
+        "count": 145,
+        "signature": 533070763
+      },
+      "pivot": [
+        169.10000610351562,
+        0,
+        -0.000007391596227535047,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ]
+    },
+    "Room06": {
+      "poses": {
+        "Threshold": [
+          133.32498168945312,
+          1.350000023841858,
+          -88.00000762939453,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "NumberSign": [
+          132.8000030517578,
+          12,
+          -63.70000457763672,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "OwnerSign": [
+          132.8000030517578,
+          19.100000381469727,
+          -88.00000762939453,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "RoomSpawn": [
+          169.10000610351562,
+          1.4580000638961792,
+          -88.00000762939453,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ]
+      },
+      "training": [
+        153.49993896484375,
+        5.28249979019165,
+        -109.99999237060547,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "id": 6,
+      "structure": {
+        "count": 145,
+        "signature": 1811648040
+      },
+      "pivot": [
+        169.10000610351562,
+        0,
+        -88.00000762939453,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ]
+    },
+    "Room01": {
+      "poses": {
+        "Threshold": [
+          -88,
+          1.350000023841858,
+          133.32501220703125,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "NumberSign": [
+          -112.30000305175781,
+          12,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "OwnerSign": [
+          -88,
+          19.100000381469727,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "RoomSpawn": [
+          -88,
+          1.4580000638961792,
+          169.10000610351562,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "training": [
+        -66,
+        5.28249979019165,
+        153.5,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "id": 1,
+      "structure": {
+        "count": 145,
+        "signature": 1861212596
+      },
+      "pivot": [
+        -88,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "Room08": {
+      "poses": {
+        "Threshold": [
+          -0.000011655642992991488,
+          1.350000023841858,
+          -133.32501220703125,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "NumberSign": [
+          24.29998779296875,
+          12,
+          -132.80001831054688,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "OwnerSign": [
+          -0.000011609745342866518,
+          19.100000381469727,
+          -132.8000030517578,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "RoomSpawn": [
+          -0.000014783192455070093,
+          1.4580000638961792,
+          -169.10000610351562,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ]
+      },
+      "training": [
+        -22.000011444091797,
+        5.28249979019165,
+        -153.5,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "id": 8,
+      "structure": {
+        "count": 145,
+        "signature": 73835300
+      },
+      "pivot": [
+        -0.000014783192455070093,
+        0,
+        -169.10000610351562,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ]
+    },
+    "Room02": {
+      "poses": {
+        "Threshold": [
+          0,
+          1.350000023841858,
+          133.32501220703125,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "NumberSign": [
+          -24.299999237060547,
+          12,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "OwnerSign": [
+          0,
+          19.100000381469727,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "RoomSpawn": [
+          0,
+          1.4580000638961792,
+          169.10000610351562,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "training": [
+        21.999998092651367,
+        5.28249979019165,
+        153.5,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "id": 2,
+      "structure": {
+        "count": 145,
+        "signature": 992306226
+      },
+      "pivot": [
+        0,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "Room03": {
+      "poses": {
+        "Threshold": [
+          88,
+          1.350000023841858,
+          133.32498168945312,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "NumberSign": [
+          63.70000076293945,
+          12,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "OwnerSign": [
+          88,
+          19.100000381469727,
+          132.8000030517578,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "RoomSpawn": [
+          88,
+          1.4580000638961792,
+          169.10000610351562,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "training": [
+        110,
+        5.28249979019165,
+        153.49996948242188,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "id": 3,
+      "structure": {
+        "count": 145,
+        "signature": 123399856
+      },
+      "pivot": [
+        88,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "Room04": {
+      "poses": {
+        "Threshold": [
+          133.32501220703125,
+          1.350000023841858,
+          87.99999237060547,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "NumberSign": [
+          132.8000030517578,
+          12,
+          112.29999542236328,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "OwnerSign": [
+          132.8000030517578,
+          19.100000381469727,
+          87.99999237060547,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ],
+        "RoomSpawn": [
+          169.10000610351562,
+          1.4580000638961792,
+          87.99999237060547,
+          -4.371138828673793e-8,
+          0,
+          1,
+          0,
+          1,
+          0,
+          -1,
+          0,
+          -4.371138828673793e-8
+        ]
+      },
+      "training": [
+        153.5,
+        5.28249979019165,
+        65.99999237060547,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "id": 4,
+      "structure": {
+        "count": 145,
+        "signature": 1401977133
+      },
+      "pivot": [
+        169.10000610351562,
+        0,
+        87.99999237060547,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ]
+    },
+    "Room09": {
+      "poses": {
+        "Threshold": [
+          -88.00001525878906,
+          1.350000023841858,
+          -133.3249969482422,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "NumberSign": [
+          -63.70001220703125,
+          12,
+          -132.79998779296875,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "OwnerSign": [
+          -88.00001525878906,
+          19.100000381469727,
+          -132.79998779296875,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ],
+        "RoomSpawn": [
+          -88.00001525878906,
+          1.4580000638961792,
+          -169.09999084472656,
+          -1,
+          0,
+          -8.742277657347586e-8,
+          0,
+          1,
+          0,
+          8.742277657347586e-8,
+          0,
+          -1
+        ]
+      },
+      "training": [
+        -110.00001525878906,
+        5.28249979019165,
+        -153.49998474121094,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "id": 9,
+      "structure": {
+        "count": 145,
+        "signature": 1352412577
+      },
+      "pivot": [
+        -88.00001525878906,
+        0,
+        -169.09999084472656,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ]
+    },
+    "Room10": {
+      "poses": {
+        "Threshold": [
+          -133.32501220703125,
+          1.350000023841858,
+          -88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "NumberSign": [
+          -132.8000030517578,
+          12,
+          -112.30000305175781,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "OwnerSign": [
+          -132.8000030517578,
+          19.100000381469727,
+          -88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ],
+        "RoomSpawn": [
+          -169.10000610351562,
+          1.4580000638961792,
+          -88,
+          1.1924880638503055e-8,
+          0,
+          -1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1.1924880638503055e-8
+        ]
+      },
+      "training": [
+        -153.5,
+        5.28249979019165,
+        -66,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "id": 10,
+      "structure": {
+        "count": 145,
+        "signature": 1563825260
+      },
+      "pivot": [
+        -169.10000610351562,
+        0,
+        -88,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ]
+    }
+  },
+  "version": 192,
+  "scripts": {
+    "ReplicatedStorage.VesperShared.ImpactFX": {
+      "count": 1,
+      "signature": 1069405457
+    },
+    "ReplicatedStorage.VesperShared.RoomTerminalHints": {
+      "count": 1,
+      "signature": 2022840573
+    },
+    "ReplicatedFirst.Loading": {
+      "count": 1,
+      "signature": 521952312
+    },
+    "ReplicatedStorage.VesperShared.ExpeditionResults": {
+      "count": 1,
+      "signature": 1123933414
+    },
+    "ReplicatedStorage.VesperShared.DispatchUI": {
+      "count": 1,
+      "signature": 1562378306
+    },
+    "ReplicatedStorage.VesperShared.GuidedRoute": {
+      "count": 1,
+      "signature": 2057612782
+    },
+    "ReplicatedStorage.VesperShared.CollectionSlots": {
+      "count": 1,
+      "signature": 1392267872
+    },
+    "ServerScriptService.Vesper.RoomPool": {
+      "count": 1,
+      "signature": 903701593
+    },
+    "ServerScriptService.Vesper.MaterialRewards": {
+      "count": 1,
+      "signature": 1180437636
+    },
+    "ReplicatedStorage.VesperShared.DeliverySequence": {
+      "count": 1,
+      "signature": 996659554
+    },
+    "ServerScriptService.Vesper.RoomTerminals": {
+      "count": 1,
+      "signature": 437852401
+    },
+    "ReplicatedStorage.VesperShared.MotionClips": {
+      "count": 1,
+      "signature": 1700038380
+    },
+    "ReplicatedStorage.VesperShared.MembraneMotion": {
+      "count": 1,
+      "signature": 1662499572
+    },
+    "ReplicatedStorage.VesperShared.SkillCatalog": {
+      "count": 1,
+      "signature": 1211765069
+    },
+    "ReplicatedStorage.VesperShared.ToolMotion": {
+      "count": 1,
+      "signature": 173791176
+    },
+    "ReplicatedStorage.VesperShared.Targeting": {
+      "count": 1,
+      "signature": 2017241571
+    },
+    "ReplicatedStorage.VesperShared.UIMotion": {
+      "count": 1,
+      "signature": 1275001798
+    },
+    "ReplicatedStorage.VesperShared.MovementControls": {
+      "count": 1,
+      "signature": 2046595453
+    },
+    "ServerScriptService.Vesper.EggRewards": {
+      "count": 1,
+      "signature": 1003973594
+    },
+    "ReplicatedStorage.VesperShared.AccessRetraction": {
+      "count": 1,
+      "signature": 272653514
+    },
+    "ReplicatedStorage.VesperShared.ExcavationConfig": {
+      "count": 1,
+      "signature": 223289800
+    },
+    "ReplicatedStorage.VesperShared.EquipmentPreview": {
+      "count": 1,
+      "signature": 535458380
+    },
+    "ReplicatedStorage.VesperShared.WorkshopUI": {
+      "count": 1,
+      "signature": 1868790083
+    },
+    "ReplicatedStorage.VesperShared.FragmentMotion": {
+      "count": 1,
+      "signature": 1215547563
+    },
+    "ReplicatedStorage.VesperShared.RoomAnimation": {
+      "count": 1,
+      "signature": 573290302
+    },
+    "ReplicatedStorage.VesperShared.SpecimenMotion": {
+      "count": 1,
+      "signature": 428810405
+    },
+    "ReplicatedStorage.VesperShared.EquipmentDock": {
+      "count": 1,
+      "signature": 355019883
+    },
+    "ServerScriptService.Vesper.RoomAllocator": {
+      "count": 1,
+      "signature": 1923956465
+    },
+    "ReplicatedStorage.VesperShared.ExcavationCamera": {
+      "count": 1,
+      "signature": 895247580
+    },
+    "ReplicatedStorage.VesperShared.SpecimenPreview": {
+      "count": 1,
+      "signature": 898787398
+    },
+    "ServerScriptService.Vesper.MovementService": {
+      "count": 1,
+      "signature": 1512179104
+    },
+    "ReplicatedStorage.VesperShared.ExcavationArt": {
+      "count": 1,
+      "signature": 955394832
+    },
+    "ReplicatedStorage.VesperShared.SkillFeedback": {
+      "count": 1,
+      "signature": 1707360499
+    },
+    "ServerScriptService.Vesper.ProgressiveFractureBuilder": {
+      "count": 1,
+      "signature": 801870848
+    },
+    "ReplicatedStorage.VesperShared.DrillHandling": {
+      "count": 1,
+      "signature": 1332364054
+    },
+    "ReplicatedStorage.VesperShared.ShellMotion": {
+      "count": 1,
+      "signature": 2139679709
+    },
+    "ReplicatedStorage.VesperShared.ProgressionRules": {
+      "count": 1,
+      "signature": 1513700029
+    },
+    "ReplicatedStorage.VesperShared.SecondaryMenus": {
+      "count": 1,
+      "signature": 1762715656
+    },
+    "ReplicatedStorage.VesperShared.OutfitterComponents": {
+      "count": 1,
+      "signature": 483891712
+    },
+    "ReplicatedStorage.VesperShared.CollectionMotion": {
+      "count": 1,
+      "signature": 1964677939
+    },
+    "ServerScriptService.Vesper.ResearchProfiles": {
+      "count": 1,
+      "signature": 298376901
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryCatalog": {
+      "count": 1,
+      "signature": 1431747089
+    },
+    "ReplicatedStorage.VesperShared.EggLifecycle": {
+      "count": 1,
+      "signature": 1150500510
+    },
+    "ReplicatedFirst.LoadingView": {
+      "count": 1,
+      "signature": 347468624
+    },
+    "ReplicatedStorage.VesperShared.ExteriorAtmosphereConfig": {
+      "count": 1,
+      "signature": 2011160340
+    },
+    "StarterPlayer.StarterPlayerScripts.ExcavationClient": {
+      "count": 1,
+      "signature": 1738201566
+    },
+    "ReplicatedStorage.VesperShared.Packages.spr": {
+      "count": 1,
+      "signature": 990483052
+    },
+    "ServerScriptService.Vesper.CollectionCabinet": {
+      "count": 1,
+      "signature": 630400107
+    },
+    "StarterPlayer.StarterPlayerScripts.ExteriorAtmosphereMotion": {
+      "count": 1,
+      "signature": 1389549951
+    },
+    "ReplicatedStorage.VesperShared.WorldInteractions": {
+      "count": 1,
+      "signature": 1472128491
+    },
+    "ReplicatedStorage.VesperShared.TrainingCycle": {
+      "count": 1,
+      "signature": 734720671
+    },
+    "ReplicatedStorage.VesperShared.OutfitterUI": {
+      "count": 1,
+      "signature": 1647662491
+    },
+    "ReplicatedStorage.VesperShared.OutfitterArt": {
+      "count": 1,
+      "signature": 2092688003
+    },
+    "ReplicatedStorage.VesperShared.DeliveryHoist": {
+      "count": 1,
+      "signature": 161872850
+    },
+    "ReplicatedStorage.VesperShared.SkillTreeUI": {
+      "count": 1,
+      "signature": 382981734
+    },
+    "ReplicatedStorage.VesperShared.SkillArt": {
+      "count": 1,
+      "signature": 1107107464
+    },
+    "ReplicatedStorage.VesperShared.ToolFeedback": {
+      "count": 1,
+      "signature": 922986372
+    },
+    "ReplicatedStorage.VesperShared.MiningFeedback": {
+      "count": 1,
+      "signature": 1472261833
+    },
+    "ReplicatedStorage.VesperShared.NavigationArtwork": {
+      "count": 1,
+      "signature": 1139261386
+    },
+    "ServerScriptService.Vesper.MembraneBuilder": {
+      "count": 1,
+      "signature": 1105677994
+    },
+    "ReplicatedStorage.VesperShared.EggFinishes": {
+      "count": 1,
+      "signature": 1601112918
+    },
+    "ReplicatedStorage.VesperShared.InterfaceStyle": {
+      "count": 1,
+      "signature": 516526712
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryHUD": {
+      "count": 1,
+      "signature": 646833096
+    },
+    "ReplicatedStorage.VesperShared.ExcavationChrome": {
+      "count": 1,
+      "signature": 1149401896
+    },
+    "ReplicatedStorage.VesperShared.UpgradePresentation": {
+      "count": 1,
+      "signature": 2120437030
+    },
+    "ReplicatedStorage.VesperShared.SpecimenBuilder": {
+      "count": 1,
+      "signature": 1372398803
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryCinematic": {
+      "count": 1,
+      "signature": 504919540
+    },
+    "ReplicatedStorage.VesperShared.MaterialBag": {
+      "count": 1,
+      "signature": 1075494820
+    },
+    "ServerScriptService.Vesper.ExcavationService": {
+      "count": 1,
+      "signature": 1585832373
+    },
+    "ReplicatedStorage.VesperShared.ResearchJournal": {
+      "count": 1,
+      "signature": 1868769906
+    },
+    "ServerScriptService.Vesper.PlayerProgression": {
+      "count": 1,
+      "signature": 1235796565
+    },
+    "ReplicatedStorage.VesperShared.ExpeditionPhase": {
+      "count": 1,
+      "signature": 1539897334
+    },
+    "ReplicatedStorage.VesperShared.CradleImpact": {
+      "count": 1,
+      "signature": 1479244757
+    },
+    "ReplicatedStorage.VesperShared.DeliverySurface": {
+      "count": 1,
+      "signature": 1341408909
+    },
+    "ReplicatedStorage.VesperShared.DeliveryCamera": {
+      "count": 1,
+      "signature": 502246923
+    },
+    "ReplicatedStorage.VesperShared.UpgradeEconomy": {
+      "count": 1,
+      "signature": 1725632438
+    },
+    "ServerScriptService.Vesper.ExpeditionWorld": {
+      "count": 1,
+      "signature": 1883947361
+    },
+    "ServerScriptService.Vesper.DiscoveryWorld": {
+      "count": 1,
+      "signature": 2057020624
+    },
+    "ReplicatedStorage.VesperShared.LabAtmosphere": {
+      "count": 1,
+      "signature": 811175478
+    },
+    "ReplicatedStorage.VesperShared.HUDController": {
+      "count": 1,
+      "signature": 368454380
+    },
+    "ReplicatedStorage.VesperShared.FieldHUD": {
+      "count": 1,
+      "signature": 480948437
+    }
+  },
+  "atmosphere": {
+    "density": 0.20499999821186066,
+    "wind": "12, 0, 5",
+    "offset": 0.15000000596046448,
+    "color": "0.854902, 0.882353, 0.847059",
+    "decay": "0.670588, 0.721569, 0.701961",
+    "glare": 0,
+    "haze": 1.2000000476837158
+  },
+  "clouds": {
+    "density": 0.38999998569488525,
+    "color": "0.937255, 0.94902, 0.92549",
+    "cover": 0.5199999809265137
+  },
+  "place": 94763223427049,
+  "light": {
+    "ambient": "0.407843, 0.435294, 0.447059",
+    "outdoor": "0.592157, 0.639216, 0.666667",
+    "clock": 16,
+    "brightness": 1.649999976158142,
+    "exposure": -0.11999999731779099
+  }
+}

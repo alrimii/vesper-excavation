@@ -1,0 +1,14 @@
+{
+  "creatorUserId": "291892217",
+  "originalPlaceId": "94763223427049",
+  "assets": [
+    {"name":"ChargeBundle","assetId":"71037013578643","operationId":"76230c36-c0f2-40b6-84c0-c9f542348572","revision":"1","moderation":"Approved","meshParts":6,"export":"exports/ChargeBundle.glb","author":"Hunter Paramore","license":"CC BY 3.0","source":"https://poly.pizza/m/0q9sW5qkUuS","note":"Roblox filtered the URL-bearing upload description. Full attribution retained in README and on imported model/mesh attributes."},
+    {"name":"FossilStudy","assetId":"107023481414590","operationId":"ca2aac54-c20f-4c64-aba1-e0021d84214e","revision":"1","moderation":"Approved","meshParts":4,"export":"exports/FossilStudy.glb","author":"Smithsonian Institution NMNHPALEO","license":"CC0","source":"https://www.innerscene.com/tools/library/3d-parts/triceratops-skeleton-39cc8434"},
+    {"name":"Microscope","assetId":"100649639061568","operationId":"38ef7b19-7f83-4a07-bf8c-6f42cdface71","revision":"1","moderation":"Approved","meshParts":8,"export":"exports/Microscope.glb","author":"3Donimus","license":"CC BY 3.0","source":"https://poly.pizza/m/dcuaH6bEkwn"},
+    {"name":"EnclosurePanes","assetId":"108736426745511","operationId":"175ce69f-76e5-455e-8a22-39d1d767a927","revision":"1","moderation":"Approved","meshParts":96,"export":"exports/EnclosurePanes.glb","author":"Vesper project","footprintWidth":428,"preservedCrownRadius":88}
+  ],
+  "supersededUpload":{"assetId":"120405930482097","operationId":"833b405f-92d2-4968-b90b-7c710e6cd7de","reason":"Initial 414-stud panes did not clear unchanged room back corners. Replaced by final 428-stud fit; no instances of the earlier panes retained in the active place or asset library."},
+  "normalization":"Importer split meshes by material, omitted material colors and baked a 180-degree Y rotation. Source primitive bounds matched after orientation/scale normalization; authored sRGB colors restored from GLB material factors. Mesh IDs and correspondence errors are recorded in import-normalization.json and final-pane-normalization.json.",
+  "activeLibrary":"ServerStorage.CompactInteriorAssets",
+  "provenance":"README.md"
+}

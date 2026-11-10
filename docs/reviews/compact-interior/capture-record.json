@@ -1,0 +1,159 @@
+{
+  "session": {
+    "startUTC": "2026-11-10 21:26:00",
+    "stopConfirmedUTC": "2026-11-10 21:27:09",
+    "boundedWallSeconds": 69,
+    "playSessions": 1,
+    "runtimeViews": 9,
+    "actions": "Only fixed camera poses and temporary roof cutaway; no gameplay input, navigation, purchases, mining, grants or device changes.",
+    "restoredCutawayParts": 504,
+    "finalMode": "Edit",
+    "temporaryCutawayAttributesRemaining": 0
+  },
+  "evidence": [
+    {
+      "file": "final-edit-matched-above-egg.png",
+      "source": "final-edit-matched-above-egg-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-edit-overhead-cutaway.png",
+      "source": "final-edit-overhead-cutaway-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": true
+    },
+    {
+      "file": "final-runtime-botanical-bed.png",
+      "source": "final-runtime-botanical-bed-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-laboratory.png",
+      "source": "final-runtime-laboratory-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-ladder-vines.png",
+      "source": "final-runtime-ladder-vines-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-matched-above-egg.png",
+      "source": "final-runtime-matched-above-egg-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-overhead-cutaway.png",
+      "source": "final-runtime-overhead-cutaway-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": true
+    },
+    {
+      "file": "final-runtime-planting.png",
+      "source": "final-runtime-planting-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-room-frontage.png",
+      "source": "final-runtime-room-frontage-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-skeleton.png",
+      "source": "final-runtime-skeleton-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "final-runtime-workshop.png",
+      "source": "final-runtime-workshop-full.png",
+      "crop": [
+        366,
+        270,
+        1590,
+        940
+      ],
+      "inspectionCutaway": false
+    },
+    {
+      "file": "before-above-egg-edit.png",
+      "source": "before-above-egg-edit-full.png",
+      "crop": [
+        467,
+        270,
+        1691,
+        940
+      ],
+      "note": "Center crop original 1426x670 viewport to the final 1224x670 aspect; no rescaling or scene edits."
+    },
+    {
+      "file": "before-overhead-cutaway-edit.png",
+      "source": "before-overhead-cutaway-edit-full.png",
+      "crop": [
+        467,
+        270,
+        1691,
+        940
+      ],
+      "note": "Center crop original 1426x670 viewport to the final 1224x670 aspect; no rescaling or scene edits."
+    }
+  ],
+  "note": "Unretouched actual Studio viewport pixels. Full native window captures remain in the private backup. Cutaways are explicitly labeled by filename and review caption. Artwork frozen after capture."
+}

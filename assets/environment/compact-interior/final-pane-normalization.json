@@ -1,0 +1,969 @@
+{
+  "EnclosurePanes": {
+    "maximumCorrespondenceError": 0.00008367765985894948,
+    "meshes": [
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://128995556942594",
+        "name": "Pane_24_4.001_1",
+        "primitive": 96
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73566407566998",
+        "name": "Pane_24_2.001_1",
+        "primitive": 94
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103815586542037",
+        "name": "Pane_23_4.001_1",
+        "primitive": 92
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://139528222745443",
+        "name": "Pane_23_1.001_1",
+        "primitive": 89
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103485026159788",
+        "name": "Pane_22_1.001_1",
+        "primitive": 85
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://129896897394717",
+        "name": "Pane_21_3.001_1",
+        "primitive": 83
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://122265790093869",
+        "name": "Pane_20_3.001_1",
+        "primitive": 79
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://118745588711370",
+        "name": "Pane_20_2.001_1",
+        "primitive": 78
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://135706394066148",
+        "name": "Pane_19_3.001_1",
+        "primitive": 75
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://102479053200074",
+        "name": "Pane_19_2.001_1",
+        "primitive": 74
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://84108126121168",
+        "name": "Pane_19_1.001_1",
+        "primitive": 73
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://77838618268356",
+        "name": "Pane_18_3.001_1",
+        "primitive": 71
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://134383946340397",
+        "name": "Pane_20_4.001_1",
+        "primitive": 80
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://100747958344249",
+        "name": "Pane_18_2.001_1",
+        "primitive": 70
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://79634001927706",
+        "name": "Pane_18_1.001_1",
+        "primitive": 69
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://81051721828835",
+        "name": "Pane_17_4.001_1",
+        "primitive": 68
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://75477830664176",
+        "name": "Pane_17_1.001_1",
+        "primitive": 65
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://110815342613413",
+        "name": "Pane_16_4.001_1",
+        "primitive": 64
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://107355505365816",
+        "name": "Pane_16_3.001_1",
+        "primitive": 63
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://85224573520812",
+        "name": "Pane_16_2.001_1",
+        "primitive": 62
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://92710690931338",
+        "name": "Pane_16_1.001_1",
+        "primitive": 61
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://102375978974911",
+        "name": "Pane_15_4.001_1",
+        "primitive": 60
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://116857467432711",
+        "name": "Pane_15_2.001_1",
+        "primitive": 58
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://80021559600154",
+        "name": "Pane_15_1.001_1",
+        "primitive": 57
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://130158148840696",
+        "name": "Pane_14_4.001_1",
+        "primitive": 56
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://121978834512325",
+        "name": "Pane_14_2.001_1",
+        "primitive": 54
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://91490215192726",
+        "name": "Pane_17_2.001_1",
+        "primitive": 66
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://138653495942711",
+        "name": "Pane_15_3.001_1",
+        "primitive": 59
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://97270818004849",
+        "name": "Pane_14_1.001_1",
+        "primitive": 53
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://125356483102490",
+        "name": "Pane_13_3.001_1",
+        "primitive": 51
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://112512787020882",
+        "name": "Pane_21_4.001_1",
+        "primitive": 84
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://97403485893563",
+        "name": "Pane_12_4.001_1",
+        "primitive": 48
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://79027038511623",
+        "name": "Pane_23_2.001_1",
+        "primitive": 90
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78889545137478",
+        "name": "Pane_21_1.001_1",
+        "primitive": 81
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://122687719924180",
+        "name": "Pane_18_4.001_1",
+        "primitive": 72
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78360260779525",
+        "name": "Pane_12_3.001_1",
+        "primitive": 47
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://81929140861548",
+        "name": "Pane_06_4.001_1",
+        "primitive": 24
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://74638614470196",
+        "name": "Pane_12_1.001_1",
+        "primitive": 45
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://107269112495829",
+        "name": "Pane_22_3.001_1",
+        "primitive": 87
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137535689235650",
+        "name": "Pane_11_2.001_1",
+        "primitive": 42
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://117815725291335",
+        "name": "Pane_20_1.001_1",
+        "primitive": 77
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://108915759977189",
+        "name": "Pane_11_4.001_1",
+        "primitive": 44
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://101583024947157",
+        "name": "Pane_03_1.001_1",
+        "primitive": 9
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114567677960245",
+        "name": "Pane_10_3.001_1",
+        "primitive": 39
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://87598449672083",
+        "name": "Pane_10_2.001_1",
+        "primitive": 38
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://106608328022120",
+        "name": "Pane_10_1.001_1",
+        "primitive": 37
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://134037358656855",
+        "name": "Pane_23_3.001_1",
+        "primitive": 91
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://123827605395127",
+        "name": "Pane_09_3.001_1",
+        "primitive": 35
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://87266800875416",
+        "name": "Pane_09_2.001_1",
+        "primitive": 34
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://97096277294170",
+        "name": "Pane_09_1.001_1",
+        "primitive": 33
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://128094918182271",
+        "name": "Pane_03_2.001_1",
+        "primitive": 10
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99927993316664",
+        "name": "Pane_08_2.001_1",
+        "primitive": 30
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://113648182925337",
+        "name": "Pane_07_3.001_1",
+        "primitive": 27
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://96220829553505",
+        "name": "Pane_07_2.001_1",
+        "primitive": 26
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78935765412554",
+        "name": "Pane_03_3.001_1",
+        "primitive": 11
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://127018452328862",
+        "name": "Pane_09_4.001_1",
+        "primitive": 36
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137159105761553",
+        "name": "Pane_07_1.001_1",
+        "primitive": 25
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://106068429725956",
+        "name": "Pane_07_4.001_1",
+        "primitive": 28
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://110421930184132",
+        "name": "Pane_21_2.001_1",
+        "primitive": 82
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73493541491666",
+        "name": "Pane_06_2.001_1",
+        "primitive": 22
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://87344177232141",
+        "name": "Pane_02_3.001_1",
+        "primitive": 7
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137836038782141",
+        "name": "Pane_11_3.001_1",
+        "primitive": 43
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://81207067182106",
+        "name": "Pane_05_3.001_1",
+        "primitive": 19
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103698278755181",
+        "name": "Pane_24_1.001_1",
+        "primitive": 93
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114617701500284",
+        "name": "Pane_04_3.001_1",
+        "primitive": 15
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103854910018485",
+        "name": "Pane_05_2.001_1",
+        "primitive": 18
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://95771076983535",
+        "name": "Pane_01_3.001_1",
+        "primitive": 3
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83160863714206",
+        "name": "Pane_03_4.001_1",
+        "primitive": 12
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://128025549772208",
+        "name": "Pane_10_4.001_1",
+        "primitive": 40
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83613572407402",
+        "name": "Pane_02_1.001_1",
+        "primitive": 5
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137576623110660",
+        "name": "Pane_19_4.001_1",
+        "primitive": 76
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://74142839975546",
+        "name": "Pane_02_4.001_1",
+        "primitive": 8
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://120528465305682",
+        "name": "Pane_13_4.001_1",
+        "primitive": 52
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://84059222117638",
+        "name": "Pane_01_2.001_1",
+        "primitive": 2
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://72330456487576",
+        "name": "Pane_04_4.001_1",
+        "primitive": 16
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://91604888319089",
+        "name": "Pane_08_3.001_1",
+        "primitive": 31
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://127397213929928",
+        "name": "Pane_04_2.001_1",
+        "primitive": 14
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://90460886369261",
+        "name": "Pane_08_4.001_1",
+        "primitive": 32
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://106358002994716",
+        "name": "Pane_22_4.001_1",
+        "primitive": 88
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://91700791926339",
+        "name": "Pane_02_2.001_1",
+        "primitive": 6
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://129723984447420",
+        "name": "Pane_08_1.001_1",
+        "primitive": 29
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://132473116792310",
+        "name": "Pane_22_2.001_1",
+        "primitive": 86
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://101882339597278",
+        "name": "Pane_04_1.001_1",
+        "primitive": 13
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://116124227446500",
+        "name": "Pane_13_1.001_1",
+        "primitive": 49
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73467507728465",
+        "name": "Pane_01_1.001_1",
+        "primitive": 1
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://110426460556072",
+        "name": "Pane_06_3.001_1",
+        "primitive": 23
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://133367640510785",
+        "name": "Pane_11_1.001_1",
+        "primitive": 41
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78259607880070",
+        "name": "Pane_17_3.001_1",
+        "primitive": 67
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://105305451180522",
+        "name": "Pane_13_2.001_1",
+        "primitive": 50
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://131823230214825",
+        "name": "Pane_06_1.001_1",
+        "primitive": 21
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://80489595328708",
+        "name": "Pane_14_3.001_1",
+        "primitive": 55
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://129094933560244",
+        "name": "Pane_05_4.001_1",
+        "primitive": 20
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://127071317447472",
+        "name": "Pane_05_1.001_1",
+        "primitive": 17
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://132667011071249",
+        "name": "Pane_12_2.001_1",
+        "primitive": 46
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://131154264450608",
+        "name": "Pane_24_3.001_1",
+        "primitive": 95
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://122373355761144",
+        "name": "Pane_01_4.001_1",
+        "primitive": 4
+      }
+    ],
+    "importScaleCorrection": 0.9999999040232862,
+    "meshParts": 96
+  }
+}

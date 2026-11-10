@@ -1,0 +1,27 @@
+# Compact interior replacement
+
+Owner scope: all eight files and complete brief in `interior-rebuild-feedback/`; rejected v192 is the starting state. Original place 94763223427049, branch planning/development-foundation, baseline bbd3f1bd8994fcb161c57951a7529efebd9142da. Fresh private native backup is `Backups/CompactInterior_20261110/ComingSoon_94763223427049_before.rbxl` (6,612,300 bytes; SHA-256 24817EA1B4A8B2443270E1AB5F6F493361455B901E17A6FD6952910A1918E377).
+
+## Chosen arrangement
+
+Four wings of three existing personal rooms around a square shared court. Room furniture, room width/depth (86.4 by 70.2 studs), identities and gameplay remain at existing scale. Room centers occupy offsets -88, 0 and 88 on each side; front floor edges are 134 studs from center. Entrance architecture projects about two studs into the court. This packs the wings without intersecting room interiors, leaving no obsolete shells at the old ring.
+
+The preserved central platform has a 74.25-stud outer radius; the access structure lies inside that boundary. Old entrance architecture began about 259–264 studs from center: approximately 185–190 studs of clear radial distance. The central four room approaches now have about 57.85 studs; the eight off-axis approaches have about 84.48 studs when measured along the direct radial line to each entrance. These are approximately 31% and 45% of the old clear distance. The departure from the quarter-distance target preserves existing room interiors and their 86.4-stud width, avoids corner overlap, and retains one level without new stairs. Final exact measurements are in static-verification.json. The original clear distances were 190.15, 185.15 and 188.15 studs for the repeated three-room sequence; final center/off-axis distances are 57.850006 / 84.477478 studs. Corner services project toward the court; walk to the counter rather than enter a recess.
+
+Workshop: (+113.5,+113.5); shared laboratory: (-113.5,-113.5); finished skeleton study: (+114.8,-114.8); planted seating: (-116,+116), expressed as X/Z coordinates. Service counters are 37 studs wide; the specimen plinth is 42 by 12 studs. Retain the resource depot and central egg/access. Three purposeful planting compositions use compatible fern/broadleaf assets and visible soil. No block shrubs, repeated fossil islands, white radial strips or four arbitrary viewing gaps.
+
+The enclosure is explicitly refitted to a clipped-square footprint, maximum half-width 214 studs (428 maximum width) and corner x+z extent 356. This follows the four room wings. The initial 414-stud proposal was expanded by 14 studs before capture because the actual segmented glazing intersected the unchanged room rear corners at that size; final static overlap queries found no glazing/room intersections. The old radius was approximately 350 studs. Glass, dark frame and segmented crown direction are retained. Crown/top panes at y247–258, delivery dock, egg and hoist remain unchanged; new lower panes and connected frame members meet the retained top rim. The floor/foundation fit the new perimeter. Former exterior landscaping, mist, clouds and their systems remain unchanged. Corner service backing and fitted closure panels finish the junctions between the room wings and enclosure; there is no old empty ring or abandoned outer room shell.
+
+## Dependencies and removal
+
+Move each original room Model once with PivotTo. Transform its world-space CFrame attributes, including training PracticeEgg/PressHead RestCFrame, by the same delta; retain local offsets and sizes. FunctionalAnchors ObjectValues continue referencing the same moved instances. Move original shop Console, UpgradeConsole and ApproachZone coherently to the new counter, preserving prompts and behavior.
+
+Replace LabInteriorBuilder with this single authoritative Edit recipe. Remove its v192 constructors entirely. LivingLabBuilder, LivingLabArtBuilder and OutfitterBuilder remain scoped forwards to that recipe. Retire any older authoring entry capable of restoring the old room/dome/floor/shop state. Runtime systems continue consuming the actual scene and relative room anchors.
+
+Remove StoneCirculation, InteriorCommons, AccessArtIntegration, LaboratoryBays, old InteriorPortal assemblies, workshop cavity/framing/floors/backboard and obsolete display assemblies. Rebuild the shared floor and fitted enclosure foundation; retain no concealed superseded decorations. Keep recovery versions in the private backup and Git history only.
+
+## Asset and evidence requirements
+
+Use the downloaded finished Triceratops scan (Smithsonian, CC0, supplied by Innerscene), microscope (3Donimus, CC BY 3.0) and charge bundle (Hunter Paramore, CC BY 3.0). Inspect actual geometry, retain source and attribution, adapt materials and scale, and use supported collision bases. Keep charge template and display appearance consistent without changing behavior. Preserve existing finished pickaxe/drill geometry and show it clearly.
+
+Save matched above-egg and readable overhead cutaway cameras, then player-height room/planting/skeleton/vine/lab/workshop views. Perform focused static preservation, anchor, clearance and duplicate-generation checks before one capture-only Play session, bounded to three minutes. No gameplay actions or device changes. Freeze after final capture, record shortcomings, restore all temporary cutaway visibility, finish Edit, save native, publish same place and push this branch.

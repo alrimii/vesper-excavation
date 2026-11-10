@@ -1,0 +1,1170 @@
+{
+  "EnclosurePanes": {
+    "maximumCorrespondenceError": 0.00006340217441902496,
+    "meshes": [
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://72750760054046",
+        "name": "Pane_23_3_1",
+        "primitive": 91
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99236742000868",
+        "name": "Pane_23_1_1",
+        "primitive": 89
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://132967278769966",
+        "name": "Pane_22_4_1",
+        "primitive": 88
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://121258378249063",
+        "name": "Pane_21_2_1",
+        "primitive": 82
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://128484142338675",
+        "name": "Pane_20_3_1",
+        "primitive": 79
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://132079195034771",
+        "name": "Pane_20_2_1",
+        "primitive": 78
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://116821654857734",
+        "name": "Pane_19_4_1",
+        "primitive": 76
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://82160107910755",
+        "name": "Pane_21_3_1",
+        "primitive": 83
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137321887761296",
+        "name": "Pane_18_1_1",
+        "primitive": 69
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://110220470679606",
+        "name": "Pane_21_1_1",
+        "primitive": 81
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://117509702704880",
+        "name": "Pane_17_3_1",
+        "primitive": 67
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://76633318745419",
+        "name": "Pane_17_1_1",
+        "primitive": 65
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://112023094052282",
+        "name": "Pane_20_4_1",
+        "primitive": 80
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://76464689479529",
+        "name": "Pane_16_4_1",
+        "primitive": 64
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83628949393062",
+        "name": "Pane_16_3_1",
+        "primitive": 63
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://123910443519664",
+        "name": "Pane_16_2_1",
+        "primitive": 62
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103549358275674",
+        "name": "Pane_15_2_1",
+        "primitive": 58
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://105425223600083",
+        "name": "Pane_22_1_1",
+        "primitive": 85
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://79504103691827",
+        "name": "Pane_16_1_1",
+        "primitive": 61
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://87134622041517",
+        "name": "Pane_15_1_1",
+        "primitive": 57
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://84033421777872",
+        "name": "Pane_24_1_1",
+        "primitive": 93
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99696814523041",
+        "name": "Pane_14_1_1",
+        "primitive": 53
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://127888400030393",
+        "name": "Pane_13_3_1",
+        "primitive": 51
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114053358990357",
+        "name": "Pane_13_2_1",
+        "primitive": 50
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://88911747327643",
+        "name": "Pane_12_4_1",
+        "primitive": 48
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://131596356744493",
+        "name": "Pane_06_2_1",
+        "primitive": 22
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://106632281089382",
+        "name": "Pane_12_2_1",
+        "primitive": 46
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://82252649556560",
+        "name": "Pane_24_4_1",
+        "primitive": 96
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78817780834815",
+        "name": "Pane_11_4_1",
+        "primitive": 44
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://134999553318272",
+        "name": "Pane_20_1_1",
+        "primitive": 77
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://140077149359273",
+        "name": "Pane_19_1_1",
+        "primitive": 73
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://115562443735448",
+        "name": "Pane_15_4_1",
+        "primitive": 60
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73542019299753",
+        "name": "Pane_11_2_1",
+        "primitive": 42
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://124840197303820",
+        "name": "Pane_23_4_1",
+        "primitive": 92
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://96547313465847",
+        "name": "Pane_19_2_1",
+        "primitive": 74
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83281615373901",
+        "name": "Pane_10_4_1",
+        "primitive": 40
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83808494668570",
+        "name": "Pane_24_2_1",
+        "primitive": 94
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://80912104536027",
+        "name": "Pane_13_4_1",
+        "primitive": 52
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://139625717392197",
+        "name": "Pane_10_2_1",
+        "primitive": 38
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://121115662067511",
+        "name": "Pane_03_4_1",
+        "primitive": 12
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://139919860358709",
+        "name": "Pane_10_1_1",
+        "primitive": 37
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://119759720341487",
+        "name": "Pane_01_4_1",
+        "primitive": 4
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73810695346833",
+        "name": "Pane_09_4_1",
+        "primitive": 36
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103527448147535",
+        "name": "Pane_09_3_1",
+        "primitive": 35
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99381644814842",
+        "name": "Pane_07_2_1",
+        "primitive": 26
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://81726280186869",
+        "name": "Pane_08_4_1",
+        "primitive": 32
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114636902076627",
+        "name": "Pane_08_3_1",
+        "primitive": 31
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://84039914463268",
+        "name": "Pane_07_4_1",
+        "primitive": 28
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://123128106761387",
+        "name": "Pane_02_3_1",
+        "primitive": 7
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://80799122662076",
+        "name": "Pane_07_1_1",
+        "primitive": 25
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://80641951926873",
+        "name": "Pane_06_4_1",
+        "primitive": 24
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://71094229944742",
+        "name": "Pane_01_3_1",
+        "primitive": 3
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://88117756082334",
+        "name": "Pane_06_1_1",
+        "primitive": 21
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://87075134875310",
+        "name": "Pane_19_3_1",
+        "primitive": 75
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://102697611921114",
+        "name": "Pane_09_2_1",
+        "primitive": 34
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://70917062227962",
+        "name": "Pane_15_3_1",
+        "primitive": 59
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://102567095460185",
+        "name": "Pane_05_1_1",
+        "primitive": 17
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114727877253012",
+        "name": "Pane_22_2_1",
+        "primitive": 86
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78359238877157",
+        "name": "Pane_12_1_1",
+        "primitive": 45
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://98268398372537",
+        "name": "Pane_06_3_1",
+        "primitive": 23
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://136154237219909",
+        "name": "Pane_22_3_1",
+        "primitive": 87
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://85334513005180",
+        "name": "Pane_04_4_1",
+        "primitive": 16
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://85203099867497",
+        "name": "Pane_14_4_1",
+        "primitive": 56
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://130283459996581",
+        "name": "Pane_04_2_1",
+        "primitive": 14
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://114571553597445",
+        "name": "Pane_08_1_1",
+        "primitive": 29
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://78263680603881",
+        "name": "Pane_05_4_1",
+        "primitive": 20
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://103063403866330",
+        "name": "Pane_18_2_1",
+        "primitive": 70
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://140039636098981",
+        "name": "Pane_04_3_1",
+        "primitive": 15
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://84897956267268",
+        "name": "Pane_07_3_1",
+        "primitive": 27
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://97425549210559",
+        "name": "Pane_17_2_1",
+        "primitive": 66
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99944400445299",
+        "name": "Pane_04_1_1",
+        "primitive": 13
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://102888080441470",
+        "name": "Pane_03_3_1",
+        "primitive": 11
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://105695623379871",
+        "name": "Pane_18_4_1",
+        "primitive": 72
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://86164627029427",
+        "name": "Pane_05_2_1",
+        "primitive": 18
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://121476124469351",
+        "name": "Pane_09_1_1",
+        "primitive": 33
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://85077274092907",
+        "name": "Pane_03_1_1",
+        "primitive": 9
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://73977762085967",
+        "name": "Pane_17_4_1",
+        "primitive": 68
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://127884723567109",
+        "name": "Pane_05_3_1",
+        "primitive": 19
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://106490009294030",
+        "name": "Pane_11_1_1",
+        "primitive": 41
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://121048076073169",
+        "name": "Pane_02_1_1",
+        "primitive": 5
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://101209581487598",
+        "name": "Pane_13_1_1",
+        "primitive": 49
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://91546490644661",
+        "name": "Pane_03_2_1",
+        "primitive": 10
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://111163491071155",
+        "name": "Pane_24_3_1",
+        "primitive": 95
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://83643632900065",
+        "name": "Pane_12_3_1",
+        "primitive": 47
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://136814980415151",
+        "name": "Pane_18_3_1",
+        "primitive": 71
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://74205526983612",
+        "name": "Pane_11_3_1",
+        "primitive": 43
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://136223513719087",
+        "name": "Pane_08_2_1",
+        "primitive": 30
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://113872715201255",
+        "name": "Pane_02_2_1",
+        "primitive": 6
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://77709576238692",
+        "name": "Pane_21_4_1",
+        "primitive": 84
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://118968134074084",
+        "name": "Pane_10_3_1",
+        "primitive": 39
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://133803777966202",
+        "name": "Pane_23_2_1",
+        "primitive": 90
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://115656407999941",
+        "name": "Pane_02_4_1",
+        "primitive": 8
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://99217549314471",
+        "name": "Pane_14_3_1",
+        "primitive": 55
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137462005674746",
+        "name": "Pane_14_2_1",
+        "primitive": 54
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://107664222563134",
+        "name": "Pane_01_2_1",
+        "primitive": 2
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://117154253243743",
+        "name": "Pane_01_1_1",
+        "primitive": 1
+      }
+    ],
+    "importScaleCorrection": 1,
+    "meshParts": 96
+  },
+  "FossilStudy": {
+    "maximumCorrespondenceError": 0.0004164945858065039,
+    "meshes": [
+      {
+        "color": [
+          188,
+          168,
+          134
+        ],
+        "meshId": "rbxassetid://125715382883412",
+        "name": "FossilScan4_1",
+        "primitive": 4
+      },
+      {
+        "color": [
+          188,
+          168,
+          134
+        ],
+        "meshId": "rbxassetid://105139229812872",
+        "name": "FossilScan3_1",
+        "primitive": 3
+      },
+      {
+        "color": [
+          188,
+          168,
+          134
+        ],
+        "meshId": "rbxassetid://96634169712574",
+        "name": "FossilScan2_1",
+        "primitive": 2
+      },
+      {
+        "color": [
+          188,
+          168,
+          134
+        ],
+        "meshId": "rbxassetid://89653241809775",
+        "name": "FossilScan1_1",
+        "primitive": 1
+      }
+    ],
+    "importScaleCorrection": 1.0000095717208162,
+    "meshParts": 4
+  },
+  "ChargeBundle": {
+    "maximumCorrespondenceError": 0.00007396334103759727,
+    "meshes": [
+      {
+        "color": [
+          255,
+          85,
+          25
+        ],
+        "meshId": "rbxassetid://123692817456868",
+        "name": "ChargeBundle_1",
+        "primitive": 1
+      },
+      {
+        "color": [
+          255,
+          205,
+          137
+        ],
+        "meshId": "rbxassetid://122805559232090",
+        "name": "ChargeBundle_2",
+        "primitive": 2
+      },
+      {
+        "color": [
+          121,
+          85,
+          69
+        ],
+        "meshId": "rbxassetid://81721491532828",
+        "name": "ChargeBundle_3",
+        "primitive": 3
+      },
+      {
+        "color": [
+          208,
+          218,
+          221
+        ],
+        "meshId": "rbxassetid://82155303332950",
+        "name": "ChargeBundle_4",
+        "primitive": 4
+      },
+      {
+        "color": [
+          245,
+          63,
+          48
+        ],
+        "meshId": "rbxassetid://109793725505893",
+        "name": "ChargeBundle_5",
+        "primitive": 5
+      },
+      {
+        "color": [
+          69,
+          89,
+          101
+        ],
+        "meshId": "rbxassetid://77011192601680",
+        "name": "ChargeBundle_6",
+        "primitive": 6
+      }
+    ],
+    "importScaleCorrection": 0.9999998956310968,
+    "meshParts": 6
+  },
+  "Microscope": {
+    "maximumCorrespondenceError": 0.0003890163279720582,
+    "meshes": [
+      {
+        "color": [
+          160,
+          160,
+          160
+        ],
+        "meshId": "rbxassetid://71673575419835",
+        "name": "Microscope_1",
+        "primitive": 1
+      },
+      {
+        "color": [
+          255,
+          255,
+          255
+        ],
+        "meshId": "rbxassetid://137632893640657",
+        "name": "Microscope_2",
+        "primitive": 2
+      },
+      {
+        "color": [
+          25,
+          25,
+          25
+        ],
+        "meshId": "rbxassetid://72755861054292",
+        "name": "Microscope_3",
+        "primitive": 3
+      },
+      {
+        "color": [
+          235,
+          242,
+          240
+        ],
+        "meshId": "rbxassetid://131495237350067",
+        "name": "Microscope_4",
+        "primitive": 4
+      },
+      {
+        "color": [
+          235,
+          242,
+          240
+        ],
+        "meshId": "rbxassetid://126989540317541",
+        "name": "Microscope_5",
+        "primitive": 5
+      },
+      {
+        "color": [
+          0,
+          158,
+          230
+        ],
+        "meshId": "rbxassetid://113466503619269",
+        "name": "Microscope_6",
+        "primitive": 6
+      },
+      {
+        "color": [
+          245,
+          63,
+          48
+        ],
+        "meshId": "rbxassetid://91112880791251",
+        "name": "Microscope_7",
+        "primitive": 7
+      },
+      {
+        "color": [
+          255,
+          235,
+          56
+        ],
+        "meshId": "rbxassetid://86426214973627",
+        "name": "Microscope_8",
+        "primitive": 8
+      }
+    ],
+    "importScaleCorrection": 1.0000373228085941,
+    "meshParts": 8
+  }
+}

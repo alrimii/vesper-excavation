@@ -1,0 +1,18 @@
+{
+  "placeId": "94763223427049",
+  "universeId": "10773858644",
+  "publishedVersion": 203,
+  "publicationUTC": "2026-11-10 21:28:47",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "bbd3f1bd8994fcb161c57951a7529efebd9142da",
+  "implementationCommit": "recorded after implementation commit",
+  "studioMode": "Edit",
+  "artFrozen": true,
+  "ownerVisualApproval": false,
+  "gameplayUsabilityVerified": false,
+  "nativeFinal": {
+    "path": "Backups/CompactInterior_20261110/ComingSoon_94763223427049_final.rbxl",
+    "bytes": 6821403,
+    "sha256": "0E9872FC63E6FDC0C381CDCDAA6951A81BF8065999609DFA1D345BC3F0C26F4F"
+  }
+}

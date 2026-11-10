@@ -1,0 +1,973 @@
+{
+  "triceratops": {
+    "bounds": [
+      [
+        -1.4025540351867676,
+        -2.9455599784851074,
+        -0.8303830027580261
+      ],
+      [
+        1.4009640216827393,
+        2.945904016494751,
+        0.8313130140304565
+      ]
+    ],
+    "meshes": [
+      {
+        "name": "Mesh_0",
+        "vertices": 102235,
+        "triangles": 149997,
+        "materials": [
+          "default"
+        ]
+      }
+    ]
+  },
+  "microscope": {
+    "bounds": [
+      [
+        -1.5242929458618164,
+        -1.8517869710922241,
+        -4.576035976409912
+      ],
+      [
+        1.9357080459594727,
+        1.8743799924850464,
+        2.9183990955352783
+      ]
+    ],
+    "meshes": [
+      {
+        "name": "group1310875503",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat17"
+        ]
+      },
+      {
+        "name": "group885286645",
+        "vertices": 338,
+        "triangles": 176,
+        "materials": [
+          "mat21",
+          "mat23"
+        ]
+      },
+      {
+        "name": "group783711718",
+        "vertices": 408,
+        "triangles": 192,
+        "materials": [
+          "mat24"
+        ]
+      },
+      {
+        "name": "group1450492813",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat24"
+        ]
+      },
+      {
+        "name": "group1109569671",
+        "vertices": 264,
+        "triangles": 140,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group117407288",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group2139398664",
+        "vertices": 264,
+        "triangles": 140,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1620322347",
+        "vertices": 168,
+        "triangles": 92,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group2040874620",
+        "vertices": 72,
+        "triangles": 36,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1654062520",
+        "vertices": 216,
+        "triangles": 116,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1148083690",
+        "vertices": 216,
+        "triangles": 116,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1289026814",
+        "vertices": 168,
+        "triangles": 92,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group57377674",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group572360325",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1166293576",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1044942333",
+        "vertices": 56,
+        "triangles": 28,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group569583921",
+        "vertices": 178,
+        "triangles": 90,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group825951613",
+        "vertices": 104,
+        "triangles": 52,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group770906073",
+        "vertices": 56,
+        "triangles": 28,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group220375237",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group168341136",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1017271140",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1799724322",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1421946233",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1534988105",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1584677959",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group74647460",
+        "vertices": 168,
+        "triangles": 92,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1159918005",
+        "vertices": 630,
+        "triangles": 356,
+        "materials": [
+          "mat23",
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1701224871",
+        "vertices": 594,
+        "triangles": 336,
+        "materials": [
+          "mat22",
+          "mat23"
+        ]
+      },
+      {
+        "name": "group938811384",
+        "vertices": 30,
+        "triangles": 16,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1185310069",
+        "vertices": 56,
+        "triangles": 28,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group2089885585",
+        "vertices": 824,
+        "triangles": 412,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group790793706",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1884753245",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1628901212",
+        "vertices": 238,
+        "triangles": 124,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1237508476",
+        "vertices": 40,
+        "triangles": 20,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2100072151",
+        "vertices": 216,
+        "triangles": 116,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group476605448",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1637814589",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1777661967",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group657334739",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group864040235",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group281392612",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group1125634052",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1464731652",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group220758406",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group163814341",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2006183730",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1490111821",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group843096370",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1951950635",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1980217521",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1593241695",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1356216359",
+        "vertices": 72,
+        "triangles": 44,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2045446632",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat24"
+        ]
+      },
+      {
+        "name": "group1963302487",
+        "vertices": 24,
+        "triangles": 12,
+        "materials": [
+          "mat25"
+        ]
+      },
+      {
+        "name": "group1091855264",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1471444997",
+        "vertices": 2976,
+        "triangles": 1574,
+        "materials": [
+          "mat21",
+          "mat23",
+          "mat5"
+        ]
+      },
+      {
+        "name": "group319118776",
+        "vertices": 4950,
+        "triangles": 2614,
+        "materials": [
+          "mat17",
+          "mat23",
+          "mat24",
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1056330134",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group64393891",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group777011100",
+        "vertices": 960,
+        "triangles": 552,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group491645444",
+        "vertices": 504,
+        "triangles": 280,
+        "materials": [
+          "mat23"
+        ]
+      },
+      {
+        "name": "group455659107",
+        "vertices": 5520,
+        "triangles": 2604,
+        "materials": [
+          "mat23",
+          "mat17",
+          "mat22",
+          "mat21"
+        ]
+      },
+      {
+        "name": "group2026195609",
+        "vertices": 54,
+        "triangles": 24,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1072206899",
+        "vertices": 72,
+        "triangles": 32,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1112415814",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2144158167",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1274925150",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group752372056",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group40344778",
+        "vertices": 5520,
+        "triangles": 2604,
+        "materials": [
+          "mat22",
+          "mat23",
+          "mat17",
+          "mat21"
+        ]
+      },
+      {
+        "name": "group279022822",
+        "vertices": 5538,
+        "triangles": 2910,
+        "materials": [
+          "mat21",
+          "mat23",
+          "mat24",
+          "mat17",
+          "mat22",
+          "mat5",
+          "mat8"
+        ]
+      },
+      {
+        "name": "group1529720544",
+        "vertices": 216,
+        "triangles": 132,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1108455161",
+        "vertices": 1584,
+        "triangles": 848,
+        "materials": [
+          "mat23",
+          "mat17",
+          "mat24"
+        ]
+      },
+      {
+        "name": "group1314869430",
+        "vertices": 4368,
+        "triangles": 2212,
+        "materials": [
+          "mat23",
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1168373631",
+        "vertices": 2208,
+        "triangles": 1100,
+        "materials": [
+          "mat22",
+          "mat23",
+          "mat8",
+          "mat24"
+        ]
+      },
+      {
+        "name": "group346745787",
+        "vertices": 54,
+        "triangles": 24,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1894961521",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group825139083",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group3785339",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group542933885",
+        "vertices": 90,
+        "triangles": 40,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group673002520",
+        "vertices": 72,
+        "triangles": 32,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1047625343",
+        "vertices": 1920,
+        "triangles": 970,
+        "materials": [
+          "mat22",
+          "mat23",
+          "mat12"
+        ]
+      },
+      {
+        "name": "group1862691557",
+        "vertices": 1806,
+        "triangles": 928,
+        "materials": [
+          "mat23",
+          "mat22",
+          "mat5"
+        ]
+      },
+      {
+        "name": "group1585187784",
+        "vertices": 1842,
+        "triangles": 944,
+        "materials": [
+          "mat23",
+          "mat22",
+          "mat21"
+        ]
+      },
+      {
+        "name": "group10559188",
+        "vertices": 12144,
+        "triangles": 6154,
+        "materials": [
+          "mat21",
+          "mat22",
+          "mat23",
+          "mat8",
+          "mat12",
+          "mat5",
+          "mat24"
+        ]
+      },
+      {
+        "name": "group2116766138",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group999679546",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group32305507",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1050095841",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group823543382",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group306669953",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2106844007",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1243843869",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group444681048",
+        "vertices": 17,
+        "triangles": 7,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1602838336",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2064305052",
+        "vertices": 17,
+        "triangles": 7,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group2056074237",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1488029804",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1181673535",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group249122990",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1737645220",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1625459944",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group590121185",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1024483560",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group967124380",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group1335943734",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      },
+      {
+        "name": "group738980089",
+        "vertices": 18,
+        "triangles": 8,
+        "materials": [
+          "mat22"
+        ]
+      }
+    ]
+  },
+  "charge": {
+    "bounds": [
+      [
+        -0.29793781042099,
+        -0.08144301176071167,
+        -0.10148189961910248
+      ],
+      [
+        0.3169601857662201,
+        0.10360740125179291,
+        0.08577842265367508
+      ]
+    ],
+    "meshes": [
+      {
+        "name": "group329809162",
+        "vertices": 5272,
+        "triangles": 2852,
+        "materials": [
+          "mat14",
+          "mat18",
+          "mat20",
+          "mat15",
+          "mat8.001",
+          "mat17.001"
+        ]
+      }
+    ]
+  }
+}
