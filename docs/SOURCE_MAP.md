@@ -89,3 +89,9 @@ The existing mapped runtime paths remain in place. New canonical modules:
 
 These modules are consumed by the original ExcavationService/ExcavationClient paths, not a second environment. SkillTreeUI creates the player's GUI during ordinary runtime; no module was executed for inspection in Edit mode. Artwork IDs and source/export hashes are in `assets/ui/progression/manifest.json`. Existing builders and release snapshots remain historical, not synchronization targets.
 
+
+## Map cleanup checkpoint
+
+- `src/WorldInteractions.luau` ? `ReplicatedStorage.VesperShared.WorldInteractions`, called by the canonical ExcavationClient for shop entry/focus and blocking-menu reporting.
+- `src/MapCleanupBuilder.luau` ? `ServerStorage.VesperTools.MapCleanupBuilder`, scoped **Edit-only** Central/Ladder/Shop/Rooms recipe; saved original-place geometry is the runtime map. Do not run historical builders or create another place.
+- CollectionCabinet/ExpeditionWorld remain at `ServerScriptService.Vesper`; shelves are built in Edit and refreshed/rebuilt from this same runtime source. Existing source mappings remain authoritative.

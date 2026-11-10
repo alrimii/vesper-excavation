@@ -25,55 +25,7 @@ local function refresh(room)
 			theme = entry
 		end
 	end
-	for i, slot in display.slots do
-		slot.part.Color = theme.Color
-		local selected = owner and owner:GetAttribute("DisplaySlot" .. i)
-		local entry = selected and Rules.Creature(selected)
-		local id = entry and (owner:GetAttribute("Creature_" .. entry.Id) or 0) > 0 and entry.Id or nil
-		slot.label.Text = entry and (entry.Name .. "\n" .. entry.Rarity)
-			or ("DISPLAY 0" .. i .. "\nSELECT IN ARCHIVE")
-		slot.label.TextColor3 = entry and entry.Color or Color3.fromRGB(140, 160, 174)
-		slot.part.Color = entry and entry.Color or theme.Color
-		slot.part.Material = Enum.Material.Metal
-		slot.part.Color = Color3.fromRGB(30, 42, 52)
-		slot.accent.Color = entry and entry.Color or theme.Color
-		if id ~= slot.id then
-			if slot.model then
-				slot.model:Destroy()
-				slot.model = nil
-			end
-			slot.id = id
-			if id then
-				local model = require(Shared.SpecimenBuilder).Build("crownback")
-				Cabinet.Place(model, slot.part)
-				for _, p in model:GetDescendants() do
-					if p:IsA("BasePart") then
-						p.Color = p.Color:Lerp(entry.Color, 0.35)
-						local surface = p:FindFirstChildOfClass("SurfaceAppearance")
-						if surface then
-							surface.Color = entry.Color
-						end
-					end
-				end
-				model.Parent = display.model
-				slot.model = model
-			end
-		end
-	end
-	local relic = display.model:FindFirstChild("AncientRelic")
-	local count = owner and (owner:GetAttribute("Relics") or 0) or 0
-	if count > 0 and not relic then
-		relic = part(
-			display.model,
-			"AncientRelic",
-			Vector3.new(2, 3, 2),
-			display.basis * CFrame.new(0, 8.35, -2) * CFrame.Angles(0, 0, 0.4),
-			Color3.fromRGB(255, 204, 101),
-			Enum.Material.Neon
-		)
-	elseif count == 0 and relic then
-		relic:Destroy()
-	end
+	Cabinet.Refresh(display, owner)
 	for _, p in room:GetChildren() do
 		if p:IsA("BasePart") and (p.Name == "JambStripe" or p.Name == "HeaderLight") then
 			p.Color = theme.Color

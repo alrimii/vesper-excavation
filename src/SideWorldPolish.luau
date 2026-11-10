@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 assert(not game:GetService("RunService"):IsRunning(), "Edit only")
 local lab = workspace.VesperLab
 local access = lab.ExcavationAccess
@@ -208,61 +210,7 @@ beam("CrownEndRail", capA, capB, 0.18, gold)
 local cap = part("CrownEndGuard", Vector3.new(12, 3, 0.25), CFrame.new(-18, 96.545, 0), steel, true)
 cap.Transparency = 1
 part("CrownEndPost", Vector3.new(0.18, 3, 0.18), CFrame.new(-12, 96.545, 0), gold, false)
--- Low-cost environmental motion: sparse vent particles and a small set of status lights.
-local prior = lab:FindFirstChild("AtmosphereDetails")
-if prior then
-	prior:Destroy()
-end
-local details = Instance.new("Model")
-details.Name = "AtmosphereDetails"
-details.Parent = lab
-for i = 0, 7 do
-	local a = i / 8 * math.pi * 2
-	local pos = point(a, 72, 4)
-	local base = part(
-		"CoolingVent",
-		Vector3.new(3, 0.3, 1.8),
-		CFrame.new(pos) * CFrame.Angles(0, -a, 0),
-		steel,
-		false,
-		details
-	)
-	local attachment = Instance.new("Attachment")
-	attachment.Parent = base
-	local mist = Instance.new("ParticleEmitter")
-	mist.Name = "VentMist"
-	mist.Texture = "rbxasset://textures/particles/smoke_main.dds"
-	mist.Rate = 0.6
-	mist.Lifetime = NumberRange.new(2, 3.5)
-	mist.Speed = NumberRange.new(0.7, 1.3)
-	mist.SpreadAngle = Vector2.new(12, 12)
-	mist.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.3), NumberSequenceKeypoint.new(1, 2) })
-	mist.Transparency = NumberSequence.new({
-		NumberSequenceKeypoint.new(0, 1),
-		NumberSequenceKeypoint.new(0.25, 0.89),
-		NumberSequenceKeypoint.new(1, 1),
-	})
-	mist.Color = ColorSequence.new(Color3.fromRGB(176, 201, 211))
-	mist.LightInfluence = 1
-	mist.Parent = attachment
-	local lens = part(
-		"StatusLens",
-		Vector3.new(1.6, 0.06, 0.18),
-		base.CFrame * CFrame.new(0, 0.19, 0),
-		Color3.fromRGB(93, 185, 180),
-		false,
-		details
-	)
-	lens.Material = Enum.Material.Neon
-	lens.CastShadow = false
-	lens:SetAttribute("PulsePhase", i * 0.7)
-	local light = Instance.new("PointLight")
-	light.Brightness = 0.25
-	light.Range = 10
-	light.Shadows = false
-	light.Color = lens.Color
-	light.Parent = lens
-end
+-- Decorative CoolingVent / StatusLens generation retired by MapCleanupBuilder.
 local lighting = game:GetService("Lighting")
 lighting.EnvironmentSpecularScale = 0.48
 lighting.EnvironmentDiffuseScale = 0.70
@@ -277,5 +225,5 @@ return {
 	ladderHeight = ladderTop - ladderBottom,
 	upperJoinGap = maxGap,
 	crown = "connected semicircle with end guard",
-	ventCount = 8,
+	ventCount = 0,
 }

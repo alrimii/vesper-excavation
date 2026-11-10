@@ -55,7 +55,7 @@ function M.Build(rooms)
 					"Purpose",
 					178,
 					90,
-					archive and "Choose shelf displays\nActivate a mining companion"
+					archive and "Choose collection favorites\nActivate a mining companion"
 						or "Choose your lighting theme\nPersonalize your laboratory",
 					27,
 					Color3.fromRGB(157, 180, 193)

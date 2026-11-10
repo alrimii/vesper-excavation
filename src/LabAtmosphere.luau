@@ -63,15 +63,6 @@ end
 function A.Start()
 	local items = A.BuildDisplays()
 	local players = game:GetService("Players")
-	local lights = {}
-	local details = workspace.VesperLab:WaitForChild("AtmosphereDetails", 15)
-	if details then
-		for _, p in details:GetChildren() do
-			if p.Name == "StatusLens" then
-				table.insert(lights, p)
-			end
-		end
-	end
 	local elapsed = 0
 	game:GetService("RunService").Heartbeat:Connect(function(dt)
 		elapsed += dt
@@ -79,11 +70,6 @@ function A.Start()
 			return
 		end
 		elapsed = 0
-		local now = workspace:GetServerTimeNow()
-		for _, p in lights do
-			local pulse = 0.5 + 0.5 * math.sin(now * 0.8 + (p:GetAttribute("PulsePhase") or 0))
-			p.Color = Color3.fromRGB(62, 132, 139):Lerp(Color3.fromRGB(116, 210, 192), pulse * 0.65)
-		end
 		for _, item in items do
 			local localPlayer = players.LocalPlayer
 			local character = localPlayer and localPlayer.Character

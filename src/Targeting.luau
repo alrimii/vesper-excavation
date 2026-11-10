@@ -4,6 +4,7 @@ function T.new(player, gui, egg, C)
 	local UIS = game:GetService("UserInputService")
 	local Run = game:GetService("RunService")
 	local shared = game.ReplicatedStorage.VesperShared
+	local state = shared:WaitForChild("RoundState")
 	local targeter = { confirmedUntil = 0 }
 	local highlight = Instance.new("Highlight")
 	highlight.Name = "TargetPlate"
@@ -105,7 +106,8 @@ function T.new(player, gui, egg, C)
 		local ch = player.Character
 		local head = ch and ch:FindFirstChild("Head")
 		local camera = workspace.CurrentCamera
-		if not head or not camera then
+		local root = ch and ch:FindFirstChild("HumanoidRootPart")
+		if not head or not root or not camera or state:GetAttribute("Status") ~= "Excavating" or not state:GetAttribute("Ready") then
 			return
 		end
 		local params = RaycastParams.new()
@@ -131,7 +133,11 @@ function T.new(player, gui, egg, C)
 		return section,
 			(exposed and direct.Position or hit.Position),
 			(exposed and direct.Normal or hit.Normal),
-			exposed and distance <= C.Mining.Reach and section:GetAttribute("Exposed") == true,
+			exposed and (direct.Position - head.Position).Magnitude <= C.Mining.Reach
+				and (direct.Position - root.Position).Magnitude <= C.Mining.Reach + 3
+				and section:GetAttribute("Exposed") == true
+				and not section:GetAttribute("Permanent")
+				and section:GetAttribute("Layer") == state:GetAttribute("ActiveLayer"),
 			distance,
 			exposed
 	end
@@ -171,6 +177,7 @@ function T.new(player, gui, egg, C)
 		end
 		if kind == "Pickaxe" then
 			local section, point, normal, valid, _distance, exposed = solve()
+			valid = valid == true
 			if not section then
 				hide()
 				gui.Crosshair.TextColor3 = Color3.fromRGB(190, 196, 196)
@@ -190,7 +197,7 @@ function T.new(player, gui, egg, C)
 			highlight.FillColor = color
 			highlight.OutlineColor = color
 			-- Damaged shell appearance must not depend on the selection pass.
-			highlight.Enabled = not (
+			highlight.Enabled = valid and not (
 				section:GetAttribute("Layer") == 1
 				and reactions
 				and reactions:FindFirstChild("Stress_" .. section.Name)
@@ -198,7 +205,7 @@ function T.new(player, gui, egg, C)
 			anchor.Position = point + normal * 0.06
 			stroke.Color = color
 			dot.BackgroundColor3 = color
-			mark.Enabled = true
+			mark.Enabled = valid
 			status.Visible = gui.Toast.Text == "" and not gui:GetAttribute("CoreTargetSuppressed")
 			local layer = C.Layers[section:GetAttribute("Layer")]
 			local maxHealth = section:GetAttribute("MaxHP") or layer.Durability

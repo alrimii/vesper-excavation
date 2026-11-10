@@ -1,5 +1,7 @@
 # Gameplay HUD redesign checkpoint
 
+Map cleanup delivery: [scoped implementation and evidence](../map-cleanup/REVIEW.md). World/ladder/frontage/shop/room and targeting corrections are delivered for review, **not closed or visually accepted**. HUD/menu/tree redesign remains paused. The mobile dark-boundary cause remains unresolved.
+
 ## Owner review ledger — all issues open until corrected and reviewed
 
 The owner rejected HUD, loading, menus, skill tree, shop and world presentation. **The owner's screenshots were not supplied; the following are owner-reported observations, not screenshots inspected by the implementation engineer. All described problems predate the progress reset and must not be attributed to it.** The fixed fresh-start save generation is unchanged. This earlier checkpoint is historical, not an approved visual foundation. The new HUD delivery is recorded in [replacement checkpoint](../hud-rebuild/REVIEW.md).

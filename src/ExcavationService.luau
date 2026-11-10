@@ -32,6 +32,13 @@ local function practiceFor(p)
 	local room = ownRoom(p)
 	return room and room:FindFirstChild("TrainingStation")
 end
+local function inTrainingArea(root, device)
+	local spot = device and device:FindFirstChild("TrainingSpot")
+	if not root or not spot then return false end
+	local offset = spot.CFrame:PointToObjectSpace(root.Position)
+	return math.abs(offset.X) <= spot.Size.X / 2 and math.abs(offset.Z) <= spot.Size.Z / 2
+		and offset.Y >= 0 and offset.Y <= 7
+end
 local function training(p, s, enabled)
 	local ch = p.Character
 	local root = ch and ch:FindFirstChild("HumanoidRootPart")
@@ -46,7 +53,8 @@ local function training(p, s, enabled)
 			or not hum
 			or hum.Health <= 0
 			or not device
-			or (root.Position - device.TrainingSpot.Position).Magnitude > 18
+			or not inTrainingArea(root, device)
+			or s.worldMenu or s.skillMenu
 		then
 			return false
 		end
@@ -55,20 +63,8 @@ local function training(p, s, enabled)
 			return false
 		end
 		s.trainingRoot, s.trainingHumanoid = root, hum
-		s.trainingAnchored, s.trainingAutoRotate = root.Anchored, hum.AutoRotate
-		local floor = device.TrainingSpot.Position.Y + device.TrainingSpot.Size.Y * 0.5
-		local height = hum.HipHeight + root.Size.Y * 0.5
-		if hum.RigType == Enum.HumanoidRigType.R6 then
-			height += 2
-		end
-		local position =
-			Vector3.new(device.TrainingSpot.Position.X, floor + height, device.TrainingSpot.Position.Z)
-		ch:PivotTo(
-			CFrame.lookAt(
-				position,
-				Vector3.new(device.PracticeEgg.Position.X, position.Y, device.PracticeEgg.Position.Z)
-			)
-		)
+		local position = root.Position
+		s.trainingDevice = device
 		if tool.Parent ~= ch then
 			hum:EquipTool(tool)
 		end
@@ -84,18 +80,12 @@ local function training(p, s, enabled)
 		p:SetAttribute("TrainingTarget", target)
 		device:SetAttribute("TrainingStartedAt", s.trainingStarted)
 		device:SetAttribute("TrainingFamily", family)
-		root.AssemblyLinearVelocity = Vector3.zero
-		root.AssemblyAngularVelocity = Vector3.zero
-		root.Anchored = true
-		hum.AutoRotate = false
 		cancelAttack(p, s)
 	else
-		if s.trainingRoot and s.trainingRoot.Parent then
-			s.trainingRoot.Anchored = s.trainingAnchored == true
-		end
-		if s.trainingHumanoid and s.trainingHumanoid.Parent then
-			s.trainingHumanoid.AutoRotate = s.trainingAutoRotate ~= false
-		end
+		if s.trainingDevice and s.trainingDevice.Parent then s.trainingDevice:SetAttribute("TrainingActive", false) end
+		s.trainingDevice = nil
+		-- Suppress immediate re-entry after a manual stop, tool switch or menu cancellation.
+		s.trainingSuppressed = true
 		s.trainingRoot, s.trainingHumanoid = nil, nil
 		p:SetAttribute("TrainingStartedAt", nil)
 		p:SetAttribute("TrainingTarget", nil)
@@ -1391,6 +1381,11 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		end
 		return
 	end
+	if kind == "WorldInteractionMenu" and typeof(a) == "boolean" then
+		s.worldMenu = a
+		if a and s.training then training(p, s, false) end
+		return
+	end
 	if (kind == "SkillMenu" or kind == "BlockingMenu") and typeof(a) == "boolean" then
 		if kind == "SkillMenu" then
 			s.skillMenu = a
@@ -1986,6 +1981,16 @@ task.spawn(function()
 	while true do
 		task.wait(0.25)
 		for p, session in sessions do
+			local _, nearbyRoot = alive(p)
+			local ownedDevice = practiceFor(p)
+			local account = accounts[p.UserId]
+			local inside = inTrainingArea(nearbyRoot, ownedDevice)
+			if not inside then session.trainingSuppressed = false end
+			if inside and not session.training and not session.trainingSuppressed
+				and account and account.strength < 10000 and p:GetAttribute("LabReady") == true
+				and not session.worldMenu and not session.skillMenu then
+				training(p, session, true)
+			end
 			if session.training then
 				local _, root = alive(p)
 				local a = accounts[p.UserId]
@@ -1998,7 +2003,9 @@ task.spawn(function()
 					or session.trainingHumanoid.Health <= 0
 					or not session.tools.Pickaxe
 					or session.tools.Pickaxe.Parent ~= p.Character
-					or (root.Position - device.TrainingSpot.Position).Magnitude > 10
+					or not inTrainingArea(root, device)
+					or device ~= session.trainingDevice
+					or session.worldMenu or session.skillMenu
 				then
 					training(p, session, false)
 				else
@@ -2024,20 +2031,7 @@ task.spawn(function()
 		end
 	end
 end)
-for _, room in workspace.VesperLab.Rooms:GetChildren() do
-	local device = room:FindFirstChild("TrainingStation")
-	local prompt = device and device:FindFirstChild("TrainStrength", true)
-	if prompt then
-		prompt.Triggered:Connect(function(p)
-			local s = sessions[p]
-			if not s or os.clock() - s.lastStation < 0.3 or room:GetAttribute("OwnerUserId") ~= p.UserId then
-				return
-			end
-			s.lastStation = os.clock()
-			training(p, s, not s.training)
-		end)
-	end
-end
+-- Training is driven by the server-owned marked area, without a keyboard prompt.
 local workshop = workspace.VesperLab:FindFirstChild("SharedWorkshop")
 for _, entry in require(script.Parent.RoomTerminals).Build(workspace.VesperLab.Rooms) do
 	local function updateOwner()

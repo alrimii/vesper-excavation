@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 -- Edit-time, repeatable builder. The finished room is saved in the place.
 local lab = workspace.VesperLab
 local old = lab:FindFirstChild("SharedWorkshop")

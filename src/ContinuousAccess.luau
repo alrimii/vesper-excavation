@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 -- Edit-time replacement: one uninterrupted walking surface, no crossing galleries.
 assert(not game:GetService("RunService"):IsRunning(), "Stop Play before rebuilding access")
 local lab=workspace.VesperLab

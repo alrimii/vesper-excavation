@@ -27,6 +27,8 @@ local function ring(parent, name, radius, y, width, color, material)
 	end
 end
 function P.Build()
+ assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
+
 	local lab = workspace.VesperLab
 	local old = lab:FindFirstChild("Presentation")
 	if old then

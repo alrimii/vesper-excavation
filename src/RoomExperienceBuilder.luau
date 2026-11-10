@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 -- Edit-time art pass. Existing geometry is archived, never deleted.
 local lab = workspace.VesperLab
 local archive = game.ServerStorage:FindFirstChild("RoomRebuildArchive") or Instance.new("Folder")
@@ -124,14 +126,7 @@ for _, room in lab.Rooms:GetChildren() do
 		cyan,
 		Enum.Material.Neon
 	)
-	local prompt = Instance.new("ProximityPrompt")
-	prompt.Name = "TrainStrength"
-	prompt.ActionText = "Train / Stop"
-	prompt.ObjectText = "Tool practice"
-	prompt.KeyboardKeyCode = Enum.KeyCode.F
-	prompt.RequiresLineOfSight = false
-	prompt.MaxActivationDistance = 14
-	prompt.Parent = console
+	-- Training entry uses the marked server-owned area; no TrainStrength prompt.
 	sign(station, station.Crosshead, "TOOL PRACTICE", "EQUIP / TRAIN / GROW", cyan)
 	station.PrimaryPart = base
 	station.Parent = room

@@ -23,8 +23,6 @@ function B.Build()
 			p:IsA("BasePart")
 			and (
 				p.Name == "CeilingFixture"
-				or p.Name == "DeckLamp"
-				or p.Name == "UpperShellLight"
 				or p.Name == "HeaderLight"
 			)
 		then

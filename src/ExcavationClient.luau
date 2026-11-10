@@ -165,6 +165,11 @@ local modern = require(Shared.HUDController).Build(gui, player, Action, function
 end, function()
 	equip("Pickaxe")
 end, DiscoveryHUD.Toggle, skillTree.Toggle)
+require(Shared.WorldInteractions).Start(player, gui, Action, function(page)
+	cancel()
+	shopOpen = true
+	workshop:Select(page)
+end, function() return shopOpen end)
 local function selectTool(id)
 	if
 		player:GetAttribute("LabReady") ~= true

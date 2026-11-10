@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 -- Edit-time, persistent native geometry. No runtime mesh permissions required.
 assert(not game:GetService("RunService"):IsRunning(), "Edit only")
 local lab = workspace.VesperLab

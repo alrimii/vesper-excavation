@@ -119,6 +119,8 @@ local function buildEgg(root)
  return root.Egg
 end
 function Builder.Build()
+ assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
+
  assert(game:GetService("RunService"):IsStudio() and not game:GetService("RunService"):IsRunning(),"Edit mode only")
  local root=workspace:FindFirstChild("VesperLab") assert(root,"Existing lab missing")
  for _,name in {"Architecture","FloorMarkings","Dome","Infrastructure","CentralPlatform","OverheadRig","ObservationConsole1","ObservationConsole2","ObservationConsole3","ObservationConsole4","RouteDetails"} do
@@ -246,9 +248,6 @@ function Builder.Build()
   local cf=CFrame.Angles(0,i*math.pi/3,0)
   part(center,"CradleClamp",Vector3.new(3,4,4),cf*CFrame.new(0,5.2,12.5),C.Panel)
   part(center,"ClampCap",Vector3.new(2.4,.35,3.2),cf*CFrame.new(0,7.4,12.5),C.Amber,Enum.Material.Metal,false)
-  local lamp=part(center,"DeckLamp",Vector3.new(2,.3,2),cf*CFrame.new(0,13,40),C.Warm,Enum.Material.Neon,false)
-  point(lamp,.85,48,Color3.fromRGB(255,231,203))
-  part(center,"DeckLightStem",Vector3.new(.35,10,.35),cf*CFrame.new(0,7.7,40),C.Dark)
  end
  local overhead=model(root,"OverheadRig")
  ring(overhead,"SuspendedStructure",65,106,2,2,C.Dark,64)
@@ -256,9 +255,6 @@ function Builder.Build()
  for i=0,5 do
   local a=i*math.pi/3 local x,z=math.sin(a)*65,math.cos(a)*65
   bar(overhead,"SuspensionCable",Vector3.new(x,107,z),Vector3.new(x,201,z),.35,C.Trim)
-  local lamp=part(overhead,"UpperShellLight",Vector3.new(7,.5,4),CFrame.new(x,78,z),C.Warm,Enum.Material.Neon,false)
-  point(lamp,.7,60,Color3.fromRGB(255,231,203))
-  bar(overhead,"FixtureDrop",Vector3.new(x,104,z),Vector3.new(x,79,z),.2,C.Dark)
  end
  for i=0,3 do
   local cf=CFrame.Angles(0,i*math.pi/2+math.pi/12,0)

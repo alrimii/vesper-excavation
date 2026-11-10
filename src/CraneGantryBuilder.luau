@@ -1,3 +1,5 @@
+-- Historical recipe: protected against restoring superseded map geometry.
+assert(not (workspace:FindFirstChild("VesperLab") and workspace.VesperLab:GetAttribute("MapCleanupRevision")), "Historical recipe retired; use MapCleanupBuilder for the current map")
 -- Edit-time construction. The fixed gantry carries every animated hoist cable.
 local lab = workspace.VesperLab
 local old = lab:FindFirstChild("CraneGantry")

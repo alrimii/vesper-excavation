@@ -48,8 +48,8 @@ function M.Start(player)
 				local status = screen and screen:FindFirstChild("TrainingStatus")
 				if status then
 					status.Status.Text = active and "TRAINING" or "READY"
-					status.Subtitle.Text = active and (family:upper() .. " / TAP TO STOP")
-						or "START / STOP NEAR THE BENCH"
+					status.Subtitle.Text = active and (family:upper() .. " / WALK OFF TO STOP")
+						or "STEP ON PAD TO TRAIN"
 				end
 				local lens = d.model:FindFirstChild("BenchStatusLens", true)
 				if lens then

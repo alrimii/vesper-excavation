@@ -1,0 +1,8 @@
+Original place 94763223427049, existing universe 10773858644.
+Minimal native Studio log excerpts; unrelated session/account details omitted.
+2026-11-10T09:04:16.789Z [PublishSessionStateController] Go to PublishSuccessful
+2026-11-10T09:04:16.789Z [StudioPublishStatusLabel] Publish succeeded for placeId 94763223427049
+2026-11-10T09:04:16.796Z [CreatorOutput] Add publish notes to v142
+2026-11-10T09:04:16.820Z [CreatorOutput] Published new changes in "Coming Soon" to Roblox.
+Single explicit existing-place Publish invocation. No Publish As, audience change or new place.
+The prior native Download a Copy operation also saved the original place to Roblox; it was not the publication evidence used here.
