@@ -1,6 +1,6 @@
 # Focused moving-atmosphere checkpoint — v188
 
-Published **v188** to original place **94763223427049**, **2026-11-10 18:28:59 UTC**, confirmed by Studio's `publishType=1`, place ID and “Add publish notes to v188” log. Branch `planning/development-foundation`; clean starting commit **a74146310a56e5341e7cb7144f4f34cfe66ca14f**, Studio loaded v184. Final implementation/evidence commit is recorded in the continuity entry. Frozen after the single runtime session; no post-capture art corrections.
+Published **v188** to original place **94763223427049**, **2026-11-10 18:28:59 UTC**, confirmed by Studio's `publishType=1`, place ID and “Add publish notes to v188” log. Branch `planning/development-foundation`; clean starting commit **a74146310a56e5341e7cb7144f4f34cfe66ca14f**, Studio loaded v184. Implementation/evidence commit: [8f1706c507b76b9645c64975b70901f9d513c559](https://github.com/alrimii/vesper-excavation/commit/8f1706c507b76b9645c64975b70901f9d513c559). Frozen after the single runtime session; no post-capture art corrections.
 
 ## Actual evidence
 

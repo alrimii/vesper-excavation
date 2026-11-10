@@ -1,6 +1,6 @@
 # Current checkpoint — focused moving atmosphere
 
-Published **v188** to original place **94763223427049**, confirmed **2026-11-10 18:28:59 UTC**. Branch `planning/development-foundation`; began from clean **a74146310a56e5341e7cb7144f4f34cfe66ca14f / v184**. [Short review, matched quality captures, partial runtime video and recovery](reviews/exterior-atmosphere/REVIEW.md). Implementation commit is recorded by the following continuity entry.
+Published **v188** to original place **94763223427049**, confirmed **2026-11-10 18:28:59 UTC**. Branch `planning/development-foundation`; began from clean **a74146310a56e5341e7cb7144f4f34cfe66ca14f / v184**. [Short review, matched quality captures, partial runtime video and recovery](reviews/exterior-atmosphere/REVIEW.md). Implementation/evidence commit: [8f1706c507b76b9645c64975b70901f9d513c559](https://github.com/alrimii/vesper-excavation/commit/8f1706c507b76b9645c64975b70901f9d513c559); this continuity entry is documentation only.
 
 Eight locally animated mist ribbons replace the two old wisps; native clouds use steady gentle GlobalWind, with a small stable atmospheric-depth adjustment. Existing sky/glazing/interior/landscape placement and gameplay are preserved. Active sources: `VesperShared.ExteriorAtmosphereConfig`, `StarterPlayerScripts.ExteriorAtmosphereMotion`, `VesperTools.ExteriorAtmosphereBuilder`; the exterior recipe delegates only its atmosphere section.
 
