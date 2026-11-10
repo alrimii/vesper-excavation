@@ -1,0 +1,96 @@
+{
+  "preNavigation": {
+    "stopped": {
+      "at": 1794352160.314514,
+      "training": false,
+      "startCleared": true,
+      "stationStartCleared": true,
+      "root": "-99.49370574951172, 4.6797590255737305, 154.7328338623047",
+      "stationActive": false,
+      "strength": 0,
+      "targetCleared": true
+    },
+    "note": "Optional default PlayerModule controls helper unavailable; no training entry occurred. Ordinary Humanoid walking remains available.",
+    "active": {
+      "at": 1794352150.062904,
+      "training": false,
+      "rootAnchored": false,
+      "root": "-88.0013427734375, 4.6797590255737305, 169.10023498535156",
+      "stationActive": false,
+      "strength": 0
+    }
+  },
+  "events": [
+    {
+      "at": 1794352115.814587,
+      "training": false,
+      "key": "baseline",
+      "target": "nil",
+      "strength": 0,
+      "position": "-88.0013427734375, 4.6797590255737305, 169.10023498535156"
+    },
+    {
+      "at": 1794352193.54484,
+      "training": true,
+      "key": "Training",
+      "started": 1794352193.544693,
+      "target": "-110.95823669433594, 4.982500076293945, 163.07054138183594",
+      "strength": 0,
+      "position": "-110.86106872558594, 4.6797590255737305, 159.27976989746094"
+    },
+    {
+      "at": 1794352196.144964,
+      "training": true,
+      "key": "Strength",
+      "started": 1794352193.544693,
+      "target": "-110.95823669433594, 4.982500076293945, 163.07054138183594",
+      "strength": 1,
+      "position": "-110.86106872558594, 4.6797590255737305, 159.27976989746094"
+    },
+    {
+      "at": 1794352198.745498,
+      "training": true,
+      "key": "Strength",
+      "started": 1794352193.544693,
+      "target": "-110.95823669433594, 4.982500076293945, 163.07054138183594",
+      "strength": 2,
+      "position": "-110.86106872558594, 4.6797590255737305, 159.27976989746094"
+    },
+    {
+      "at": 1794352201.094229,
+      "training": true,
+      "key": "Strength",
+      "started": 1794352193.544693,
+      "target": "-110.95823669433594, 4.982500076293945, 163.07054138183594",
+      "strength": 3,
+      "position": "-110.86106872558594, 4.6797590255737305, 159.27976989746094"
+    },
+    {
+      "at": 1794352203.71024,
+      "training": false,
+      "key": "Training",
+      "target": "nil",
+      "strength": 3,
+      "position": "-106.12088012695312, 4.6797590255737305, 157.01805114746094"
+    }
+  ],
+  "started": 1794352115.814557,
+  "stopped": {
+    "at": 1794352207.095673,
+    "training": false,
+    "startCleared": true,
+    "stationStartCleared": true,
+    "root": "-100.77888488769531, 4.6797590255737305, 154.47109985351562",
+    "stationActive": false,
+    "strength": 3,
+    "targetCleared": true
+  },
+  "active": {
+    "at": 1794352198.727707,
+    "training": true,
+    "rootAnchored": false,
+    "root": "-110.86106872558594, 4.6797590255737305, 159.27976989746094",
+    "stationActive": true,
+    "strength": 1
+  }
+}

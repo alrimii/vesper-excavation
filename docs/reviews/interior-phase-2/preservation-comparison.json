@@ -1,0 +1,16 @@
+{
+  "geometry": true,
+  "rooms": true,
+  "anchors": true,
+  "lighting": true,
+  "atmosphere": true,
+  "clouds": true,
+  "changedRuntimeSources": [
+    "ServerScriptService.Vesper.RoomTerminals",
+    "ReplicatedStorage.VesperShared.RoomAnimation",
+    "ServerScriptService.Vesper.CollectionCabinet",
+    "ServerScriptService.Vesper.ExcavationService",
+    "ServerScriptService.Vesper.ExpeditionWorld"
+  ],
+  "runtimeSourceCount": 82
+}

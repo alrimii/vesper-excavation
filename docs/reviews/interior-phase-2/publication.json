@@ -1,0 +1,19 @@
+{
+  "placeId": 94763223427049,
+  "version": 212,
+  "publishedAtUtc": "2026-11-10T23:12:41.869Z",
+  "method": "Original Studio File > Publish latest version; publishType=1",
+  "log": "0.747.0.7471481_20261110T215903Z_Studio_39CA9_last.log",
+  "evidence": [
+    "2026-11-10T23:12:37.493Z publish request routing through state machine (publishType=1)",
+    "2026-11-10T23:12:41.866Z Publish succeeded for placeId 94763223427049",
+    "2026-11-10T23:12:41.868Z Published new changes in Coming Soon to Roblox",
+    "2026-11-10T23:12:41.869Z Add publish notes to v212"
+  ],
+  "nativeCheckpoint": {
+    "path": "C:/Users/BOSS/Desktop/egg/Backups/InteriorPhase2_20261111/ComingSoon_94763223427049_final.rbxl",
+    "bytes": 6589977,
+    "sha256": "F2008DFD1CB524E56614CD66372EAD3439D756F084C1F387E30F615668AA0419"
+  },
+  "note": "Download a Copy first saved the cloud draft (publishType=2), then saved the native file. The separate publishType=1 success above verifies publication; cached game.PlaceVersion was not used."
+}

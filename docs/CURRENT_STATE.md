@@ -1,4 +1,14 @@
-# Current checkpoint — Interior Phase 1, published v208
+# Current checkpoint — Interior Phase 2, published v212
+
+Original place **94763223427049**, branch `planning/development-foundation`. **Published v212** at **2026-11-10 23:12:41 UTC**; native saved and Studio stopped in Edit. [Review, actual screenshots and known limitations](reviews/interior-phase-2/REVIEW.md), [Git delivery](reviews/interior-phase-2/delivery.json). All twelve personal-room interiors, left-wall modular collections, training stations and separate care reserves were replaced with one room-local recipe; obsolete instances and generators were removed.
+
+Automatic training checked a client-only LabReady attribute on the server. It now uses existing server-owned readiness and validates the current character/owner station. One 147.295-second existing memory-only session observed start, strength 0→3 at unchanged rates, exit and clean stop. No grants, resets, production writes, unrelated gameplay or additional session. Lifecycle/multiplayer cases remain unverified at runtime. Art froze after final captures; broad open floor, spare shelf space and current creature/label limitations are explicit.
+
+The 13,728 protected parts outside rooms, twelve exterior shells/pivots/frontages/roofs, spawns/thresholds, 39 anchor paths and global environment settings match the baseline. Five scoped runtime sources changed; fixed generation and protected gameplay/data remain intact. [Authoritative source/anchor/removal paths](reviews/interior-phase-2/replacement-ledger.md). `ServerStorage.VesperTools.RoomInteriorBuilder` is the personal-room Edit recipe; `ServerScriptService.Vesper.CollectionCabinet` is the shared Edit/runtime collection recipe. Phase 1 LabInteriorBuilder continues to own shared architecture.
+
+The owner requests continuation through the agreed phases without repeated visual-approval pauses. All Phase 3–5 and deferred requirements remain in [the retained plan](reviews/interior-phase-2/PLAN.md); none began in Phase 2. Current delivery ends in Edit; no new Phase 2 art/test loop is authorized by its completion.
+
+## Previous checkpoint — Interior Phase 1, published v208
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v208** at **2026-11-10 22:35:16 UTC**, verified in Studio's original-place publish log. [Review and actual screenshots](reviews/interior-phase-1/REVIEW.md), [delivery identity](reviews/interior-phase-1/delivery.json). The native checkpoint is saved; Studio is stopped in Edit and implementation is frozen for owner review.
 

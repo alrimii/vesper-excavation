@@ -15,6 +15,7 @@ end
 local Cabinet = require(script.Parent.CollectionCabinet)
 for _, room in rooms:GetChildren() do
 	displays[room] = Cabinet.Build(room)
+	task.wait()
 end
 local function refresh(room)
 	local display = displays[room]
@@ -26,9 +27,9 @@ local function refresh(room)
 		end
 	end
 	Cabinet.Refresh(display, owner)
-	for _, p in room:GetChildren() do
-		if p:IsA("BasePart") and (p.Name == "JambStripe" or p.Name == "HeaderLight") then
-			p.Color = theme.Color
+	for _, p in room:GetDescendants() do
+		if p:IsA("BasePart") and p:GetAttribute("RoomThemeAccent") then
+			p.Color = Color3.fromRGB(94, 111, 97):Lerp(theme.Color, 0.25)
 		end
 	end
 end
@@ -87,13 +88,14 @@ local function join(p)
 			"DisplaySlot2",
 			"DisplaySlot3",
 			"Relics",
-			"Creature_crownback",
-			"Creature_crownback_gilded",
-			"Creature_crownback_ember",
+			"ProfileReady",
 			"RoomNumber",
 		}
 	do
 		table.insert(list, p:GetAttributeChangedSignal(key):Connect(update))
+	end
+	for _, entry in Rules.CreatureVariants do
+		table.insert(list, p:GetAttributeChangedSignal("Creature_" .. entry.Id):Connect(update))
 	end
 	table.insert(list, p.CharacterAdded:Connect(outfit))
 	links[p] = list

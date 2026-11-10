@@ -1,0 +1,78 @@
+{
+  "normalization": "LF and trailing whitespace removed",
+  "files": {
+    "CollectionCabinet": {
+      "local": {
+        "bytes": 6869,
+        "adler32": 1186205986
+      },
+      "live": {
+        "bytes": 6869,
+        "path": "ServerScriptService.Vesper.CollectionCabinet",
+        "adler32": 1186205986
+      },
+      "match": true
+    },
+    "RoomTerminals": {
+      "local": {
+        "bytes": 2920,
+        "adler32": 3831722168
+      },
+      "live": {
+        "bytes": 2920,
+        "path": "ServerScriptService.Vesper.RoomTerminals",
+        "adler32": 3831722168
+      },
+      "match": true
+    },
+    "ExpeditionWorld": {
+      "local": {
+        "bytes": 3187,
+        "adler32": 391840728
+      },
+      "live": {
+        "bytes": 3187,
+        "path": "ServerScriptService.Vesper.ExpeditionWorld",
+        "adler32": 391840728
+      },
+      "match": true
+    },
+    "ExcavationService": {
+      "local": {
+        "bytes": 68060,
+        "adler32": 4287422548
+      },
+      "live": {
+        "bytes": 68060,
+        "path": "ServerScriptService.Vesper.ExcavationService",
+        "adler32": 4287422548
+      },
+      "match": true
+    },
+    "RoomAnimation": {
+      "local": {
+        "bytes": 2354,
+        "adler32": 3976520632
+      },
+      "live": {
+        "bytes": 2354,
+        "path": "ReplicatedStorage.VesperShared.RoomAnimation",
+        "adler32": 3976520632
+      },
+      "match": true
+    },
+    "RoomInteriorBuilder": {
+      "local": {
+        "bytes": 12431,
+        "adler32": 3077287803
+      },
+      "live": {
+        "bytes": 12431,
+        "path": "ServerStorage.VesperTools.RoomInteriorBuilder",
+        "adler32": 3077287803
+      },
+      "match": true
+    }
+  },
+  "allMatch": true
+}

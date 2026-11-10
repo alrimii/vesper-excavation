@@ -1,4 +1,10 @@
-# Current roadmap checkpoint — Interior Phase 1 published v208
+# Current roadmap checkpoint — Interior Phase 2 published v212
+
+[Phase 2 review](reviews/interior-phase-2/REVIEW.md): reusable replacement applied to all twelve room interiors, modular owner-data collection, separate care reserve and actual training-readiness defect repaired. One 147.295-second memory-only runtime session observed entry, normal strength awards and exit/stop. Native saved, original place published v212, stopped in Edit; post-capture art frozen with limitations recorded. No Phase 1 reopening or later-phase implementation.
+
+Every remaining owner requirement is retained in [Phase 2 PLAN](reviews/interior-phase-2/PLAN.md) and the complete original brief/index below. Phase 3 planting/scenery/mist/lighting, Phase 4 tools/charge presentation, Phase 5 complete interface/icon/handler replacement, and existing deferred gate/road/skills/rebirth/monetization/worlds remain unchanged. The owner requests continuation without repeated visual-approval gates; do not add one or reduce later requirements. The temporary-asset policy also remains unchanged; Phase 2 selected CC0 furniture with exact provenance.
+
+## Previous roadmap checkpoint — Interior Phase 1 published v208
 
 [Phase 1 review](reviews/interior-phase-1/REVIEW.md) records integrated perimeter services, architectural/structural cleanup, finished roofs, unnecessary-sign removal and shared GUI clipping correction. The original compactness, dome, exterior/global lighting and gameplay/data remain preserved. Exactly one 121.442-second capture-only session is complete; native saved, original published, Studio stopped in Edit. Freeze for owner review; delivery does not authorize the next phase.
 

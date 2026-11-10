@@ -56,6 +56,9 @@ local function training(p, s, enabled)
 			not root
 			or not hum
 			or hum.Health <= 0
+			or not ch:IsDescendantOf(workspace)
+			or p:GetAttribute("ProfileReady") ~= true
+			or p:GetAttribute("EquipmentReady") ~= true
 			or not device
 			or not inTrainingArea(root, device)
 			or s.worldMenu
@@ -89,8 +92,11 @@ local function training(p, s, enabled)
 	else
 		if s.trainingDevice and s.trainingDevice.Parent then
 			s.trainingDevice:SetAttribute("TrainingActive", false)
+			s.trainingDevice:SetAttribute("TrainingStartedAt", nil)
+			s.trainingDevice:SetAttribute("TrainingFamily", nil)
 		end
 		s.trainingDevice = nil
+		s.trainingStarted, s.trainingAward = nil, 0
 		-- Suppress immediate re-entry after a manual stop, tool switch or menu cancellation.
 		s.trainingSuppressed = true
 		s.trainingRoot, s.trainingHumanoid = nil, nil
@@ -1845,6 +1851,7 @@ giveTools = function(p, ch, s)
 		if sessions[p] == s then
 			p:SetAttribute("EquipmentReady", false)
 			cancelAttack(p, s)
+			training(p, s, false)
 		end
 	end)
 	human:UnequipTools()
@@ -2111,7 +2118,9 @@ task.spawn(function()
 				and not session.trainingSuppressed
 				and account
 				and account.strength < 10000
-				and p:GetAttribute("LabReady") == true
+				-- LabReady is client-local. These readiness flags are server-owned.
+				and p:GetAttribute("ProfileReady") == true
+				and p:GetAttribute("EquipmentReady") == true
 				and not session.worldMenu
 				and not session.skillMenu
 			then
@@ -2123,6 +2132,11 @@ task.spawn(function()
 				local device = practiceFor(p)
 				if
 					not root
+					or root ~= session.trainingRoot
+					or not p.Character:IsDescendantOf(workspace)
+					or session.trainingHumanoid ~= p.Character:FindFirstChildOfClass("Humanoid")
+					or p:GetAttribute("ProfileReady") ~= true
+					or p:GetAttribute("EquipmentReady") ~= true
 					or not device
 					or not a
 					or not session.trainingHumanoid

@@ -6,24 +6,25 @@ function M.Build(rooms)
 			if terminal.Name ~= "Terminal" or not terminal:IsA("BasePart") then
 				continue
 			end
-			local archive = room:GetPivot():PointToObjectSpace(terminal.Position).X < 0
+			-- Page identity survives room-local relocation.
+			local archive = terminal:GetAttribute("RoomTerminalPage") == "ARCHIVE"
 			local page = archive and "ARCHIVE" or "ROOM"
 			terminal:SetAttribute("RoomTerminalPage", page)
 			local original = terminal:FindFirstChild("Display")
 			if original and original:IsA("SurfaceGui") then
-				original.Enabled = false
+				original:Destroy()
 			end
 			local display = terminal:FindFirstChild("RoomTerminalDisplay")
 			if not display then
 				display = Instance.new("SurfaceGui")
 				display.Name = "RoomTerminalDisplay"
-				display.Face = original and original.Face or Enum.NormalId.Front
+				display.Face = Enum.NormalId.Front
 				display.CanvasSize = Vector2.new(640, 400)
 				display.LightInfluence, display.AlwaysOnTop = 0, false
 				display.Parent = terminal
 				local panel = Instance.new("Frame")
 				panel.Name, panel.Size = "Panel", UDim2.fromScale(1, 1)
-				panel.BackgroundColor3, panel.BorderSizePixel = Color3.fromRGB(12, 24, 34), 0
+				panel.BackgroundColor3, panel.BorderSizePixel = Color3.fromRGB(30, 40, 34), 0
 				panel.Parent = display
 				local accent = archive and Color3.fromRGB(238, 188, 103) or Color3.fromRGB(113, 236, 210)
 				local function label(name, y, height, value, size, color)
@@ -47,7 +48,7 @@ function M.Build(rooms)
 					"Title",
 					95,
 					65,
-					archive and "CREATURE ARCHIVE" or "ROOM STYLE",
+					archive and "COLLECTION" or "ROOM STYLE",
 					38,
 					Color3.fromRGB(238, 246, 251)
 				)
@@ -55,8 +56,7 @@ function M.Build(rooms)
 					"Purpose",
 					178,
 					90,
-					archive and "Choose collection favorites\nActivate a mining companion"
-						or "Choose your lighting theme\nPersonalize your laboratory",
+					archive and "Favorites / companion" or "Personal theme",
 					27,
 					Color3.fromRGB(157, 180, 193)
 				)

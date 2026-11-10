@@ -1,0 +1,12 @@
+{
+  "room": "Room01",
+  "space": "room-local; camera only, never character teleportation",
+  "views": [
+    {"name":"entrance","position":[0,6.5,-40],"target":[0,8,12],"fov":70},
+    {"name":"collection","position":[13,7,-8],"target":[38,11,0],"fov":70},
+    {"name":"collection-close","position":[27,6,10],"target":[38,5.5,10],"fov":65},
+    {"name":"training","position":[-13,7,-18],"target":[-23,4.5,-4.4],"fov":70},
+    {"name":"care","position":[15,6.5,10],"target":[-3,5,27],"fov":70},
+    {"name":"overhead-cutaway","position":[0,88,-0.1],"target":[0,0,0],"fov":48,"note":"Inspection cutaway: dome, room roof and interior ceiling fixtures temporarily hidden and restored; not a player view"}
+  ]
+}

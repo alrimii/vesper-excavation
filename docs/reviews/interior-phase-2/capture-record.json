@@ -1,0 +1,33 @@
+{
+  "startUtc": "2026-11-10T23:08:11.624Z",
+  "endUtc": "2026-11-10T23:10:38.919Z",
+  "elapsedSeconds": 147.295,
+  "sessions": 1,
+  "preview": "Existing ResearchProfiles Studio memory-only defaults; all three variants already unlocked; no grants/discovery edits",
+  "movement": "Humanoid:MoveTo walking; no teleport, anchoring, speed change or keyboard/device switching",
+  "navigationHelperIssue": "Optional default PlayerModule controls helper was absent. It failed before movement; ordinary MoveTo was then used in the same session. No control override was applied. Private initial files named final-runtime-training-active/stopped are failed-preparation captures and are NOT training evidence; observed-runtime-training-* are the actual evidence.",
+  "temporaryCutawayPartsRestored": 474,
+  "artFrozen": true,
+  "viewportCrop": [
+    366,
+    270,
+    1590,
+    940
+  ],
+  "fullWindowSize": [
+    1938,
+    1038
+  ],
+  "observedTraining": "Strength 0 -> 1 -> 2 -> 3 at existing 2.5-second cycles; Training and station active true while inside, false after walking out; target/start cleared; strength unchanged 3.385 seconds after stop.",
+  "unverified": [
+    "death/respawn",
+    "ownership transfer/loss",
+    "multiplayer unauthorized access",
+    "cap and menu cancellation",
+    "live persistence",
+    "all-device usability",
+    "performance",
+    "visual approval"
+  ],
+  "output": "[Vesper] 12 session rooms ready\nPlayerModule is not a valid member of PlayerScripts \"Players.Alrimi.PlayerScripts\"\nStack Begin\nScript 'AssistantCommand', Line 1\nStack End\n[Roblox][sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Actions.ExecuteLuauActions] The execute_luau changed camera type. Resetting from Enum.CameraType.Custom back to Enum.CameraType.Scriptable"
+}
