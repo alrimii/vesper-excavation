@@ -16,6 +16,7 @@ local function mesh(parent,folder,name,cf,scale,tint)
 	p.Parent=parent;return p
 end
 function B.Build()
+	assert(not workspace.VesperLab:GetAttribute("FoggyGazeboRevision"),"Retired exterior recipe; preserve FoggyGazeboBuilder scene")
 	assert(game.PlaceId==94763223427049 and not game:GetService('RunService'):IsRunning(),'Original Edit mode only')
 	local lab=workspace.VesperLab;local exterior=lab.DecorativeExterior
 	local previous=exterior:FindFirstChild('EastValleySector');if previous then previous:Destroy()end

@@ -1,5 +1,8 @@
 # Project execution rules
 
+## Current authorization: selected Foggy Gazebo exterior transfer
+Implement the exact downloaded scene dc5632f8-2513-4b53-9f5f-096fd493e261 in original place 94763223427049 using optimized nearby geometry and source-derived distant bakes. Preserve the original source privately and record unresolved constituent/Maxtree rights without claiming clearance. No restricted source or texture library in Git. Fresh native recovery copy first; preserve all interior/gameplay/save systems. Subtle dome tint is allowed but not required. Replace conflicting affected-sector scenery and retire its authoring generators. One desktop capture-only Play session <=3 minutes, central/offset/wide interior views; no gameplay or device changes. Freeze after capture, record defects, save/publish the same place and push planning/development-foundation. No further correction loop or interior redesign. Earlier scopes below are historical.
+
 ## Current authorization: exact Blendkit scene inspection only
 Inspect asset dc5632f8-2513-4b53-9f5f-096fd493e261, privately download its source, preserve the original, and work from a copy. Export original-camera and two horizontal-offset renders plus a solid geometry/camera overview; document license, dependencies and portability. The owner explicitly authorizes the latest official stable Blender portable installation alongside existing tools. No Studio changes, Play, publishing, world implementation or player-data operations. Push only permitted previews, inspection notes and original inspection scripts; keep restricted source and textures private. Stop for transfer-direction selection.
 
