@@ -44,11 +44,11 @@ function B.Build()
 		beam.Width1 = d[3] * 0.86
 		beam.Segments = 16
 		beam.Texture = Config.Texture
-		beam.TextureMode = Enum.TextureMode.Wrap
-		beam.TextureLength = d[2].Magnitude * 2
+		beam.TextureMode = Enum.TextureMode.Stretch
+		beam.TextureLength = 1
 		beam.TextureSpeed = 0.008 + index * 0.0004
-		beam.Color = ColorSequence.new(Color3.fromRGB(216, 225, 212))
-		beam.LightInfluence = 0.15
+		beam.Color = ColorSequence.new(Color3.fromRGB(240, 243, 234))
+		beam.LightInfluence = 0
 		beam.LightEmission = 0
 		beam.Transparency = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 1),

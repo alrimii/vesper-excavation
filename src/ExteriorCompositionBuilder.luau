@@ -160,6 +160,7 @@ function B.Build()
 			task.wait()
 		end
 	end
+	require(script.Parent.ExteriorScenicDistanceBuilder).Build()
 	require(script.Parent.ExteriorAtmosphereBuilder).Build()
 	-- Preserve scenery/glazing; the atmosphere-only recipe owns the sky effects.
 	lab:SetAttribute("ExteriorCompositionRevision", 3)

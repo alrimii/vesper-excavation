@@ -1,0 +1,18 @@
+{
+  "mist": {
+    "first_last_mean_absolute_pixel_difference": 10.280863649807749,
+    "mean_adjacent_frame_difference": 0.4437227908467444,
+    "max_adjacent_frame_difference": 1.20804495711328
+  },
+  "clouds": {
+    "first_last_mean_absolute_pixel_difference": 1.2432535885167464,
+    "mean_adjacent_frame_difference": 0.12162466061779563,
+    "max_adjacent_frame_difference": 0.2784370015948963
+  },
+  "static_interior": {
+    "first_last_mean_absolute_pixel_difference": 0.6435531135531135,
+    "mean_adjacent_frame_difference": 0.26340389821995175,
+    "max_adjacent_frame_difference": 0.966007326007326
+  },
+  "note": "Pixel changes measure recorded motion/compression, not frame performance. All 300 source frames inspected for continuity; fixed camera, no loading."
+}

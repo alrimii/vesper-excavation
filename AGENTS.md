@@ -1,8 +1,6 @@
-# Current checkpoint: focused moving atmosphere after v184
+# Current checkpoint: atmosphere/low-quality correction after v188
 
-Delivered **v188**, original place 94763223427049, branch planning/development-foundation. See docs/reviews/exterior-atmosphere/REVIEW.md. Eight local mist ribbons, steady base atmosphere and native clouds/GlobalWind replace old wisps. Existing scenery, dome/glazing, interior, hoist/egg/access/HUD and all gameplay/player data/save generation are preserved. No delegates, weather framework or new landscape pass.
-
-One 193-second session captured quality 1/21 at the same camera, another high direction and floor. The fixed-camera video includes loading and provides only partial motion evidence. Minimum quality removes distant scenery; mist remains faint. Quality is restored to Automatic, native before/final recovery saved in Backups/ExteriorAtmosphere_20261110, same original place published. Artwork is frozen; no more Play or corrections under this scope. Stop for owner review. Next interior/layout/vines/gate/road milestone is recorded only; do not start it automatically. Joining remains closed; VesperDiscovery_FreshStart_20261110 and player progress remain untouched. Earlier scopes below are historical.
+Delivered **v191**, original place 94763223427049, branch planning/development-foundation. See docs/reviews/exterior-atmosphere/REVIEW.md. Corrected mist mapping/coverage and compressed existing mountain/tree scenic representations for low-quality visibility. No terrain/grass, dome/interior, gameplay/save changes. Original transforms/native recovery preserved. One 161-second runtime session, clean 14.85-second video, matched quality 1/21 plus other high/floor views. Accepted runtime mist tuning persisted to canonical source/Edit. Artwork frozen; no autonomous correction loop or more Play under this scope. No delegates. Stop for owner review. Interior/gate/road remain deferred; joining stays closed and player progress/fixed generation remain untouched.
 
 # Historical authorization: exterior composition and legacy cleanup after v177
 

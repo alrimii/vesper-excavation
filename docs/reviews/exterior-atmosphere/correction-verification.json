@@ -1,0 +1,145 @@
+{
+  "start": "2026-11-10T18:46:57.928Z",
+  "stop": "2026-11-10T18:49:38.648Z",
+  "clientPresence": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"streaming\":false,\"fetch\":[],\"trees\":168,\"mountains\":[{\"name\":\"RockMassif2\",\"trans\":0,\"loaded\":\"Enum.AssetFetchStatus.None\",\"distance\":873.4337158203125,\"mesh\":\"rbxassetid://131140296893821\",\"size\":\"813.071044921875, 311.5345458984375, 694.7882080078125\"},{\"name\":\"RockMassif1\",\"trans\":0,\"loaded\":\"Enum.AssetFetchStatus.None\",\"distance\":850.724853515625,\"mesh\":\"rbxassetid://131140296893821\",\"size\":\"720.81884765625, 269.8372497558594, 741.2003173828125\"},{\"name\":\"RockMassif5\",\"trans\":0,\"loaded\":\"Enum.AssetFetchStatus.None\",\"distance\":652.3690795898438,\"mesh\":\"rbxassetid://131140296893821\",\"size\":\"266.9784851074219, 38.41878890991211, 232.36453247070312\"},{\"name\":\"RockMassif4\",\"trans\":0,\"loaded\":\"Enum.AssetFetchStatus.None\",\"distance\":830.5108032226563,\"mesh\":\"rbxassetid://131140296893821\",\"size\":\"493.90863037109375, 180.3848876953125, 552.9486083984375\"},{\"name\":\"RockMassif3\",\"trans\":0,\"loaded\":\"Enum.AssetFetchStatus.None\",\"distance\":835.3574829101563,\"mesh\":\"rbxassetid://131140296893821\",\"size\":\"703.169677734375, 246.1353302001953, 716.1727905273438\"}],\"quality\":\"Enum.QualityLevel.Level01\"}"
+      }
+    ],
+    "isError": false
+  },
+  "low": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"quality\":\"Enum.QualityLevel.Level01\",\"camera\":{\"1\":2.9543299674987795,\"3\":-23.497339248657228,\"2\":95.64250183105469,\"5\":0.005373131949454546,\"4\":-0.7812251448631287,\"7\":0,\"6\":-0.6242263317108154,\"9\":0.008607347495853901,\"8\":0.9999630451202393,\"12\":-0.7811961770057678,\"11\":0.00672427611425519,\"10\":0.6242494583129883}}"
+      }
+    ],
+    "isError": false
+  },
+  "final": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"mist\":8,\"running\":false,\"uniqueMeshes\":92,\"uniqueTextureIDs\":3,\"place\":94763223427049,\"matches\":{\"ExteriorAtmosphereConfig\":true,\"ExteriorAtmosphereBuilder\":true,\"ExteriorCompositionBuilder\":true,\"ExteriorScenicDistanceBuilder\":true},\"meshes\":452,\"quality\":\"Enum.QualityLevel.Automatic\"}"
+      }
+    ],
+    "isError": false
+  },
+  "finalMist": [
+    {
+      "span": [
+        220,
+        0,
+        -155
+      ],
+      "opacity": 0.94,
+      "center": [
+        350,
+        45,
+        440
+      ],
+      "width": 120
+    },
+    {
+      "span": [
+        180,
+        0,
+        -140
+      ],
+      "opacity": 0.84,
+      "center": [
+        500,
+        58,
+        420
+      ],
+      "width": 105
+    },
+    {
+      "span": [
+        200,
+        0,
+        -90
+      ],
+      "opacity": 0.84,
+      "center": [
+        230,
+        45,
+        630
+      ],
+      "width": 100
+    },
+    {
+      "span": [
+        40,
+        0,
+        180
+      ],
+      "opacity": 0.88,
+      "center": [
+        670,
+        65,
+        80
+      ],
+      "width": 120
+    },
+    {
+      "span": [
+        210,
+        0,
+        95
+      ],
+      "opacity": 0.9,
+      "center": [
+        -300,
+        65,
+        590
+      ],
+      "width": 110
+    },
+    {
+      "span": [
+        170,
+        0,
+        -150
+      ],
+      "opacity": 0.88,
+      "center": [
+        -470,
+        55,
+        -420
+      ],
+      "width": 110
+    },
+    {
+      "span": [
+        200,
+        0,
+        120
+      ],
+      "opacity": 0.87,
+      "center": [
+        350,
+        50,
+        -590
+      ],
+      "width": 110
+    },
+    {
+      "span": [
+        50,
+        0,
+        190
+      ],
+      "opacity": 0.84,
+      "center": [
+        -590,
+        48,
+        80
+      ],
+      "width": 105
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-# Current roadmap checkpoint — after v188 atmosphere pass
+# Current roadmap checkpoint — after v191 atmosphere correction
 
-[Atmosphere checkpoint and evidence](reviews/exterior-atmosphere/REVIEW.md) are published and frozen. Native clouds/wind and localized animated mist are implemented, but player-view mist is faint and minimum graphics removes distant scenery. Motion evidence is partial because the recording includes loading. No autonomous correction loop follows. Joining, player data, fixed save generation and all gameplay remain unchanged.
+[Atmosphere correction and evidence](reviews/exterior-atmosphere/REVIEW.md) are published and frozen. Mist is visibly present, principal mountains/forest/ridge survive the quality 1 comparison, and a clean 14.85-second fixed-camera video is saved. Scenic depth/footprints and floor occlusion remain limitations. No autonomous correction loop follows. Joining, player data, fixed save generation and all gameplay remain unchanged.
 
 ## Next major focus — dome interior, recorded only
 
