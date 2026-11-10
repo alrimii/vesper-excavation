@@ -1,0 +1,562 @@
+[
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 1557.283,
+    "y": 156.341,
+    "z": 552.081,
+    "yaw": 3.32212,
+    "scale": [
+      2.8582,
+      3.1067,
+      3.1067
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink1"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 1121.556,
+    "y": 79.717,
+    "z": 320.135,
+    "yaw": 4.66445,
+    "scale": [
+      3.2276,
+      3.5082,
+      3.5082
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink1"
+  },
+  {
+    "name": "CanopyOak",
+    "kind": "tree",
+    "x": 1197.094,
+    "y": 48.335,
+    "z": 533.053,
+    "yaw": 4.57875,
+    "scale": [
+      2.9731,
+      3.2317,
+      3.2317
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink1"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": 1606.594,
+    "y": 173.18,
+    "z": 489.517,
+    "yaw": 1.56091,
+    "scale": [
+      3.0817,
+      3.3497,
+      3.3497
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink1"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -747.012,
+    "y": 114.195,
+    "z": 1535.102,
+    "yaw": 0.80587,
+    "scale": [
+      3.7666,
+      4.0941,
+      4.0941
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink2"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -421.993,
+    "y": 52.85,
+    "z": 1008.712,
+    "yaw": 1.59385,
+    "scale": [
+      3.1941,
+      3.4718,
+      3.4718
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink2"
+  },
+  {
+    "name": "CanopyOak",
+    "kind": "tree",
+    "x": -499.155,
+    "y": 79.354,
+    "z": 1093.71,
+    "yaw": 5.67441,
+    "scale": [
+      3.3739,
+      3.6673,
+      3.6673
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink2"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": -344.659,
+    "y": 53.939,
+    "z": 1038.507,
+    "yaw": 4.36242,
+    "scale": [
+      2.8895,
+      3.1408,
+      3.1408
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink2"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -1186.154,
+    "y": -9.395,
+    "z": -450.167,
+    "yaw": 2.58738,
+    "scale": [
+      4.1135,
+      4.4712,
+      4.4712
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink3"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -1173.657,
+    "y": -11.103,
+    "z": -262.553,
+    "yaw": 4.11822,
+    "scale": [
+      3.6381,
+      3.9544,
+      3.9544
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink3"
+  },
+  {
+    "name": "CanopyOak",
+    "kind": "tree",
+    "x": -1193.573,
+    "y": -9.595,
+    "z": -190.95,
+    "yaw": 1.95731,
+    "scale": [
+      2.8851,
+      3.136,
+      3.136
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink3"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": -992.482,
+    "y": 45.473,
+    "z": -952.122,
+    "yaw": 3.02066,
+    "scale": [
+      3.8554,
+      4.1906,
+      4.1906
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink4"
+  },
+  {
+    "name": "CanopyTwisted",
+    "kind": "tree",
+    "x": -1538.767,
+    "y": 80.849,
+    "z": -1091.468,
+    "yaw": 0.93091,
+    "scale": [
+      3.0864,
+      3.3547,
+      3.3547
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink4"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -1434.579,
+    "y": 90.455,
+    "z": -1062.494,
+    "yaw": 0.35691,
+    "scale": [
+      3.0714,
+      3.3385,
+      3.3385
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink4"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": -973.896,
+    "y": 71.839,
+    "z": -1208.268,
+    "yaw": 1.03673,
+    "scale": [
+      3.029,
+      3.2924,
+      3.2924
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink4"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": 777.286,
+    "y": 9.695,
+    "z": -1442.978,
+    "yaw": 4.0539,
+    "scale": [
+      3.6119,
+      3.9259,
+      3.9259
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink5"
+  },
+  {
+    "name": "CanopyTwisted",
+    "kind": "tree",
+    "x": 559.585,
+    "y": -1.545,
+    "z": -1213.693,
+    "yaw": 3.33881,
+    "scale": [
+      2.6168,
+      2.8444,
+      2.8444
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink5"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 391.532,
+    "y": -0.395,
+    "z": -1019.53,
+    "yaw": 0.85464,
+    "scale": [
+      3.8401,
+      4.174,
+      4.174
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink5"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 1653.493,
+    "y": -5.326,
+    "z": -396.696,
+    "yaw": 1.23278,
+    "scale": [
+      2.6809,
+      2.914,
+      2.914
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink6"
+  },
+  {
+    "name": "CanopyOak",
+    "kind": "tree",
+    "x": 1544.82,
+    "y": 8.305,
+    "z": -316.435,
+    "yaw": 1.02015,
+    "scale": [
+      3.3453,
+      3.6361,
+      3.6361
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink6"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": 1473.921,
+    "y": 17.124,
+    "z": -281.832,
+    "yaw": 3.47299,
+    "scale": [
+      3.0474,
+      3.3124,
+      3.3124
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink6"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": 685.513,
+    "y": 33.347,
+    "z": 1471.692,
+    "yaw": 2.75554,
+    "scale": [
+      3.3222,
+      3.611,
+      3.611
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink7"
+  },
+  {
+    "name": "CanopyTwisted",
+    "kind": "tree",
+    "x": 656.293,
+    "y": 55.382,
+    "z": 1691.727,
+    "yaw": 5.541,
+    "scale": [
+      4.0382,
+      4.3893,
+      4.3893
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink7"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 641.156,
+    "y": 54.557,
+    "z": 1950.048,
+    "yaw": 3.44888,
+    "scale": [
+      3.3034,
+      3.5906,
+      3.5906
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink7"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 538.636,
+    "y": 34.695,
+    "z": 1563.404,
+    "yaw": 4.74483,
+    "scale": [
+      3.636,
+      3.9522,
+      3.9522
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink7"
+  },
+  {
+    "name": "MountainPine",
+    "kind": "tree",
+    "x": 1161.681,
+    "y": 29.478,
+    "z": 777.261,
+    "yaw": 1.17892,
+    "scale": [
+      2.7385,
+      2.9766,
+      2.9766
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink8"
+  },
+  {
+    "name": "CanopyTwisted",
+    "kind": "tree",
+    "x": 1321.626,
+    "y": 47.318,
+    "z": 1036.434,
+    "yaw": 5.23408,
+    "scale": [
+      2.7956,
+      3.0387,
+      3.0387
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink8"
+  },
+  {
+    "name": "CanopyYoung",
+    "kind": "tree",
+    "x": 1576.141,
+    "y": 89.734,
+    "z": 1017.531,
+    "yaw": 4.75169,
+    "scale": [
+      3.5768,
+      3.8878,
+      3.8878
+    ],
+    "color": [
+      239,
+      245,
+      226
+    ],
+    "retained": false,
+    "patch": "WoodlandLink8"
+  }
+]

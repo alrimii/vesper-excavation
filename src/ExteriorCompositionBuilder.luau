@@ -56,8 +56,11 @@ function B.Build()
 	local assets = game.ServerStorage:FindFirstChild("ExteriorCompositionAssets")
 	assert(assets and #assets:GetChildren() == 67, "Import the complete attributed scenery library first")
 	local vegetation = game.ServerStorage.LivingLabArtAssets
-	local grading = game.ServerStorage:FindFirstChild("ExteriorIntegrationAssets")
-	assert(grading and #grading:GetChildren() == 64, "Imported continuous grading required")
+	local grading = game.ServerStorage:FindFirstChild("ExteriorGrassAssets")
+	assert(
+		grading and #grading:GetChildren() == 80,
+		"Imported grading and sixteen fitted grass patches required"
+	)
 	local old = lab:FindFirstChild("DecorativeExterior")
 	-- All affected placements were preserved in the native recovery checkpoint.
 	-- Libraries are retained; retired placements do not remain elsewhere in Workspace.
@@ -66,12 +69,21 @@ function B.Build()
 	end
 	local root = group(lab, "DecorativeExterior")
 	root:SetAttribute("SceneryOnly", true)
-	root:SetAttribute("CompositionRevision", 2)
+	root:SetAttribute("CompositionRevision", 3)
 	local ground = group(root, "ContinuousLowGround")
 	for _, d in layout.ground do
 		local p = mesh(ground, grading, d.name, CFrame.identity, 1, Color3.new(1, 1, 1))
 		p.TextureID = grading:GetAttribute("GroundColor")
 		p.Material = Enum.Material.SmoothPlastic
+	end
+	local grass = group(root, "FittedGrassPatches")
+	for _, d in layout.grassPatches do
+		local p = mesh(grass, grading, d.name, CFrame.identity, 1, Color3.fromRGB(137, 220, 156))
+		p:SetAttribute("SourceTriangles", d.triangles)
+		p:SetAttribute("SourceTufts", d.tufts)
+		-- Static source geometry, opaque alpha cutout at Transparency=0.
+		-- No per-tuft instances, scripts, wind, physics, or large transparent cards.
+		p.Transparency = 0
 	end
 	task.wait()
 	local peaks = group(root, "SeparatedRockMassifs")
@@ -87,6 +99,12 @@ function B.Build()
 			Vector3.new(d[4], d[5], d[6])
 		)
 		m.Name = "RockMassif" .. i
+		if i == 5 and layout.ridgeOverride then
+			-- Exact closer representation verified in the single runtime comparison.
+			-- RenderFidelity and graphics quality are unchanged.
+			m.CFrame = CFrame.new(unpack(layout.ridgeOverride.cframe))
+			m.Size = Vector3.new(unpack(layout.ridgeOverride.size))
+		end
 		m.TextureID = grading:GetAttribute("AlpineColor")
 	end
 	local cliffs = group(root, "RockyFoothills")
@@ -182,7 +200,7 @@ function B.Build()
 		beam.Parent = host
 	end
 	-- Keep the v180 sky, shared lighting, glazing and atmosphere unchanged.
-	lab:SetAttribute("ExteriorCompositionRevision", 2)
-	return "Integrated v180 massifs, continuous foothill grading, connected woodland patches and softened source materials"
+	lab:SetAttribute("ExteriorCompositionRevision", 3)
+	return "Fitted short-grass patches, connected ground materials, regrouped woodland and readable source rock"
 end
 return B

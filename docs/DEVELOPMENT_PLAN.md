@@ -1,8 +1,8 @@
-# Current roadmap checkpoint — after v182
+# Current roadmap checkpoint — after v184
 
-Owner likes the existing landscape direction. [Bounded integration is published and frozen](reviews/exterior-integration/REVIEW.md): graded ground/foothills, retained and extended vegetation, softer existing rock materials and quieter distant sectors. The far valley ridge is visible in Edit but absent from runtime; this gap, discrete mountain footprints, sparse areas and frontage occlusion remain open for owner review. No autonomous correction loop or next phase begins automatically.
+The accepted landscape direction continues. [Ground/grass and ridge checkpoint published and frozen](reviews/exterior-grass/REVIEW.md): static fitted short-grass patches, meadow/soil variation, selected foothill grading, regrouped recent vegetation, readable rock structure, and a closer ridge visible in the bounded Studio client check. Grass readability from player cameras is still limited; broad lawn areas, source mountain footprints/rectangular ridge edge and frontage occlusion remain. Published-client/device visibility and exact renderer culling behavior remain unverified. No autonomous art loop or next phase starts automatically.
 
-Joining remains owner-confirmed and closed. Preserve `VesperDiscovery_FreshStart_20261110`, player progress, the existing dome/interior/hoist and unresolved historical source rights. No deferred system below was implemented.
+Joining remains owner-confirmed and closed. Preserve `VesperDiscovery_FreshStart_20261110`, player progress, dome/interior/hoist/gameplay and unresolved historical source rights. No deferred system below was implemented.
 
 ## Deferred owner requests — recorded, not implemented
 

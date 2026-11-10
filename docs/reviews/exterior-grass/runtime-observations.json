@@ -1,0 +1,59 @@
+{
+  "session": {
+    "start": {
+      "current_time": "2026-11-10 17:48:21 UTC"
+    },
+    "stop": {
+      "current_time": "2026-11-10 17:50:44 UTC"
+    },
+    "seconds": 143
+  },
+  "client": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"render\":\"Enum.RenderFidelity.Automatic\",\"streaming\":false,\"localTransparency\":0,\"place\":94763223427049,\"studioQuality\":\"Enum.QualityLevel.Automatic\",\"assetStatus\":{\"rbxassetid://131140296893821\":\"Enum.AssetFetchStatus.None\",\"rbxassetid://97014937359930\":\"Enum.AssetFetchStatus.Success\"},\"cf\":[1663.36572265625,73.18351745605469,2375.541015625,-0.9135497808456421,0,-0.40672704577445986,0,1,0,0.40672704577445986,0,-0.9135497808456421],\"transparency\":0,\"clientPresent\":true,\"clientExteriorParts\":454,\"grassPatches\":16,\"userQuality\":\"Enum.SavedQualitySetting.Automatic\",\"double\":false,\"size\":\"1225.603515625, 176.36703491210938, 1066.703125\"}"
+      }
+    ],
+    "isError": false
+  },
+  "stats": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"PrimitivesCount\":22249,\"InstanceCount\":87817,\"RenderGPUFrameTime\":0.003758080070838332,\"RenderCPUFrameTime\":0.010955899953842163,\"FrameTime\":0.016068799421191217}"
+      }
+    ],
+    "isError": false
+  },
+  "validatedRidge": {
+    "cframe": [
+      1148.065673828125,
+      80.15354919433594,
+      1631.011962890625,
+      -0.9135497808456421,
+      0,
+      -0.40672704577445984,
+      0,
+      1,
+      0,
+      0.40672704577445984,
+      0,
+      -0.9135497808456421
+    ],
+    "size": [
+      845.2438354492188,
+      121.63243865966797,
+      735.6573486328125
+    ]
+  },
+  "preflight": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ridgeCF\":[1663.36572265625,73.18351745605469,2375.541015625,-0.9135454297065735,0,-0.40673673152923586,0,1,0,0.40673673152923586,0,-0.9135454297065735],\"ridgeSize\":[1225.603515625,176.36703491210938,1066.703125],\"signature\":247828899,\"place\":94763223427049,\"preservedParts\":14767,\"streaming\":false}"
+      }
+    ],
+    "isError": false
+  }
+}
