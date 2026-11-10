@@ -1,6 +1,6 @@
 # Current checkpoint — atmosphere and minimum-quality correction
 
-Published **v191** to original place **94763223427049**, confirmed **2026-11-10 18:51:53 UTC**. Branch `planning/development-foundation`; began from clean `3b81d8e4b8c64050ace4010e0d12943d7037ba5c / v188`. [Current review, low/high captures, clean motion video and recovery](reviews/exterior-atmosphere/REVIEW.md). Implementation commit recorded after commit.
+Published **v191** to original place **94763223427049**, confirmed **2026-11-10 18:51:53 UTC**. Branch `planning/development-foundation`; began from clean `3b81d8e4b8c64050ace4010e0d12943d7037ba5c / v188`. [Current review, low/high captures, clean motion video and recovery](reviews/exterior-atmosphere/REVIEW.md). Implementation/evidence commit: [9d5abc9211776ec7b14e8f9dd3fcc86ec29608bf](https://github.com/alrimii/vesper-excavation/commit/9d5abc9211776ec7b14e8f9dd3fcc86ec29608bf).
 
 Corrected mist texture mapping, visible coverage and lowland positioning. Existing five mountain and 168 tree representations are scaled/seated closer for minimum-quality visibility; their original transforms are preserved and the canonical recipe applies the correction. No duplicate scenery or ground/grass changes. The matched quality 1/21 captures retain principal mountains, ridge and forest masses. The clean fixed-camera MP4 contains 14.85 seconds of scenery; mist drifts visibly, clouds more subtly.
 

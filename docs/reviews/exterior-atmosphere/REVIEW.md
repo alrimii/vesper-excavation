@@ -1,6 +1,6 @@
 # Atmosphere and minimum-quality correction — v191
 
-Published **v191**, original place **94763223427049**, **2026-11-10 18:51:53 UTC**; Studio publication log confirms the place ID and version. Branch `planning/development-foundation`, clean starting commit `3b81d8e4b8c64050ace4010e0d12943d7037ba5c`. No newer local work was overwritten. Studio's loaded PlaceVersion still read 184; the existing v188 publication log, native bytes and synchronized sources established the actual starting checkpoint. Implementation commit recorded below after commit.
+Published **v191**, original place **94763223427049**, **2026-11-10 18:51:53 UTC**; Studio publication log confirms the place ID and version. Branch `planning/development-foundation`, clean starting commit `3b81d8e4b8c64050ace4010e0d12943d7037ba5c`. No newer local work was overwritten. Studio's loaded PlaceVersion still read 184; the existing v188 publication log, native bytes and synchronized sources established the actual starting checkpoint. Implementation/evidence commit: [9d5abc9211776ec7b14e8f9dd3fcc86ec29608bf](https://github.com/alrimii/vesper-excavation/commit/9d5abc9211776ec7b14e8f9dd3fcc86ec29608bf).
 
 ## Actual runtime evidence
 
