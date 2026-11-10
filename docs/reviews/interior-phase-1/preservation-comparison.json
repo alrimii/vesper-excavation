@@ -1,0 +1,41 @@
+{
+  "geometry": {
+    "count": 9,
+    "equal": true
+  },
+  "rooms": {
+    "count": 12,
+    "equal": true
+  },
+  "anchors": {
+    "count": 39,
+    "equal": true
+  },
+  "lighting": {
+    "count": 11,
+    "equal": true
+  },
+  "atmosphere": {
+    "count": 7,
+    "equal": true
+  },
+  "clouds": {
+    "count": 3,
+    "equal": true
+  },
+  "runtimeSources": {
+    "before": 81,
+    "after": 82,
+    "changed": [
+      "ReplicatedStorage.VesperShared.WorkshopUI",
+      "ReplicatedStorage.VesperShared.SecondaryMenus",
+      "ReplicatedStorage.VesperShared.OutfitterUI",
+      "ReplicatedStorage.VesperShared.SkillTreeUI",
+      "ReplicatedStorage.VesperShared.DiscoveryHUD"
+    ],
+    "new": [
+      "ReplicatedStorage.VesperShared.ModalLayout"
+    ],
+    "removed": []
+  }
+}

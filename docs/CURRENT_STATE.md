@@ -1,4 +1,14 @@
-# Current checkpoint — compact interior replacement, published v203
+# Current checkpoint — Interior Phase 1, published v208
+
+Original place **94763223427049**, branch `planning/development-foundation`. **Published v208** at **2026-11-10 22:35:16 UTC**, verified in Studio's original-place publish log. [Review and actual screenshots](reviews/interior-phase-1/REVIEW.md), [delivery identity](reviews/interior-phase-1/delivery.json). The native checkpoint is saved; Studio is stopped in Edit and implementation is frozen for owner review.
+
+The workshop occupies an integrated perimeter wall counter; the lab kiosk is replaced by two shallow wall displays. Twelve finished room roofs, restrained owner identification, removed number/CLIMB signs, fitted platform-edge flooring and connected landing/spiral decorations replace their old instances and generators. Original shop anchors moved coherently; no room relocation or further rescaling. Shared ModalLayout provides full-viewport visual coverage with safe controls and bounded panel fitting. Existing UI artwork remains Phase 5 work.
+
+Nine protected geometry groups, twelve room-interior/pivot records, 39 anchor paths and lighting/atmosphere/cloud values match. Only five authorized runtime GUI sources changed and one layout module was added. One 121.442-second capture-only session supplied world and GUI views; all 824 temporary Edit cutaway parts were restored. No gameplay actions, grants, resets or device changes. Visible limitations and unverified behavior are explicit in the review.
+
+Private native recovery: `Backups/InteriorPhase1_20261111/ComingSoon_94763223427049_before.rbxl` and `ComingSoon_94763223427049_final.rbxl`. Full subsequent requirements, including restrictive interim asset tracking, remain in [Phase 1 plan and later phases](reviews/interior-phase-1/PLAN.md). Do not begin them without the next owner scope.
+
+## Previous compact interior checkpoint — v203, superseded within Phase 1 scope
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v203**, confirmed by Studio's original-place publish log at **2026-11-10 21:28:47 UTC**. Baseline `bbd3f1bd8994fcb161c57951a7529efebd9142da`; [Git delivery identity](reviews/compact-interior/delivery.json). Final private native checkpoint saved; Studio is in Edit. Artwork is frozen for owner review.
 

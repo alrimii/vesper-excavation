@@ -63,7 +63,7 @@ function H.Attach(gui, player)
 	dim.Name = "JournalShade"
 	dim.Size = UDim2.fromScale(1, 1)
 	dim.BackgroundColor3 = Color3.new()
-	dim.BackgroundTransparency = 0.35
+	dim.BackgroundTransparency = 1
 	dim.Text = ""
 	dim.Visible = false
 	dim.ZIndex = 39
@@ -73,6 +73,7 @@ function H.Attach(gui, player)
 	journal.Visible = false
 	journal.Active = true
 	journal.ZIndex = 40
+	require(Shared.ModalLayout).Backdrop(gui, journal, { Color = Color3.new(), Transparency = 0.35 })
 	local fit = Instance.new("UIScale")
 	fit.Parent = journal
 	text(

@@ -1,0 +1,20 @@
+{
+  "placeId": 94763223427049,
+  "version": 208,
+  "publishedAtUtc": "2026-11-10T22:35:16.489Z",
+  "publishType": 1,
+  "evidence": [
+    "2026-11-10T22:35:12.061Z publish request routing through state machine (publishType=1)",
+    "2026-11-10T22:35:16.489Z Publish succeeded for placeId 94763223427049",
+    "2026-11-10T22:35:16.492Z Published new changes in Coming Soon to Roblox.",
+    "2026-11-10T22:35:16.497Z Add publish notes to v208"
+  ],
+  "nativeFinal": {
+    "path": "Backups/InteriorPhase1_20261111/ComingSoon_94763223427049_final.rbxl",
+    "bytes": 6825842,
+    "sha256": "0DD64F7F1098DCE08411150D0009C305064AC5EB1870B0FDCC7695D8E180D379"
+  },
+  "finalMode": "Edit",
+  "temporaryCutawayMarkersRemaining": 0,
+  "note": "Download a Copy first saved a cloud draft (publishType=2); this record identifies the subsequent explicit live publication, publishType=1. Cached game.PlaceVersion was not used as live publication proof."
+}

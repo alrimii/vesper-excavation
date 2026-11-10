@@ -1,4 +1,12 @@
-# Current roadmap checkpoint — compact interior replacement published v203
+# Current roadmap checkpoint — Interior Phase 1 published v208
+
+[Phase 1 review](reviews/interior-phase-1/REVIEW.md) records integrated perimeter services, architectural/structural cleanup, finished roofs, unnecessary-sign removal and shared GUI clipping correction. The original compactness, dome, exterior/global lighting and gameplay/data remain preserved. Exactly one 121.442-second capture-only session is complete; native saved, original published, Studio stopped in Edit. Freeze for owner review; delivery does not authorize the next phase.
+
+The complete [five-phase owner brief](reviews/interior-phase-1/owner-feedback/PHASE_1_BRIEF.md), [twenty exact references](reviews/interior-phase-1/owner-feedback/IMAGE_INDEX.md) and [remaining-requirement plan](reviews/interior-phase-1/PLAN.md) are retained without narrowing them. Phase 2 rebuilds personal rooms/collection and diagnoses broken training. Phase 3 implements image-20 connected dense vines/planting, rearranges existing mountains/trees with varied open foregrounds, strengthens nearer moving exterior mist and coordinates lighting. Phase 4 replaces pickaxe shape/grip/animation and diagnoses charge placement/animation/explosion issues. Phase 5 replaces the complete HUD/shop/upgrades/skills/navigation/settings/collection/results presentation, tool-specific icons, placeholder/prose cleanup and obsolete GUI handlers. Earlier Last Epoch/Assassin's Creed Origins structural preferences remain. Gate/scenic road, remaining skill mechanics, rebirth, monetization, additional worlds and existing long-term requests below remain deferred.
+
+The owner permits freely obtainable temporary assets even with restrictive or unresolved licenses, with exact source/author/license/local/use/replacement records and private restricted source retention. No new restricted asset was needed in Phase 1; [asset ledger](reviews/interior-phase-1/TEMPORARY_ASSETS.md). Future work must preserve this policy and all requirements, not silently discard them.
+
+## Previous roadmap checkpoint — compact interior replacement published v203
 
 [Compact interior replacement](reviews/compact-interior/REVIEW.md) is saved and published in the original place. Twelve rooms/anchors relocated, lower enclosure explicitly fitted to 428 studs, forward service counters and finished assets installed, obsolete instances and generators removed. One 69-second capture-only session is complete; Studio is in Edit and artwork is frozen. Read the review for visible shortcomings and unverified usability. No next milestone is authorized by delivery.
 

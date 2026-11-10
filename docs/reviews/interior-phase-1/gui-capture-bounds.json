@@ -1,0 +1,42 @@
+{
+  "controls": [
+    {
+      "path": "Players.Alrimi.PlayerGui.OutfitterScreen.Outfitter.Close",
+      "size": "72, 42",
+      "position": "881.099976, 22"
+    },
+    {
+      "path": "Players.Alrimi.PlayerGui.OutfitterScreen.Station.Close",
+      "size": "35.6714287, 35.6714287",
+      "position": "823.614258, 24.9714279"
+    }
+  ],
+  "backgrounds": [
+    {
+      "enabled": false,
+      "name": "ExcavationHUDBackdrop_Journal",
+      "size": "979.200012, 536",
+      "pos": "0, -58",
+      "insets": "None"
+    },
+    {
+      "enabled": false,
+      "name": "ExcavationSkillTreeBackdrop_Root",
+      "size": "979.200012, 536",
+      "pos": "0, -58",
+      "insets": "None"
+    },
+    {
+      "enabled": true,
+      "name": "OutfitterScreenBackdrop_OutfitterScreen",
+      "size": "979.200012, 536",
+      "pos": "0, -58",
+      "insets": "None"
+    }
+  ],
+  "scroll": {
+    "window": "786, 268",
+    "canvas": "791, 1152",
+    "position": "0, 884"
+  }
+}

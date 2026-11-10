@@ -1,0 +1,115 @@
+{
+  "verticalFov": 70,
+  "viewport": [
+    1224,
+    670
+  ],
+  "views": [
+    {
+      "name": "workshop",
+      "position": [
+        94,
+        6.5,
+        44
+      ],
+      "target": [
+        132,
+        9,
+        44
+      ]
+    },
+    {
+      "name": "laboratory",
+      "position": [
+        44,
+        6.5,
+        -102
+      ],
+      "target": [
+        44,
+        9,
+        -132.4
+      ]
+    },
+    {
+      "name": "room-frontage",
+      "position": [
+        -88,
+        6.5,
+        -103
+      ],
+      "target": [
+        -88,
+        10,
+        -149
+      ]
+    },
+    {
+      "name": "access-supports",
+      "position": [
+        76,
+        6.5,
+        -25
+      ],
+      "target": [
+        53,
+        14,
+        -3
+      ]
+    },
+    {
+      "name": "platform-floor",
+      "position": [
+        87,
+        8,
+        -27
+      ],
+      "target": [
+        65,
+        1,
+        -22
+      ]
+    },
+    {
+      "name": "inside-above-egg",
+      "position": [
+        3,
+        97.1425,
+        -23.5
+      ],
+      "target": [
+        0,
+        24,
+        -165
+      ],
+      "note": "Inside dome, 6.5 studs above terminal deck surface Y90.6425; reachable viewpoint, camera only, no avatar navigation"
+    },
+    {
+      "name": "roof-detail",
+      "position": [
+        65,
+        72,
+        80
+      ],
+      "target": [
+        70,
+        28,
+        160
+      ]
+    },
+    {
+      "name": "overhead-cutaway",
+      "position": [
+        0,
+        390,
+        0.1
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ],
+      "note": "Inspection cutaway only: dome/crown/room roofs/ceiling fixtures hidden then restored"
+    }
+  ]
+}

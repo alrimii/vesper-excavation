@@ -1,0 +1,130 @@
+{
+  "entrances": {
+    "Room11": [],
+    "Room07": [],
+    "Room12": [],
+    "Room05": [],
+    "Room03": [],
+    "Room01": [],
+    "Room10": [],
+    "Room06": [],
+    "Room02": [],
+    "Room04": [],
+    "Room09": [],
+    "Room08": []
+  },
+  "floor": {
+    "minimumSurfaceY": 0.675000011920929,
+    "missing": 0,
+    "samples": 960,
+    "foundationSeamSurfaceY": 0.675,
+    "finishedSurfaceY": 0.87
+  },
+  "services": {
+    "Laboratory1": [],
+    "Workshop": [],
+    "Laboratory2": []
+  },
+  "anchors": {
+    "Console": {
+      "path": "Workspace.VesperLab.SharedWorkshop.Console",
+      "pose": [
+        126.94999694824219,
+        2.799999952316284,
+        32,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "size": "13, 2, 0.2800000011920929"
+    },
+    "ApproachZone": {
+      "path": "Workspace.VesperLab.SharedWorkshop.ApproachZone",
+      "pose": [
+        121.19999694824219,
+        4.800000190734863,
+        44,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "size": "48, 8, 10"
+    },
+    "UpgradeConsole": {
+      "path": "Workspace.VesperLab.SharedWorkshop.UpgradeConsole",
+      "pose": [
+        126.94999694824219,
+        2.799999952316284,
+        56,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "size": "13, 2, 0.2800000011920929"
+    }
+  },
+  "obsoleteLabKiosk": false,
+  "obsoleteWorkshopKiosk": false,
+  "roofCount": 12,
+  "oldSigns": [],
+  "supportBearings": [
+    {
+      "verticalError": 0.0000016784668019909077,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 2.288818308215923e-7,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 2.288818308215923e-7,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 0.0000016784667948854803,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 0.0000016784668019909077,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 0.0000016784668019909077,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 0.0000016784668019909077,
+      "horizontalError": 0
+    },
+    {
+      "verticalError": 0.0000016784668019909077,
+      "horizontalError": 0
+    }
+  ],
+  "ladderNewColliders": [],
+  "obsoleteBotanicalSupport": false,
+  "duplicates": {
+    "Workspace.VesperLab.FinishedRoofJunctions": 1,
+    "Workspace.VesperLab.WallResearchDetails": 1,
+    "Workspace.VesperLab.ExcavationAccess.Phase1StructuralConnections": 1,
+    "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop": 1
+  }
+}

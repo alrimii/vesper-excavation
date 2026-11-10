@@ -73,13 +73,16 @@ function M.Build(player, remote, feedback)
 		Name = "Root",
 		Size = UDim2.fromScale(1, 1),
 		BackgroundColor3 = ink,
+		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Visible = false,
 		Active = true,
 	})
-	local backdrop = image(root, "background", UDim2.new(), UDim2.fromScale(1, 1), 1)
-	backdrop.ScaleType = Enum.ScaleType.Crop
-	backdrop.ImageTransparency = 0.62
+	require(script.Parent.ModalLayout).Backdrop(
+		ui,
+		root,
+		{ Color = ink, Image = Art.background, ImageTransparency = 0.62 }
+	)
 	local header = label(root, "", 18, UDim2.fromOffset(12, 6), UDim2.new(1, -80, 0, 54), 4)
 	header.TextXAlignment = Enum.TextXAlignment.Left
 	local canvas = make(
@@ -314,7 +317,7 @@ function M.Build(player, remote, feedback)
 	end
 	draw = function()
 		local w, h = root.AbsoluteSize.X, root.AbsoluteSize.Y
-		local narrow = w < 600 or (w < 760 and h >= 500)
+		local narrow = h >= 440 and (w < 600 or (w < 760 and h >= 500))
 		header.TextSize = narrow and 14 or 18
 		local panelHeight = collapse and 56 or math.max(180, math.floor((h - 120) * 0.42))
 		if narrow then
@@ -323,7 +326,7 @@ function M.Build(player, remote, feedback)
 			canvas.Position = UDim2.fromOffset(4, 116)
 			canvas.Size = UDim2.new(1, -8, 1, -174 - panelHeight)
 		else
-			local panelWidth = w < 900 and 260 or 346
+			local panelWidth = math.min(w < 900 and 260 or 346, math.max(180, w * 0.42))
 			panel.Position = UDim2.new(1, -panelWidth - 8, 0, 66)
 			panel.Size = UDim2.new(0, panelWidth, 1, -124)
 			canvas.Position = UDim2.fromOffset(4, 66)

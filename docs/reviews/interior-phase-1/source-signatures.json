@@ -1,0 +1,34 @@
+{
+  "AccessBuilder": {
+    "bytes": 257,
+    "adler": 2565102468
+  },
+  "LabInteriorBuilder": {
+    "bytes": 30135,
+    "adler": 1856267664
+  },
+  "WorkshopUI": {
+    "bytes": 2283,
+    "adler": 1007673398
+  },
+  "OutfitterUI": {
+    "bytes": 16079,
+    "adler": 339468779
+  },
+  "SecondaryMenus": {
+    "bytes": 16007,
+    "adler": 1331513099
+  },
+  "SkillTreeUI": {
+    "bytes": 25153,
+    "adler": 1634078014
+  },
+  "DiscoveryHUD": {
+    "bytes": 10221,
+    "adler": 3604032328
+  },
+  "ModalLayout": {
+    "bytes": 2574,
+    "adler": 1695314554
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "start": "2026-11-10T22:31:29.554Z",
+  "stop": "2026-11-10T22:33:30.996Z",
+  "durationSeconds": 121.442,
+  "playSessions": 1,
+  "captureOnly": true,
+  "gameplayActions": false,
+  "deviceChanges": false,
+  "implementationFrozenAt": "2026-11-10T22:31:04.592Z",
+  "worldViews": [
+    {
+      "name": "workshop",
+      "time": "2026-11-10T22:31:53.388Z"
+    },
+    {
+      "name": "laboratory",
+      "time": "2026-11-10T22:31:56.644Z"
+    },
+    {
+      "name": "room-frontage",
+      "time": "2026-11-10T22:31:59.908Z"
+    },
+    {
+      "name": "access-supports",
+      "time": "2026-11-10T22:32:03.668Z"
+    },
+    {
+      "name": "platform-floor",
+      "time": "2026-11-10T22:32:07.123Z"
+    },
+    {
+      "name": "inside-above-egg",
+      "time": "2026-11-10T22:32:10.610Z"
+    },
+    {
+      "name": "roof-detail",
+      "time": "2026-11-10T22:32:14.171Z"
+    }
+  ],
+  "guiViews": [
+    "skills",
+    "equipment",
+    "upgrades",
+    "upgrades-last-row",
+    "settings",
+    "journal"
+  ],
+  "inspectionCutaway": {
+    "mode": "Edit",
+    "temporaryParts": 824,
+    "restoredParts": 824
+  },
+  "worldHud": "Game HUD temporarily hidden for clear world photographs; restored for GUI captures. Roblox system controls remained.",
+  "restoration": "Camera binding removed before Stop; no Play visibility edits. Edit cutaway restored before session.",
+  "images": {
+    "viewportCrop": [
+      366,
+      270,
+      1590,
+      940
+    ],
+    "output": [
+      1224,
+      670
+    ],
+    "pixelEdits": "Cropping only; original full-window captures remain private"
+  },
+  "console": {
+    "content": [
+      {
+        "type": "text",
+        "text": "[Vesper] 12 session rooms ready\n[Roblox][sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Actions.ExecuteLuauActions] The execute_luau changed camera type. Resetting from Enum.CameraType.Scriptable back to Enum.CameraType.Custom\n[Roblox][sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Actions.ExecuteLuauActions] The execute_luau changed camera type. Resetting from Enum.CameraType.Custom back to Enum.CameraType.Scriptable"
+      }
+    ],
+    "isError": false
+  }
+}

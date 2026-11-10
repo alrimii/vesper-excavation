@@ -1,0 +1,750 @@
+{
+  "place": 94763223427049,
+  "rooms": {
+    "Room11": {
+      "threshold": "-133.325012, 1.35000002, 1.58988473e-06, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "training": "-153.5, 5.28249979, 22, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "interior": {
+        "count": 142,
+        "signature": 1557633012
+      },
+      "pressRest": "-153.500031, 8.93250084, 22.0000057, 0, 0, -1, 0, 1, 0, 1, 0, 0",
+      "id": 11,
+      "practiceRest": "-153.500031, 5.28250027, 22.0000057, 0, 0, -1, 0, 1, 0, 1, 0, 0",
+      "pivot": [
+        -169.10000610351562,
+        0,
+        0.0000020164973193459446,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "spawn": "-169.100006, 1.45800006, 2.01649732e-06, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08"
+    },
+    "Room07": {
+      "threshold": "87.9999847, 1.35000002, -133.325027, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "training": "65.9999847, 5.28249979, -153.500015, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "interior": {
+        "count": 142,
+        "signature": 1503425906
+      },
+      "pressRest": "65.9999847, 8.93250084, -153.500015, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "id": 7,
+      "practiceRest": "65.9999847, 5.28250027, -153.500015, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "pivot": [
+        87.99998474121094,
+        0,
+        -169.1000213623047,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "spawn": "87.9999847, 1.45800006, -169.100021, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1"
+    },
+    "Room12": {
+      "threshold": "-133.324982, 1.35000002, 88, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "training": "-153.499969, 5.28249979, 110, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "interior": {
+        "count": 142,
+        "signature": 1747641641
+      },
+      "pressRest": "-153.499969, 8.93250084, 109.999992, 0, 0, -1, 0, 1, 0, 1, 0, 0",
+      "id": 12,
+      "practiceRest": "-153.499969, 5.28250027, 109.999992, 0, 0, -1, 0, 1, 0, 1, 0, 0",
+      "pivot": [
+        -169.10000610351562,
+        0,
+        88,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "spawn": "-169.100006, 1.45800006, 88, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08"
+    },
+    "Room05": {
+      "threshold": "133.324982, 1.35000002, -5.82782013e-06, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "training": "153.499969, 5.28249979, -21.9999905, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "interior": {
+        "count": 142,
+        "signature": 474626352
+      },
+      "pressRest": "153.499969, 8.93250084, -21.9999943, -5.96046448e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046448e-08",
+      "id": 5,
+      "practiceRest": "153.499969, 5.28250027, -21.9999943, -5.96046448e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046448e-08",
+      "pivot": [
+        169.10000610351562,
+        0,
+        -0.000007391596227535047,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "spawn": "169.100006, 1.45800006, -7.39159623e-06, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08"
+    },
+    "Room03": {
+      "threshold": "88, 1.35000002, 133.324982, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "training": "110, 5.28249979, 153.499969, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "interior": {
+        "count": 142,
+        "signature": 725533284
+      },
+      "pressRest": "109.999992, 8.93250084, 153.499969, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "id": 3,
+      "practiceRest": "109.999992, 5.28250027, 153.499969, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "pivot": [
+        88,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "spawn": "88, 1.45800006, 169.100006, 1, 0, 0, 0, 1, 0, 0, 0, 1"
+    },
+    "Room01": {
+      "threshold": "-88, 1.35000002, 133.325012, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "training": "-66, 5.28249979, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "interior": {
+        "count": 142,
+        "signature": 1190797066
+      },
+      "pressRest": "-66, 8.93250084, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "id": 1,
+      "practiceRest": "-66, 5.28250027, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "pivot": [
+        -88,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "spawn": "-88, 1.45800006, 169.100006, 1, 0, 0, 0, 1, 0, 0, 0, 1"
+    },
+    "Room10": {
+      "threshold": "-133.325012, 1.35000002, -88, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "training": "-153.5, 5.28249979, -66, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "interior": {
+        "count": 142,
+        "signature": 1002383311
+      },
+      "pressRest": "-153.5, 8.93250084, -66, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "id": 10,
+      "practiceRest": "-153.5, 5.28250027, -66, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08",
+      "pivot": [
+        -169.10000610351562,
+        0,
+        -88,
+        1.1924880638503055e-8,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1.1924880638503055e-8
+      ],
+      "spawn": "-169.100006, 1.45800006, -88, 1.19248806e-08, 0, -1, 0, 1, 0, 1, 0, 1.19248806e-08"
+    },
+    "Room06": {
+      "threshold": "133.324982, 1.35000002, -88.0000076, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "training": "153.499939, 5.28249979, -109.999992, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "interior": {
+        "count": 142,
+        "signature": 938782676
+      },
+      "pressRest": "153.499969, 8.93250084, -110.000008, -2.98023224e-08, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -2.98023224e-08",
+      "id": 6,
+      "practiceRest": "153.499969, 5.28250027, -110.000008, -2.98023224e-08, 0, 1.00000012, 0, 1, 0, -1.00000012, 0, -2.98023224e-08",
+      "pivot": [
+        169.10000610351562,
+        0,
+        -88.00000762939453,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "spawn": "169.100006, 1.45800006, -88.0000076, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08"
+    },
+    "Room02": {
+      "threshold": "0, 1.35000002, 133.325012, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "training": "21.9999981, 5.28249979, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "interior": {
+        "count": 142,
+        "signature": 607047602
+      },
+      "pressRest": "22.0000153, 8.93250084, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "id": 2,
+      "practiceRest": "22.0000153, 5.28250027, 153.5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+      "pivot": [
+        0,
+        0,
+        169.10000610351562,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "spawn": "0, 1.45800006, 169.100006, 1, 0, 0, 0, 1, 0, 0, 0, 1"
+    },
+    "Room04": {
+      "threshold": "133.325012, 1.35000002, 87.9999924, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "training": "153.5, 5.28249979, 65.9999924, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "interior": {
+        "count": 142,
+        "signature": 1249933746
+      },
+      "pressRest": "153.5, 8.93250084, 65.9999924, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "id": 4,
+      "practiceRest": "153.5, 5.28250027, 65.9999924, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08",
+      "pivot": [
+        169.10000610351562,
+        0,
+        87.99999237060547,
+        -4.371138828673793e-8,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        -4.371138828673793e-8
+      ],
+      "spawn": "169.100006, 1.45800006, 87.9999924, -4.37113883e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113883e-08"
+    },
+    "Room09": {
+      "threshold": "-88.0000153, 1.35000002, -133.324997, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "training": "-110.000015, 5.28249979, -153.499985, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "interior": {
+        "count": 142,
+        "signature": 829791821
+      },
+      "pressRest": "-110.000031, 8.93250084, -153.500015, -0.99999994, 0, -1.1920929e-07, 0, 1, 0, 1.1920929e-07, 0, -0.99999994",
+      "id": 9,
+      "practiceRest": "-110.000031, 5.28250027, -153.500015, -0.99999994, 0, -1.1920929e-07, 0, 1, 0, 1.1920929e-07, 0, -0.99999994",
+      "pivot": [
+        -88.00001525878906,
+        0,
+        -169.09999084472656,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "spawn": "-88.0000153, 1.45800006, -169.099991, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1"
+    },
+    "Room08": {
+      "threshold": "-1.1655643e-05, 1.35000002, -133.325012, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "training": "-22.0000114, 5.28249979, -153.5, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "interior": {
+        "count": 142,
+        "signature": 528422007
+      },
+      "pressRest": "-22.000042, 8.93250084, -153.5, -0.99999994, 0, -1.1920929e-07, 0, 1, 0, 1.1920929e-07, 0, -0.99999994",
+      "id": 8,
+      "practiceRest": "-22.000042, 5.28250027, -153.5, -0.99999994, 0, -1.1920929e-07, 0, 1, 0, 1.1920929e-07, 0, -0.99999994",
+      "pivot": [
+        -0.000014783192455070093,
+        0,
+        -169.10000610351562,
+        -1,
+        0,
+        -8.742277657347586e-8,
+        0,
+        1,
+        0,
+        8.742277657347586e-8,
+        0,
+        -1
+      ],
+      "spawn": "-1.47831925e-05, 1.45800006, -169.100006, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1"
+    }
+  },
+  "anchors": {
+    "Room02_Spawn": "Workspace.VesperLab.Rooms.Room02.RoomSpawn",
+    "Room09_Spawn": "Workspace.VesperLab.Rooms.Room09.RoomSpawn",
+    "Room11_Training": "Workspace.VesperLab.Rooms.Room11.TrainingStation.TrainingSpot",
+    "Room12_Training": "Workspace.VesperLab.Rooms.Room12.TrainingStation.TrainingSpot",
+    "Room08_Entrance": "Workspace.VesperLab.Rooms.Room08.Threshold",
+    "Room06_Entrance": "Workspace.VesperLab.Rooms.Room06.Threshold",
+    "Room10_Spawn": "Workspace.VesperLab.Rooms.Room10.RoomSpawn",
+    "Room04_Training": "Workspace.VesperLab.Rooms.Room04.TrainingStation.TrainingSpot",
+    "Room12_Spawn": "Workspace.VesperLab.Rooms.Room12.RoomSpawn",
+    "Room04_Entrance": "Workspace.VesperLab.Rooms.Room04.Threshold",
+    "Room03_Training": "Workspace.VesperLab.Rooms.Room03.TrainingStation.TrainingSpot",
+    "Room08_Spawn": "Workspace.VesperLab.Rooms.Room08.RoomSpawn",
+    "Room07_Training": "Workspace.VesperLab.Rooms.Room07.TrainingStation.TrainingSpot",
+    "Room12_Entrance": "Workspace.VesperLab.Rooms.Room12.Threshold",
+    "WorkshopInteraction": "Workspace.VesperLab.SharedWorkshop.ApproachZone",
+    "Room04_Spawn": "Workspace.VesperLab.Rooms.Room04.RoomSpawn",
+    "Room10_Training": "Workspace.VesperLab.Rooms.Room10.TrainingStation.TrainingSpot",
+    "Room05_Entrance": "Workspace.VesperLab.Rooms.Room05.Threshold",
+    "Room07_Entrance": "Workspace.VesperLab.Rooms.Room07.Threshold",
+    "Room11_Spawn": "Workspace.VesperLab.Rooms.Room11.RoomSpawn",
+    "Room06_Spawn": "Workspace.VesperLab.Rooms.Room06.RoomSpawn",
+    "Room09_Entrance": "Workspace.VesperLab.Rooms.Room09.Threshold",
+    "Room03_Entrance": "Workspace.VesperLab.Rooms.Room03.Threshold",
+    "ExcavationAccess": "Workspace.VesperLab.ExcavationAccess",
+    "Room11_Entrance": "Workspace.VesperLab.Rooms.Room11.Threshold",
+    "CurrentEgg": "Workspace.VesperLab.Egg",
+    "Room05_Training": "Workspace.VesperLab.Rooms.Room05.TrainingStation.TrainingSpot",
+    "Room08_Training": "Workspace.VesperLab.Rooms.Room08.TrainingStation.TrainingSpot",
+    "Room06_Training": "Workspace.VesperLab.Rooms.Room06.TrainingStation.TrainingSpot",
+    "Room02_Training": "Workspace.VesperLab.Rooms.Room02.TrainingStation.TrainingSpot",
+    "Room05_Spawn": "Workspace.VesperLab.Rooms.Room05.RoomSpawn",
+    "Room01_Entrance": "Workspace.VesperLab.Rooms.Room01.Threshold",
+    "Room10_Entrance": "Workspace.VesperLab.Rooms.Room10.Threshold",
+    "Room01_Training": "Workspace.VesperLab.Rooms.Room01.TrainingStation.TrainingSpot",
+    "Room07_Spawn": "Workspace.VesperLab.Rooms.Room07.RoomSpawn",
+    "Room03_Spawn": "Workspace.VesperLab.Rooms.Room03.RoomSpawn",
+    "Room02_Entrance": "Workspace.VesperLab.Rooms.Room02.Threshold",
+    "Room01_Spawn": "Workspace.VesperLab.Rooms.Room01.RoomSpawn",
+    "Room09_Training": "Workspace.VesperLab.Rooms.Room09.TrainingStation.TrainingSpot"
+  },
+  "version": 203,
+  "scripts": {
+    "ReplicatedStorage.VesperShared.ImpactFX": {
+      "count": 1,
+      "signature": 1069405457
+    },
+    "ReplicatedStorage.VesperShared.RoomTerminalHints": {
+      "count": 1,
+      "signature": 2022840573
+    },
+    "ReplicatedFirst.Loading": {
+      "count": 1,
+      "signature": 521952312
+    },
+    "ReplicatedStorage.VesperShared.ExpeditionResults": {
+      "count": 1,
+      "signature": 1123933414
+    },
+    "ReplicatedStorage.VesperShared.DispatchUI": {
+      "count": 1,
+      "signature": 1562378306
+    },
+    "ReplicatedStorage.VesperShared.GuidedRoute": {
+      "count": 1,
+      "signature": 2057612782
+    },
+    "ReplicatedStorage.VesperShared.CollectionSlots": {
+      "count": 1,
+      "signature": 1392267872
+    },
+    "ServerScriptService.Vesper.RoomPool": {
+      "count": 1,
+      "signature": 903701593
+    },
+    "ServerScriptService.Vesper.MaterialRewards": {
+      "count": 1,
+      "signature": 1180437636
+    },
+    "ReplicatedStorage.VesperShared.DeliverySequence": {
+      "count": 1,
+      "signature": 996659554
+    },
+    "ServerScriptService.Vesper.RoomTerminals": {
+      "count": 1,
+      "signature": 437852401
+    },
+    "ReplicatedStorage.VesperShared.MotionClips": {
+      "count": 1,
+      "signature": 1700038380
+    },
+    "ReplicatedStorage.VesperShared.MembraneMotion": {
+      "count": 1,
+      "signature": 1662499572
+    },
+    "ReplicatedStorage.VesperShared.SkillCatalog": {
+      "count": 1,
+      "signature": 1211765069
+    },
+    "ReplicatedStorage.VesperShared.ToolMotion": {
+      "count": 1,
+      "signature": 173791176
+    },
+    "ReplicatedStorage.VesperShared.Targeting": {
+      "count": 1,
+      "signature": 2017241571
+    },
+    "ReplicatedStorage.VesperShared.UIMotion": {
+      "count": 1,
+      "signature": 1275001798
+    },
+    "ReplicatedStorage.VesperShared.MovementControls": {
+      "count": 1,
+      "signature": 2046595453
+    },
+    "ServerScriptService.Vesper.EggRewards": {
+      "count": 1,
+      "signature": 1003973594
+    },
+    "ReplicatedStorage.VesperShared.AccessRetraction": {
+      "count": 1,
+      "signature": 272653514
+    },
+    "ReplicatedStorage.VesperShared.ExcavationConfig": {
+      "count": 1,
+      "signature": 223289800
+    },
+    "ReplicatedStorage.VesperShared.EquipmentPreview": {
+      "count": 1,
+      "signature": 535458380
+    },
+    "ReplicatedStorage.VesperShared.WorkshopUI": {
+      "count": 1,
+      "signature": 1868790083
+    },
+    "ReplicatedStorage.VesperShared.FragmentMotion": {
+      "count": 1,
+      "signature": 1215547563
+    },
+    "ReplicatedStorage.VesperShared.RoomAnimation": {
+      "count": 1,
+      "signature": 573290302
+    },
+    "ReplicatedStorage.VesperShared.SpecimenMotion": {
+      "count": 1,
+      "signature": 428810405
+    },
+    "ReplicatedStorage.VesperShared.EquipmentDock": {
+      "count": 1,
+      "signature": 355019883
+    },
+    "ServerScriptService.Vesper.RoomAllocator": {
+      "count": 1,
+      "signature": 1923956465
+    },
+    "ReplicatedStorage.VesperShared.ExcavationCamera": {
+      "count": 1,
+      "signature": 895247580
+    },
+    "ReplicatedStorage.VesperShared.SpecimenPreview": {
+      "count": 1,
+      "signature": 898787398
+    },
+    "ServerScriptService.Vesper.MovementService": {
+      "count": 1,
+      "signature": 1512179104
+    },
+    "ReplicatedStorage.VesperShared.ExcavationArt": {
+      "count": 1,
+      "signature": 955394832
+    },
+    "ReplicatedStorage.VesperShared.SkillFeedback": {
+      "count": 1,
+      "signature": 1707360499
+    },
+    "ServerScriptService.Vesper.ProgressiveFractureBuilder": {
+      "count": 1,
+      "signature": 801870848
+    },
+    "ReplicatedStorage.VesperShared.DrillHandling": {
+      "count": 1,
+      "signature": 1332364054
+    },
+    "ReplicatedStorage.VesperShared.ShellMotion": {
+      "count": 1,
+      "signature": 2139679709
+    },
+    "ReplicatedStorage.VesperShared.ProgressionRules": {
+      "count": 1,
+      "signature": 1513700029
+    },
+    "ReplicatedStorage.VesperShared.SecondaryMenus": {
+      "count": 1,
+      "signature": 1762715656
+    },
+    "ReplicatedStorage.VesperShared.OutfitterComponents": {
+      "count": 1,
+      "signature": 483891712
+    },
+    "ReplicatedStorage.VesperShared.CollectionMotion": {
+      "count": 1,
+      "signature": 1964677939
+    },
+    "ServerScriptService.Vesper.ResearchProfiles": {
+      "count": 1,
+      "signature": 298376901
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryCatalog": {
+      "count": 1,
+      "signature": 1431747089
+    },
+    "ReplicatedStorage.VesperShared.EggLifecycle": {
+      "count": 1,
+      "signature": 1150500510
+    },
+    "ReplicatedFirst.LoadingView": {
+      "count": 1,
+      "signature": 347468624
+    },
+    "ReplicatedStorage.VesperShared.ExteriorAtmosphereConfig": {
+      "count": 1,
+      "signature": 2011160340
+    },
+    "StarterPlayer.StarterPlayerScripts.ExcavationClient": {
+      "count": 1,
+      "signature": 1738201566
+    },
+    "ReplicatedStorage.VesperShared.Packages.spr": {
+      "count": 1,
+      "signature": 990483052
+    },
+    "ServerScriptService.Vesper.CollectionCabinet": {
+      "count": 1,
+      "signature": 630400107
+    },
+    "StarterPlayer.StarterPlayerScripts.ExteriorAtmosphereMotion": {
+      "count": 1,
+      "signature": 1389549951
+    },
+    "ReplicatedStorage.VesperShared.WorldInteractions": {
+      "count": 1,
+      "signature": 1472128491
+    },
+    "ReplicatedStorage.VesperShared.TrainingCycle": {
+      "count": 1,
+      "signature": 734720671
+    },
+    "ReplicatedStorage.VesperShared.OutfitterUI": {
+      "count": 1,
+      "signature": 1647662491
+    },
+    "ReplicatedStorage.VesperShared.OutfitterArt": {
+      "count": 1,
+      "signature": 2092688003
+    },
+    "ReplicatedStorage.VesperShared.DeliveryHoist": {
+      "count": 1,
+      "signature": 161872850
+    },
+    "ReplicatedStorage.VesperShared.SkillTreeUI": {
+      "count": 1,
+      "signature": 382981734
+    },
+    "ReplicatedStorage.VesperShared.SkillArt": {
+      "count": 1,
+      "signature": 1107107464
+    },
+    "ReplicatedStorage.VesperShared.ToolFeedback": {
+      "count": 1,
+      "signature": 922986372
+    },
+    "ReplicatedStorage.VesperShared.MiningFeedback": {
+      "count": 1,
+      "signature": 1472261833
+    },
+    "ReplicatedStorage.VesperShared.NavigationArtwork": {
+      "count": 1,
+      "signature": 1139261386
+    },
+    "ServerScriptService.Vesper.MembraneBuilder": {
+      "count": 1,
+      "signature": 1105677994
+    },
+    "ReplicatedStorage.VesperShared.EggFinishes": {
+      "count": 1,
+      "signature": 1601112918
+    },
+    "ReplicatedStorage.VesperShared.InterfaceStyle": {
+      "count": 1,
+      "signature": 516526712
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryHUD": {
+      "count": 1,
+      "signature": 646833096
+    },
+    "ReplicatedStorage.VesperShared.ExcavationChrome": {
+      "count": 1,
+      "signature": 1149401896
+    },
+    "ReplicatedStorage.VesperShared.UpgradePresentation": {
+      "count": 1,
+      "signature": 2120437030
+    },
+    "ReplicatedStorage.VesperShared.SpecimenBuilder": {
+      "count": 1,
+      "signature": 1372398803
+    },
+    "ReplicatedStorage.VesperShared.DiscoveryCinematic": {
+      "count": 1,
+      "signature": 504919540
+    },
+    "ReplicatedStorage.VesperShared.MaterialBag": {
+      "count": 1,
+      "signature": 1075494820
+    },
+    "ServerScriptService.Vesper.ExcavationService": {
+      "count": 1,
+      "signature": 1585832373
+    },
+    "ReplicatedStorage.VesperShared.ResearchJournal": {
+      "count": 1,
+      "signature": 1868769906
+    },
+    "ServerScriptService.Vesper.PlayerProgression": {
+      "count": 1,
+      "signature": 1235796565
+    },
+    "ReplicatedStorage.VesperShared.ExpeditionPhase": {
+      "count": 1,
+      "signature": 1539897334
+    },
+    "ReplicatedStorage.VesperShared.CradleImpact": {
+      "count": 1,
+      "signature": 1479244757
+    },
+    "ReplicatedStorage.VesperShared.DeliverySurface": {
+      "count": 1,
+      "signature": 1341408909
+    },
+    "ReplicatedStorage.VesperShared.DeliveryCamera": {
+      "count": 1,
+      "signature": 502246923
+    },
+    "ReplicatedStorage.VesperShared.UpgradeEconomy": {
+      "count": 1,
+      "signature": 1725632438
+    },
+    "ServerScriptService.Vesper.ExpeditionWorld": {
+      "count": 1,
+      "signature": 1883947361
+    },
+    "ServerScriptService.Vesper.DiscoveryWorld": {
+      "count": 1,
+      "signature": 2057020624
+    },
+    "ReplicatedStorage.VesperShared.LabAtmosphere": {
+      "count": 1,
+      "signature": 811175478
+    },
+    "ReplicatedStorage.VesperShared.HUDController": {
+      "count": 1,
+      "signature": 368454380
+    },
+    "ReplicatedStorage.VesperShared.FieldHUD": {
+      "count": 1,
+      "signature": 480948437
+    }
+  },
+  "atmosphere": {
+    "Density": "0.20499999821186066",
+    "Wind": "12, 0, 5",
+    "Offset": "0.15000000596046448",
+    "Color": "0.854902, 0.882353, 0.847059",
+    "Decay": "0.670588, 0.721569, 0.701961",
+    "Glare": "0",
+    "Haze": "1.2000000476837158"
+  },
+  "lighting": {
+    "ClockTime": "16",
+    "FogColor": "0.752941, 0.752941, 0.752941",
+    "FogEnd": "100000",
+    "EnvironmentDiffuseScale": "0.7200000286102295",
+    "EnvironmentSpecularScale": "0.20000000298023224",
+    "GeographicLatitude": "0",
+    "Ambient": "0.407843, 0.435294, 0.447059",
+    "OutdoorAmbient": "0.592157, 0.639216, 0.666667",
+    "Brightness": "1.649999976158142",
+    "FogStart": "0",
+    "ExposureCompensation": "-0.11999999731779099"
+  },
+  "geometry": {
+    "Workspace.VesperLab.Architecture.CompactFoundation": {
+      "count": 214,
+      "signature": 750348528
+    },
+    "Workspace.VesperLab.ExcavationAccess.DeploymentSections": {
+      "count": 1905,
+      "signature": 833065756
+    },
+    "Workspace.VesperLab.Egg": {
+      "count": 8169,
+      "signature": 188845255
+    },
+    "LadderRoute": {
+      "count": 35,
+      "signature": 1059816824
+    },
+    "Workspace.VesperLab.ResourceDepot": {
+      "count": 47,
+      "signature": 100925195
+    },
+    "Workspace.VesperLab.DecorativeExterior": {
+      "count": 460,
+      "signature": 1795755957
+    },
+    "Workspace.VesperLab.CrownDeliveryDock": {
+      "count": 35,
+      "signature": 1590113374
+    },
+    "Workspace.VesperLab.Dome": {
+      "count": 433,
+      "signature": 1889208580
+    },
+    "Workspace.VesperLab.CentralPlatform": {
+      "count": 265,
+      "signature": 1127447119
+    }
+  },
+  "clouds": {
+    "Density": "0.38999998569488525",
+    "Color": "0.937255, 0.94902, 0.92549",
+    "Cover": "0.5199999809265137"
+  }
+}

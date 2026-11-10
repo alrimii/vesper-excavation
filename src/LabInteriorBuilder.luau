@@ -88,24 +88,7 @@ local function lamp(parent, cf, w)
 	l.Shadows = false
 	l.Parent = p
 end
-local function label(parent, name, cf, w, text)
-	local p = part(parent, name, V(w, 2.6, 0.22), cf, C.dark, false, Enum.Material.Metal)
-	local g = Instance.new("SurfaceGui")
-	g.Face = Enum.NormalId.Front
-	g.CanvasSize = Vector2.new(w * 70, 190)
-	g.LightInfluence = 0.15
-	g.MaxDistance = 130
-	g.Parent = p
-	local t = Instance.new("TextLabel")
-	t.Size = UDim2.fromScale(0.94, 0.8)
-	t.Position = UDim2.fromScale(0.03, 0.1)
-	t.BackgroundTransparency = 1
-	t.Text = text
-	t.TextColor3 = C.warm
-	t.TextScaled = true
-	t.Font = Enum.Font.GothamMedium
-	t.Parent = g
-end
+
 local function retainedMesh(parent, name, cf, scale, color)
 	local t = game.ServerStorage.LivingLabArtAssets:FindFirstChild(name)
 		or game.ServerStorage.LivingLabAssets:FindFirstChild(name)
@@ -197,6 +180,51 @@ local function bed(parent, name, cf, w, d, variant)
 	end
 	return g
 end
+local function triangle(parent, name, a, b, c, thickness, color, material)
+	local ab, ac, bc = b - a, c - a, c - b
+	if ab:Dot(ab) > ac:Dot(ac) and ab:Dot(ab) > bc:Dot(bc) then
+		c, a = a, c
+	elseif ac:Dot(ac) > bc:Dot(bc) then
+		a, b = b, a
+	end
+	ab, ac, bc = b - a, c - a, c - b
+	if ac:Cross(ab).Magnitude < 0.00001 then
+		return
+	end
+	local right = ac:Cross(ab).Unit
+	local back = bc.Unit
+	local up = bc:Cross(right).Unit
+	local height = math.abs(ab:Dot(up))
+	for _, v in
+		{
+			{ (a + b) / 2, right, up, back, math.abs(ab:Dot(back)) },
+			{
+				(a + c) / 2,
+				-right,
+				up,
+				-back,
+				math.abs(ac:Dot(back)),
+			},
+		}
+	do
+		if height > 0.001 and v[5] > 0.001 then
+			local q = Instance.new("WedgePart")
+			q.Name = name
+			q.Size = V(thickness, height, v[5])
+			q.CFrame = CFrame.fromMatrix(v[1], v[2], v[3], v[4])
+			q.Color = color
+			q.Material = material
+			q.Anchored = true
+			q.CanCollide = true
+			q.CanQuery = true
+			q.CanTouch = false
+			q.TopSurface = Enum.SurfaceType.Smooth
+			q.BottomSurface = Enum.SurfaceType.Smooth
+			q.Parent = parent
+		end
+	end
+end
+
 function B.Frontage()
 	local r = lab()
 	for _, n in { "LaboratoryBays", "PerimeterPlanting" } do
@@ -208,21 +236,7 @@ function B.Frontage()
 		for slot = 0, 2 do
 			local n = side * 3 + slot + 1
 			local room = assert(r.Rooms:FindFirstChild(string.format("Room%02d", n)))
-			local old = room:GetPivot()
-			local target = rotation * CF((slot - 1) * 88, 0, 169.1)
-			if not room:GetAttribute("CompactOriginalPivot") then
-				room:SetAttribute("CompactOriginalPivot", old)
-			end
-			local delta = target * old:Inverse()
-			-- Transform world-space rest poses with each room; keep local joints, sizes and identities.
-			for _, p in room:GetDescendants() do
-				for k, v in p:GetAttributes() do
-					if typeof(v) == "CFrame" then
-						p:SetAttribute(k, delta * v)
-					end
-				end
-			end
-			room:PivotTo(target)
+			local target = room:GetPivot() -- Phase 1 preserves the accepted compact arrangement.
 			for _, name in
 				{
 					"InteriorPortal",
@@ -281,8 +295,14 @@ function B.Frontage()
 			end
 			part(g, "DoorHead", V(32, 7.7, 1.6), target * CF(0, 22.45, -35.3), facade, true)
 			part(g, "ThresholdApron", V(36, 0.16, 4), target * CF(0, 1.2, -36), C.stone, false)
-			room.OwnerSign.CFrame = target * CF(0, 19.1, -36.3)
-			room.NumberSign.CFrame = target * CF(-24.3, 12, -36.3)
+			remove(room, "NumberSign")
+			local owner = room.OwnerSign
+			owner.Size = V(12, 1.35, 0.18)
+			owner.CFrame = target * CF(0, 17.4, -36.3)
+			owner.Color = C.dark
+			owner.Display.CanvasSize = Vector2.new(840, 110)
+			owner.Display.MaxDistance = 95
+			owner.Display.LightInfluence = 0.3
 			lamp(g, target * CF(0, 18.6, -36.1), 29)
 			room:SetAttribute("CompactLayoutRevision", 1)
 			task.wait()
@@ -290,89 +310,107 @@ function B.Frontage()
 		local cf = rotation * CF(0, 0, 134)
 		part(
 			shared,
-			"ContinuousWingCornice",
-			V(265, 1.1, 3),
-			cf * CF(0, 27.15, 0),
+			"ContinuousWingFascia",
+			V(265.4, 1, 1.4),
+			cf * CF(0, 26.8, 0),
 			C.metal,
 			true,
 			Enum.Material.Metal
 		)
-		part(shared, "StoneWingCap", V(265, 0.6, 4), cf * CF(0, 27.9, 0), C.stone, true)
 	end
 	r:SetAttribute("CompactRoomLayoutRevision", 1)
-	return "Twelve rooms and world-space rest poses coherently relocated"
+	return "Room positions preserved; restrained ownership signs and finished frontage"
 end
 function B.Floor()
 	local r = lab()
 	remove(r, "StoneCirculation")
-	for _, n in { "ArenaFloor", "Foundation", "CompactFoundation" } do
-		remove(r.Architecture, n)
-	end
-	local base = model(r.Architecture, "CompactFoundation")
-	local boundary = {}
-	for i = 0, 23 do
-		boundary[i + 1] = boundaryPoint(math.rad(i * 15 - 7.5), 0, 1)
-	end
-	local function halfAt(z)
-		local x = 0
-		for i, a in boundary do
-			local b = boundary[i % #boundary + 1]
-			if
-				math.abs(b.Z - a.Z) > 0.001
-				and z >= math.min(a.Z, b.Z) - 0.001
-				and z <= math.max(a.Z, b.Z) + 0.001
-			then
-				x = math.max(x, a.X + (b.X - a.X) * (z - a.Z) / (b.Z - a.Z))
-			end
-		end
-		return x
-	end
-	for _, s in { -1, 1 } do
-		for i = 0, DOME_HALF_WIDTH / 2 - 1 do
-			local z = 1 + i * 2
-			local half = halfAt(z + 1)
-			part(
-				base,
-				"FittedPerimeterSlab",
-				V(half * 2, 1.35, 2.02),
-				CF(0, 0, s * z),
-				C.dark,
-				true,
-				Enum.Material.Concrete
-			)
-			if i % 40 == 0 then
-				task.wait()
-			end
-		end
-	end
 	local f = model(r, "CompactStoneFloor")
+	-- Fit slabs to a concealed bearing line inside the unchanged 74.25-stud cylinder.
+	-- The 2.75-stud construction underlap accommodates native cylinder render facets. Outside polygons are disjoint; there is no extra overlay.
+	local radius = 71.5
+	local sides = 120
+	local boundary = {}
+	for i = 0, sides - 1 do
+		local a = i * math.pi * 2 / sides
+		boundary[i + 1] = Vector2.new(math.cos(a) * radius, math.sin(a) * radius)
+	end
+	local function clip(poly, a, b, inside)
+		local out = {}
+		local edge = b - a
+		local function dist(v)
+			return edge.X * (v.Y - a.Y) - edge.Y * (v.X - a.X)
+		end
+		for i, u in poly do
+			local v = poly[i % #poly + 1]
+			local du, dv = dist(u), dist(v)
+			local keepU = inside and du >= -1e-6 or not inside and du <= 1e-6
+			local keepV = inside and dv >= -1e-6 or not inside and dv <= 1e-6
+			if keepU then
+				table.insert(out, u)
+			end
+			if keepU ~= keepV then
+				table.insert(out, u + (v - u) * (du / (du - dv)))
+			end
+		end
+		return out
+	end
 	local colors = {
 		Color3.fromRGB(151, 151, 137),
 		Color3.fromRGB(147, 149, 137),
 		Color3.fromRGB(155, 153, 138),
 		Color3.fromRGB(149, 151, 141),
 	}
-	for row = 0, 21 do
+	for row = 0, 22 do
 		for col = 0, 16 do
-			local z = -128 + row * 12
-			local x = -126 + col * 16
-			if x * x + z * z > 70 * 70 then
+			local x0, z0 = -134 + col * 16, -134 + row * 12
+			local x1, z1 = math.min(x0 + 16, 134), math.min(z0 + 12, 134)
+			x0 += col > 0 and 0.04 or 0
+			z0 += row > 0 and 0.04 or 0
+			x1 -= col < 16 and 0.04 or 0
+			z1 -= row < 22 and 0.04 or 0
+			local poly =
+				{ Vector2.new(x0, z0), Vector2.new(x1, z0), Vector2.new(x1, z1), Vector2.new(x0, z1) }
+			local color = colors[(row * 3 + col * 7) % 4 + 1]
+			local nearX = math.clamp(0, x0, x1)
+			local nearZ = math.clamp(0, z0, z1)
+			if nearX * nearX + nearZ * nearZ >= radius * radius then
 				part(
 					f,
 					"CoursedStone",
-					V(15.88, 0.18, 11.88),
-					CF(x, 0.78, z),
-					colors[(row * 3 + col * 7) % 4 + 1],
-					false
+					V(x1 - x0, 0.18, z1 - z0),
+					CF((x0 + x1) / 2, 0.78, (z0 + z1) / 2),
+					color,
+					true
 				)
+			else
+				for i, a in boundary do
+					if #poly < 3 then
+						break
+					end
+					local b = boundary[i % #boundary + 1]
+					local outside = clip(poly, a, b, false)
+					for k = 2, #outside - 1 do
+						local u, v, w = outside[1], outside[k], outside[k + 1]
+						triangle(
+							f,
+							"FittedPlatformSlab",
+							V(u.X, 0.78, u.Y),
+							V(v.X, 0.78, v.Y),
+							V(w.X, 0.78, w.Y),
+							0.18,
+							color,
+							Enum.Material.Limestone
+						)
+					end
+					poly = clip(poly, a, b, true)
+				end
 			end
 		end
-		if row % 4 == 0 then
-			task.wait()
-		end
+		task.wait()
 	end
-	return "Fitted foundation and quiet stone court replace oversized overlays"
+	return "One fitted stone surface meets the original platform; existing foundation unchanged"
 end
+
 function B.Commons()
 	local r = lab()
 	for _, n in { "InteriorCommons", "ResearchGardenIslands", "FocalResearchDisplays", "ExcavationPlanting" } do
@@ -388,7 +426,7 @@ function B.Commons()
 		part(g, "SeatLeg", V(2, 2.3, 3), cf * CF(x, 1.8, -11), C.metal, true, Enum.Material.Metal)
 	end
 	bed(g, "LabFernBed", CF(-44, 0, -121), 18, 10, 2)
-	bed(g, "WorkshopBotanicalBed", CF(121, 0, 44) * CFrame.Angles(0, math.pi / 2, 0), 16, 10, 1)
+	-- The former east-wall bed is removed for the integrated workshop approach.
 	return "Three botanical compositions replace block shrubs and repeated islands"
 end
 local function displayTool(parent, tool, cf, height, name)
@@ -411,58 +449,10 @@ local function displayTool(parent, tool, cf, height, name)
 	m:PivotTo(cf * CF(0, size.Y / 2, 0) * box:Inverse() * m:GetPivot())
 	m.Parent = parent
 end
-local function serviceCase(parent, name, cf, w)
-	local g = model(parent, name)
-	part(g, "ServicePlinth", V(w + 2, 0.8, 14), cf * CF(0, 1.25, 0), C.dark, true, Enum.Material.Slate)
-	part(g, "CabinetBody", V(w, 2.9, 12), cf * CF(0, 3.1, 0), C.sage, true, Enum.Material.WoodPlanks)
-	part(g, "StoneWorktop", V(w + 1, 0.6, 13), cf * CF(0, 4.85, 0), C.edge, true)
-	for x = -w / 2 + 5, w / 2 - 3, 10 do
-		part(g, "InsetCabinetDoor", V(9, 2.3, 0.2), cf * CF(x, 3, -6.15), C.wood, false, Enum.Material.Wood)
-		part(
-			g,
-			"BrassPull",
-			V(2, 0.16, 0.3),
-			cf * CF(x, 3.8, -6.4),
-			Color3.fromRGB(166, 139, 85),
-			false,
-			Enum.Material.Metal
-		)
-	end
-	part(
-		g,
-		"DisplayBacking",
-		V(w + 1, 13, 0.7),
-		cf * CF(0, 11.7, 5.7),
-		Color3.fromRGB(102, 117, 107),
-		true,
-		Enum.Material.WoodPlanks
-	)
-	for _, x in { -w / 2, w / 2 } do
-		part(
-			g,
-			"LightingStandard",
-			V(0.65, 15, 0.65),
-			cf * CF(x, 10, 5.7),
-			C.metal,
-			false,
-			Enum.Material.Metal
-		)
-		beam(
-			g,
-			"TaskArm",
-			cf:PointToWorldSpace(V(x, 17.5, 5.7)),
-			cf:PointToWorldSpace(V(x, 17.5, -4.5)),
-			0.45,
-			C.metal
-		)
-	end
-	lamp(g, cf * CF(0, 17.5, -4.5), w - 1)
-	return g
-end
 function B.Workshop()
 	local r = lab()
 	local shop = r.SharedWorkshop
-	local cf = corner(113.5, 113.5)
+	local cf = CFrame.lookAt(V(132.2, 0, 44), V(0, 0, 44))
 	local keep = { Console = true, UpgradeConsole = true, ApproachZone = true }
 	for _, p in shop:GetChildren() do
 		if not keep[p.Name] then
@@ -470,59 +460,122 @@ function B.Workshop()
 		end
 	end
 	shop.WorldPivot = cf
-	local g = serviceCase(shop, "CompactWorkshop", cf, 37)
-	shop.Console.CFrame = cf * CF(10.5, 3.2, -6.55)
-	shop.UpgradeConsole.CFrame = cf * CF(-10.5, 3.2, -6.55)
-	shop.ApproachZone.CFrame = cf * CF(0, 4.8, -13.8)
-	shop.ApproachZone.Size = V(39, 8, 14)
+	if r:FindFirstChild("CompactCommons") then
+		remove(r.CompactCommons, "WorkshopBotanicalBed")
+	end
+	local g = model(shop, "IntegratedWorkshop")
+	part(g, "WallToolMount", V(46, 13, 0.35), cf * CF(0, 10.7, 0.38), C.sage, true, Enum.Material.WoodPlanks)
+	part(g, "CabinetBody", V(46, 3.05, 4.8), cf * CF(0, 2.6, -2.45), C.wood, true, Enum.Material.Wood)
+	part(g, "StoneWorktop", V(47, 0.5, 5.6), cf * CF(0, 4.4, -2.65), C.edge, true)
+	part(g, "RecessedToe", V(45, 0.45, 4.1), cf * CF(0, 1.08, -2.2), C.dark, true, Enum.Material.Metal)
+	for _, x in { -15, 0, 15 } do
+		part(
+			g,
+			"CabinetDoor",
+			V(14, 2.45, 0.2),
+			cf * CF(x, 2.65, -4.96),
+			C.sage,
+			false,
+			Enum.Material.WoodPlanks
+		)
+		part(g, "Handle", V(2.3, 0.16, 0.35), cf * CF(x, 3.4, -5.15), C.metal, false, Enum.Material.Metal)
+		part(g, "ToolMount", V(7, 0.35, 3.2), cf * CF(x, 4.82, -1.7), C.metal, true, Enum.Material.Metal)
+	end
 	displayTool(
 		g,
 		game.ServerStorage.VesperKit.StarterPickaxe,
-		cf * CF(12, 6.1, 2) * CFrame.Angles(0, math.pi, 0.18),
-		9,
+		cf * CF(15, 5, -1.7) * CFrame.Angles(0, math.pi, 0.15),
+		8,
 		"PickaxeDisplay"
 	)
 	displayTool(
 		g,
 		game.ServerStorage.VesperKit.StarterDrill,
-		cf * CF(0, 6.1, 1) * CFrame.Angles(0, 0.8, 0),
-		7.2,
+		cf * CF(0, 5, -1.7) * CFrame.Angles(0, 0.8, 0),
+		6.4,
 		"DrillDisplay"
 	)
 	displayTool(
 		g,
 		game.ServerStorage.VesperKit.StarterExplosive,
-		cf * CF(-12, 6.1, 1) * CFrame.Angles(0, 0.35, 0),
-		4.4,
+		cf * CF(-15, 5, -1.7) * CFrame.Angles(0, 0.35, 0),
+		3.6,
 		"ChargeDisplay"
 	)
-	for _, x in { -12, 0, 12 } do
-		part(g, "ToolCradle", V(10, 0.7, 6), cf * CF(x, 5.55, 1), C.metal, true, Enum.Material.Metal)
-	end
-	label(g, "WorkshopIdentity", cf * CF(0, 19.4, 5.1), 32, "WORKSHOP")
-	return "Original shop interactions at a shallow projecting service counter"
+	lamp(g, cf * CF(0, 16.8, -1.1), 44)
+	shop.Console.CFrame = cf * CF(12, 2.8, -5.25)
+	shop.UpgradeConsole.CFrame = cf * CF(-12, 2.8, -5.25)
+	shop.ApproachZone.CFrame = cf * CF(0, 4.8, -11)
+	shop.ApproachZone.Size = V(48, 8, 10)
+	return "Original shop interactions integrated between east-wing entrances"
 end
 function B.Laboratory()
 	local r = lab()
-	local root = model(r, "SharedLaboratory")
-	local cf = corner(-113.5, -113.5)
-	local g = serviceCase(root, "ResearchCounter", cf, 37)
-	imported(g, "Microscope", cf * CF(11, 5.2, 0) * CFrame.Angles(0, 0.5, 0), 1)
-	imported(g, "Microscope", cf * CF(-12, 5.2, 2) * CFrame.Angles(0, -0.25, 0), 0.8)
-	local tray =
-		part(g, "CoreSampleTray", V(10, 0.35, 6), cf * CF(0, 5.33, 0), C.metal, true, Enum.Material.Metal)
-	for i = 1, 3 do
-		retainedMesh(
-			g,
-			"RockRound",
-			tray.CFrame * CF((i - 2) * 2.8, 0.2, 0),
-			0.2,
-			Color3.fromRGB(158, 153, 132)
+	remove(r, "SharedLaboratory")
+	local g = model(r, "WallResearchDetails")
+	local placements =
+		{ CFrame.lookAt(V(44, 0, -132.4), V(44, 0, 0)), CFrame.lookAt(V(-132.4, 0, -44), V(0, 0, -44)) }
+	for i, cf in placements do
+		local niche = model(g, "ResearchShelf" .. i)
+		part(niche, "WallInset", V(18, 12, 0.3), cf * CF(0, 10.1, 0.1), C.dark, false, Enum.Material.Slate)
+		part(niche, "StoneShelf", V(18.5, 0.45, 4.8), cf * CF(0, 4.25, -2.1), C.stone, true)
+		for _, x in { -7.5, 7.5 } do
+			part(
+				niche,
+				"SideReturn",
+				V(0.6, 12.5, 4.2),
+				cf * CF(x, 10.25, -1.8),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
+			beam(
+				niche,
+				"ShelfBracket",
+				cf:PointToWorldSpace(V(x, 2.4, 0.1)),
+				cf:PointToWorldSpace(V(x, 4, -3.6)),
+				0.4,
+				C.metal
+			)
+		end
+		part(
+			niche,
+			"UpperReturn",
+			V(18.5, 0.5, 4.8),
+			cf * CF(0, 16.45, -2.1),
+			C.metal,
+			true,
+			Enum.Material.Metal
 		)
+		lamp(niche, cf * CF(0, 16.1, -1.9), 15)
+		imported(
+			niche,
+			"Microscope",
+			cf * CF(i == 1 and -3.8 or 3.8, 4.5, -2.2) * CFrame.Angles(0, i == 1 and 0.4 or -0.4, 0),
+			0.88
+		)
+		local tray = part(
+			niche,
+			"SampleTray",
+			V(5, 0.18, 3),
+			cf * CF(i == 1 and 4 or -4, 4.57, -2.2),
+			C.metal,
+			true,
+			Enum.Material.Metal
+		)
+		for k = 1, 2 do
+			retainedMesh(
+				niche,
+				"RockRound",
+				tray.CFrame * CF((k - 1.5) * 2, 0.12, 0),
+				0.17,
+				Color3.fromRGB(158, 153, 132)
+			)
+		end
 	end
-	label(g, "LaboratoryIdentity", cf * CF(0, 19.4, 5.1), 32, "RESEARCH LAB")
-	return "Finished optical apparatus at an open laboratory frontage"
+	return "Unlabeled decorative instruments distributed onto two shallow wall-supported shelves"
 end
+
 function B.Specimen()
 	local r = lab()
 	local g = model(r, "CompactSpecimenStudy")
@@ -587,58 +640,269 @@ function B.Specimen()
 		)
 	end
 	lamp(g, cf * CF(0, 25.7, 0), 40)
-	label(g, "ModelAttribution", cf * CF(0, 2.3, -6.15), 27, "Triceratops · Smithsonian / CC0")
+	-- Attribution is retained on the imported meshes and in the source credits, not a prominent decor plaque.
 	return "Finished museum scan replaces the complete rejected skeleton assembly"
 end
 function B.Access()
 	local r = lab()
+	local access = r.ExcavationAccess
+	local ladder = access.AccessRevision4.LadderEntrance
+	for _, name in { "AccessSign", "SignPost", "LandingColumn" } do
+		remove(ladder, name)
+	end
 	remove(r, "AccessArtIntegration")
-	local g = model(r, "CompactBotanicalSupports")
-	for _, x in { 47.2, 57.3 } do
+	local old = r:FindFirstChild("CompactBotanicalSupports")
+	if old then
+		local retained = r:FindFirstChild("RetainedFixedPlanting") or Instance.new("Model")
+		retained.Name = "RetainedFixedPlanting"
+		retained.Parent = r
+		for _, p in old:GetChildren() do
+			if
+				p:IsA("BasePart")
+				and (p.Position.Y > 200 or Vector3.new(p.Position.X, 0, p.Position.Z).Magnitude > 180)
+			then
+				p.Parent = retained
+			end
+		end
+		old:Destroy()
+	end
+	local g = model(access, "Phase1StructuralConnections")
+	local floorY = 3.645
+	local beamBottom = 21.105
+	for _, x in { 48.467273, 56.067273 } do
+		for _, z in { -0.1, -7.8 } do
+			part(
+				g,
+				"LandingFoot",
+				V(1.3, 0.3, 1.3),
+				CF(x, floorY + 0.15, z),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
+			part(
+				g,
+				"LandingColumn",
+				V(0.65, beamBottom - floorY - 0.3, 0.65),
+				CF(x, (beamBottom + floorY + 0.3) / 2, z),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
+		end
 		part(
 			g,
-			"LandingBearingPost",
-			V(0.8, 14.7, 0.8),
-			CF(x, 14.15, 0.8),
+			"LandingSideBearer",
+			V(0.75, 0.5, 8.95),
+			CF(x, 21.355, -4),
 			C.metal,
 			true,
 			Enum.Material.Metal
 		)
-		part(g, "BearingShoe", V(2, 1.5, 2), CF(x, 7.5, 0.8), C.stone, true)
-		beam(g, "LandingBrace", V(x, 7.5, 0.8), V(x, 21.5, -6.5), 0.65, C.metal)
+		beam(g, "LandingKnee", V(x, 17.6, -0.1), V(x, 21.05, -4.2), 0.5, C.metal)
+		beam(g, "LandingKnee", V(x, 17.6, -7.8), V(x, 21.05, -4.2), 0.5, C.metal)
 	end
-	local function vine(base, height, phase)
-		local prev = base.Position
-		for i = 1, math.floor(height / 0.7) do
-			local point = base:PointToWorldSpace(
-				V(0.22 * math.sin(i * 0.45 + phase), i * 0.7, 0.15 * math.cos(i * 0.4))
-			)
-			beam(g, "GrowingStem", prev, point, 0.095, C.soil)
-			if i % 2 == 0 then
-				local side = i % 4 == 0 and 1 or -1
-				local tip = point + base:VectorToWorldSpace(V(side * 0.65, 0.32, -0.15))
-				beam(g, "ConnectedPetiole", point, tip, 0.055, Color3.fromRGB(82, 109, 52))
-				retainedMesh(
-					g,
-					"Clover",
-					CFrame.lookAt(tip, tip + base.LookVector) * CFrame.Angles(0, 0, side * 0.45),
-					1.2,
-					Color3.fromRGB(147, 171, 125)
-				).Name =
-					"AttachedLeafCluster"
+	for _, z in { -0.1, -7.8 } do
+		part(
+			g,
+			"LandingCrossBearer",
+			V(8.2, 0.5, 0.65),
+			CF(52.267273, 21.355, z),
+			C.metal,
+			true,
+			Enum.Material.Metal
+		)
+	end
+	-- Trim each original decorative column to its actual bracket bearing, not a guessed height.
+	for _, post in access:GetChildren() do
+		if post.Name == "OutboardSupport" and post:IsA("BasePart") then
+			local chosen, best = nil, math.huge
+			for _, bracket in access.WalkwaySupportArms:GetChildren() do
+				if bracket.Name == "TopBracket" then
+					for _, sign in { -1, 1 } do
+						local point = bracket.CFrame:PointToWorldSpace(V(0, 0, sign * bracket.Size.Z / 2))
+						local distance = (Vector3.new(point.X, 0, point.Z) - Vector3.new(
+							post.Position.X,
+							0,
+							post.Position.Z
+						)).Magnitude
+						if distance < best then
+							best = distance
+							chosen = point
+						end
+					end
+				end
 			end
-			prev = point
+			assert(chosen and best < 1.5, "Unmatched spiral support")
+			local bottom = 3.795
+			local top = chosen.Y - 0.24
+			post.Size = V(0.65, top - bottom, 0.65)
+			post.CFrame = CF(post.Position.X, (top + bottom) / 2, post.Position.Z)
+			post.Color = C.metal
+			post.CanCollide = true
+			post.CanQuery = true
+			part(
+				g,
+				"SpiralBearingPlate",
+				V(1.1, 0.16, 1.1),
+				CF(post.Position.X, top, post.Position.Z),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
 		end
 	end
-	vine(CF(57.8, 7.8, 1.3), 12.4, 0)
-	local angle = math.rad(37.5)
-	local radius = DOME_CORNER_EXTENT / (math.sin(angle) + math.cos(angle))
-	local x, z = math.sin(angle) * radius, math.cos(angle) * radius
-	vine(CF(-x + 0.7, 1.1, z - 0.7), 21.2, 2)
-	vine(CF(x - 0.7, 1.1, -z + 0.7), 17.8, 4)
-	vine(CF(-68, 247.75, 18.4) * CFrame.Angles(0, 0, -math.pi / 2), 9, 1)
-	return "Connected selective vines on stationary supports"
+	local pocket = model(g, "FutureAccessPlantingPocket")
+	part(pocket, "SolidPocket", V(2.8, 1.2, 2.8), CF(58.3, 4.245, 1.6), C.stone, true)
+	part(pocket, "Soil", V(2.3, 0.12, 2.3), CF(58.3, 4.88, 1.6), C.soil, false, Enum.Material.Ground)
+	if r:FindFirstChild("CompactSpecimenStudy") then
+		remove(r.CompactSpecimenStudy, "ModelAttribution")
+	end
+	return "Measured landing and spiral bearings; obsolete sign and affected floating vines removed"
 end
+function B.Roofs()
+	local r = lab()
+	for _, room in r.Rooms:GetChildren() do
+		remove(room, "Ceiling")
+		local g = model(room, "FinishedRoof")
+		local cf = room:GetPivot()
+		part(
+			g,
+			"Soffit",
+			V(86.4, 0.32, 70.2),
+			cf * CF(0, 26.68, 0),
+			Color3.fromRGB(108, 119, 122),
+			true,
+			Enum.Material.Concrete
+		)
+		local pitch = -math.atan(2.5 / 71.4)
+		local slope = CFrame.Angles(pitch, 0, 0)
+		for i = 0, 7 do
+			local x = -38.325 + i * 10.95
+			part(
+				g,
+				"RoofPanel",
+				V(10.91, 0.32, math.sqrt(71.4 ^ 2 + 2.5 ^ 2)),
+				cf * CF(x, 28.6, 0) * slope,
+				Color3.fromRGB(78, 96, 99),
+				true,
+				Enum.Material.Metal
+			)
+			if i < 7 then
+				part(
+					g,
+					"StandingSeam",
+					V(0.13, 0.13, math.sqrt(71.4 ^ 2 + 2.5 ^ 2)),
+					cf * CF(x + 5.475, 28.82, 0) * slope,
+					C.metal,
+					false,
+					Enum.Material.Metal
+				)
+			end
+		end
+		part(
+			g,
+			"FrontFascia",
+			V(87.6, 0.85, 0.65),
+			cf * CF(0, 27.05, -35.7),
+			C.metal,
+			true,
+			Enum.Material.Metal
+		)
+		part(g, "RearFascia", V(87.6, 3.35, 0.65), cf * CF(0, 28.3, 35.7), C.metal, true, Enum.Material.Metal)
+		for _, x in { -43.8, 43.8 } do
+			part(
+				g,
+				"SideFasciaBase",
+				V(0.65, 0.6, 71.4),
+				cf * CF(x, 26.95, 0),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
+			triangle(
+				g,
+				"FittedSideFascia",
+				cf:PointToWorldSpace(V(x, 27.25, -35.7)),
+				cf:PointToWorldSpace(V(x, 27.25, 35.7)),
+				cf:PointToWorldSpace(V(x, 29.95, 35.7)),
+				0.65,
+				C.metal,
+				Enum.Material.Metal
+			)
+		end
+		for _, z in { -35.8, 35.8 } do
+			part(
+				g,
+				"FoldedDripEdge",
+				V(87.8, 0.16, 0.5),
+				cf * CF(0, z < 0 and 27.57 or 30.07, z),
+				C.edge,
+				false,
+				Enum.Material.Metal
+			)
+		end
+		if room:GetAttribute("RoomNumber") == 3 or room:GetAttribute("RoomNumber") == 9 then
+			local pocket = model(g, "FutureRoofSoilPocket")
+			part(pocket, "EdgeTrough", V(16, 1.25, 3.6), cf * CF(25, 28.1, -32.8), C.stone, true)
+			part(
+				pocket,
+				"Soil",
+				V(15.2, 0.12, 2.8),
+				cf * CF(25, 28.77, -32.8),
+				C.soil,
+				false,
+				Enum.Material.Ground
+			)
+		end
+		task.wait()
+	end
+	local junctions = model(r, "FinishedRoofJunctions")
+	for side = 0, 3 do
+		local rotation = CFrame.Angles(0, math.rad(side * 90), 0)
+		for _, x in { -44, 44 } do
+			part(
+				junctions,
+				"WingStandingJoint",
+				V(0.65, 0.18, 71.4),
+				rotation * CF(x, 28.86, 169.1) * CFrame.Angles(-math.atan(2.5 / 71.4), 0, 0),
+				C.metal,
+				false,
+				Enum.Material.Metal
+			)
+		end
+	end
+	for _, p in r.CompactCornerClosures:GetChildren() do
+		if p.Name == "CornerClosureCap" then
+			p:Destroy()
+		end
+	end
+	for _, x in { -1, 1 } do
+		for _, z in { -1, 1 } do
+			local cf = corner(x * 134, z * 134)
+			part(
+				junctions,
+				"CornerRoofClosure",
+				V(14.5, 0.55, 7.5),
+				cf * CF(0, 27.75, 1.7),
+				C.metal,
+				true,
+				Enum.Material.Metal
+			)
+			part(
+				junctions,
+				"CornerFoldedEdge",
+				V(14.6, 0.18, 0.4),
+				cf * CF(0, 28.1, -2.1),
+				C.edge,
+				false,
+				Enum.Material.Metal
+			)
+		end
+	end
+	return "Segmented roof panels, fitted fascia and connected wing junctions replace blank caps"
+end
+
 function B.Lighting()
 	lab()
 	local l = game.Lighting
@@ -763,7 +1027,7 @@ function B.Enclosure()
 				true,
 				Enum.Material.WoodPlanks
 			)
-			part(cases, "CornerClosureCap", V(15, 0.65, 4), cf * CF(0, 27.8, 0), C.stone, true)
+			-- FinishedRoofJunctions owns the fitted corner roof; do not recreate the old cap.
 		end
 	end
 	r:SetAttribute("CompactDomeHalfWidth", DOME_HALF_WIDTH)
@@ -813,7 +1077,15 @@ end
 function B.RemoveRetiredScenery()
 	lab()
 	-- Exact obsolete decorative archives already preserved in the private native backup.
-	for _, name in { "BeforeToolworksPolish_20261109", "BeforeWayfinding_20261109", "RetiredPrivateShops" } do
+	for _, name in
+		{
+			"BeforeToolworksPolish_20261109",
+			"BeforeWayfinding_20261109",
+			"RetiredPrivateShops",
+			"BeforeAccessPolish_20261109",
+			"Stage27AccessBackup",
+		}
+	do
 		remove(game.ServerStorage, name)
 	end
 	local archive = game.ServerStorage:FindFirstChild("RoomRebuildArchive")
@@ -828,6 +1100,11 @@ function B.RemoveRetiredScenery()
 				"ObservationConsole2",
 				"ObservationConsole3",
 				"ObservationConsole4",
+				"DeckLamp",
+				"DeckLightStem",
+				"DeckHazard",
+				"RailStanchion",
+				"SafetyHandrail",
 			}
 		do
 			remove(archive, name)
@@ -837,27 +1114,17 @@ function B.RemoveRetiredScenery()
 end
 function B.Build()
 	local r = lab()
-	local assets = assert(
-		game.ServerStorage:FindFirstChild("CompactInteriorAssets"),
-		"Imported compact asset library required"
-	)
-	for _, name in { "EnclosurePanes", "ChargeBundle", "Microscope", "FossilStudy" } do
-		assert(assets:FindFirstChild(name), "Missing prepared asset " .. name)
-		assert(assets[name]:GetAttribute("NormalizedFromExport"), "Unverified asset import " .. name)
-	end
+	assert(game.ServerStorage.CompactInteriorAssets.Microscope, "Existing finished instruments required")
 	B.Frontage()
 	B.Floor()
-	B.Commons()
-	B.Enclosure()
-	B.Tools()
 	B.Workshop()
 	B.Laboratory()
-	B.Specimen()
 	B.Access()
-	B.Lighting()
+	B.Roofs()
 	B.RemoveRetiredScenery()
-	r:SetAttribute("InteriorRebuildRevision", 2)
-	game:GetService("ChangeHistoryService"):SetWaypoint("Compact interior replacement")
-	return "Compact interior revision 2"
+	r:SetAttribute("InteriorPhase1Revision", 1)
+	game:GetService("ChangeHistoryService"):SetWaypoint("Phase 1 integrated architecture")
+	return "Phase 1 architecture; compact room poses, dome, global lighting and gameplay retained"
 end
+
 return B

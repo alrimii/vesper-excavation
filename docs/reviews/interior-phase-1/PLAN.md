@@ -1,0 +1,25 @@
+# Phase 1 implementation plan
+
+Controlling instruction: [complete owner brief](owner-feedback/PHASE_1_BRIEF.md); [all 20 references](owner-feedback/IMAGE_INDEX.md) were visually inspected. Local branch planning/development-foundation was clean at a5eeeb597cefa358e761ed8b3a6f19d4aa13d3c5. Actual original Studio place 94763223427049 was in Edit at v203.
+
+Fresh private native backup: `Backups/InteriorPhase1_20261111/ComingSoon_94763223427049_before.rbxl`, 6,821,403 bytes, SHA-256 E6C54D40C547B658A30408990611B2D63D11E265FDD76CB8F48C39C3D0916CC2. Original source and measured geometry are preserved alongside it. No backup is a development target.
+
+Retain the compact room wing arrangement and 428-stud enclosure. Move the original workshop interactions to the east perimeter wall between two room entrances, with a shallow counter, wall-mounted actual tools and focused local lighting. Remove the lab kiosk and distribute its existing microscopes/specimens into a few shallow wall-supported details; no decorative service or reward labels. Replace large ownership strips with small functional owner identification and remove number plaques, CLIMB sign/stand and prominent decorative attribution plaque.
+
+Replace defective landing/spiral support decorations with measured connections; preserve original walkable/retracting sections, rail/climb geometry, egg/shell and delivery behavior. Replace the shared floor recipe's center-cell omission with fitted slab geometry meeting the unchanged circular platform. Replace old blank room ceiling caps with coherent segmented roof surfaces, fascia and finished perimeter junctions, preserving interior equipment and lighting. Provide selected empty soil pockets/attachment points for Phase 3; remove directly affected floating/intersecting decoration instead of substituting crude foliage.
+
+Diagnose GUI roots and scrolling before changing code. Use one shared treatment for full-viewport noninteractive modal backgrounds and safe interactive bounds. Keep deliberate scrolling and existing artwork/transactions. Correct small-viewport fit where the current content is physically clipped. No icon/art redesign, no shop rules change.
+
+Remove replaced instances and their obsolete source constructors. LabInteriorBuilder remains the sole interior recipe. Focused source, dependency, collision/clearance and duplicate checks precede final captures. Prepare player-height, readable overhead cutaway, inside-dome above-egg, roofs/access/floor and representative GUI views before one bounded capture-only Play session. Freeze after final captures, record defects, restore temporary visibility, save native, publish original place and push the existing branch. No gameplay actions, grants, resets, device loops, delegates or later-phase implementation.
+
+## Remaining requirements — unchanged and deferred
+
+The full wording remains authoritative in the copied owner brief, including all negative references and positive image 20. This list indexes it; it does not replace or narrow the requirements.
+
+- **Phase 2:** complete personal-room arrangement, lighting, materials, collection and training apparatus rebuild; diagnose the owner's reported broken training without assuming a cause. Preserve ownership, progress and training rules. Inspect actual rooms when this phase starts; no dedicated room-interior reference was supplied.
+- **Phase 3:** coherent planting replacing sparse/intersecting assemblies; image 20's connected stems, readable stylized leaves, dense ivy masses with trailing growth, believable roots/soil and selected frame/roof/fixed-support coverage. Keep routes/views clear; no literal neon-city/collage interpretation or growth gameplay. Redistribute existing mountains/trees around the smaller dome using images 08/11, closer selected groups with varied open foreground and distant layers, not uniform scenery rings. Strengthen moving exterior mist nearer selected glass areas without concealing geometry; coordinate interior/exterior lighting. Prefer existing scenery.
+- **Phase 4:** replace rejected pickaxe shape/grip/orientation/animation; diagnose reported charge placement, animation and explosion defects. Preserve authoritative damage/economy rules.
+- **Phase 5:** complete coherent replacement of HUD, shop/upgrades, skills, legacy navigation/settings, collection/results and remaining interfaces. Tool-specific icons; remove placeholder plus signs, developer prose and excess blank space. Preserve prior Last Epoch/Assassin's Creed Origins structural preferences without treating unseen references as approved. Remove old GUI creation paths and duplicate handlers. Images 12–15 and 17–19 remain rejected existing UI.
+- **Also deferred:** substantial entrance gate and scenic road, remaining skill mechanics, rebirth, monetization and additional worlds.
+
+Phase 1 leaves global lighting, dome envelope and exterior assets/atmosphere unchanged. Source checks and fixed captures do not establish usability on all devices or owner visual approval.

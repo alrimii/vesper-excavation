@@ -225,17 +225,33 @@ function W.Build(gui, player, base, remote)
 				local personal = player:GetAttribute("MiningContribution")
 				local total = shared.RoundState:GetAttribute("EffectiveDamage")
 				local odds = "Synchronizing creature chances..."
-				if typeof(solo) == "number" and typeof(personal) == "number" and typeof(total) == "number"
-					and player:GetAttribute("ContributionRound") == shared.RoundState:GetAttribute("RoundId") then
+				if
+					typeof(solo) == "number"
+					and typeof(personal) == "number"
+					and typeof(total) == "number"
+					and player:GetAttribute("ContributionRound")
+						== shared.RoundState:GetAttribute("RoundId")
+				then
 					local share = total > 0 and personal / total or 0
 					local chance = solo * share
 					local weight = 0
-					for _, variant in Rules.CreatureVariants do weight += variant.Weight end
-					odds = string.format("Egg solo chance: %.6g%%\nYour contribution so far: %.6g%%\nAny creature: %.6g%% / This variant: %.6g%%\nProvisional until completion. Zero damage means no roll.",
-						solo * 100, share * 100, chance * 100, chance * d.Weight / weight * 100)
+					for _, variant in Rules.CreatureVariants do
+						weight += variant.Weight
+					end
+					odds = string.format(
+						"Egg solo chance: %.6g%%\nYour contribution so far: %.6g%%\nAny creature: %.6g%% / This variant: %.6g%%\nProvisional until completion. Zero damage means no roll.",
+						solo * 100,
+						share * 100,
+						chance * 100,
+						chance * d.Weight / weight * 100
+					)
 				end
 				return d.Rarity .. "  /  " .. owned .. " OWNED",
-					string.format("+%d%% mining power\n\n%s\nChoose a shelf below to display this creature.", math.floor(d.Power * 100 + 0.5), odds),
+					string.format(
+						"+%d%% mining power\n\n%s\nChoose a shelf below to display this creature.",
+						math.floor(d.Power * 100 + 0.5),
+						odds
+					),
 					chosen and "BUFF ACTIVE" or owned > 0 and "ACTIVATE BUFF" or "NOT DISCOVERED",
 					owned > 0 and not chosen
 			end,
@@ -302,11 +318,15 @@ function W.Build(gui, player, base, remote)
 			return
 		end
 		local available = gui.AbsoluteSize
-		local fit = math.min(1, (available.Y - 24) / 560)
-		local width, height = math.min(940, (available.X - 24) / fit), math.min(640, (available.Y - 24) / fit)
+		local width, height = require(script.Parent.ModalLayout).FitPanel(
+			panel,
+			available,
+			Vector2.new(560, 560),
+			Vector2.new(940, 640),
+			Vector2.new(24, 24),
+			"Fit"
+		)
 		local compact = width < 650
-		panel.Size = UDim2.fromOffset(width, height)
-		panel.Fit.Scale = fit
 		local bodyHeight = height - 170
 		local gridWidth = compact and width - 32 or math.floor(width * 0.54) - 24
 		local gridHeight = compact and 104 or bodyHeight
@@ -377,7 +397,8 @@ function W.Build(gui, player, base, remote)
 					or (player:GetAttribute("Creature_" .. selected.id) or 0) > 0
 			end
 		end
-		footer.Text = active == "ARCHIVE" and "Choose one active buff. Display up to three creatures in your room."
+		footer.Text = active == "ARCHIVE"
+				and "Choose one active buff. Display up to three creatures in your room."
 			or "Select an item to see its details."
 	end
 	return api
