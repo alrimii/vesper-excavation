@@ -1,5 +1,8 @@
 # Project execution rules
 
+## Current authorization: bounded v170 Foggy Gazebo correction
+Correct the existing transfer's dark/noisy foliage, backdrop boundaries and perched terrain through source diagnosis and one representative Edit-mode comparison. The exterior is distant scenery, with generous dome separation and a secondary gazebo; no close garden or new scenery expansion. Preserve original place 94763223427049, every interior/gameplay/save system, and unresolved constituent rights. Fresh private native backup; fixed before/after camera. At most one three-minute capture-only Play session, immediate Edit fallback on camera failure. Freeze after final capture, save/publish same place and push planning/development-foundation. No post-capture corrections, broad redesign or new source selection. Earlier scopes are historical.
+
 ## Current authorization: selected Foggy Gazebo exterior transfer
 Implement the exact downloaded scene dc5632f8-2513-4b53-9f5f-096fd493e261 in original place 94763223427049 using optimized nearby geometry and source-derived distant bakes. Preserve the original source privately and record unresolved constituent/Maxtree rights without claiming clearance. No restricted source or texture library in Git. Fresh native recovery copy first; preserve all interior/gameplay/save systems. Subtle dome tint is allowed but not required. Replace conflicting affected-sector scenery and retire its authoring generators. One desktop capture-only Play session <=3 minutes, central/offset/wide interior views; no gameplay or device changes. Freeze after capture, record defects, save/publish the same place and push planning/development-foundation. No further correction loop or interior redesign. Earlier scopes below are historical.
 

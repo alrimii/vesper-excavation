@@ -1,0 +1,3408 @@
+{
+  "placed": [
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.AuthoredTerrain.Source_Landscape_001",
+      "interactive": false,
+      "position": [
+        1046.8671875,
+        14.310803413391113,
+        706.120849609375
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        1615.0001220703125,
+        88.9326400756836,
+        1164.5001220703125
+      ],
+      "mesh": "rbxassetid://135515023773676",
+      "texture": "rbxassetid://134174725027149"
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cone",
+      "interactive": false,
+      "position": [
+        1138.74462890625,
+        147.8594512939453,
+        729.8945922851562
+      ],
+      "color": [
+        0.21960784494876862,
+        0.40392157435417175,
+        0.3843137323856354
+      ],
+      "size": [
+        192.7406768798828,
+        41.496646881103516,
+        192.739013671875
+      ],
+      "mesh": "rbxassetid://114416191204998",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_072",
+      "interactive": false,
+      "position": [
+        1138.7452392578125,
+        129.8388214111328,
+        729.89501953125
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        153.25637817382812,
+        4.488530158996582,
+        153.25640869140625
+      ],
+      "mesh": "rbxassetid://126593660109123",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_073",
+      "interactive": false,
+      "position": [
+        1138.745361328125,
+        43.74005889892578,
+        729.8950805664062
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        243.1538848876953,
+        3.0115115642547607,
+        243.1538848876953
+      ],
+      "mesh": "rbxassetid://136219883967760",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_074",
+      "interactive": false,
+      "position": [
+        1138.745361328125,
+        46.977596282958984,
+        729.8950805664062
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        164.01339721679688,
+        3.2962284088134766,
+        164.01339721679688
+      ],
+      "mesh": "rbxassetid://95875781171867",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_075",
+      "interactive": false,
+      "position": [
+        1139.2158203125,
+        61.252559661865234,
+        730.816650390625
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        151.18812561035156,
+        1.850670576095581,
+        148.50868225097656
+      ],
+      "mesh": "rbxassetid://99123710267826",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_076",
+      "interactive": false,
+      "position": [
+        1139.530517578125,
+        67.52840423583984,
+        731.4847412109375
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        149.98300170898438,
+        8.607942581176758,
+        148.27386474609375
+      ],
+      "mesh": "rbxassetid://80178397677306",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_077",
+      "interactive": false,
+      "position": [
+        834.2152099609375,
+        21.44094467163086,
+        491.3066101074219
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        63.04151153564453,
+        16.839384078979492,
+        106.0514144897461
+      ],
+      "mesh": "rbxassetid://116746406608644",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_078",
+      "interactive": false,
+      "position": [
+        1130.7381591796875,
+        46.44361114501953,
+        940.4730834960938
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        684.7501220703125,
+        76.64971160888672,
+        327.0689697265625
+      ],
+      "mesh": "rbxassetid://105496273583573",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_079",
+      "interactive": false,
+      "position": [
+        1139.0218505859375,
+        48.80224609375,
+        934.9044189453125
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        690.506103515625,
+        28.376924514770508,
+        330.9747009277344
+      ],
+      "mesh": "rbxassetid://98694131776569",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cube_080",
+      "interactive": false,
+      "position": [
+        1132.3499755859375,
+        63.10235595703125,
+        938.881591796875
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        690.506103515625,
+        28.376924514770508,
+        330.9747009277344
+      ],
+      "mesh": "rbxassetid://124635776109663",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cylinder_038",
+      "interactive": false,
+      "position": [
+        1163.4884033203125,
+        53.582496643066406,
+        771.3671875
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        6.756462097167969,
+        14.03812313079834,
+        6.756527900695801
+      ],
+      "mesh": "rbxassetid://82153628420470",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cylinder_039",
+      "interactive": false,
+      "position": [
+        1181.180419921875,
+        53.582496643066406,
+        704.5509643554688
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        6.756519317626953,
+        14.03812313079834,
+        6.756527900695801
+      ],
+      "mesh": "rbxassetid://101629967077993",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cylinder_040",
+      "interactive": false,
+      "position": [
+        1096.241455078125,
+        53.582496643066406,
+        755.3771362304688
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        6.756462097167969,
+        14.03812313079834,
+        6.756527900695801
+      ],
+      "mesh": "rbxassetid://74211619406373",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.GazeboAndFurnishings.Source_Cylinder_041",
+      "interactive": false,
+      "position": [
+        1138.622802734375,
+        86.6995620727539,
+        729.701904296875
+      ],
+      "color": [
+        0.3294117748737335,
+        0.4313725531101227,
+        0.3764705955982208
+      ],
+      "size": [
+        154.47515869140625,
+        90.58043670654297,
+        154.1422119140625
+      ],
+      "mesh": "rbxassetid://114758975853400",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_0_-1_leaf",
+      "interactive": false,
+      "position": [
+        808.3779907226562,
+        82.09105682373047,
+        317.5103759765625
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        231.2892608642578,
+        174.89833068847656,
+        203.22689819335938
+      ],
+      "mesh": "rbxassetid://113864235732255",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_0_-1_wood",
+      "interactive": false,
+      "position": [
+        807.1273803710938,
+        64.66712188720703,
+        315.25543212890625
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        106.18243408203125,
+        97.14521026611328,
+        85.73003387451172
+      ],
+      "mesh": "rbxassetid://99500081776689",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_0_1_leaf",
+      "interactive": false,
+      "position": [
+        599.2399291992188,
+        63.734039306640625,
+        627.5704345703125
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        231.2892608642578,
+        174.89833068847656,
+        203.22686767578125
+      ],
+      "mesh": "rbxassetid://130067940569504",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_0_1_wood",
+      "interactive": false,
+      "position": [
+        597.9893188476562,
+        46.31011199951172,
+        625.3154296875
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        106.18243408203125,
+        97.14521026611328,
+        85.73007202148438
+      ],
+      "mesh": "rbxassetid://80059874796237",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_1_-1_leaf",
+      "interactive": false,
+      "position": [
+        919.8208618164062,
+        109.11325073242188,
+        324.3594665527344
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        300.2359313964844,
+        221.2256317138672,
+        263.80816650390625
+      ],
+      "mesh": "rbxassetid://100702483557780",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_1_-1_wood",
+      "interactive": false,
+      "position": [
+        918.197509765625,
+        83.01262664794922,
+        321.432373046875
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        137.83514404296875,
+        130.2733612060547,
+        111.28593444824219
+      ],
+      "mesh": "rbxassetid://95417362211928",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_1_1_leaf",
+      "interactive": false,
+      "position": [
+        647.9412231445312,
+        80.3229751586914,
+        727.4375
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        300.2359313964844,
+        221.22560119628906,
+        263.80816650390625
+      ],
+      "mesh": "rbxassetid://128015967203238",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_1_1_wood",
+      "interactive": false,
+      "position": [
+        646.3178100585938,
+        54.22237014770508,
+        724.5103759765625
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        137.8351287841797,
+        130.2733612060547,
+        111.28593444824219
+      ],
+      "mesh": "rbxassetid://108967088348972",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_2_-1_leaf",
+      "interactive": false,
+      "position": [
+        1011.1705932617188,
+        95.77239990234375,
+        331.5419921875
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        289.38934326171875,
+        231.96847534179688,
+        306.79443359375
+      ],
+      "mesh": "rbxassetid://133020913398691",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_2_-1_wood",
+      "interactive": false,
+      "position": [
+        1011.0529174804688,
+        68.40435028076172,
+        337.4488220214844
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        113.00579071044922,
+        136.59951782226562,
+        147.01515197753906
+      ],
+      "mesh": "rbxassetid://131310553495974",
+      "texture": ""
+    },
+    {
+      "colorMap": "rbxassetid://137012180294436",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_2_1_leaf",
+      "interactive": false,
+      "position": [
+        676.549560546875,
+        77.71978759765625,
+        827.6380004882812
+      ],
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "size": [
+        289.38934326171875,
+        231.96847534179688,
+        306.79443359375
+      ],
+      "mesh": "rbxassetid://87782436536409",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.FrameTree_2_1_wood",
+      "interactive": false,
+      "position": [
+        676.4319458007812,
+        50.351722717285156,
+        833.5447998046875
+      ],
+      "color": [
+        0.27450981736183167,
+        0.37254902720451355,
+        0.3019607961177826
+      ],
+      "size": [
+        113.00579071044922,
+        136.59951782226562,
+        147.0152130126953
+      ],
+      "mesh": "rbxassetid://134412970049572",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_Secend_bush_p0",
+      "interactive": false,
+      "position": [
+        932.9984741210938,
+        51.11857986450195,
+        697.8065795898438
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.63990020751953,
+        36.191219329833984,
+        33.41728973388672
+      ],
+      "mesh": "rbxassetid://130310959904891",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_Secend_bush_p1",
+      "interactive": false,
+      "position": [
+        932.9071655273438,
+        51.36520004272461,
+        697.9974975585938
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        44.72178268432617,
+        35.680397033691406,
+        33.35529327392578
+      ],
+      "mesh": "rbxassetid://121310959313177",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_Secend_bush_p2",
+      "interactive": false,
+      "position": [
+        932.913818359375,
+        51.11857986450195,
+        697.9572143554688
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        43.54615020751953,
+        36.191219329833984,
+        33.38911819458008
+      ],
+      "mesh": "rbxassetid://73790941432847",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_Secend_bush_p3",
+      "interactive": false,
+      "position": [
+        933.5281982421875,
+        51.620487213134766,
+        696.9837036132812
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        41.24351119995117,
+        35.18048095703125,
+        33.32535934448242
+      ],
+      "mesh": "rbxassetid://84674124346413",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_Third_bush",
+      "interactive": false,
+      "position": [
+        990.0360107421875,
+        55.92023468017578,
+        680.92333984375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        83.47306823730469,
+        30.447385787963867,
+        88.69566345214844
+      ],
+      "mesh": "rbxassetid://73066172551609",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes",
+      "interactive": false,
+      "position": [
+        855.6529541015625,
+        21.55964469909668,
+        489.7677917480469
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        37.30931854248047,
+        20.389991760253906,
+        39.806087493896484
+      ],
+      "mesh": "rbxassetid://74393846217020",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_001_p0",
+      "interactive": false,
+      "position": [
+        979.8886108398438,
+        65.13716888427734,
+        794.5913696289062
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        55.72891616821289,
+        60.245426177978516,
+        55.309566497802734
+      ],
+      "mesh": "rbxassetid://73457076705683",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_001_p1",
+      "interactive": false,
+      "position": [
+        979.7769775390625,
+        69.27371215820312,
+        794.8215942382812
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        54.47113037109375,
+        50.18387985229492,
+        53.7559700012207
+      ],
+      "mesh": "rbxassetid://128308058732254",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_002_p0",
+      "interactive": false,
+      "position": [
+        591.378662109375,
+        18.659215927124023,
+        534.6529541015625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.012657165527344,
+        25.299402236938477,
+        21.84701156616211
+      ],
+      "mesh": "rbxassetid://79631859658307",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_002_p1",
+      "interactive": false,
+      "position": [
+        591.3345947265625,
+        19.494186401367188,
+        534.743896484375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.51582145690918,
+        23.326396942138672,
+        21.233375549316406
+      ],
+      "mesh": "rbxassetid://83221487766710",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_003_p0",
+      "interactive": false,
+      "position": [
+        640.786376953125,
+        24.031633377075195,
+        567.9788818359375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.012657165527344,
+        23.79665184020996,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://140633722022881",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_003_p1",
+      "interactive": false,
+      "position": [
+        640.7423095703125,
+        25.665576934814453,
+        568.06982421875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.51582145690918,
+        19.8223934173584,
+        21.233352661132812
+      ],
+      "mesh": "rbxassetid://135873750296242",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_004_p0",
+      "interactive": false,
+      "position": [
+        790.4957885742188,
+        49.80525207519531,
+        398.75128173828125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        46.200927734375,
+        49.94523239135742,
+        45.85326385498047
+      ],
+      "mesh": "rbxassetid://103659386058064",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_004_p1",
+      "interactive": false,
+      "position": [
+        790.4033203125,
+        53.23466110229492,
+        398.9421691894531
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.15813446044922,
+        41.60391616821289,
+        44.56534957885742
+      ],
+      "mesh": "rbxassetid://77458992169999",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_005_p0",
+      "interactive": false,
+      "position": [
+        778.0687255859375,
+        41.12348556518555,
+        393.8411560058594
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        31.442659378051758,
+        33.78804397583008,
+        32.30275344848633
+      ],
+      "mesh": "rbxassetid://111509152676492",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_005_p1",
+      "interactive": false,
+      "position": [
+        778.4007568359375,
+        42.695430755615234,
+        394.01141357421875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        31.063758850097656,
+        30.342615127563477,
+        31.185157775878906
+      ],
+      "mesh": "rbxassetid://124222852384857",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_007_p0",
+      "interactive": false,
+      "position": [
+        758.7838134765625,
+        32.745967864990234,
+        377.02978515625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        25.731664657592773,
+        20.404542922973633,
+        18.8405704498291
+      ],
+      "mesh": "rbxassetid://125174743355828",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_007_p1",
+      "interactive": false,
+      "position": [
+        758.7322998046875,
+        32.88497543334961,
+        377.13739013671875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        25.214040756225586,
+        20.116531372070312,
+        18.805627822875977
+      ],
+      "mesh": "rbxassetid://76470263185448",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_007_p2",
+      "interactive": false,
+      "position": [
+        758.736083984375,
+        32.745967864990234,
+        377.11474609375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        24.55122947692871,
+        20.404542922973633,
+        18.824695587158203
+      ],
+      "mesh": "rbxassetid://128842002949020",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_007_p3",
+      "interactive": false,
+      "position": [
+        759.08251953125,
+        33.02898025512695,
+        376.5658264160156
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        23.253019332885742,
+        19.834684371948242,
+        18.788768768310547
+      ],
+      "mesh": "rbxassetid://115729705995171",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_009_p0",
+      "interactive": false,
+      "position": [
+        662.6759643554688,
+        37.10637664794922,
+        583.2109985351562
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        46.200923919677734,
+        49.94523239135742,
+        45.85331344604492
+      ],
+      "mesh": "rbxassetid://119886385586676",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_009_p1",
+      "interactive": false,
+      "position": [
+        662.58349609375,
+        40.53578567504883,
+        583.4019775390625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.15813446044922,
+        41.60391616821289,
+        44.56529235839844
+      ],
+      "mesh": "rbxassetid://133827885554829",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_010_p0",
+      "interactive": false,
+      "position": [
+        650.2489624023438,
+        29.416667938232422,
+        578.3009643554688
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        31.442689895629883,
+        33.78804016113281,
+        32.30275344848633
+      ],
+      "mesh": "rbxassetid://79385655089590",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_010_p1",
+      "interactive": false,
+      "position": [
+        650.5809326171875,
+        30.988616943359375,
+        578.4711303710938
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        31.063772201538086,
+        30.342615127563477,
+        31.185157775878906
+      ],
+      "mesh": "rbxassetid://108106806157227",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_016_p0",
+      "interactive": false,
+      "position": [
+        791.347412109375,
+        49.83039474487305,
+        399.3257141113281
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        46.200927734375,
+        49.94523239135742,
+        45.85326385498047
+      ],
+      "mesh": "rbxassetid://113317696553790",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_016_p1",
+      "interactive": false,
+      "position": [
+        791.2549438476562,
+        53.259803771972656,
+        399.5166320800781
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.15812683105469,
+        41.60391616821289,
+        44.56529235839844
+      ],
+      "mesh": "rbxassetid://127508878268478",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_017_p0",
+      "interactive": false,
+      "position": [
+        720.0026245117188,
+        41.126380920410156,
+        351.20306396484375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        46.20091247558594,
+        53.09925079345703,
+        45.85326385498047
+      ],
+      "mesh": "rbxassetid://71431435153868",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_017_p1",
+      "interactive": false,
+      "position": [
+        719.91015625,
+        42.87872314453125,
+        351.3939514160156
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.15815734863281,
+        48.95823669433594,
+        44.56534957885742
+      ],
+      "mesh": "rbxassetid://121712092564072",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_018_p0",
+      "interactive": false,
+      "position": [
+        611.3949584960938,
+        36.1277961730957,
+        548.6215209960938
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        46.200923919677734,
+        53.046875,
+        45.85328674316406
+      ],
+      "mesh": "rbxassetid://106562019192143",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_018_p1",
+      "interactive": false,
+      "position": [
+        611.302490234375,
+        37.72958755493164,
+        548.8125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        45.15813446044922,
+        48.605228424072266,
+        44.5653190612793
+      ],
+      "mesh": "rbxassetid://81150265317136",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_019",
+      "interactive": false,
+      "position": [
+        1028.46240234375,
+        51.302738189697266,
+        659.2389526367188
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.51922607421875,
+        17.332969665527344,
+        50.49236297607422
+      ],
+      "mesh": "rbxassetid://86892122990561",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_020",
+      "interactive": false,
+      "position": [
+        1256.564453125,
+        56.05463790893555,
+        737.3753662109375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        72.12974548339844,
+        26.30982780456543,
+        76.642578125
+      ],
+      "mesh": "rbxassetid://98934450990662",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_021",
+      "interactive": false,
+      "position": [
+        826.0089721679688,
+        22.52581024169922,
+        550.760498046875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        59.52434539794922,
+        21.736753463745117,
+        56.85729217529297
+      ],
+      "mesh": "rbxassetid://80652823513073",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_022",
+      "interactive": false,
+      "position": [
+        811.1072387695312,
+        24.316564559936523,
+        573.4329223632812
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        57.82048797607422,
+        21.73675537109375,
+        63.004852294921875
+      ],
+      "mesh": "rbxassetid://95968205959975",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_023",
+      "interactive": false,
+      "position": [
+        796.3633422851562,
+        24.286603927612305,
+        592.3238525390625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        58.450496673583984,
+        21.736753463745117,
+        57.79840087890625
+      ],
+      "mesh": "rbxassetid://92758666534683",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_024",
+      "interactive": false,
+      "position": [
+        829.1166381835938,
+        30.397327423095703,
+        579.0296630859375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        57.915809631347656,
+        21.73676109313965,
+        59.34141159057617
+      ],
+      "mesh": "rbxassetid://79672443061578",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForegroundVegetation.Shrub_bushes_025",
+      "interactive": false,
+      "position": [
+        595.6092529296875,
+        13.326258659362793,
+        537.60400390625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        29.571556091308594,
+        20.400495529174805,
+        26.225749969482422
+      ],
+      "mesh": "rbxassetid://70775245580266",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_0_p0",
+      "interactive": false,
+      "position": [
+        892.9920654296875,
+        40.19795227050781,
+        309.5245361328125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.01268768310547,
+        23.79665756225586,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://132983736431059",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_0_p1",
+      "interactive": false,
+      "position": [
+        892.9479370117188,
+        41.8318977355957,
+        309.615478515625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.51583480834961,
+        19.822397232055664,
+        21.233400344848633
+      ],
+      "mesh": "rbxassetid://114256949003790",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_1",
+      "interactive": false,
+      "position": [
+        990.4072875976562,
+        20.230579376220703,
+        329.6087646484375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.51922607421875,
+        17.332969665527344,
+        50.4923095703125
+      ],
+      "mesh": "rbxassetid://139828680752426",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_2_p0",
+      "interactive": false,
+      "position": [
+        1089.849609375,
+        41.02180862426758,
+        352.08160400390625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.01271629333496,
+        23.79665756225586,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://70851375185569",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_2_p1",
+      "interactive": false,
+      "position": [
+        1089.8056640625,
+        42.65575408935547,
+        352.172607421875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.515783309936523,
+        19.822391510009766,
+        21.233400344848633
+      ],
+      "mesh": "rbxassetid://139539244559389",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_3",
+      "interactive": false,
+      "position": [
+        1187.2650146484375,
+        37.819541931152344,
+        372.16583251953125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.519203186035156,
+        17.332969665527344,
+        50.49236297607422
+      ],
+      "mesh": "rbxassetid://129427549529080",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_4_p0",
+      "interactive": false,
+      "position": [
+        1286.707275390625,
+        42.06682586669922,
+        394.63861083984375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.01268768310547,
+        23.79665756225586,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://95509832912254",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_4_p1",
+      "interactive": false,
+      "position": [
+        1286.663330078125,
+        43.70077133178711,
+        394.7296447753906
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.51575469970703,
+        19.822397232055664,
+        21.233400344848633
+      ],
+      "mesh": "rbxassetid://102041553010232",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_-1_5",
+      "interactive": false,
+      "position": [
+        1384.12255859375,
+        37.96929168701172,
+        414.7227783203125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.5191764831543,
+        17.332969665527344,
+        50.4923095703125
+      ],
+      "mesh": "rbxassetid://121145415196009",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_0_p0",
+      "interactive": false,
+      "position": [
+        621.1124267578125,
+        13.744595527648926,
+        712.6026000976562
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.012662887573242,
+        23.79665756225586,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://98128112700238",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_0_p1",
+      "interactive": false,
+      "position": [
+        621.068359375,
+        15.3785400390625,
+        712.6935424804688
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.515810012817383,
+        19.8223876953125,
+        21.233400344848633
+      ],
+      "mesh": "rbxassetid://71861989832275",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_1",
+      "interactive": false,
+      "position": [
+        676.7001342773438,
+        2.4789228439331055,
+        794.69873046875
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.51922607421875,
+        17.332969665527344,
+        50.4923095703125
+      ],
+      "mesh": "rbxassetid://110545565809795",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_2_p0",
+      "interactive": false,
+      "position": [
+        734.3148193359375,
+        13.783820152282715,
+        879.1837158203125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.012662887573242,
+        23.79665756225586,
+        21.847036361694336
+      ],
+      "mesh": "rbxassetid://71731430347997",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_2_p1",
+      "interactive": false,
+      "position": [
+        734.2706909179688,
+        15.417763710021973,
+        879.2745361328125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.515810012817383,
+        19.8223934173584,
+        21.233400344848633
+      ],
+      "mesh": "rbxassetid://121819855702964",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_3",
+      "interactive": false,
+      "position": [
+        789.9025268554688,
+        21.973026275634766,
+        961.2799072265625
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.519256591796875,
+        17.332969665527344,
+        50.4923095703125
+      ],
+      "mesh": "rbxassetid://100209421505020",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_4_p0",
+      "interactive": false,
+      "position": [
+        847.5172119140625,
+        32.75173568725586,
+        1045.7646484375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        22.01268768310547,
+        23.79665184020996,
+        21.84693145751953
+      ],
+      "mesh": "rbxassetid://97460924396164",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_4_p1",
+      "interactive": false,
+      "position": [
+        847.4730834960938,
+        34.385677337646484,
+        1045.8555908203125
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        21.515810012817383,
+        19.8223934173584,
+        21.233505249023438
+      ],
+      "mesh": "rbxassetid://115707901106735",
+      "texture": ""
+    },
+    {
+      "colorMap": "",
+      "path": "Workspace.VesperLab.DecorativeExterior.FoggyGazeboExterior.ForestWings.WingShrub_1_5",
+      "interactive": false,
+      "position": [
+        903.1047973632812,
+        37.1543083190918,
+        1127.86083984375
+      ],
+      "color": [
+        0.2549019753932953,
+        0.42352941632270813,
+        0.3019607961177826
+      ],
+      "size": [
+        47.519203186035156,
+        17.33296775817871,
+        50.4923095703125
+      ],
+      "mesh": "rbxassetid://105126778918784",
+      "texture": ""
+    }
+  ],
+  "running": false,
+  "place": 94763223427049,
+  "templates": [
+    {
+      "source": "source far forest corrected perspective projection",
+      "seating": 0,
+      "triangles": 1536,
+      "name": "Backdrop_Continuous_0",
+      "size": [
+        1450.0001220703125,
+        1500.00048828125,
+        1450.0003662109375
+      ],
+      "center": [
+        725,
+        400,
+        1065
+      ],
+      "displayed": false,
+      "mesh": "rbxassetid://96680452248847",
+      "texture": "rbxassetid://109373566364379"
+    },
+    {
+      "source": "source far forest corrected perspective projection",
+      "seating": 0,
+      "triangles": 1536,
+      "name": "Backdrop_Continuous_1",
+      "size": [
+        1450.0001220703125,
+        1500.00048828125,
+        1450.0003662109375
+      ],
+      "center": [
+        -725,
+        400,
+        1065
+      ],
+      "displayed": false,
+      "mesh": "rbxassetid://114840099353154",
+      "texture": "rbxassetid://109373566364379"
+    },
+    {
+      "source": "tree.011",
+      "seating": -55.801953125000004,
+      "triangles": 1088,
+      "name": "FrameTree_0_-1_leaf",
+      "size": [
+        272.1050109863281,
+        205.7627410888672,
+        239.0904541015625
+      ],
+      "center": [
+        222.130859375,
+        152.37966918945312,
+        526.7356567382812
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://113864235732255",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.011",
+      "seating": -55.801953125000004,
+      "triangles": 2718,
+      "name": "FrameTree_0_-1_wood",
+      "size": [
+        124.9205093383789,
+        114.28848266601562,
+        100.85885620117188
+      ],
+      "center": [
+        223.50746154785156,
+        131.88092041015625,
+        524.0324096679688
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://99500081776689",
+      "texture": ""
+    },
+    {
+      "source": "tree.011",
+      "seating": -41.1895751953125,
+      "triangles": 1088,
+      "name": "FrameTree_0_1_leaf",
+      "size": [
+        272.1050109863281,
+        205.7627410888672,
+        239.09042358398438
+      ],
+      "center": [
+        -217.86911010742188,
+        116.1707992553711,
+        526.7357177734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://130067940569504",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.011",
+      "seating": -41.1895751953125,
+      "triangles": 2718,
+      "name": "FrameTree_0_1_wood",
+      "size": [
+        124.9205093383789,
+        114.28848266601562,
+        100.8589096069336
+      ],
+      "center": [
+        -216.4925079345703,
+        95.67205810546875,
+        524.032470703125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://80059874796237",
+      "texture": ""
+    },
+    {
+      "source": "tree.012",
+      "seating": -57.7377197265625,
+      "triangles": 1088,
+      "name": "FrameTree_1_-1_leaf",
+      "size": [
+        353.2187194824219,
+        260.26544189453125,
+        310.362548828125
+      ],
+      "center": [
+        288.7660217285156,
+        186.1062469482422,
+        639.93603515625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://100702483557780",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.012",
+      "seating": -57.7377197265625,
+      "triangles": 2718,
+      "name": "FrameTree_1_-1_wood",
+      "size": [
+        162.15899658203125,
+        153.2627716064453,
+        130.92462158203125
+      ],
+      "center": [
+        290.552978515625,
+        155.39962768554688,
+        636.427001953125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://95417362211928",
+      "texture": ""
+    },
+    {
+      "source": "tree.012",
+      "seating": -36.04833984375,
+      "triangles": 1088,
+      "name": "FrameTree_1_1_leaf",
+      "size": [
+        353.21875,
+        260.2654113769531,
+        310.362548828125
+      ],
+      "center": [
+        -283.23394775390625,
+        130.54595947265625,
+        639.9359741210938
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://128015967203238",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.012",
+      "seating": -36.04833984375,
+      "triangles": 2718,
+      "name": "FrameTree_1_1_wood",
+      "size": [
+        162.15896606445312,
+        153.2627716064453,
+        130.92462158203125
+      ],
+      "center": [
+        -281.4469909667969,
+        99.83936309814453,
+        636.4268798828125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://108967088348972",
+      "texture": ""
+    },
+    {
+      "source": "tree.013",
+      "seating": -40.235517578125,
+      "triangles": 1088,
+      "name": "FrameTree_2_-1_leaf",
+      "size": [
+        340.4580383300781,
+        272.9040832519531,
+        360.93463134765625
+      ],
+      "center": [
+        341.8572998046875,
+        152.908935546875,
+        733.758056640625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://133020913398691",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.013",
+      "seating": -40.235517578125,
+      "triangles": 2718,
+      "name": "FrameTree_2_-1_wood",
+      "size": [
+        132.94798278808594,
+        160.70530700683594,
+        172.95899963378906
+      ],
+      "center": [
+        336.0186767578125,
+        120.71122741699219,
+        737.529296875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://131310553495974",
+      "texture": ""
+    },
+    {
+      "source": "tree.013",
+      "seating": -26.4313671875,
+      "triangles": 1088,
+      "name": "FrameTree_2_1_leaf",
+      "size": [
+        340.4580383300781,
+        272.9040832519531,
+        360.93463134765625
+      ],
+      "center": [
+        -362.14263916015625,
+        117.86640930175781,
+        733.758056640625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://87782436536409",
+      "texture": "rbxassetid://137012180294436"
+    },
+    {
+      "source": "tree.013",
+      "seating": -26.4313671875,
+      "triangles": 2718,
+      "name": "FrameTree_2_1_wood",
+      "size": [
+        132.94798278808594,
+        160.70530700683594,
+        172.9590606689453
+      ],
+      "center": [
+        -367.98126220703125,
+        85.66868591308594,
+        737.529296875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://134412970049572",
+      "texture": ""
+    },
+    {
+      "source": "Secend bush",
+      "seating": -45.207080078125,
+      "triangles": 16000,
+      "name": "Shrub_Secend_bush_p0",
+      "size": [
+        53.694000244140625,
+        42.577903747558594,
+        39.314456939697266
+      ],
+      "center": [
+        -66.80201721191406,
+        105.34658813476562,
+        898.4697875976562
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://130310959904891",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Secend bush",
+      "seating": -45.207080078125,
+      "triangles": 16000,
+      "name": "Shrub_Secend_bush_p1",
+      "size": [
+        52.613861083984375,
+        41.97693634033203,
+        39.241519927978516
+      ],
+      "center": [
+        -67.04828643798828,
+        105.63672637939453,
+        898.5062255859375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://121310959313177",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Secend bush",
+      "seating": -45.207080078125,
+      "triangles": 16000,
+      "name": "Shrub_Secend_bush_p2",
+      "size": [
+        51.23076248168945,
+        42.577903747558594,
+        39.281314849853516
+      ],
+      "center": [
+        -67.00464630126953,
+        105.34658813476562,
+        898.486328125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://73790941432847",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Secend bush",
+      "seating": -45.207080078125,
+      "triangles": 5920,
+      "name": "Shrub_Secend_bush_p3",
+      "size": [
+        48.52177429199219,
+        41.38880157470703,
+        39.206302642822266
+      ],
+      "center": [
+        -65.65095520019531,
+        105.93706512451172,
+        898.4451293945312
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://84674124346413",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Third bush",
+      "seating": -41.17303986248912,
+      "triangles": 9728,
+      "name": "Shrub_Third_bush",
+      "size": [
+        98.20360565185547,
+        35.82045364379883,
+        104.34783935546875
+      ],
+      "center": [
+        -12.811622619628906,
+        106.96155548095703,
+        942.99365234375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://73066172551609",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes",
+      "seating": -41.63614501953125,
+      "triangles": 14525,
+      "name": "Shrub_bushes",
+      "size": [
+        43.893314361572266,
+        23.988224029541016,
+        46.8306884765625
+      ],
+      "center": [
+        85.22254180908203,
+        67.00043487548828,
+        686.16845703125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://74393846217020",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.001",
+      "seating": -36.25198190526669,
+      "triangles": 16000,
+      "name": "Shrub_bushes_001_p0",
+      "size": [
+        65.56343078613281,
+        70.87696838378906,
+        65.07007598876953
+      ],
+      "center": [
+        -130.35215759277344,
+        112.88394927978516,
+        1007.875732421875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://73457076705683",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.001",
+      "seating": -36.25198190526669,
+      "triangles": 1189,
+      "name": "Shrub_bushes_001_p1",
+      "size": [
+        64.08367919921875,
+        59.03985595703125,
+        63.24231719970703
+      ],
+      "center": [
+        -130.65013122558594,
+        117.75047302246094,
+        1007.9183959960938
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://128308058732254",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -40.157690429687506,
+      "triangles": 16000,
+      "name": "Shrub_bushes_002_p0",
+      "size": [
+        25.89724349975586,
+        29.764001846313477,
+        25.70236587524414
+      ],
+      "center": [
+        -132.41485595703125,
+        62.109710693359375,
+        457.9403381347656
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://79631859658307",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -40.157690429687506,
+      "triangles": 1189,
+      "name": "Shrub_bushes_002_p1",
+      "size": [
+        25.31273078918457,
+        27.442819595336914,
+        24.98044204711914
+      ],
+      "center": [
+        -132.53256225585938,
+        63.0920295715332,
+        457.95721435546875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://83221487766710",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.003",
+      "seating": -44.752001953125,
+      "triangles": 16000,
+      "name": "Shrub_bushes_003_p0",
+      "size": [
+        25.89724349975586,
+        27.996061325073242,
+        25.702394485473633
+      ],
+      "center": [
+        -132.41485595703125,
+        73.0245132446289,
+        528.0538330078125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://140633722022881",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.003",
+      "seating": -44.752001953125,
+      "triangles": 1189,
+      "name": "Shrub_bushes_003_p1",
+      "size": [
+        25.31273078918457,
+        23.32046127319336,
+        24.98041343688965
+      ],
+      "center": [
+        -132.53256225585938,
+        74.9468002319336,
+        528.0706787109375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://135873750296242",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.004",
+      "seating": -55.39951171875,
+      "triangles": 16000,
+      "name": "Shrub_bushes_004_p0",
+      "size": [
+        54.35403060913086,
+        58.75909423828125,
+        53.94501495361328
+      ],
+      "center": [
+        131.12924194335938,
+        113.99392700195312,
+        562.74072265625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://103659386058064",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.004",
+      "seating": -55.39951171875,
+      "triangles": 1189,
+      "name": "Shrub_bushes_004_p1",
+      "size": [
+        53.12721633911133,
+        48.94578170776367,
+        52.4298210144043
+      ],
+      "center": [
+        130.8822021484375,
+        118.02852630615234,
+        562.776123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://77458992169999",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.005",
+      "seating": -55.204931640625,
+      "triangles": 16000,
+      "name": "Shrub_bushes_005_p0",
+      "size": [
+        36.991363525390625,
+        39.75063705444336,
+        38.003238677978516
+      ],
+      "center": [
+        127.7428207397461,
+        103.58550262451172,
+        547.389892578125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://111509152676492",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.005",
+      "seating": -55.204931640625,
+      "triangles": 1189,
+      "name": "Shrub_bushes_005_p1",
+      "size": [
+        36.545597076416016,
+        35.69719314575195,
+        36.688419342041016
+      ],
+      "center": [
+        127.79519653320312,
+        105.43485260009766,
+        547.82568359375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://124222852384857",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.007",
+      "seating": -53.201220703125,
+      "triangles": 16000,
+      "name": "Shrub_bushes_007_p0",
+      "size": [
+        30.272544860839844,
+        24.00534439086914,
+        22.165376663208008
+      ],
+      "center": [
+        131.45254516601562,
+        91.72589111328125,
+        517.5208129882812
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://125174743355828",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.007",
+      "seating": -53.201220703125,
+      "triangles": 16000,
+      "name": "Shrub_bushes_007_p1",
+      "size": [
+        29.663576126098633,
+        23.666505813598633,
+        22.124267578125
+      ],
+      "center": [
+        131.31369018554688,
+        91.8894271850586,
+        517.5413818359375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://76470263185448",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.007",
+      "seating": -53.201220703125,
+      "triangles": 16000,
+      "name": "Shrub_bushes_007_p2",
+      "size": [
+        28.883798599243164,
+        24.00534439086914,
+        22.146699905395508
+      ],
+      "center": [
+        131.3383026123047,
+        91.72589111328125,
+        517.5301513671875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://128842002949020",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.007",
+      "seating": -53.201220703125,
+      "triangles": 5920,
+      "name": "Shrub_bushes_007_p3",
+      "size": [
+        27.35649299621582,
+        23.334922790527344,
+        22.104433059692383
+      ],
+      "center": [
+        132.10153198242188,
+        92.05884552001953,
+        517.5068969726562
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://115729705995171",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.009",
+      "seating": -45.248242187500004,
+      "triangles": 16000,
+      "name": "Shrub_bushes_009_p0",
+      "size": [
+        54.354026794433594,
+        58.75909423828125,
+        53.945072174072266
+      ],
+      "center": [
+        -132.87074279785156,
+        88.90280151367188,
+        559.4244995117188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://119886385586676",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.009",
+      "seating": -45.248242187500004,
+      "triangles": 1189,
+      "name": "Shrub_bushes_009_p1",
+      "size": [
+        53.12721633911133,
+        48.94578170776367,
+        52.42975616455078
+      ],
+      "center": [
+        -133.11781311035156,
+        92.9374008178711,
+        559.4598999023438
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://133827885554829",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.010",
+      "seating": -44.984204101562504,
+      "triangles": 16000,
+      "name": "Shrub_bushes_010_p0",
+      "size": [
+        36.991397857666016,
+        39.750633239746094,
+        38.003238677978516
+      ],
+      "center": [
+        -136.25717163085938,
+        79.59204864501953,
+        544.07373046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://79385655089590",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.010",
+      "seating": -44.984204101562504,
+      "triangles": 1189,
+      "name": "Shrub_bushes_010_p1",
+      "size": [
+        36.54561233520508,
+        35.69719314575195,
+        36.688419342041016
+      ],
+      "center": [
+        -136.20477294921875,
+        81.44139862060547,
+        544.5094604492188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://108106806157227",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.016",
+      "seating": -55.4305419921875,
+      "triangles": 16000,
+      "name": "Shrub_bushes_016_p0",
+      "size": [
+        54.35403060913086,
+        58.75909423828125,
+        53.94501495361328
+      ],
+      "center": [
+        131.1292266845703,
+        114.05453491210938,
+        563.9492797851562
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://113317696553790",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.016",
+      "seating": -55.4305419921875,
+      "triangles": 1189,
+      "name": "Shrub_bushes_016_p1",
+      "size": [
+        53.1272087097168,
+        48.94578170776367,
+        52.42975616455078
+      ],
+      "center": [
+        130.88218688964844,
+        118.0891342163086,
+        563.9846801757812
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://127508878268478",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.017",
+      "seating": -46.9117431640625,
+      "triangles": 16000,
+      "name": "Shrub_bushes_017_p0",
+      "size": [
+        54.3540153503418,
+        62.469703674316406,
+        53.94501495361328
+      ],
+      "center": [
+        131.12924194335938,
+        95.29572296142578,
+        462.70526123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://71431435153868",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.017",
+      "seating": -46.9117431640625,
+      "triangles": 1189,
+      "name": "Shrub_bushes_017_p1",
+      "size": [
+        53.12724304199219,
+        57.597923278808594,
+        52.4298210144043
+      ],
+      "center": [
+        130.88218688964844,
+        97.3572998046875,
+        462.74066162109375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://121712092564072",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.018",
+      "seating": -43.1332763671875,
+      "triangles": 16000,
+      "name": "Shrub_bushes_018_p0",
+      "size": [
+        54.354026794433594,
+        62.40808868408203,
+        53.94504165649414
+      ],
+      "center": [
+        -132.87074279785156,
+        85.63656616210938,
+        486.652587890625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://106562019192143",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.018",
+      "seating": -43.1332763671875,
+      "triangles": 1189,
+      "name": "Shrub_bushes_018_p1",
+      "size": [
+        53.12721633911133,
+        57.182621002197266,
+        52.429786682128906
+      ],
+      "center": [
+        -133.11781311035156,
+        87.52102661132812,
+        486.68798828125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://81150265317136",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -36.99682617175,
+      "triangles": 9728,
+      "name": "Shrub_bushes_019",
+      "size": [
+        55.904972076416016,
+        20.3917293548584,
+        59.40277862548828
+      ],
+      "center": [
+        33.61766815185547,
+        97.35298919677734,
+        966.206787109375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://86892122990561",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.020",
+      "seating": -38.9234619139375,
+      "triangles": 9728,
+      "name": "Shrub_bushes_020",
+      "size": [
+        84.8585205078125,
+        30.95273780822754,
+        90.16773223876953
+      ],
+      "center": [
+        107.47068786621094,
+        104.8700942993164,
+        1240.08740234375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://98934450990662",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.021",
+      "seating": -41.26962158203125,
+      "triangles": 9728,
+      "name": "Shrub_bushes_021",
+      "size": [
+        70.02864074707031,
+        25.572650909423828,
+        66.89093017578125
+      ],
+      "center": [
+        6.232045650482178,
+        67.77057647705078,
+        697.3810424804688
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://80652823513073",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.022",
+      "seating": -41.4726513671875,
+      "triangles": 9728,
+      "name": "Shrub_bushes_022",
+      "size": [
+        68.02410125732422,
+        25.57265281677246,
+        74.12335205078125
+      ],
+      "center": [
+        -25.684696197509766,
+        70.08037567138672,
+        697.7623901367188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://95968205959975",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.023",
+      "seating": -41.621577148437495,
+      "triangles": 9728,
+      "name": "Shrub_bushes_023",
+      "size": [
+        68.76528930664062,
+        25.572650909423828,
+        67.99811553955078
+      ],
+      "center": [
+        -53.809410095214844,
+        70.19405364990234,
+        695.8099975585938
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://92758666534683",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.024",
+      "seating": -46.537724609375005,
+      "triangles": 9728,
+      "name": "Shrub_bushes_024",
+      "size": [
+        68.13624572753906,
+        25.57265853881836,
+        69.81342315673828
+      ],
+      "center": [
+        -19.295581817626953,
+        82.29928588867188,
+        719.0095825195312
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://79672443061578",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.025",
+      "seating": -40.8363525390625,
+      "triangles": 6500,
+      "name": "Shrub_bushes_025",
+      "size": [
+        34.79006576538086,
+        24.000581741333008,
+        30.853822708129883
+      ],
+      "center": [
+        -132.50999450683594,
+        56.514305114746094,
+        464.0079650878906
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://70775245580266",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cone",
+      "seating": -41.78553009020703,
+      "triangles": 508,
+      "name": "Source_Cone",
+      "size": [
+        226.75372314453125,
+        48.819583892822266,
+        226.75177001953125
+      ],
+      "center": [
+        37.256309509277344,
+        215.73782348632812,
+        1120.251708984375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://114416191204998",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.072",
+      "seating": -41.78553009020703,
+      "triangles": 384,
+      "name": "Source_Cube_072",
+      "size": [
+        180.30162048339844,
+        5.280623435974121,
+        180.30165100097656
+      ],
+      "center": [
+        37.256309509277344,
+        194.53707885742188,
+        1120.2525634765625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://126593660109123",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.073",
+      "seating": -41.78553009020703,
+      "triangles": 380,
+      "name": "Source_Cube_073",
+      "size": [
+        286.0633850097656,
+        3.542954683303833,
+        286.0633850097656
+      ],
+      "center": [
+        37.256324768066406,
+        93.24442291259766,
+        1120.252685546875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://136219883967760",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.074",
+      "seating": -41.78553009020703,
+      "triangles": 380,
+      "name": "Source_Cube_074",
+      "size": [
+        192.95692443847656,
+        3.877915620803833,
+        192.95692443847656
+      ],
+      "center": [
+        37.256309509277344,
+        97.05329132080078,
+        1120.252685546875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://95875781171867",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.075",
+      "seating": -41.78553009020703,
+      "triangles": 444,
+      "name": "Source_Cube_075",
+      "size": [
+        177.86837768554688,
+        2.1772594451904297,
+        174.71609497070312
+      ],
+      "center": [
+        36.666954040527344,
+        113.84736633300781,
+        1121.3179931640625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://99123710267826",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.076",
+      "seating": -41.78553009020703,
+      "triangles": 444,
+      "name": "Source_Cube_076",
+      "size": [
+        176.45057678222656,
+        10.126991271972656,
+        174.43983459472656
+      ],
+      "center": [
+        36.22245788574219,
+        121.230712890625,
+        1122.064453125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://80178397677306",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.077",
+      "seating": 0,
+      "triangles": 4512,
+      "name": "Source_Cube_077",
+      "size": [
+        74.1664810180664,
+        19.811038970947266,
+        124.76636505126953
+      ],
+      "center": [
+        69.61837768554688,
+        25.224639892578125,
+        666.2716674804688
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://116746406608644",
+      "texture": ""
+    },
+    {
+      "source": "Cube.078",
+      "seating": -28.0690087890625,
+      "triangles": 156,
+      "name": "Source_Cube_078",
+      "size": [
+        805.58837890625,
+        90.1761245727539,
+        384.7870178222656
+      ],
+      "center": [
+        -173.39620971679688,
+        82.70854949951172,
+        1250.976806640625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://105496273583573",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.079",
+      "seating": -27.450620117187505,
+      "triangles": 300,
+      "name": "Source_Cube_079",
+      "size": [
+        812.360107421875,
+        33.38461685180664,
+        389.3819885253906
+      ],
+      "center": [
+        -162.5152130126953,
+        84.86502838134766,
+        1255.392822265625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://98694131776569",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cube.080",
+      "seating": -27.958378906250005,
+      "triangles": 300,
+      "name": "Source_Cube_080",
+      "size": [
+        812.360107421875,
+        33.38461685180664,
+        389.3819885253906
+      ],
+      "center": [
+        -170.78358459472656,
+        102.19644927978516,
+        1251.501953125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://124635776109663",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cylinder.038",
+      "seating": -41.78553009020703,
+      "triangles": 124,
+      "name": "Source_Cylinder_038",
+      "size": [
+        7.9487786293029785,
+        16.515438079833984,
+        7.948855876922607
+      ],
+      "center": [
+        13.084834098815918,
+        104.82376098632812,
+        1171.6690673828125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://82153628420470",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cylinder.039",
+      "seating": -41.78553009020703,
+      "triangles": 124,
+      "name": "Source_Cylinder_039",
+      "size": [
+        7.948845863342285,
+        16.515438079833984,
+        7.948855876922607
+      ],
+      "center": [
+        89.89234924316406,
+        104.82376098632812,
+        1144.9681396484375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://101629967077993",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cylinder.040",
+      "seating": -41.78553009020703,
+      "triangles": 124,
+      "name": "Source_Cylinder_040",
+      "size": [
+        7.9487786293029785,
+        16.515438079833984,
+        7.948855876922607
+      ],
+      "center": [
+        -15.559460639953613,
+        104.82376098632812,
+        1095.5611572265625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://74211619406373",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Cylinder.041",
+      "seating": -41.78553009020703,
+      "triangles": 496,
+      "name": "Source_Cylinder_041",
+      "size": [
+        181.7354736328125,
+        106.56521606445312,
+        181.34378051757812
+      ],
+      "center": [
+        37.36412811279297,
+        143.78501892089844,
+        1120.0062255859375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://114758975853400",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "Landscape.001",
+      "seating": 0,
+      "triangles": 5677,
+      "name": "Source_Landscape_001",
+      "size": [
+        1900.0001220703125,
+        104.62663269042969,
+        1370.0001220703125
+      ],
+      "center": [
+        0,
+        16.836238861083984,
+        1015
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://135515023773676",
+      "texture": "rbxassetid://134174725027149"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -57.8587646484375,
+      "triangles": 16000,
+      "name": "WingShrub_-1_0_p0",
+      "size": [
+        25.897279739379883,
+        27.99606704711914,
+        25.702394485473633
+      ],
+      "center": [
+        285.5851135253906,
+        105.15047454833984,
+        604.00927734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://132983736431059",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -57.8587646484375,
+      "triangles": 1189,
+      "name": "WingShrub_-1_0_p1",
+      "size": [
+        25.312746047973633,
+        23.320466995239258,
+        24.980470657348633
+      ],
+      "center": [
+        285.4674072265625,
+        107.07276153564453,
+        604.026123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://114256949003790",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -40.5538330078125,
+      "triangles": 9728,
+      "name": "WingShrub_-1_1",
+      "size": [
+        55.904972076416016,
+        20.3917293548584,
+        59.402713775634766
+      ],
+      "center": [
+        330.08319091796875,
+        64.3545150756836,
+        712.2350463867188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://139828680752426",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -46.7133203125,
+      "triangles": 16000,
+      "name": "WingShrub_-1_2_p0",
+      "size": [
+        25.89731216430664,
+        27.99606704711914,
+        25.702394485473633
+      ],
+      "center": [
+        373.5851135253906,
+        94.97427368164062,
+        824.00927734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://70851375185569",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -46.7133203125,
+      "triangles": 1189,
+      "name": "WingShrub_-1_2_p1",
+      "size": [
+        25.312685012817383,
+        23.320459365844727,
+        24.980470657348633
+      ],
+      "center": [
+        373.4674072265625,
+        96.89656066894531,
+        824.026123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://139539244559389",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -39.61841064453125,
+      "triangles": 9728,
+      "name": "WingShrub_-1_3",
+      "size": [
+        55.904945373535156,
+        20.3917293548584,
+        59.40277862548828
+      ],
+      "center": [
+        418.0832214355469,
+        84.11199188232422,
+        932.2349853515625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://129427549529080",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -33.424091796875004,
+      "triangles": 16000,
+      "name": "WingShrub_-1_4_p0",
+      "size": [
+        25.897279739379883,
+        27.99606704711914,
+        25.702394485473633
+      ],
+      "center": [
+        461.5851135253906,
+        82.91447448730469,
+        1044.00927734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://95509832912254",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -33.424091796875004,
+      "triangles": 1189,
+      "name": "WingShrub_-1_4_p1",
+      "size": [
+        25.312652587890625,
+        23.320466995239258,
+        24.980470657348633
+      ],
+      "center": [
+        461.4673767089844,
+        84.83676147460938,
+        1044.026123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://102041553010232",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -25.1819140625,
+      "triangles": 9728,
+      "name": "WingShrub_-1_5",
+      "size": [
+        55.904911041259766,
+        20.3917293548584,
+        59.402713775634766
+      ],
+      "center": [
+        506.08319091796875,
+        69.85166931152344,
+        1152.23486328125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://121145415196009",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -37.396240234375,
+      "triangles": 16000,
+      "name": "WingShrub_1_0_p0",
+      "size": [
+        25.897249221801758,
+        27.99606704711914,
+        25.702394485473633
+      ],
+      "center": [
+        -286.4148864746094,
+        53.56635284423828,
+        604.00927734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://98128112700238",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -37.396240234375,
+      "triangles": 1189,
+      "name": "WingShrub_1_0_p1",
+      "size": [
+        25.31271743774414,
+        23.32045555114746,
+        24.980470657348633
+      ],
+      "center": [
+        -286.5325927734375,
+        55.48863983154297,
+        604.026123046875
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://71861989832275",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -26.6167236328125,
+      "triangles": 9728,
+      "name": "WingShrub_1_1",
+      "size": [
+        55.904972076416016,
+        20.391727447509766,
+        59.402713775634766
+      ],
+      "center": [
+        -329.916748046875,
+        29.533103942871094,
+        712.2350463867188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://110545565809795",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -25.9628076171875,
+      "triangles": 16000,
+      "name": "WingShrub_1_2_p0",
+      "size": [
+        25.897249221801758,
+        27.99606704711914,
+        25.702394485473633
+      ],
+      "center": [
+        -374.4148864746094,
+        42.1790657043457,
+        824.0092163085938
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://71731430347997",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -25.9628076171875,
+      "triangles": 1189,
+      "name": "WingShrub_1_2_p1",
+      "size": [
+        25.31271743774414,
+        23.32046127319336,
+        24.980470657348633
+      ],
+      "center": [
+        -374.5325927734375,
+        44.10135269165039,
+        824.0260620117188
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://121819855702964",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -27.06157470703125,
+      "triangles": 9728,
+      "name": "WingShrub_1_3",
+      "size": [
+        55.905006408691406,
+        20.3917293548584,
+        59.402713775634766
+      ],
+      "center": [
+        -417.9167785644531,
+        52.912193298339844,
+        932.2349853515625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://100209421505020",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -25.851162109375,
+      "triangles": 16000,
+      "name": "WingShrub_1_4_p0",
+      "size": [
+        25.897279739379883,
+        27.996061325073242,
+        25.702272415161133
+      ],
+      "center": [
+        -462.41485595703125,
+        64.38261413574219,
+        1044.0091552734375
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://97460924396164",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.002",
+      "seating": -25.851162109375,
+      "triangles": 1189,
+      "name": "WingShrub_1_4_p1",
+      "size": [
+        25.31271743774414,
+        23.32046127319336,
+        24.980592727661133
+      ],
+      "center": [
+        -462.5325622558594,
+        66.30490112304688,
+        1044.0260009765625
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://115707901106735",
+      "texture": "rbxassetid://121720217290206"
+    },
+    {
+      "source": "bushes.019",
+      "seating": -24.413627929687507,
+      "triangles": 9728,
+      "name": "WingShrub_1_5",
+      "size": [
+        55.904945373535156,
+        20.391725540161133,
+        59.402713775634766
+      ],
+      "center": [
+        -505.9167175292969,
+        68.12458038330078,
+        1152.23486328125
+      ],
+      "displayed": true,
+      "mesh": "rbxassetid://105126778918784",
+      "texture": "rbxassetid://121720217290206"
+    }
+  ]
+}

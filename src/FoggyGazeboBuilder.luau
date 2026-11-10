@@ -25,22 +25,32 @@ function Builder.Build()
  local basis=CFrame.Angles(0,math.rad(56),0)
  local sorted=assets:GetChildren();table.sort(sorted,function(a,b)return a.Name<b.Name end)
  for i,t in sorted do if t:IsA('MeshPart')then
+  -- Retained privately/native templates for review, not displayed: soft alpha is culled by
+  -- the existing Glass dome; the cutout alternative exposes floating source forest cards.
+  if t.Name:match('^Backdrop') then continue end
   local p=t:Clone();local center=t:GetAttribute('SourceCenter');assert(center,'SourceCenter missing: '..t.Name)
-  if not p.Name:match('^Backdrop') and not p.Name:match('Landscape') then center+=Vector3.new(0,(t:GetAttribute('TerrainLift') or 0),0) end
+  center+=Vector3.new(0,t:GetAttribute('SeatingOffset') or 0,0)
+  -- Distant setting: preserve the corrected terrain/assembly relationship with one transform.
+  p.Size*=.85;center=Vector3.new(center.X*.85,center.Y*.85,center.Z*.85+400)
   p.CFrame=basis*CFrame.new(center);p.Anchored=true;p.CanCollide=false;p.CanTouch=false;p.CanQuery=false;p.CastShadow=false
   p.Color=Color3.new(1,1,1);p.Material=Enum.Material.SmoothPlastic;p.DoubleSided=true;p.Reflectance=0
   local group=p.Name:match('^Backdrop')and 'BakedDistantForest' or p.Name:match('Landscape')and 'AuthoredTerrain' or p.Name:match('^Source')and 'GazeboAndFurnishings' or p.Name:match('^Wing')and 'ForestWings' or 'ForegroundVegetation'
   if group=='BakedDistantForest' then
-   p.Size=Vector3.new(p.Size.X*.65,1100,p.Size.Z*.65);center=Vector3.new(center.X*.65,650,340+(center.Z-340)*.65);p.CFrame=basis*CFrame.new(center)
-   local sa=Instance.new('SurfaceAppearance');sa.ColorMap=p.TextureID;sa.RoughnessMap='rbxassetid://113355786572368';sa.Parent=p;p.TextureID=''
-   local cap=p:Clone();cap:ClearAllChildren();cap.Name=p.Name..'_MistSky';cap.Size=Vector3.new(p.Size.X*1.006,2048,p.Size.Z*1.006);cap.CFrame=p.CFrame+Vector3.new(0,1050,0)+Vector3.new(p.Position.X,0,p.Position.Z).Unit*4;cap.Color=Color3.fromRGB(193,217,216);cap.TextureID='';cap.Parent=groups[group]
+   -- Distant forest ridge clears the retained perimeter roof sightline; no raised foreground shelf.
+   p.CFrame+=Vector3.new(0,350,0)
+   local sa=Instance.new('SurfaceAppearance');sa.ColorMap=p.TextureID;sa.RoughnessMap='rbxassetid://113355786572368';sa.AlphaMode=Enum.AlphaMode.Transparency;sa.Parent=p;p.TextureID=''
   end
-  if p.Name:match('_leaf$') then local sa=Instance.new('SurfaceAppearance');sa.ColorMap=p.TextureID;sa.AlphaMode=Enum.AlphaMode.Transparency;sa.Parent=p;p.TextureID='' end
+  if p.Name:match('_leaf$') then
+   local sa=Instance.new('SurfaceAppearance');sa.ColorMap='rbxassetid://137012180294436';sa.RoughnessMap='rbxassetid://113355786572368';sa.AlphaMode=Enum.AlphaMode.Transparency;sa.Parent=p;p.TextureID=''
+  elseif group=='ForegroundVegetation' or group=='ForestWings' then
+   p.TextureID='';p.Color=p.Name:match('_wood$')and Color3.fromRGB(70,95,77)or Color3.fromRGB(65,108,77)
+  elseif group=='GazeboAndFurnishings' then
+   p.TextureID='';p.Color=p.Name=='Source_Cone'and Color3.fromRGB(56,103,98)or Color3.fromRGB(84,110,96)
+  end
   p.Parent=groups[group]
   if i%12==0 then task.wait()end
  end end
- local hero=groups.GazeboAndFurnishings;hero.WorldPivot=hero.Source_Cube_074.CFrame;hero:ScaleTo(1.25)
- lab:SetAttribute('FoggyGazeboRevision',1)
+ lab:SetAttribute('FoggyGazeboRevision',2)
  lab:SetAttribute('ValleySectorRevision',1)
  root:SetAttribute('RemovedLegacyRoots',#removed>0 and table.concat(removed,', ') or prior or 'EastValleySector; LandscapeGroup1/4/10; four overlapping legacy mountains')
  return {removed=removed,templates=#sorted}
