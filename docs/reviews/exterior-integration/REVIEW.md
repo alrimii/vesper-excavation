@@ -1,6 +1,6 @@
 # Landscape integration and balance — v182
 
-Published **v182**, original place **94763223427049**, **2026-11-10 17:18:25 UTC**. Branch `planning/development-foundation`. Started from clean `edff414d722db3f0b0ea8b242cfc879cf11e8df9` / v180; the initial native snapshot is byte-identical to the prior final recovery file. Publication is confirmed by the Studio log's `publishType=1`, “Published new changes” and “Add publish notes to v182”. Source/evidence commit is the commit containing this review.
+Published **v182**, original place **94763223427049**, **2026-11-10 17:18:25 UTC**. Branch `planning/development-foundation`. Started from clean `edff414d722db3f0b0ea8b242cfc879cf11e8df9` / v180; the initial native snapshot is byte-identical to the prior final recovery file. Publication is confirmed by the Studio log's `publishType=1`, “Published new changes” and “Add publish notes to v182”. Implementation/evidence commit: [c0b92621421700a3bf6fbc2bafb292014c768256](https://github.com/alrimii/vesper-excavation/commit/c0b92621421700a3bf6fbc2bafb292014c768256). A following documentation-only commit records this identifier.
 
 The owner sees substantial improvement and likes the existing direction. This pass integrates those assets; it does not restart the exterior or claim approval of this new result. Joining remains owner-confirmed and closed. All final captures show one frozen scene state; no art changes followed capture.
 
