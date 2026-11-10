@@ -14,7 +14,7 @@ function B.Build()
 	end
 	local mist = Instance.new("Model")
 	mist.Name = "ValleyMist"
-	mist:SetAttribute("AtmosphereRevision", 1)
+	mist:SetAttribute("AtmosphereRevision", 2)
 	mist.Parent = exterior
 	for index, d in Config.Ribbons do
 		local host = Instance.new("Part")
@@ -74,7 +74,7 @@ function B.Build()
 	clouds.Color = Config.CloudColor
 	clouds.Enabled = true
 	workspace.GlobalWind = Config.Wind
-	return "Eight localized mist ribbons; native cloud wind; steady base atmosphere"
+	return "Twelve localized near/middle lowland mist layers; continuous existing cloud wind"
 end
 
 return B

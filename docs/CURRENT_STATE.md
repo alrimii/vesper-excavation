@@ -1,4 +1,12 @@
-# Current checkpoint — Interior Phase 2, published v212
+# Current checkpoint ? Phase 3 environment, published v215
+
+Original place **94763223427049**, branch `planning/development-foundation`. **Published v215** at **2026-11-10 23:50:40 UTC**, verified from Studio's actual publish log. [Review, screenshots and motion video](reviews/interior-phase-3/REVIEW.md), [delivery identity](reviews/interior-phase-3/delivery.json). Studio is stopped in Edit, native final saved, art frozen.
+
+Finished connected ivy/trailing vines, selected roof/frame/access/crown planting and replaced ground beds; existing woodland/foothill/mountain recomposition; twelve nearer moving mist layers; coordinated afternoon lighting. [Exact instance/generator cleanup](reviews/interior-phase-3/replacement-ledger.md). One current environment recipe, with protected room/service/gameplay systems unchanged. 15,410 protected geometry parts and 39 anchors match; only two cosmetic atmosphere runtime sources changed. Fixed save generation remains unchanged.
+
+One 391.106-second capture-only session, one actual Q1/Q21 comparison, original quality restored, 18-second actual motion recording. No gameplay/device actions or repeated Play. Remaining bright/repetitive foliage, sparse areas, roof highlights, open ground, beam-like mist patches and existing drill/foothill texture warnings are recorded honestly. Real-device performance, published-client rendering and visual approval remain unverified. [All remaining phase/deferred requirements](reviews/interior-phase-3/PLAN.md) retained.
+
+# Previous checkpoint — Interior Phase 2, published v212
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v212** at **2026-11-10 23:12:41 UTC**; native saved and Studio stopped in Edit. [Review, actual screenshots and known limitations](reviews/interior-phase-2/REVIEW.md), [Git delivery](reviews/interior-phase-2/delivery.json). All twelve personal-room interiors, left-wall modular collections, training stations and separate care reserves were replaced with one room-local recipe; obsolete instances and generators were removed.
 

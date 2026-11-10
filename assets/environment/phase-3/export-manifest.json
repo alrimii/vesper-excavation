@@ -1,0 +1,44 @@
+{
+  "ArchitecturalIvy": {
+    "source": "ivy-vine",
+    "triangles": 10845,
+    "removedSupportFaces": 3528,
+    "size": [
+      2.358443021774292,
+      3.92834734916687,
+      0.559873104095459
+    ],
+    "center": [
+      0.0,
+      1.964173674583435,
+      0.21619051694869995
+    ],
+    "meshes": 1,
+    "textureSize": [
+      1024,
+      1024
+    ],
+    "orientation": "leaf faces toward +Z; ivy roots at Y0, trailing head at Y0"
+  },
+  "TrailingVine": {
+    "source": "hanging-vine",
+    "triangles": 11937,
+    "removedSupportFaces": 1655,
+    "size": [
+      1.7746341228485107,
+      3.68955397605896,
+      0.9921186566352844
+    ],
+    "center": [
+      0.0077130794525146484,
+      -1.84477698802948,
+      -0.0
+    ],
+    "meshes": 1,
+    "textureSize": [
+      1024,
+      1024
+    ],
+    "orientation": "leaf faces toward +Z; ivy roots at Y0, trailing head at Y0"
+  }
+}

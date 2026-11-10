@@ -1,169 +1,96 @@
--- Edit-only scenery recipe. The native library contains adapted, attributed CC0 meshes.
--- Does not modify the dome, laboratory, runtime systems, or player records.
+-- Sole Edit recipe for the Phase 3 scenery composition. Retained meshes; no gameplay.
 local B = {}
-local function group(parent, name)
-	local m = Instance.new("Model")
-	m.Name = name
-	m.Parent = parent
-	return m
-end
-local function mesh(parent, library, name, cf, scale, color)
-	local t = library:FindFirstChild(name)
-	assert(t and t:IsA("MeshPart"), "Missing native scenery template: " .. name)
-	local p = t:Clone()
-	local s = typeof(scale) == "Vector3" and scale or Vector3.one * (scale or 1)
-	p.Size = t.Size * s
-	p.CFrame = cf * CFrame.new(t:GetAttribute("SourceCenter") * s)
-	p.Color = color or Color3.new(1, 1, 1)
-	local surface = p:FindFirstChildOfClass("SurfaceAppearance")
-	if surface then
-		surface.Color = p.Color
-	end
-	p.Anchored = true
-	p.CanCollide = false
-	p.CanTouch = false
-	p.CanQuery = false
-	p.CastShadow = false
-	p.Parent = parent
-	return p
-end
 local layout = require(script.Parent.ExteriorIntegrationLayout)
-local function groundHeight(x, z)
-	local r = math.sqrt(x * x + z * z)
-	local t = math.clamp((r - 350) / 500, 0, 1)
-	t = t * t * (3 - 2 * t)
-	local y = -8 + t * (8 + 13 * math.sin(x / 430) * math.cos(z / 520) + 9 * math.sin(z / 310))
-	for _, d in layout.grading do
-		y += t * d[3] * math.exp(-(((x - d[1]) / d[4]) ^ 2 + ((z - d[2]) / d[5]) ^ 2) * 1.7)
-	end
-	local a = math.rad(55)
-	local u = x * math.cos(a) + z * math.sin(a)
-	local v = -x * math.sin(a) + z * math.cos(a)
-	y -= math.clamp((u - 800) / 900, 0, 1) * math.exp(-((v - 110 * math.sin(u / 650)) / 360) ^ 2) * 18
-	return y
-end
-local function point(degrees, radius)
-	local a = math.rad(degrees)
-	local x, z = math.cos(a) * radius, math.sin(a) * radius
-	return Vector3.new(x, groundHeight(x, z), z)
-end
 function B.Build()
 	assert(
 		game.PlaceId == 94763223427049 and not game:GetService("RunService"):IsRunning(),
 		"Original Edit place only"
 	)
 	local lab = workspace.VesperLab
-	local assets = game.ServerStorage:FindFirstChild("ExteriorCompositionAssets")
-	assert(assets and #assets:GetChildren() == 67, "Import the complete attributed scenery library first")
-	local vegetation = game.ServerStorage.LivingLabArtAssets
-	local grading = game.ServerStorage:FindFirstChild("ExteriorGrassAssets")
-	assert(
-		grading and #grading:GetChildren() == 80,
-		"Imported grading and sixteen fitted grass patches required"
-	)
+	for _, d in layout do
+		assert(game.ServerStorage[d.template[1]]:FindFirstChild(d.template[2]), d.template[2])
+	end
 	local old = lab:FindFirstChild("DecorativeExterior")
-	-- All affected placements were preserved in the native recovery checkpoint.
-	-- Libraries are retained; retired placements do not remain elsewhere in Workspace.
 	if old then
 		old:Destroy()
 	end
-	local root = group(lab, "DecorativeExterior")
+	local root = Instance.new("Model")
+	root.Name = "DecorativeExterior"
 	root:SetAttribute("SceneryOnly", true)
-	root:SetAttribute("CompositionRevision", 3)
-	local ground = group(root, "ContinuousLowGround")
-	for _, d in layout.ground do
-		local p = mesh(ground, grading, d.name, CFrame.identity, 1, Color3.new(1, 1, 1))
-		p.TextureID = grading:GetAttribute("GroundColor")
-		p.Material = Enum.Material.SmoothPlastic
-	end
-	local grass = group(root, "FittedGrassPatches")
-	for _, d in layout.grassPatches do
-		local p = mesh(grass, grading, d.name, CFrame.identity, 1, Color3.fromRGB(137, 220, 156))
-		p:SetAttribute("SourceTriangles", d.triangles)
-		p:SetAttribute("SourceTufts", d.tufts)
-		-- Static source geometry, opaque alpha cutout at Transparency=0.
-		-- No per-tuft instances, scripts, wind, physics, or large transparent cards.
+	root:SetAttribute("CompositionRevision", 4)
+	root.Parent = lab
+	local groups = {}
+	for i, d in layout do
+		local g = groups[d.group]
+		if not g then
+			g = Instance.new("Model")
+			g.Name = d.group
+			g.Parent = root
+			groups[d.group] = g
+		end
+		local p = game.ServerStorage[d.template[1]][d.template[2]]:Clone()
+		p.Name = d.name
+		p.Size = Vector3.new(table.unpack(d.size))
+		p.CFrame = CFrame.new(table.unpack(d.cf))
+		p.Color = Color3.new(table.unpack(d.color))
+		p.TextureID = d.texture
+		p.Material = Enum.Material[d.material]
+		local sa = p:FindFirstChildOfClass("SurfaceAppearance")
+		if sa then
+			sa.Color = p.Color
+		end
+		p.Anchored = true
+		p.CanCollide = false
+		p.CanTouch = false
+		p.CanQuery = false
+		p.CastShadow = false
 		p.Transparency = 0
-	end
-	task.wait()
-	local peaks = group(root, "SeparatedRockMassifs")
-	-- Real downloaded mountain geometry; rotations and unequal scales expose different peaks.
-	-- An opening toward +X,+Z remains between the eastern and northern massifs.
-	for i, d in layout.peaks do
-		local p = point(d[1], d[2])
-		local m = mesh(
-			peaks,
-			assets,
-			"AlpineRange",
-			CFrame.new(p.X, d[3], p.Z) * CFrame.Angles(0, math.rad(d[7]), 0),
-			Vector3.new(d[4], d[5], d[6])
-		)
-		m.Name = "RockMassif" .. i
-		if i == 5 and layout.ridgeOverride then
-			-- Exact closer representation verified in the single runtime comparison.
-			-- RenderFidelity and graphics quality are unchanged.
-			m.CFrame = CFrame.new(unpack(layout.ridgeOverride.cframe))
-			m.Size = Vector3.new(unpack(layout.ridgeOverride.size))
-		end
-		m.TextureID = grading:GetAttribute("AlpineColor")
-	end
-	local cliffs = group(root, "RockyFoothills")
-	for _, d in
-		{
-			{ -7, 1570, 1.4, 0.9, 22 },
-			{ 27, 1590, 1.1, 0.8, -32 },
-			{ 103, 1510, 1.6, 1.15, 127 },
-			{ 133, 1730, 1.35, 0.9, 91 },
-			{ 211, 1740, 1.5, 1.2, 217 },
-			{ 246, 1800, 1.2, 0.8, 265 },
-			{ 319, 2060, 1.0, 0.85, 305 },
-		}
-	do
-		local p = point(d[1], d[2])
-		-- The seven open-backed StrataCliff scan sheets are retired: grading exposed thin fragments.
-		local x, z = p.X + 90, p.Z + 40
-		local seat = math.min(
-			groundHeight(x, z),
-			groundHeight(x - 70, z),
-			groundHeight(x + 70, z),
-			groundHeight(x, z - 70),
-			groundHeight(x, z + 70)
-		)
-		local buttress = mesh(
-			cliffs,
-			assets,
-			"RockButtress",
-			CFrame.new(x, seat - 35, z) * CFrame.Angles(0, math.rad(d[5] + 60), 0),
-			Vector3.new(d[3], d[4] * 0.6, d[3])
-		)
-		buttress.TextureID = grading:GetAttribute("ButtressColor")
-	end
-	task.wait()
-	local forest = group(root, "IrregularForestIslands")
-	local apron = group(root, "SparseMeadowPockets")
-	local patches = {}
-	for index, d in layout.planting do
-		local parent = d.kind == "tree" and forest or apron
-		if not patches[d.patch] then
-			patches[d.patch] = group(parent, d.patch)
-		end
-		local p = mesh(
-			patches[d.patch],
-			vegetation,
-			d.name,
-			CFrame.new(d.x, d.y, d.z) * CFrame.Angles(0, d.yaw, 0),
-			Vector3.new(unpack(d.scale)),
-			Color3.fromRGB(unpack(d.color))
-		)
-		p:SetAttribute("RetainedV180Placement", d.retained)
-		if index % 60 == 0 then
+		p.RenderFidelity = Enum.RenderFidelity.Automatic
+		p:SetAttribute("ScenicOriginalCFrame", nil)
+		p:SetAttribute("ScenicOriginalSize", nil)
+		p:SetAttribute("ScenicDistanceRevision", nil)
+		p:SetAttribute("CompositionIndex", i)
+		p.Parent = g
+		if i % 70 == 0 then
 			task.wait()
 		end
 	end
-	require(script.Parent.ExteriorScenicDistanceBuilder).Build()
+	local ground = groups.ContinuousLowGround
+	for _, p in ground:GetChildren() do
+		p.CanQuery = true
+	end
+	local params = RaycastParams.new()
+	params.FilterType = Enum.RaycastFilterType.Include
+	params.FilterDescendantsInstances = { ground }
+	local function height(x, z)
+		local hit = workspace:Raycast(Vector3.new(x, 500, z), Vector3.new(0, -1000, 0), params)
+		return hit and hit.Position.Y or -8
+	end
+	for _, p in root:GetDescendants() do
+		if p:IsA("MeshPart") then
+			local d = layout[p:GetAttribute("CompositionIndex")]
+			if d.seat then
+				local x, z = p.Position.X, p.Position.Z
+				local y = height(x, z)
+				if d.bury and d.bury > 3 then
+					local dx, dz = p.Size.X * 0.27, p.Size.Z * 0.27
+					y = math.min(
+						y,
+						height(x - dx, z),
+						height(x + dx, z),
+						height(x, z - dz),
+						height(x, z + dz)
+					)
+				end
+				p.CFrame = CFrame.new(x, y + p.Size.Y / 2 - (d.bury or 1), z) * p.CFrame.Rotation
+			end
+		end
+	end
+	for _, p in ground:GetChildren() do
+		p.CanQuery = false
+	end
 	require(script.Parent.ExteriorAtmosphereBuilder).Build()
-	-- Preserve scenery/glazing; the atmosphere-only recipe owns the sky effects.
-	lab:SetAttribute("ExteriorCompositionRevision", 3)
-	return "Fitted short-grass patches, connected ground materials, regrouped woodland and readable source rock"
+	lab:SetAttribute("ExteriorCompositionRevision", 4)
+	return "452 retained mesh placements: layered woodland, seated foothills, separated massifs and meadow transitions"
 end
 return B

@@ -33,7 +33,7 @@ connection = RunService.Heartbeat:Connect(function(dt)
 		host.MistEnd.Position = d[2] + drift + Vector3.new(0, math.sin(phase + 2.3) * 5, 0)
 		beam.Width0 = d[3] * (1 + 0.09 * math.sin(phase * 0.93))
 		beam.Width1 = d[3] * (0.86 + 0.08 * math.sin(phase * 0.81 + 1))
-		local opacity = d[4] * (1 + 0.10 * math.sin(phase * 0.67 + i))
+		local opacity = math.clamp(d[4] * (1 + 0.10 * math.sin(phase * 0.67 + i)), 0, 0.92)
 		beam.Transparency = NumberSequence.new({
 			NumberSequenceKeypoint.new(0, 1),
 			NumberSequenceKeypoint.new(0.18, 1 - opacity * 0.72),

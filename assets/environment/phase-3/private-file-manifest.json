@@ -1,0 +1,37 @@
+[
+  {
+    "path": "Backups\\InteriorPhase3_20261111\\source\\hanging-vine.glb",
+    "bytes": 1203868,
+    "sha256": "a0946e9f46c9acdb1587f1102dc214ae63df9c4979ae9b4fd9ffec4b21c48d83"
+  },
+  {
+    "path": "Backups\\InteriorPhase3_20261111\\source\\ivy-vine.glb",
+    "bytes": 1282684,
+    "sha256": "b92eb05628d784ffc0e32f3c8a78b6e6932fa329fe086d75e38d26d718ed0212"
+  },
+  {
+    "path": "Backups\\InteriorPhase3_20261111\\source\\ArchitecturalIvy.blend",
+    "bytes": 1761618,
+    "sha256": "d649cbf72e5ffbadf9335d47f44ddf1b1edbdc9208af14ab91ab62506e4d4cf2"
+  },
+  {
+    "path": "Backups\\InteriorPhase3_20261111\\source\\inspection.blend",
+    "bytes": 2434768,
+    "sha256": "385d087bfdc26fb02bd7af5b4f98c5e56eea7b196a4c7d722a0a021163c2cda4"
+  },
+  {
+    "path": "Backups\\InteriorPhase3_20261111\\source\\TrailingVine.blend",
+    "bytes": 2979347,
+    "sha256": "4ec6ffc0053677e9d342d56d523e1a008b0ccd10e767596a7d3a6183d7326620"
+  },
+  {
+    "path": "assets\\environment\\compact-interior\\exports\\TrailingVine.glb",
+    "bytes": 1679816,
+    "sha256": "78cbbd71c678bf5141c5f1e69ba5e1cba6adfbf029e0222caf00e62fbf7ba927"
+  },
+  {
+    "path": "assets\\environment\\compact-interior\\exports\\ArchitecturalIvy.glb",
+    "bytes": 1687504,
+    "sha256": "326d446277ea20b34cdffda7a1e8df57be94780d392fd6692f7f021a7f6d600b"
+  }
+]

@@ -83,8 +83,8 @@ local function lamp(parent, cf, w)
 	l.Face = Enum.NormalId.Bottom
 	l.Angle = 115
 	l.Range = 28
-	l.Brightness = 1.3
-	l.Color = C.warm
+	l.Brightness = 1.05
+	l.Color = Color3.fromRGB(244, 228, 202)
 	l.Shadows = false
 	l.Parent = p
 end
@@ -133,52 +133,6 @@ local function imported(parent, name, cf, scale)
 end
 local function corner(x, z)
 	return CFrame.lookAt(V(x, 0, z), Vector3.zero)
-end
-local function bed(parent, name, cf, w, d, variant)
-	local g = model(parent, name)
-	part(g, "SolidStoneBase", V(w, 2.1, d), cf * CF(0, 1.95, 0), C.stone, true)
-	part(g, "InsetSoil", V(w - 1.3, 0.18, d - 1.3), cf * CF(0, 3.02, 0), C.soil, false, Enum.Material.Ground)
-	local specs = variant == 1
-			and {
-				{ "ForestFern", -w * 0.29, 0, 0.58 },
-				{ "Broadleaf", w * 0.2, d * 0.14, 1.25 },
-				{ "Broadleaf", -w * 0.05, d * 0.22, 0.75 },
-				{ "ForestFern", -w * 0.12, -d * 0.22, 0.34 },
-				{
-					"ForestFern",
-					w * 0.35,
-					-d * 0.2,
-					0.4,
-				},
-			}
-		or {
-			{ "Broadleaf", -w * 0.27, d * 0.1, 1.15 },
-			{ "ForestFern", w * 0.23, -d * 0.07, 0.48 },
-			{
-				"Broadleaf",
-				w * 0.38,
-				d * 0.24,
-				0.6,
-			},
-		}
-	for i, s in specs do
-		retainedMesh(
-			g,
-			s[1],
-			cf * CF(s[2], 3.12, s[3]) * CFrame.Angles(0, i * 1.7 + variant, 0),
-			s[4],
-			Color3.fromRGB(193, 212, 167)
-		)
-	end
-	for i = 1, 5 do
-		retainedMesh(
-			g,
-			"Clover",
-			cf * CF(-w * 0.35 + i * w * 0.11, 3.12, -d * 0.26) * CFrame.Angles(0, i, 0),
-			0.65
-		)
-	end
-	return g
 end
 local function triangle(parent, name, a, b, c, thickness, color, material)
 	local ab, ac, bc = b - a, c - a, c - b
@@ -412,22 +366,7 @@ function B.Floor()
 end
 
 function B.Commons()
-	local r = lab()
-	for _, n in { "InteriorCommons", "ResearchGardenIslands", "FocalResearchDisplays", "ExcavationPlanting" } do
-		remove(r, n)
-	end
-	local g = model(r, "CompactCommons")
-	bed(g, "SouthwestFernCourt", corner(-116, 116), 29, 12, 1)
-	retainedMesh(g, "CanopyYoung", corner(-116, 116) * CF(5, 3.12, 1.5), 0.5, Color3.fromRGB(164, 182, 142)).Name =
-		"SelectedSmallCanopy"
-	local cf = corner(-116, 116)
-	part(g, "StoneSeat", V(28, 0.75, 3.5), cf * CF(0, 3.2, -11), C.edge, true)
-	for _, x in { -10, 10 } do
-		part(g, "SeatLeg", V(2, 2.3, 3), cf * CF(x, 1.8, -11), C.metal, true, Enum.Material.Metal)
-	end
-	bed(g, "LabFernBed", CF(-44, 0, -121), 18, 10, 2)
-	-- The former east-wall bed is removed for the integrated workshop approach.
-	return "Three botanical compositions replace block shrubs and repeated islands"
+	return require(script.Parent.IntegratedGreeneryBuilder).Commons()
 end
 local function displayTool(parent, tool, cf, height, name)
 	local m = Instance.new("Model")
@@ -651,21 +590,9 @@ function B.Access()
 		remove(ladder, name)
 	end
 	remove(r, "AccessArtIntegration")
-	local old = r:FindFirstChild("CompactBotanicalSupports")
-	if old then
-		local retained = r:FindFirstChild("RetainedFixedPlanting") or Instance.new("Model")
-		retained.Name = "RetainedFixedPlanting"
-		retained.Parent = r
-		for _, p in old:GetChildren() do
-			if
-				p:IsA("BasePart")
-				and (p.Position.Y > 200 or Vector3.new(p.Position.X, 0, p.Position.Z).Magnitude > 180)
-			then
-				p.Parent = retained
-			end
-		end
-		old:Destroy()
-	end
+	-- Retired primitive vines are removed; the Phase 3 recipe owns all planting.
+	remove(r, "CompactBotanicalSupports")
+	remove(r, "RetainedFixedPlanting")
 	local g = model(access, "Phase1StructuralConnections")
 	local floorY = 3.645
 	local beamBottom = 21.105
@@ -904,16 +831,7 @@ function B.Roofs()
 end
 
 function B.Lighting()
-	lab()
-	local l = game.Lighting
-	l.ClockTime = 16
-	l.Brightness = 1.65
-	l.ExposureCompensation = -0.12
-	l.Ambient = Color3.fromRGB(104, 111, 114)
-	l.OutdoorAmbient = Color3.fromRGB(151, 163, 170)
-	l.EnvironmentDiffuseScale = 0.72
-	l.EnvironmentSpecularScale = 0.2
-	return "Softer afternoon illumination; atmosphere, sky, clouds and wind untouched"
+	return require(script.Parent.WorldLightingBuilder).Build()
 end
 function B.Enclosure()
 	local r = lab()

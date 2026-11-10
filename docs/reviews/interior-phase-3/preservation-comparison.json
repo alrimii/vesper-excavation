@@ -1,0 +1,10 @@
+{
+  "geometryDifferences": [],
+  "sourceDifferences": [
+    "ReplicatedStorage.VesperShared.ExteriorAtmosphereConfig",
+    "StarterPlayer.StarterPlayerScripts.ExteriorAtmosphereMotion"
+  ],
+  "anchorsMatch": true,
+  "protectedPartCount": 15410,
+  "runtimeSourceCount": 80
+}

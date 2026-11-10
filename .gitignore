@@ -16,3 +16,6 @@
 **/*.log
 **/*.blend1
 **/__pycache__/
+# Phase 3 temporary hosted mesh derivatives; original downloads and editable masters remain private.
+assets/environment/compact-interior/exports/ArchitecturalIvy.glb
+assets/environment/compact-interior/exports/TrailingVine.glb

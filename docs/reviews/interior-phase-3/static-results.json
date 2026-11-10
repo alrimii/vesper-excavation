@@ -1,0 +1,15 @@
+{
+  "lights": [],
+  "oldNames": [],
+  "foliage": 59,
+  "mist": 12,
+  "solids": 23,
+  "collidingFoliage": [],
+  "removedFinalMossBlocks": 7,
+  "lint": {
+    "errors": 0,
+    "warnings": 0,
+    "parseErrors": 0
+  },
+  "note": "Final scan after exact nested-moss removal; static checks, no gameplay tests."
+}

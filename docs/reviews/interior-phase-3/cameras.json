@@ -1,0 +1,15 @@
+{
+  "space": "world; camera only, no character movement",
+  "fov": 70,
+  "views": [
+    {"name":"floor","position":[65,7,50],"target":[680,230,650],"note":"Matched before/after floor-height view; room fronts remain unchanged."},
+    {"name":"upper","position":[3,97.1425,-23.5],"target":[-550,25,-650],"note":"Inside dome, terminal deck height plus eye height; matched before/after."},
+    {"name":"opposing","position":[3,97.1425,-23.5],"target":[550,75,650]},
+    {"name":"frame-vines","position":[182,42,136],"target":[201,41,155]},
+    {"name":"roof-planting","position":[101,38,105],"target":[113,25,136]},
+    {"name":"ladder-planting","position":[73,14,-17],"target":[56,13,1]},
+    {"name":"ground-planting","position":[-86,9,88],"target":[-116,5,116]},
+    {"name":"overhead","position":[0,1600,10],"target":[0,0,0],"note":"Outside inspection aerial; does not replace the inside upper view."},
+    {"name":"quality-and-motion","position":[3,97.1425,-23.5],"target":[-550,25,-650],"note":"Fixed camera for lowest/highest quality pair and subsequent normal-speed motion recording."}
+  ]
+}

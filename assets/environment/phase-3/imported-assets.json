@@ -1,0 +1,24 @@
+{
+  "creatorUserId": "291892217",
+  "uploads": 2,
+  "moderation": "Approved",
+  "normalizedLibrary": "ServerStorage.IntegratedGreeneryAssets",
+  "assets": {
+    "TrailingVine": {
+      "colorMap": "rbxassetid://91970065682514",
+      "rotation": "0, 0, 0, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "normal": "",
+      "mesh": "rbxassetid://74083467446945",
+      "size": "1.7746341228485107, 3.68955397605896, 0.9921186566352844",
+      "modelId": "139719362993538"
+    },
+    "ArchitecturalIvy": {
+      "colorMap": "rbxassetid://119834959865291",
+      "rotation": "0, 0, 0, -1, 0, -8.74227766e-08, 0, 1, 0, 8.74227766e-08, 0, -1",
+      "normal": "",
+      "mesh": "rbxassetid://98916380528913",
+      "size": "2.358443021774292, 3.92834734916687, 0.559873104095459",
+      "modelId": "96590538703628"
+    }
+  }
+}

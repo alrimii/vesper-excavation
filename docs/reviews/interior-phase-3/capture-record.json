@@ -1,0 +1,90 @@
+{
+  "startUtc": "2026-11-10T23:42:23.454Z",
+  "endUtc": "2026-11-10T23:48:54.560Z",
+  "elapsedSeconds": 391.106,
+  "sessions": 1,
+  "modeAtEnd": "Edit",
+  "gameplayActions": [],
+  "qualityLow": {
+    "camera": "3, 97.1425018, -23.5, 0.749715626, -0.0569186918, 0.659307778, 0, 0.996294141, 0.0860110521, -0.661760211, -0.0644838288, 0.746937275",
+    "edit": "Level01",
+    "saved": "QualityLevel1",
+    "frm": true,
+    "quality": "Level01"
+  },
+  "qualityHigh": {
+    "camera": "3, 97.1425018, -23.5, 0.749715626, -0.0569186918, 0.659307778, 0, 0.996294141, 0.0860110521, -0.661760211, -0.0644838288, 0.746937275",
+    "edit": "Level21",
+    "frm": true,
+    "saved": "QualityLevel10",
+    "quality": "Level21"
+  },
+  "restored": {
+    "quality": "Level21",
+    "edit": "Level21",
+    "saved": "QualityLevel10",
+    "frm": false
+  },
+  "captureNotes": "Client quality setters lacked RobloxScript capability. Native Studio Performance simulation quality UI supplied the actual Q1/Q21 pair. The final option extended below the window crop; it was selected after reading that part of the screen. No device changes. Early files named final-runtime-lowest/highest-quality are failed-preparation captures and excluded. An initial video crop used the wrong Windows DPI awareness; its frames were discarded. The delivered recording uses the corrected physical viewport, 216 real frames at 12 fps, after loading. Game ScreenGuis were temporarily hidden/restored; capture camera helper removed.",
+  "artFrozen": true,
+  "temporaryRoofHiding": false,
+  "preview": "Existing isolated memory-only Studio preview; no profile writes, grants or discovery edits",
+  "output": "[Vesper] 12 session rooms ready\nContentId: rbxassetid://135244070369997 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\nContentId: rbxassetid://106778120705313 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\nContentId: rbxassetid://135244070369997 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\nContentId: rbxassetid://106778120705313 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\nContentId: rbxassetid://135244070369997 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\nContentId: rbxassetid://106778120705313 failed due to: No asset content representation found while do_not_fallback_to_baseline is set to true.\n[Roblox][sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Actions.ExecuteLuauActions] The execute_luau changed camera type. Resetting from Enum.CameraType.Scriptable back to Enum.CameraType.Custom\nInsufficient permissions to set SavedQualityLevel\nThe current thread cannot set 'render quality level' (lacking capability RobloxScript)\nStack Begin\nScript 'AssistantCommand', Line 1\nStack End\nInsufficient permissions to set SavedQualityLevel\nThe current thread cannot set 'render quality level' (lacking capability RobloxScript)\nStack Begin\nScript 'AssistantCommand', Line 1\nStack End\nInsufficient permissions to set SavedQualityLevel\nThe current thread cannot set 'render quality level' (lacking capability RobloxScript)\nStack Begin\nScript 'AssistantCommand', Line 1\nStack End\n[Roblox][sabuiltin_Assistant.rbxm.Assistant.Packages._Index.AssistantUI.AssistantUI.Actions.ExecuteLuauActions] The execute_luau changed camera type. Resetting from Enum.CameraType.Custom back to Enum.CameraType.Scriptable\nDownloading place file… this may take some time.\nPlace file downloaded to 'ComingSoon_94763223427049_final.rbxl'",
+  "assetWarnings": [
+    {
+      "id": "135244070369997",
+      "path": "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.body_geom",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "106778120705313",
+      "path": "Workspace.VesperLab.DecorativeExterior.SeatedFoothills.RockButtress",
+      "property": "TextureID"
+    },
+    {
+      "id": "135244070369997",
+      "path": "ReplicatedStorage.VesperShared.EquipmentAssets.Drill.body_geom",
+      "property": "TextureID"
+    },
+    {
+      "id": "135244070369997",
+      "path": "ServerStorage.VesperKit.StarterDrill.body_geom",
+      "property": "TextureID"
+    },
+    {
+      "id": "135244070369997",
+      "path": "ServerStorage.HelixDrillSource.body.body_geom",
+      "property": "TextureID"
+    }
+  ]
+}
