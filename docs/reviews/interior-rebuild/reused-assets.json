@@ -1,0 +1,61 @@
+{
+  "meshes": 207,
+  "assets": [
+    {
+      "mesh": "rbxassetid://99232330087336",
+      "name": "CrescentSoil",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://118484721048445",
+      "name": "Broadleaf",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://105516137698613",
+      "name": "ForestFern",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://99819294387216",
+      "name": "CanopyYoung",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://137305289294960",
+      "name": "CanopyTwisted",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://83301964293961",
+      "name": "FossilSkull",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://84517512605357",
+      "name": "PlantLeaves",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://133527321165489",
+      "name": "FossilRibcage",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://91221661113591",
+      "name": "CrescentBed",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://88588678706054",
+      "name": "GroundShrub",
+      "texture": ""
+    },
+    {
+      "mesh": "rbxassetid://120955899022973",
+      "name": "RockRound",
+      "texture": ""
+    }
+  ],
+  "parts": 726
+}

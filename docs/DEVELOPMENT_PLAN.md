@@ -1,10 +1,10 @@
-# Current roadmap checkpoint — after v191 atmosphere correction
+# Current roadmap checkpoint — first interior layout applied, review pending
 
-[Atmosphere correction and evidence](reviews/exterior-atmosphere/REVIEW.md) are published and frozen. Mist is visibly present, principal mountains/forest/ridge survive the quality 1 comparison, and a clean 14.85-second fixed-camera video is saved. Scenic depth/footprints and floor occlusion remain limitations. No autonomous correction loop follows. Joining, player data, fixed save generation and all gameplay remain unchanged.
+The exterior remains frozen at published v191. [First shared-interior rebuild](reviews/interior-rebuild/REVIEW.md) is applied in Edit mode; final visual inspection, the single unused runtime capture session, final native save and publication await desktop unlock. All functional anchors and twelve-room capacity are preserved. Further personal-room/collection redesign, gate/road, UI/skills/content and long-term systems below remain deferred.
 
-## Next major focus — dome interior, recorded only
+## Interior direction — shared-layout checkpoint active; later items deferred
 
-Potentially rebuild the layout from scratch where necessary: reorganize rooms/frontage; remove excessive purposeless circulation gaps; improve room proportions, navigation and useful spaces; replace flat/token decoration with convincing three-dimensional arrangements. Add selective climbing plants around ladder/stair structures, deliberate planting on chosen dome-frame/glass-border sections, and restrained vines on suitable fixed hoist parts. Keep moving joints, mining targets, important signs and access routes clear. Use asymmetric intentional arrangements rather than blanket coverage. Coordinate the substantial metal entrance gate and aligned scenic approach road with this architectural rebuild. The exterior remains inaccessible. None of this was implemented in the atmosphere pass.
+Potentially rebuild the layout from scratch where necessary: reorganize rooms/frontage; remove excessive purposeless circulation gaps; improve room proportions, navigation and useful spaces; replace flat/token decoration with convincing three-dimensional arrangements. Add selective climbing plants around ladder/stair structures, deliberate planting on chosen dome-frame/glass-border sections, and restrained vines on suitable fixed hoist parts. Keep moving joints, mining targets, important signs and access routes clear. Use asymmetric intentional arrangements rather than blanket coverage. Coordinate the substantial metal entrance gate and aligned scenic approach road with this architectural rebuild. The exterior remains inaccessible. This direction was not implemented in the atmosphere pass. The active first shared-layout checkpoint implements only its bounded shared-space scope; gate/road, full personal-room redesign and hoist planting remain deferred.
 
 ## Deferred owner requests — recorded, not implemented
 

@@ -1,9 +1,6 @@
--- Superseded standalone storefront. Keep one canonical world authoring path.
-local M={}
-function M.Build()
- if workspace.VesperLab:GetAttribute('LivingLabArtRevision') then
-  return require(script.Parent.LivingLabArtBuilder).WorkshopAndAccess()
- end
- return require(script.Parent.LivingLabBuilder).Workshop()
+-- Retained editor entry point; preserves the actual shop interaction/tool instances.
+local B = {}
+function B.Build()
+	return require(script.Parent.LabInteriorBuilder).Workshop()
 end
-return M
+return B

@@ -1,6 +1,8 @@
-# Current checkpoint: atmosphere/low-quality correction after v188
+# Active authorization: first shared laboratory interior rebuild
 
-Delivered **v191**, original place 94763223427049, branch planning/development-foundation. See docs/reviews/exterior-atmosphere/REVIEW.md. Corrected mist mapping/coverage and compressed existing mountain/tree scenic representations for low-quality visibility. No terrain/grass, dome/interior, gameplay/save changes. Original transforms/native recovery preserved. One 161-second runtime session, clean 14.85-second video, matched quality 1/21 plus other high/floor views. Accepted runtime mist tuning persisted to canonical source/Edit. Artwork frozen; no autonomous correction loop or more Play under this scope. No delegates. Stop for owner review. Interior/gate/road remain deferred; joining stays closed and player progress/fixed generation remain untouched.
+Current owner scope permits rebuilding shared interior floor/frontage/fixtures around the preserved original dome and functional anchors. Exterior frozen. All twelve rooms, egg/access/hoist, shop functionality, player data and fixed generation preserved. One cohesive layout, before/after saved cameras, one brief capture-only Play session, then freeze; save native, publish original place 94763223427049 and push planning/development-foundation. No delegates, gameplay simulations, mining/purchases/grants, device loops, gate/road or deferred UI/progression work.
+
+The implementation is applied but pending visual inspection/capture because Windows locked. **No Play session has been used yet. Latest confirmed publication is still v191.** See docs/reviews/interior-rebuild/REVIEW.md and docs/CURRENT_STATE.md for the exact resume point. The owner has been asked to unlock the desktop. Current source checkpoint must not be described as visually verified or published.
 
 # Historical authorization: exterior composition and legacy cleanup after v177
 
