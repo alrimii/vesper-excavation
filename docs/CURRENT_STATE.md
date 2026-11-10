@@ -1,6 +1,6 @@
 # Current checkpoint — exterior composition and cleanup
 
-Published **v180** to original place **94763223427049**, confirmed **2026-11-10 16:44:15 UTC**. Branch `planning/development-foundation`. [Current review, matching before/after images, actual runtime captures, asset sources and private recovery](reviews/exterior-composition/REVIEW.md). Started from clean `378fc85545cd848f79aa8a31ca79623e3633ad5d` / v177; this delivery's source and evidence are in the commit containing the review.
+Published **v180** to original place **94763223427049**, confirmed **2026-11-10 16:44:15 UTC**. Branch `planning/development-foundation`. [Current review, matching before/after images, actual runtime captures, asset sources and private recovery](reviews/exterior-composition/REVIEW.md). Started from clean `378fc85545cd848f79aa8a31ca79623e3633ad5d` / v177; implementation/evidence commit [95804375129062de0b3b1a2284675033f8522b26](https://github.com/alrimii/vesper-excavation/commit/95804375129062de0b3b1a2284675033f8522b26). The following continuity-only commit records that identifier.
 
 **Owner confirmed successful published joining. Joining is closed.** Equipment/profile code and fixed save generation `VesperDiscovery_FreshStart_20261110` remain unchanged. Player data was not reset, migrated or edited.
 
