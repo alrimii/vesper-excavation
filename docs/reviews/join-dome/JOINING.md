@@ -1,3 +1,5 @@
+Owner update, 10 November 2026: **published joining succeeded and is closed**. The next exterior-only checkpoint is [v180](../exterior-composition/REVIEW.md); its cleanup preserves this dome/hoist and all joining/runtime fixes. Earlier requests to retry joining below are historical.
+
 # Equipment joining correction
 
 Owner reported the published-game failure `Unable to join / EQUIPMENT UNAVAILABLE / Your equipment did not arrive. Please reconnect.` This is an equipment gate, not an access/privacy diagnosis.

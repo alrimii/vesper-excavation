@@ -101,59 +101,7 @@ function B.Planting()
 	return 'Four platform crescents, three substantial destination gardens, access-side planting'
 end
 function B.Exterior()
-	assert(not workspace.VesperLab:GetAttribute('ValleySectorRevision'),'Exterior recipe superseded locally by ValleySectorBuilder; preserve reviewed sector')
-	local r=lab();local m=model(r,'DecorativeExterior');m:SetAttribute('SceneryOnly',true)
-	local ground=part(m,'ScenicBase',Vector3.new(2,3000,3000),CFrame.new(0,-5,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(83,111,69),Enum.Material.Grass,false);ground.Shape=Enum.PartType.Cylinder
-	local groups={{8,460,1.3},{42,465,1.4},{78,490,1.6},{112,468,1.3},{151,490,1.5},{189,455,1.2},{229,520,1.9},{269,477,1.5},{307,455,1.35},{340,472,1.4}}
-	for i,d in groups do
-		local a=math.rad(d[1]);local cf=CFrame.new(radial(a,d[2],-3))*CFrame.Angles(0,a,0);local g=model(m,'LandscapeGroup'..i)
-		local nearY=3+(i%3)*.55;local rearY=4.2+(i%2)*.7
-		mesh(g,'PlantedSlope',cf,Vector3.new(d[3],nearY,1.3),Color3.fromRGB(143,183,104))
-		mesh(g,'PlantedSlope',cf*CFrame.new(-20,2,86),Vector3.new(1.4,rearY,1.5),Color3.fromRGB(138,175,104))
-		local function heightAt(x,z)
-			local function h(px,pz,sx,sy,sz)
-				px/=65*sx;pz/=45*sz
-				return math.max(0,12*math.max(0,1-px*px-pz*pz)^1.2+2*math.max(0,1-math.abs(px))*math.sin(px*3+pz*4))*sy
-			end
-			return math.max(h(x,z,d[3],nearY,1.3),2+h(x+20,z-86,1.4,rearY,1.5))-.4
-		end
-		for j=1,5 do
-			local x=({-45,-22,0,22,48})[j];local z=({14,50,68,32,5})[j];local height=heightAt(x,z)
-			local names={'CanopyOak','CanopyYoung','MountainPine','CanopyTwisted','CanopyOak'}
-			mesh(g,names[(j+i)%5+1],cf*CFrame.new(x,height,z)*CFrame.Angles(0,j*1.4+i,0),2.4+(i+j)%3*.4,Color3.fromRGB(225,239,214))
-		end
-		for j=1,4 do
-			local x=-48+j*20;local z=-16+(j%2)*16
-			mesh(g,j%2==0 and 'RockLedge' or 'RockShoulder',cf*CFrame.new(x,heightAt(x,z)-2,z)*CFrame.Angles(0,j+i,0),1.5+(j%3)*.5,Color3.fromRGB(191,201,178))
-			vegetation(g,cf*CFrame.new(x,heightAt(x,z-13),z-13),i*100+j,1.8)
-		end
-		task.wait()
-	end
-	-- Unequal peak groups and open saddles replace a ring of repeated blocks.
-	local peaks={{12,820,1.7,1.8},{46,900,2.2,2.6},{70,780,1.3,1.5},{104,950,2.3,2.9},{139,850,1.8,2.1},{168,980,2.4,3.1},{201,870,1.9,2.2},{242,930,2.1,3.2},{275,840,1.5,2.2},{312,960,2.5,2.6},{343,820,1.5,1.8}}
-	for i,d in peaks do local a=math.rad(d[1]);mesh(m,'Mountain'..(i%3+1),CFrame.new(radial(a,d[2],-5))*CFrame.Angles(0,a+i*.27,0),Vector3.new(d[3],d[4],d[3]),Color3.fromRGB(132+(i%3)*7,159+(i%3)*5,166+(i%3)*6));task.wait()end
-	for i,degree in {56,232}do
-		local a=math.rad(degree);local cf=CFrame.new(radial(a,505,104))*CFrame.Angles(0,a+math.pi,0);local fall=model(m,'WaterfallBasin'..i)
-		mesh(fall,'PlantedSlope',cf*CFrame.new(0,-112,45),Vector3.new(2,8.7,2.5),Color3.fromRGB(140,176,105))
-		mesh(fall,'Mountain2',cf*CFrame.new(0,-100,-57),Vector3.new(1.4,1.8,1.1),Color3.fromRGB(166,182,159))
-		-- Broad stratified ledges support the elevated receiving basin, visible above the wall bays.
-		for tier=0,3 do for _,side in {-1,1}do
-			mesh(fall,'RockLedge',cf*CFrame.new(side*(26-tier*3),-95+tier*25,42)*CFrame.Angles(0,side*.25+tier*.4,0),Vector3.new(4.4-tier*.35,3.7,4.3),Color3.fromRGB(179,194,160))
-		end end
-		for _,side in {-1,1}do
-			for j=0,3 do mesh(fall,j%2==0 and 'RockLedge' or 'RockShoulder',cf*CFrame.new(side*(19+j*3),j*20,-j*5)*CFrame.Angles(0,side*.4+j*.3,0),Vector3.new(2.9,2.9,2.5),Color3.fromRGB(203,210,190))end
-			mesh(fall,'CanopyOak',cf*CFrame.new(side*38,79,-20),1.5)
-		end
-		mesh(fall,'CascadeSheet',cf,1,Color3.fromRGB(200,233,229))
-		local pool=part(fall,'ReceivingPool',Vector3.new(.35,64,43),cf*CFrame.new(0,.55,48)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(68,139,145),Enum.Material.SmoothPlastic,false);pool.Shape=Enum.PartType.Cylinder
-		local source=part(fall,'SourcePool',Vector3.new(.25,28,22),cf*CFrame.new(0,84,-5)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(80,153,153),Enum.Material.SmoothPlastic,false);source.Shape=Enum.PartType.Cylinder
-		for j=1,8 do local angle=j*math.pi/4;mesh(fall,'RockRound',cf*CFrame.new(math.cos(angle)*31,0,48+math.sin(angle)*21)*CFrame.Angles(0,angle,0),1.6)end
-		for j=1,4 do mesh(fall,'GroundShrub',cf*CFrame.new(-35+j*17,1,70),1.8)end
-		-- A few opaque crest shapes show flow direction without particles or stacked glass.
-		for _,x in {-4,1,5}do beam(fall,'WaterCrest',cf:PointToWorldSpace(Vector3.new(x,82,10)),cf:PointToWorldSpace(Vector3.new(x,74,14)),.35,Color3.fromRGB(221,239,225))end
-		task.wait()
-	end
-	return 'Composed near slopes, mixed tree clusters, varied distant ridges and two connected waterfall basins'
+	error("Retired exterior recipe; use ExteriorCompositionBuilder in the original Edit place")
 end
 function B.Frontage()
 	local r=lab();local plants=model(r,'PerimeterPlanting')

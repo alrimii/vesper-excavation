@@ -1,3 +1,5 @@
+Owner update, 10 November 2026: **published joining succeeded and is closed**. The next exterior-only checkpoint is [v180](../exterior-composition/REVIEW.md); its cleanup preserves this dome/hoist and all joining/runtime fixes. Earlier requests to retry joining below are historical.
+
 # Joining and bounded dome / distant landscape checkpoint
 
 **Published v177**, original place **94763223427049**, 10 November 2026 15:36:08 UTC. Branch `planning/development-foundation`. Joining correction commit: [9e9442d](https://github.com/alrimii/vesper-excavation/commit/9e9442dada6ddc3a5b9cd130f6332186f2005b96). Final visual/source delivery is the commit containing this review. Studio finished in Edit; visual implementation is frozen after final capture.

@@ -1,3 +1,5 @@
+Current owner-authorized continuation: [v180 exterior composition and legacy cleanup](../exterior-composition/REVIEW.md). The distant direction remains accepted; prior placements are now retired in favor of the new asymmetric scenery. Original libraries/provenance and unresolved source rights remain retained. This historical review is not the active placement plan.
+
 Owner update, 10 November 2026: the distant exterior direction is accepted. Earlier defect observations remain historical evidence, not a direction rejection. [Current v177 continuation and open issues](../join-dome/REVIEW.md).
 
 # Selected Foggy Gazebo scene transfer

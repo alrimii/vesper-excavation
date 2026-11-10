@@ -1,0 +1,1010 @@
+[
+  {
+    "name": "AlpineRange",
+    "source": "Backups\\ExteriorComposition_20261110\\source\\mountain-range.glb",
+    "originalTriangles": 160768,
+    "triangles": 13999,
+    "size": [
+      1800.0550537109375,
+      373.0030517578125,
+      1800.0086059570312
+    ],
+    "center": [
+      -0.0079345703125,
+      186.50152587890625,
+      0.004119873046875
+    ]
+  },
+  {
+    "name": "StrataCliff",
+    "source": "Backups\\ExteriorComposition_20261110\\source\\mountainside\\mountainside_1k.gltf",
+    "originalTriangles": 153472,
+    "triangles": 8999,
+    "size": [
+      200.03995513916016,
+      206.02139945328236,
+      103.35922241210938
+    ],
+    "center": [
+      0.07028579711914062,
+      103.15850498527288,
+      -0.18540573120117188
+    ]
+  },
+  {
+    "name": "RockButtress",
+    "source": "Backups\\ExteriorComposition_20261110\\source\\rock_face_02\\rock_face_02_1k.gltf",
+    "originalTriangles": 29566,
+    "triangles": 5000,
+    "size": [
+      130.0767364501953,
+      118.79719303548336,
+      102.37176513671875
+    ],
+    "center": [
+      -0.043670654296875,
+      59.33133817464113,
+      0.14077377319335938
+    ]
+  },
+  {
+    "name": "Ground_0_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.28845256658858,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -18.22554923348302,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_0_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.53953551824646,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -15.974167544321247,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_0_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.52173680176581,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -12.983066902561573,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_0_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.687468235731718,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -13.310414676354972,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_0_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.64310075748695,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -14.687097929216357,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_0_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.47479094372069,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -15.014511625840656,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_0_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.53668394315408,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -12.045458125557353,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_0_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.298754323912178,
+      1500
+    ],
+    "center": [
+      -5250.0,
+      -9.753893074163358,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_1_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.00112955177295,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -18.11431567401663,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_1_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.314778838976707,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -16.04223720474983,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_1_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.422926115065515,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -12.988163566705428,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_1_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.594084470367104,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -13.315650093531827,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_1_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.20320655537605,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -14.662435937351507,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_1_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.00933264894813,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -14.990503244959532,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_1_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.289656434669656,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -12.130665137820293,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_1_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.091888134020447,
+      1500
+    ],
+    "center": [
+      -3750.0,
+      -9.704570856340572,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_2_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.853644852856753,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -18.883462562475625,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_2_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.618223804170647,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -15.055626848275278,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_2_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.33102958184338,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -13.19922395943891,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_2_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.726924768160753,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -13.532456454375472,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_2_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.540432869038177,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -14.681342011958172,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_2_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.366156594697784,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -15.008908256307002,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_2_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      28.239142507901903,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -11.445401212909061,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_2_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.072478430841095,
+      1500
+    ],
+    "center": [
+      -2250.0,
+      -10.83137911772761,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_3_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      22.02980778142644,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -15.667520831524946,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_3_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      26.80668302699575,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -17.243179591380695,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_3_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.304498011824876,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -12.99427209896613,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_3_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.256585968613354,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -12.209137548360497,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_3_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      22.106846841808448,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -14.032476240817083,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_3_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.156027615160433,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -14.48226888143899,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_3_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      24.825326296009834,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -14.316918221863695,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_3_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.277683160514744,
+      1500
+    ],
+    "center": [
+      -750.0,
+      -8.862322169883745,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_4_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.277683160514748,
+      1500
+    ],
+    "center": [
+      750.0,
+      -19.137677830116253,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_4_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      24.825326296009834,
+      1500
+    ],
+    "center": [
+      750.0,
+      -13.683081778136305,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_4_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.15602761516043,
+      1500
+    ],
+    "center": [
+      750.0,
+      -13.517731118561008,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_4_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      22.106846841808448,
+      1500
+    ],
+    "center": [
+      750.0,
+      -13.967523759182917,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_4_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.51958415130227,
+      1500
+    ],
+    "center": [
+      750.0,
+      -15.659363360295046,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_4_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.304498011824876,
+      1500
+    ],
+    "center": [
+      750.0,
+      -15.00572790103387,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_4_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      26.80668302699575,
+      1500
+    ],
+    "center": [
+      750.0,
+      -10.756820408619305,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_4_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      22.02980778142644,
+      1500
+    ],
+    "center": [
+      750.0,
+      -12.332479168475054,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_5_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.072478430841095,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -17.16862088227239,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_5_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      28.239142507901903,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -16.55459878709094,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_5_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.366156594697784,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -12.991091743692996,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_5_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.540432869038174,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -13.318657988041826,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_5_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.726924768160753,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -14.467543545624528,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_5_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.33102958184338,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -14.80077604056109,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_5_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.618223804170647,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -12.944373151724722,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_5_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      25.853644852856753,
+      1500
+    ],
+    "center": [
+      2250.0,
+      -9.116537437524375,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_6_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.091888134020447,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -18.295429143659426,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_6_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.289656434669656,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -15.869334862179707,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_6_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.00933264894813,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -13.009496755040468,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_6_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.20320655537605,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -13.337564062648493,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_6_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.594084470367104,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -14.684349906468173,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_6_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.422926115065515,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -15.011836433294572,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_6_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.314778838976707,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -11.957762795250169,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_6_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.00112955177295,
+      1500
+    ],
+    "center": [
+      3750.0,
+      -9.885684325983371,
+      5250.0
+    ]
+  },
+  {
+    "name": "Ground_7_0",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.298754323912178,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -18.246106925836642,
+      -5250.0
+    ]
+  },
+  {
+    "name": "Ground_7_1",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.53668394315408,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -15.954541874442647,
+      -3750.0
+    ]
+  },
+  {
+    "name": "Ground_7_2",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.47479094372069,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -12.985488374159344,
+      -2250.0
+    ]
+  },
+  {
+    "name": "Ground_7_3",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.64310075748695,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -13.312902070783643,
+      -750.0
+    ]
+  },
+  {
+    "name": "Ground_7_4",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      31.687468235731718,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -14.689585323645028,
+      750.0
+    ]
+  },
+  {
+    "name": "Ground_7_5",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      35.52173680176581,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -15.016933097438427,
+      2250.0
+    ]
+  },
+  {
+    "name": "Ground_7_6",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      29.53953551824646,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -12.025832455678753,
+      3750.0
+    ]
+  },
+  {
+    "name": "Ground_7_7",
+    "source": "Original low relief ground only",
+    "triangles": 128,
+    "size": [
+      1500,
+      27.28845256658858,
+      1500
+    ],
+    "center": [
+      5250.0,
+      -9.774450766516981,
+      5250.0
+    ]
+  }
+]

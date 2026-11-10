@@ -1,8 +1,10 @@
-# Current roadmap checkpoint — after v177
+# Current roadmap checkpoint — after v180
 
-The owner accepts the distant Foggy exterior direction. Joining/dome/landscape implementation is [delivered and frozen](reviews/join-dome/REVIEW.md); real published joining and owner visual feedback remain outstanding. Preserve `VesperDiscovery_FreshStart_20261110`, all progress and unresolved source rights. No new phase begins automatically.
+Owner-confirmed published joining is complete; do not reopen it without new evidence. The bounded exterior composition/legacy cleanup is [published and frozen for owner review](reviews/exterior-composition/REVIEW.md). Preserve `VesperDiscovery_FreshStart_20261110`, all progress, the current dome/interior/hoist and unresolved historical source rights. No new phase begins automatically. Room-frontage occlusion, sparse ground composition and source/style repetition remain documented rather than silently approved.
 
 ## Deferred owner requests — recorded, not implemented
+
+- **Gate / approach / architecture:** a substantial detailed metal entrance gate integrated with the dome, plus an aligned scenic approach road visible from inside. Players still cannot leave. Coordinate these with a later dome/interior rebuild; reconsider dome proportions, room frontage, interior decoration and excessive empty interior space. Do not copy generated-reference architecture. Gate, road and a new interior layout were not implemented in this exterior milestone.
 
 - **Interior/world:** substantial lab redesign; circulation, frontage, empty space, cohesive materials/lighting/composition; room layout and customization; scalable left-wall collection (unknown creatures as dark silhouettes, discovered identity/rarity); distinct future egg-care/incubation space; better integrated fossils/specimens. Decorative objects should communicate visually; labels only for meaningful navigation/interaction.
 - **UI:** HUD, loading, secondary menus, collection, shop and skill-tree artwork/layout remain unapproved. Replacement/rebuilding is allowed under a future scope, not merely patches. Coherent world identity, readable desktop/mobile layouts, meaningful artwork and consistent typography; no placeholder panels/developer prose. Last Epoch and Assassin's Creed Origins are structural references, not artwork to copy or a white organizational chart.

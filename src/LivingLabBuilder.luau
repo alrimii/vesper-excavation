@@ -223,27 +223,7 @@ function B.BaysAndRooms()
 	return 'Eleven recessed research bays and twelve preserved room frontages'
 end
 function B.Exterior()
-	local lab=guard();local m=model(lab,'DecorativeExterior');m:SetAttribute('SceneryOnly',true)
-	local ground=part(m,'ScenicGround',Vector3.new(2,2600,2600),CFrame.new(0,-5,0)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(112,137,111),Enum.Material.SmoothPlastic,false);ground.Shape=Enum.PartType.Cylinder
-	for ring=1,2 do for i=0,17 do
-		local a=(i+.35*ring)*math.pi/9;local r=ring==1 and 620 or 1000;local h=(ring==1 and 120 or 220)+(i%4)*25
-		local rock=mesh(m,'ScenicRock',CFrame.new(radial(a,r,-4))*CFrame.Angles(0,a,0),1,ring==1 and Color3.fromRGB(117,140,145)or Color3.fromRGB(139,159,175))
-		rock.Size=Vector3.new(115+(i%3)*35,h,100+(i%4)*22);rock.CFrame=CFrame.new(radial(a,r,h/2-4))*CFrame.Angles(0,a,math.rad((i%3-1)*12))
-	end;task.wait()end
-	for i=0,47 do
-		local a=i*math.pi/24;local r=435+(i%4)*31;local scale=2.2+(i%5)*.22
-		mesh(m,'ScenicTree',CFrame.new(radial(a,r,1))*CFrame.Angles(0,a+.5,0),scale,({Color3.fromRGB(76,112,81),Color3.fromRGB(99,132,86),Color3.fromRGB(89,121,101)})[i%3+1])
-		-- Brown stem sleeve retains the source silhouette while separating bark/foliage materials.
-		local stem=part(m,'TreeBark',Vector3.new(scale*8,scale*.85,scale*.85),CFrame.new(radial(a,r,scale*4+1))*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(103,88,66),Enum.Material.Wood,false);stem.Shape=Enum.PartType.Cylinder
-	end
-	for _,degrees in {35,145,260}do
-		local a=math.rad(degrees);local basis=CFrame.new(radial(a,560,0))*CFrame.Angles(0,a,0)
-		local rock=mesh(m,'ScenicRock',basis,1,Color3.fromRGB(116,139,146));rock.Size=Vector3.new(90,140,70);rock.CFrame=basis*CFrame.new(0,65,0)
-		part(m,'DistantWaterfall',Vector3.new(12,105,.4),basis*CFrame.new(0,70,-35.3),Color3.fromRGB(180,214,218),Enum.Material.SmoothPlastic,false)
-		for _,x in {-3,3}do part(m,'WaterRibbon',Vector3.new(1.7,103,.08),basis*CFrame.new(x,70,-35.55),Color3.fromRGB(219,235,230),Enum.Material.SmoothPlastic,false)end
-		local pool=part(m,'DistantPool',Vector3.new(.3,60,40),basis*CFrame.new(0,1,-36)*CFrame.Angles(0,0,math.pi/2),Color3.fromRGB(111,169,173),Enum.Material.SmoothPlastic,false);pool.Shape=Enum.PartType.Cylinder
-	end
-	return 'Two mountain layers, tree belt, three static waterfalls; no exterior collision or gameplay'
+	error("Retired exterior recipe; use ExteriorCompositionBuilder in the original Edit place")
 end
 function B.Anchors()
 	local lab=guard();local f=lab:FindFirstChild('FunctionalAnchors')or Instance.new('Folder');f.Name='FunctionalAnchors';f.Parent=lab;f:ClearAllChildren()

@@ -1,4 +1,10 @@
-# Current authorization: joining and bounded dome/landscape completion
+# Current authorization: exterior composition and legacy cleanup after v177
+
+The owner confirmed published joining works; do not reopen it without new evidence. Use exterior-direction.png for asymmetric rocky mountains, separate forest layers and a valley, preserving current dome/interior/crown/hoist/egg/HUD/camera and every gameplay/save system. Remove obsolete exterior placements and recreation paths after a fresh private native backup; reuse good vegetation and adapt actual ready-made licensed mountain assets. Original place 94763223427049, branch planning/development-foundation only. One brief capture-only Play session, immediate Edit fallback if camera fails; freeze after final capture, record defects, save/publish same place and push. No gate/road/interior/UI/progression work. No delegates. Player progress and VesperDiscovery_FreshStart_20261110 remain unchanged.
+
+Delivered v180: see docs/reviews/exterior-composition/REVIEW.md. Art is frozen after the 58-second session; further art correction requires owner feedback/new scope. Earlier authorizations below are historical.
+
+# Historical authorization: joining and bounded dome/landscape completion
 
 The owner accepts the distant Foggy exterior direction. Fix published equipment initialization without altering the fixed save generation, publish a distinct join checkpoint, then complete distant layers, matte tinted enclosure/dark framing, solid crown and retracting hoist using existing delivery timing. Original place 94763223427049 only. Fresh private native backup; source/Edit inspection; one short combined equipment/one cosmetic delivery check and final captures, then freeze art. No mining/economy/device loops, new source search, interior/UI redesign or deferred mechanics. Save/publish same place and push planning/development-foundation. Current user instructions supersede historical scopes below.
 

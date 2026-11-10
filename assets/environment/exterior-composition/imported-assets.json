@@ -1,0 +1,338 @@
+[
+  {
+    "mesh": "rbxassetid://131140296893821",
+    "name": "AlpineRange",
+    "texture": "rbxassetid://129749229158776",
+    "importedFallbackTexture": "rbxassetid://97593567324828"
+  },
+  {
+    "mesh": "rbxassetid://132919785255087",
+    "name": "Ground_0_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://140255246473095",
+    "name": "Ground_0_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://98526752071345",
+    "name": "Ground_0_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://103483591458800",
+    "name": "Ground_0_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://78423533070143",
+    "name": "Ground_0_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://110628250976069",
+    "name": "Ground_0_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://108995296154210",
+    "name": "Ground_0_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://110881110157037",
+    "name": "Ground_0_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://136940461876631",
+    "name": "Ground_1_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://99904624601666",
+    "name": "Ground_1_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://87204944374571",
+    "name": "Ground_1_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://100119312850489",
+    "name": "Ground_1_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://127741418152138",
+    "name": "Ground_1_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://100958795451776",
+    "name": "Ground_1_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://116279411807915",
+    "name": "Ground_1_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://95988908181316",
+    "name": "Ground_1_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://115047858106676",
+    "name": "Ground_2_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://108930699238175",
+    "name": "Ground_2_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://82769094265407",
+    "name": "Ground_2_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://90295374812121",
+    "name": "Ground_2_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://138927865983060",
+    "name": "Ground_2_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://120848377271848",
+    "name": "Ground_2_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://97530604580001",
+    "name": "Ground_2_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://81736322021942",
+    "name": "Ground_2_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://85865100085011",
+    "name": "Ground_3_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://71433278706128",
+    "name": "Ground_3_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://102235948389267",
+    "name": "Ground_3_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://103469865945902",
+    "name": "Ground_3_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://114214997352924",
+    "name": "Ground_3_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://102374984665233",
+    "name": "Ground_3_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://101147457414080",
+    "name": "Ground_3_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://118049937424111",
+    "name": "Ground_3_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://89211082879110",
+    "name": "Ground_4_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://72403000536281",
+    "name": "Ground_4_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://103636962680763",
+    "name": "Ground_4_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://108048212476042",
+    "name": "Ground_4_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://137392878031812",
+    "name": "Ground_4_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://103485712316250",
+    "name": "Ground_4_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://100278006960569",
+    "name": "Ground_4_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://117386765826122",
+    "name": "Ground_4_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://93078955265942",
+    "name": "Ground_5_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://75233836594063",
+    "name": "Ground_5_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://74095820145678",
+    "name": "Ground_5_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://76079878365253",
+    "name": "Ground_5_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://139446963622833",
+    "name": "Ground_5_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://131161991186848",
+    "name": "Ground_5_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://90521889623593",
+    "name": "Ground_5_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://90931289499857",
+    "name": "Ground_5_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://98607252365194",
+    "name": "Ground_6_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://83979317297035",
+    "name": "Ground_6_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://102410455261205",
+    "name": "Ground_6_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://133224264049284",
+    "name": "Ground_6_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://99057397938889",
+    "name": "Ground_6_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://126662578471772",
+    "name": "Ground_6_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://136435623408527",
+    "name": "Ground_6_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://130696267145556",
+    "name": "Ground_6_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://102259325548883",
+    "name": "Ground_7_0",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://84671215509065",
+    "name": "Ground_7_1",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://113278738145493",
+    "name": "Ground_7_2",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://89180975969751",
+    "name": "Ground_7_3",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://94445690528372",
+    "name": "Ground_7_4",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://108455524801176",
+    "name": "Ground_7_5",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://94261598116667",
+    "name": "Ground_7_6",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://114466848277163",
+    "name": "Ground_7_7",
+    "texture": ""
+  },
+  {
+    "mesh": "rbxassetid://81361590725377",
+    "name": "RockButtress",
+    "texture": "rbxassetid://88345464304102"
+  },
+  {
+    "mesh": "rbxassetid://135347225681156",
+    "name": "StrataCliff",
+    "texture": "rbxassetid://95576543650567"
+  }
+]
