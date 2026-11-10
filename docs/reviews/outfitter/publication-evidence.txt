@@ -1,0 +1,4 @@
+Original place 94763223427049; same experience. Native explicit Publish (type=1), version 144.
+2026-11-10T10:11:02.648Z,48491.648438,1560,6,Info [FLog::StudioPublishStatusLabel] Publish succeeded for placeId 94763223427049; marking as published (refreshing menu label to "Publish latest version")
+2026-11-10T10:11:02.652Z,48491.652344,1fe4,6,Info [FLog::CreatorOutput] Published new changes in "Coming Soon" to Roblox.
+2026-11-10T10:11:02.656Z,48491.656250,1fe4,6,Info [FLog::CreatorOutput] → Add publish notes to v144

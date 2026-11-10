@@ -1,3 +1,5 @@
+Current checkpoint: equipment outfitter replacement applied to original place 94763223427049 and frozen after one capture-only session. See [shop review/evidence](reviews/outfitter/REVIEW.md). Mobile scrolling/action visibility and visual approval remain unresolved; no purchase or persistence verification. Previous status below is historical.
+
 # Current state and development baseline
 Latest checkpoint: **Phase 5B.1 paused**, original place 94763223427049. Play stopped once after the user stop instruction; original place returned to Edit. Visual result is explicitly NOT approved. Further Play, gameplay automation and device switching require a new bounded scope. Actual Play review now supersedes source-only verification for the specifically exercised paths in [the review record](reviews/phase5b1/REVIEW.md). Five client/shared presentation modules and runtime image exports changed; server reward/progression rules are unchanged. Higher-level skills and persistence remain unverified. No visual approval or publication is implied.
 

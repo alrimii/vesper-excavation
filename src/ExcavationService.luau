@@ -1268,20 +1268,20 @@ local terminalByAction = {
 }
 local function purchase(p, key, quantity)
 	if writablePlayer(p.UserId) ~= p then
-		return
+		return false, "Your profile is not ready."
 	end
 	if trials[accounts[p.UserId]] then
 		note(p, "Finish your drill trial before buying upgrades.")
-		return
+		return false, "Finish the drill trial before upgrading."
 	end
 	local a = accounts[p.UserId]
 	local config = a and Rules.ToolConfig(effectiveTool(a), C)
 	local u = config and config.Upgrades[key]
 	if not a or not u or not alive(p) then
-		return
+		return false, "Equipment is unavailable right now."
 	end
 	if quantity ~= 1 and quantity ~= 5 and quantity ~= "Max" then
-		return
+		return false, "Choose 1, 5 or Max ranks."
 	end
 	local count, cost = Economy.Quote(key, a[key], a.cash, quantity, config)
 	if count == 0 then
@@ -1290,7 +1290,7 @@ local function purchase(p, key, quantity)
 			a[key] >= u.MaxLevel and "Upgrade complete."
 				or "Need $" .. Economy.Price(key, a[key], config) .. " for the next level."
 		)
-		return
+		return false, a[key] >= u.MaxLevel and "Already at maximum rank." or "Not enough credits."
 	end
 	a.cash -= cost
 	a[key] += count
@@ -1300,6 +1300,7 @@ local function purchase(p, key, quantity)
 	tutorial(p, "AtUpgrade")
 	syncPlayer(p)
 	Feedback:FireClient(p, "UpgradeBought", key, count)
+	return true, C.Upgrades[key].Name .. " improved by " .. count .. (count == 1 and " rank." or " ranks.")
 end
 sellLoads = function(p, maximum, automatic)
 	if writablePlayer(p.UserId) ~= p or not alive(p) or not Depot:FindFirstChild("SellTerminal") then
@@ -1373,6 +1374,33 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		return
 	end
 	local now = os.clock()
+	-- Optional shop receipt identity: old HUD/toolbelt callers retain their existing contract.
+	local shopAction = kind == "BuyTool" or kind == "EquipTool" or kind == "Upgrade"
+	local requestId = shopAction and c or nil
+	local function reply(ok, message)
+		if not requestId then return end
+		local receipt = {ok=ok, message=message}
+		s.shopReceipts[requestId] = receipt
+		Feedback:FireClient(p, "ShopReceipt", requestId, ok, message)
+	end
+	if requestId ~= nil then
+		if typeof(requestId) ~= "string" or #requestId > 64 or #requestId < 8 then return end
+		s.shopReceipts = s.shopReceipts or {}
+		s.shopReceiptOrder = s.shopReceiptOrder or {}
+		local prior = s.shopReceipts[requestId]
+		if prior then
+			if prior ~= true then Feedback:FireClient(p, "ShopReceipt", requestId, prior.ok, prior.message) end
+			return
+		end
+		s.shopReceipts[requestId] = true
+		table.insert(s.shopReceiptOrder, requestId)
+		if #s.shopReceiptOrder > 32 then s.shopReceipts[table.remove(s.shopReceiptOrder, 1)] = nil end
+		if not accounts[p.UserId] then reply(false, "Your profile is still loading."); return end
+		if kind == "Upgrade" and (typeof(d) ~= "string" or d ~= effectiveTool(accounts[p.UserId])) then
+			reply(false, "The equipped tool changed. Select it again before upgrading.")
+			return
+		end
+	end
 	-- Cancellation cannot be lost behind a full ordinary request budget. No damage/refund is granted.
 	if kind == "InputHeld" then
 		if typeof(a) == "boolean" and (not a or now - (s.lastHeldUpdate or -math.huge) >= 0.2) then
@@ -1413,6 +1441,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		return
 	end
 	if writablePlayer(p.UserId) ~= p then
+		reply(false, "Your profile is not ready.")
 		return
 	end
 	if now - (s.window or 0) >= 1 then
@@ -1421,6 +1450,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	end
 	s.requests = (s.requests or 0) + 1
 	if s.requests > 24 then
+		reply(false, "Please wait a moment and try again.")
 		return
 	end
 	if
@@ -1597,21 +1627,25 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		or kind == "Training"
 	then
 		if now - s.lastStation < 0.25 or not alive(p) then
+			reply(false, "Please wait until your equipment is ready.")
 			return
 		end
 		s.lastStation = now
 		local account = accounts[p.UserId]
 		if kind == "Tool" or kind == "BuyTool" or kind == "EquipTool" then
 			if typeof(a) ~= "string" or not Rules.Tools[a] or not Kit:FindFirstChild("Starter" .. a) then
+				reply(false, "That equipment is unavailable.")
 				return
 			end
 			local buying = kind == "BuyTool" or (kind == "Tool" and not account.ownedTools[a])
 			if buying then
 				if account.ownedTools[a] then
 					syncPlayer(p)
+					reply(true, "You already own this tool.")
 					return
 				end
 				if account.cash < Rules.Tools[a].Cost then
+					reply(false, "Not enough credits to unlock this tool.")
 					note(p, "Not enough credits to unlock this tool.")
 					return
 				end
@@ -1619,10 +1653,12 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 				account.ownedTools[a] = true
 				syncPlayer(p)
 				note(p, Rules.Tools[a].Name .. " unlocked. Select it from your toolbelt.")
+				reply(true, Rules.Tools[a].Name .. " is now yours.")
 				return
 			end
 			local trial = a == "Drill" and trials[account] and trials[account] > now
 			if not account.ownedTools[a] and not trial then
+				reply(false, "Purchase this tool before equipping it.")
 				return
 			end
 			training(p, s, false)
@@ -1637,6 +1673,8 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 			end
 			cancelAttack(p, s)
 			giveTools(p, p.Character, s)
+			syncPlayer(p)
+			reply(true, Rules.Tools[a].Name .. " equipped.")
 		elseif kind == "DisplayCreature" then
 			if not require(Shared.CollectionSlots).Assign(account.displaySlots, account.creatures, a, b) then
 				return
@@ -1708,10 +1746,12 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		end
 	elseif kind == "Upgrade" then
 		if typeof(a) ~= "string" or not C.Upgrades[a] or now - s.lastStation < 0.20 then
+			reply(false, "Please wait a moment before upgrading again.")
 			return
 		end
 		s.lastStation = now
-		purchase(p, a, b)
+		local ok, message = purchase(p, a, b)
+		reply(ok, message)
 	elseif terminalByAction[kind] then
 		if now - s.lastStation < 0.25 then
 			return

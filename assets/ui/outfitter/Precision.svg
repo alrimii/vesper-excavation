@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256"><defs>
+<linearGradient id="wood" x2=".8" y2="1"><stop stop-color="#e6b76f"/><stop offset="1" stop-color="#9b5939"/></linearGradient>
+<linearGradient id="steel" x2=".6" y2="1"><stop stop-color="#f9efd1"/><stop offset=".45" stop-color="#b6c7bd"/><stop offset="1" stop-color="#557b78"/></linearGradient>
+<linearGradient id="gold" x2=".4" y2="1"><stop stop-color="#fff3b1"/><stop offset=".5" stop-color="#efbd52"/><stop offset="1" stop-color="#c47732"/></linearGradient>
+<linearGradient id="stone" x2=".7" y2="1"><stop stop-color="#f0d7ac"/><stop offset="1" stop-color="#b58c62"/></linearGradient>
+<linearGradient id="gem" x2=".8" y2="1"><stop stop-color="#c1ead5"/><stop offset=".5" stop-color="#4f9e8d"/><stop offset="1" stop-color="#23594f"/></linearGradient>
+</defs><g stroke="#4b392d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M29 188L56 148L107 145L141 173L131 222L49 229Z" fill="url(#stone)"/><path d="M60 149L74 178L61 194L86 222M74 178L109 174L124 195" fill="none" stroke="#805c45" stroke-width="6"/><path d="M114 34L143 22L174 48L136 156L112 177L107 145Z" fill="url(#steel)"/><path d="M135 152L115 173L109 150Z" fill="url(#gold)"/><path d="M99 163H74M120 187V214M143 163H169M119 139V115" stroke="#cf903d" stroke-width="7"/><path d="M54 49L61 35L69 49L83 56L69 63L61 77L54 63L40 56Z" fill="url(#gold)"/></g></svg>

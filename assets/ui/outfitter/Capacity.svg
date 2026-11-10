@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 256 256"><defs>
+<linearGradient id="wood" x2=".8" y2="1"><stop stop-color="#e6b76f"/><stop offset="1" stop-color="#9b5939"/></linearGradient>
+<linearGradient id="steel" x2=".6" y2="1"><stop stop-color="#f9efd1"/><stop offset=".45" stop-color="#b6c7bd"/><stop offset="1" stop-color="#557b78"/></linearGradient>
+<linearGradient id="gold" x2=".4" y2="1"><stop stop-color="#fff3b1"/><stop offset=".5" stop-color="#efbd52"/><stop offset="1" stop-color="#c47732"/></linearGradient>
+<linearGradient id="stone" x2=".7" y2="1"><stop stop-color="#f0d7ac"/><stop offset="1" stop-color="#b58c62"/></linearGradient>
+<linearGradient id="gem" x2=".8" y2="1"><stop stop-color="#c1ead5"/><stop offset=".5" stop-color="#4f9e8d"/><stop offset="1" stop-color="#23594f"/></linearGradient>
+</defs><g stroke="#4b392d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M54 88Q58 18 128 18Q199 18 202 88" fill="none" stroke="#5c6861" stroke-width="17"/><path d="M40 84H216L201 213Q128 244 55 213Z" fill="url(#wood)"/><path d="M57 93L69 215M93 96L99 223M130 96V228M165 94L158 223M199 91L188 215" stroke="#805335" stroke-width="5"/><path d="M42 96Q128 126 215 96L212 116Q128 143 45 116Z M52 188Q128 215 204 188L201 210Q128 238 55 210Z" fill="url(#steel)"/><ellipse cx="128" cy="86" rx="88" ry="28" fill="#6b503a"/><path d="M72 85L92 40L120 68L131 27L164 55L181 88" fill="url(#gem)"/></g></svg>

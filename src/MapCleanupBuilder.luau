@@ -123,64 +123,7 @@ function M.Ladder()
 	return "LadderEntrance"
 end
 function M.Shop()
-	local lab=guard()
-	local old=lab.SharedWorkshop
-	-- Retain working prompt instances and paths; no menu/price reconstruction.
-	local terminals={}
-	for _,name in {"Console","UpgradeConsole"} do terminals[name]=old[name]:Clone() end
-	local m=model(lab,"SharedWorkshop")
-	local basis=CFrame.new(135,0.675,0)*CFrame.Angles(0,-math.pi/2,0)
-	m.WorldPivot=basis
-	local function p(n,s,v,c,solid) return part(m,n,s,basis*CFrame.new(v),c,solid) end
-	p("Floor",Vector3.new(62,0.24,38),Vector3.new(0,0.12,0),cream,true)
-	p("BackWall",Vector3.new(62,14,0.8),Vector3.new(0,7.24,-18.6),teal,true)
-	for _,x in {-30.6,30.6} do
-		p("SideWall",Vector3.new(0.8,7,37.2),Vector3.new(x,3.74,0),teal,true)
-		p("EntryPost",Vector3.new(1.2,14,1.2),Vector3.new(x,7.24,18),cream,true)
-		p("SideCap",Vector3.new(1.1,0.3,37.2),Vector3.new(x,7.39,0),ochre,false)
-	end
-	p("Awning",Vector3.new(62,0.5,7),Vector3.new(0,14.49,16),cream,true)
-	sign(m,"ShopSign",Vector3.new(34,3,0.5),basis*CFrame.new(0,12.6,19),"TOOLWORKS",Enum.NormalId.Back)
-	local assets=game.ReplicatedStorage.VesperShared.EquipmentAssets
-	for i,id in {"Pickaxe","Drill","Explosive"} do
-		local x=(i-2)*19
-		p("DisplayBench",Vector3.new(16,3.4,7),Vector3.new(x,1.94,-12),steel,true)
-		p("BenchTop",Vector3.new(16.4,0.3,7.4),Vector3.new(x,3.79,-12),cream,true)
-		sign(m,id.."Label",Vector3.new(15,2,0.25),basis*CFrame.new(x,11.5,-18.05),id:upper(),Enum.NormalId.Back)
-		local display=Instance.new("Model");display.Name=id.."Display"
-		for _,node in assets[id]:GetDescendants() do if node:IsA("BasePart") then
-			local clone=node:Clone()
-			for _,d in clone:GetDescendants() do if d:IsA("JointInstance") or d:IsA("Constraint") or d:IsA("LuaSourceContainer") then d:Destroy() end end
-			clone.Anchored,clone.CanCollide,clone.CanTouch,clone.CanQuery=true,false,false,false
-			clone.Parent=display
-		end end
-		local _,size=display:GetBoundingBox();display:ScaleTo(6.5/math.max(size.X,size.Y,size.Z))
-		local box,scaled=display:GetBoundingBox()
-		display:PivotTo(basis*CFrame.new(x,3.99+scaled.Y/2,-12)*CFrame.Angles(0,-0.3,0)*box:ToObjectSpace(display:GetPivot()))
-		display.Parent=m
-		local light=p("BenchLight",Vector3.new(8,0.2,1.5),Vector3.new(x,13.6,-15),cream,false)
-		local lamp=Instance.new("SurfaceLight");lamp.Face=Enum.NormalId.Bottom;lamp.Brightness=0.8;lamp.Range=20;lamp.Angle=100;lamp.Color=Color3.fromRGB(255,237,207);lamp.Parent=light
-	end
-	for i,name in {"Console","UpgradeConsole"} do
-		local terminal=terminals[name]
-		terminal.Size=Vector3.new(8,3.2,2)
-		terminal.CFrame=basis*CFrame.new(i==1 and -24 or 24,1.84,9)
-		local display=terminal:FindFirstChildOfClass("SurfaceGui")
-		if display then
-			local labels={}
-			for _,child in display:GetChildren() do if child:IsA("TextLabel") then table.insert(labels,child) end end
-			table.sort(labels,function(a,b) return a.Position.Y.Scale<b.Position.Y.Scale end)
-			for j,label in labels do
-				if j==1 then label.Text=i==1 and "EQUIPMENT" or "UPGRADES";label.Position=UDim2.fromScale(0.05,0.1);label.Size=UDim2.fromScale(0.9,0.8)
-				else label:Destroy() end
-			end
-		end
-		terminal.Parent=m
-	end
-	local zone=p("ApproachZone",Vector3.new(40,8,12),Vector3.new(0,4.24,12),teal,false)
-	zone.Transparency=1
-	p("EntryMat",Vector3.new(20,0.04,7),Vector3.new(0,0.26,14),teal,false)
-	return "SharedWorkshop"
+	return require(script.Parent.OutfitterBuilder).Build()
 end
 function M.Rooms()
 	local lab=guard()

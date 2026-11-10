@@ -32,9 +32,10 @@ local gui = player:WaitForChild("PlayerGui"):WaitForChild("ExcavationHUD")
 local DiscoveryHUD = require(Shared:WaitForChild("DiscoveryHUD")).Attach(gui, player)
 local shopOpen = false
 local skillTree = require(Shared.SkillTreeUI).Build(player, Action, Feedback)
-local workshop = require(Shared.WorkshopUI).Build(gui, player, C, Action)
+local workshop = require(Shared.WorkshopUI).Build(gui, player, C, Action, Feedback, function()
+	shopOpen = false
+end)
 require(Shared.RoomTerminalHints).Start(player, gui)
-local uiMotion = require(Shared:WaitForChild("UIMotion")).Attach(gui, C.UIMotion)
 local Motion = require(Shared:WaitForChild("ToolMotion"))
 Motion.Start()
 require(Shared:WaitForChild("ExcavationCamera")).Start(player, gui, C)
@@ -171,6 +172,7 @@ require(Shared.WorldInteractions).Start(player, gui, Action, function(page)
 	workshop:Select(page)
 end, function() return shopOpen end)
 local function selectTool(id)
+	if shopOpen then return end
 	if
 		player:GetAttribute("LabReady") ~= true
 		or player:GetAttribute("DiscoveryCinematic")
@@ -409,16 +411,6 @@ UIS.InputEnded:Connect(function(input)
 			cancel()
 		end
 	end
-end)
-for _, name in { "Sell", "Power", "Speed", "Capacity", "NextRound" } do
-	gui.Station[name].Activated:Connect(function()
-		cancel()
-		Action:FireServer(name)
-	end)
-end
-gui.Station.Close.Activated:Connect(function()
-	cancel()
-	shopOpen = false
 end)
 game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(cancel)
 player.CharacterRemoving:Connect(cancel)
@@ -713,16 +705,11 @@ Run.Heartbeat:Connect(function(dt)
 	local ch = player.Character
 	local root = ch and ch:FindFirstChild("HumanoidRootPart")
 	local depot = workspace.VesperLab.ResourceDepot
-	uiMotion:SetShopVisible(shopOpen)
+	workshop:SetVisible(shopOpen)
 
 	if amount < cap then
 		fullNotified = false
 	end
-	local waitTime =
-		math.max(0, math.ceil((State:GetAttribute("ReadyAt") or 0) - workspace:GetServerTimeNow()))
-	gui.Station.NextRound.Text = State:GetAttribute("Status") == "Revealed"
-			and (waitTime > 0 and "REVEAL  /  " .. waitTime .. "s" or "NEXT SPECIMEN")
-		or "NEXT: LOCKED"
 	DiscoveryHUD.Update(kind)
 	workshop:Update(workspace.CurrentCamera.ViewportSize)
 	modern:Update()
