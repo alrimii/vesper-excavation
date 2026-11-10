@@ -1,6 +1,6 @@
 # Selected Foggy Gazebo scene transfer
 
-Original target: **94763223427049**. Branch: `planning/development-foundation`. This is an implementation checkpoint, not visual approval. The previous exterior was published as v162. Final publication/capture status is recorded below when available.
+Original target: **94763223427049**, published checkpoint **v170**. Branch: `planning/development-foundation`. This is an implementation checkpoint, not visual approval. Resumed the existing applied transfer without rebuilding it. One 59-second capture-only Play session ended in Edit mode; runtime camera capture failed, so the three requested views are explicitly labeled Edit-mode fallbacks. No implementation changes were made during or after capture.
 
 ## Source and transfer
 
@@ -48,10 +48,45 @@ Static readback before/after: **14,738 non-exterior BaseParts**, identical sorte
 
 Before any Play, prepare central, offset and wide views using the sector basis `Y=56 degrees`: local camera positions `(0,7,125)`, `(-90,7,160)`, `(150,9,40)`, aimed toward the scene with interior context. At most one desktop capture-only session, maximum three minutes, no gameplay actions or device changes. If camera/capture is blocked, use clearly labeled Edit-mode views. Freeze implementation after the final capture session; record issues without a correction loop.
 
-At documentation preparation, **no Play session has started**. Windows is showing its lock screen; native fresh captures and save/publish await the owner unlocking the desktop. A Studio capture RPC also stalled; old native window captures may show stale frames and must not be presented as final evidence.
+The earlier delivery was blocked by the Windows lock screen. After the owner unlocked Windows, native UI access succeeded using the desktop-capable execution context. Old stale/lock-screen captures are not presented as final environment evidence.
 
-Native checkpoint saving was attempted once after the lock was established. Windows UI Automation returned `ElementNotAvailableException` / `Studio native dialog unavailable`; RobloxStudioBeta reported `MainWindowHandle=0`, with LogonUI active. No final native checkpoint file was created by that attempt. MCP still reports Edit and returns the applied DataModel. Publication has not been attempted while this blocker remains; **no new published version is claimed**. The existing pre-edit native backup is intact. The desktop lock-screen image is private and is not included as environment evidence.
+The earlier save attempt returned `ElementNotAvailableException` / `Studio native dialog unavailable` and created no file. The resumed native **Download a Copy** succeeded before Play, producing `Backups/FoggyGazebo_20261110_implementation/ComingSoon_94763223427049_foggy_checkpoint.rbxl`, **5,989,292 bytes**. Both the pre-edit recovery copy and completed native checkpoint are private and intact; restoration is untested.
 
 ## Known limitations before final capture
 
 Construction views showed darker foliage, flatter ground shading and less soft layered depth than the Blender baseline. Retained room frontage partly occludes low scenery. The last background and terrain adjustments still need a fresh rendered inspection; mesh/source readback alone does not establish the final appearance. Curved-bake boundaries, upper-sky transitions, side coverage and source furniture seating remain review risks. No mobile performance, gameplay, streaming, published asset-permission or physical-device verification has occurred.
+
+## Final actual captures and observed shortcomings
+
+The one Play session lasted **59.28 seconds**, including startup and stopping. Normal loading completed and the existing Studio preview HUD appeared. The camera did not hold the requested capture transform: despite setting Scriptable/CFrame, screenshots remained in the player's room. No camera/controller code was changed, no character was moved, and no second session was started. This is a capture-control limitation, not a diagnosed gameplay camera defect. The existing preview's 100.00M display was not granted or changed by this task. [Runtime capture limitation evidence](central-runtime.png).
+
+The following are actual **Roblox Studio Edit-mode screenshots**, using the three prepared positions at player-like height. They are not Blender renders, runtime verification, or images composited from the source scene. Only the Studio viewport was cropped; no color correction, retouching or removal of visible scene defects was applied. The wide view contains the laboratory frontage and a fossil display; the egg is outside its framing. Full-window originals remain private. Crops were inspected for unrelated private information before committing.
+
+### Central interior view — Edit mode
+
+![Central Edit-mode view](central-edit.png)
+
+### Offset interior view — Edit mode
+
+![Offset Edit-mode view](offset-edit.png)
+
+### Wide interior view — Edit mode
+
+![Wide Edit-mode view](wide-edit.png)
+
+Visible shortcomings, retained without a post-capture correction loop:
+
+- Foreground foliage reads as very dark, speckled masses, with pale exposed branch structures. It lacks the original render's soft, coherent canopy shading.
+- Large pale backdrop regions and angular/curved transitions remain conspicuous above and beside the forest. The distant forest occupies a narrow central area; the whole view does not blend convincingly into mist.
+- The exposed terrain reads as a broad, thin green strip above the retained room frontage. Groundcover density and side transitions are insufficient from these viewpoints.
+- The gazebo is visible but partly obscured and visually compressed by the framing vegetation. Dark angled furniture/steps in front have awkward, apparently unsupported contact with the terrain. Their precise geometry cause was not investigated after capture.
+- The vegetation groups remain conspicuously separate. Near/far material response and scale do not match the Blender baseline, and original-camera atmosphere has not been reproduced faithfully.
+- Retained dome ribs, frontage and bright interior dominate much of the composition. No interior, dome or global lighting changes were made to hide these transfer shortcomings.
+
+No mining, purchases, progression manipulation, device switching, gameplay simulations or tests occurred. Gameplay, persistence, end-of-egg transitions, live-client asset loading, streaming, moving-view parallax and mobile cost remain unverified. The captures do not establish visual acceptance.
+
+## Publication and final synchronization
+
+Native Studio publication at **2026-11-10 14:26:07 UTC** reported `PublishSuccessful`, `Publish succeeded for placeId 94763223427049`, and `Add publish notes to v170`. This is evidence of publication to the same existing experience, not a substitute for an owner live-client review. No access permissions or save generation were changed.
+
+After capture/publication, readback confirms **Edit mode**, original place ID, revision 1, **85 templates and 88 placed meshes**. Canonical implementation source and asset inventory were already pushed in `cfd22d38a84516f9af8d47640ee8cb58e6ba11a8`; this delivery adds the actual captures and final status only. The implementation is frozen for owner review. Unresolved constituent/Maxtree rights remain open. No visual approval or measured performance is claimed.
