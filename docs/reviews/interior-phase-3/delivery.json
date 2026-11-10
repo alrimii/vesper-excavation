@@ -1,0 +1,18 @@
+{
+  "placeId": 94763223427049,
+  "publishedVersion": 215,
+  "publishedUtc": "2026-11-10T23:50:40.378Z",
+  "branch": "planning/development-foundation",
+  "implementationCommit": "8806e32506d2d0d80e2444edf42d5f7d5c707773",
+  "commitUrl": "https://github.com/alrimii/vesper-excavation/commit/8806e32506d2d0d80e2444edf42d5f7d5c707773",
+  "implementationPushVerified": true,
+  "remoteVerifiedCommit": "8806e32506d2d0d80e2444edf42d5f7d5c707773",
+  "metadataNote": "This following documentation-only commit records delivery identity. It does not change the frozen published scene.",
+  "studioMode": "Edit",
+  "artFrozen": true,
+  "privateBackupDirectory": "C:\\Users\\BOSS\\Desktop\\egg\\Backups\\InteriorPhase3_20261111",
+  "nativeBeforeSha256": "F2008DFD1CB524E56614CD66372EAD3439D756F084C1F387E30F615668AA0419",
+  "nativeFinalSha256": "C899BF01F5F09FDAD9358173AD1942C9959F3A4A8BFE1CFF6D87241A39FF62C0",
+  "captures": "REVIEW.md",
+  "remainingPhases": "PLAN.md"
+}
