@@ -1,0 +1,90 @@
+{
+  "placeId": 94763223427049,
+  "startedUTC": "2026-11-10 19:27:03 UTC",
+  "stoppedUTC": "2026-11-10 19:28:05 UTC",
+  "durationSeconds": 62,
+  "mode": "Single capture-only Play session; stopped in Edit",
+  "graphicsQuality": "Automatic",
+  "labReady": true,
+  "gameplayActions": [],
+  "cameraMethod": "Temporary client BindToRenderStep Scriptable camera; no character navigation",
+  "originalCameraFile": "cameras.json",
+  "additionalEditCameras": [
+    {
+      "name": "oblique-east",
+      "p": [
+        210,
+        95,
+        -185
+      ],
+      "t": [
+        0,
+        15,
+        10
+      ],
+      "fov": 65
+    },
+    {
+      "name": "oblique-west",
+      "p": [
+        -210,
+        95,
+        185
+      ],
+      "t": [
+        0,
+        15,
+        10
+      ],
+      "fov": 65
+    }
+  ],
+  "beforeViewportPixels": [
+    1525,
+    752
+  ],
+  "afterViewportPixels": [
+    1426,
+    670
+  ],
+  "comparisonLimit": "Saved camera transforms and vertical field of view match. Windows/Studio layout after unlock changed viewport aspect ratio; no device switch.",
+  "captures": {
+    "edit": [
+      "overhead",
+      "above-egg",
+      "workshop",
+      "frontage",
+      "ladder",
+      "sightline",
+      "oblique-east",
+      "oblique-west"
+    ],
+    "runtime": [
+      "workshop",
+      "frontage",
+      "ladder",
+      "sightline",
+      "above-egg"
+    ]
+  },
+  "sourceReadback": {
+    "viewport": "1140.80005, 536",
+    "camera": {
+      "1": 207,
+      "2": 7,
+      "3": 39,
+      "4": -0.4422924816608429,
+      "5": -0.05499068275094032,
+      "6": -0.8951834440231323,
+      "7": 0,
+      "8": 0.9981185793876648,
+      "9": -0.0613139346241951,
+      "10": 0.8968709111213684,
+      "11": -0.02711869217455387,
+      "12": -0.4414603114128113
+    },
+    "quality": "Enum.QualityLevel.Automatic",
+    "ready": true
+  },
+  "freeze": "No art corrections after final captures."
+}

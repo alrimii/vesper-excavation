@@ -1,6 +1,6 @@
-# Current roadmap checkpoint — first interior layout applied, review pending
+# Current roadmap checkpoint — first interior layout published v192, review pending
 
-The exterior remains frozen at published v191. [First shared-interior rebuild](reviews/interior-rebuild/REVIEW.md) is applied in Edit mode; final visual inspection, the single unused runtime capture session, final native save and publication await desktop unlock. All functional anchors and twelve-room capacity are preserved. Further personal-room/collection redesign, gate/road, UI/skills/content and long-term systems below remain deferred.
+The exterior is unchanged from v191 and remains frozen. [First shared-interior rebuild](reviews/interior-rebuild/REVIEW.md) is published as **v192**, with final native recovery and actual Edit/runtime screenshots. The single 62-second capture-only session is complete; Studio is in Edit and artwork is frozen for owner review. Dark workshop presentation, repetitive portals, broad floor areas and the low-view dome sill remain visible concerns. All functional anchors and twelve-room capacity are preserved. Further exterior refinements, personal-room/collection redesign, gate/road, UI/skills/content and long-term systems below remain deferred. No next milestone is authorized by this delivery.
 
 ## Interior direction — shared-layout checkpoint active; later items deferred
 

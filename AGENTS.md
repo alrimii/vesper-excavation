@@ -2,7 +2,7 @@
 
 Current owner scope permits rebuilding shared interior floor/frontage/fixtures around the preserved original dome and functional anchors. Exterior frozen. All twelve rooms, egg/access/hoist, shop functionality, player data and fixed generation preserved. One cohesive layout, before/after saved cameras, one brief capture-only Play session, then freeze; save native, publish original place 94763223427049 and push planning/development-foundation. No delegates, gameplay simulations, mining/purchases/grants, device loops, gate/road or deferred UI/progression work.
 
-The implementation is applied but pending visual inspection/capture because Windows locked. **No Play session has been used yet. Latest confirmed publication is still v191.** See docs/reviews/interior-rebuild/REVIEW.md and docs/CURRENT_STATE.md for the exact resume point. The owner has been asked to unlock the desktop. Current source checkpoint must not be described as visually verified or published.
+Delivered and frozen as **published v192**. Final Edit comparisons and one 62-second capture-only Play session are complete; Studio is stopped in Edit. No post-capture art corrections. See docs/reviews/interior-rebuild/REVIEW.md for screenshots, visible defects and private native recovery locations. Visual approval and gameplay usability remain unverified; wait for owner review before further changes. All twelve rooms, functional anchors, player data and the frozen exterior remain preserved.
 
 # Historical authorization: exterior composition and legacy cleanup after v177
 
