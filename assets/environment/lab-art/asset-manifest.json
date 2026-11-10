@@ -1,0 +1,518 @@
+{
+  "placeId": 94763223427049,
+  "creatorUserId": 291892217,
+  "templatePath": "ServerStorage.LivingLabArtAssets",
+  "colorAtlas": "rbxassetid://96148416703392",
+  "normalAtlas": "rbxassetid://71024494699962",
+  "roughnessAtlas": "rbxassetid://113355786572368",
+  "templates": [
+    {
+      "normal": "",
+      "source": "Quaternius Standard / CommonTree_1",
+      "color": "rbxassetid://96148416703392",
+      "name": "CanopyOak",
+      "roughness": "",
+      "center": [
+        0,
+        14,
+        0
+      ],
+      "size": [
+        16.617124557495117,
+        28,
+        17.64346694946289
+      ],
+      "mesh": "rbxassetid://97303130534429",
+      "triangles": 6265
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / CommonTree_3",
+      "color": "rbxassetid://96148416703392",
+      "name": "CanopyYoung",
+      "roughness": "",
+      "center": [
+        0,
+        11.000000953674316,
+        0
+      ],
+      "size": [
+        9.483376502990723,
+        22.000001907348633,
+        9.899396896362305
+      ],
+      "mesh": "rbxassetid://99819294387216",
+      "triangles": 3505
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / TwistedTree_2",
+      "color": "rbxassetid://96148416703392",
+      "name": "CanopyTwisted",
+      "roughness": "",
+      "center": [
+        0,
+        13.000000953674316,
+        0
+      ],
+      "size": [
+        14.493204116821289,
+        26.000001907348633,
+        12.626773834228516
+      ],
+      "mesh": "rbxassetid://137305289294960",
+      "triangles": 9134
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Pine_2",
+      "color": "rbxassetid://96148416703392",
+      "name": "MountainPine",
+      "roughness": "",
+      "center": [
+        0,
+        16.000001907348633,
+        0
+      ],
+      "size": [
+        24.849891662597656,
+        32.000003814697266,
+        22.650924682617188
+      ],
+      "mesh": "rbxassetid://98850464793478",
+      "triangles": 3648
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Bush_Common",
+      "color": "rbxassetid://96148416703392",
+      "name": "LeafShrub",
+      "roughness": "",
+      "center": [
+        0,
+        2.200000047683716,
+        0
+      ],
+      "size": [
+        5.326458930969238,
+        4.400000095367432,
+        5.466365814208984
+      ],
+      "mesh": "rbxassetid://125555182496658",
+      "triangles": 900
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Fern_1",
+      "color": "rbxassetid://96148416703392",
+      "name": "ForestFern",
+      "roughness": "",
+      "center": [
+        0,
+        2.0999999046325684,
+        0
+      ],
+      "size": [
+        14.130577087402344,
+        4.199999809265137,
+        13.257760047912598
+      ],
+      "mesh": "rbxassetid://105516137698613",
+      "triangles": 288
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Plant_1_Big",
+      "color": "rbxassetid://96148416703392",
+      "name": "Broadleaf",
+      "roughness": "",
+      "center": [
+        0,
+        2.9000000953674316,
+        0
+      ],
+      "size": [
+        4.4629292488098145,
+        5.800000190734863,
+        4.82729959487915
+      ],
+      "mesh": "rbxassetid://118484721048445",
+      "triangles": 360
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Plant_7_Big",
+      "color": "rbxassetid://96148416703392",
+      "name": "LanceLeaf",
+      "roughness": "",
+      "center": [
+        0,
+        3.0999999046325684,
+        0
+      ],
+      "size": [
+        32.06803894042969,
+        6.199999809265137,
+        33.32436752319336
+      ],
+      "mesh": "rbxassetid://73906793713977",
+      "triangles": 112
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Grass_Wispy_Short",
+      "color": "rbxassetid://96148416703392",
+      "name": "SoftGrass",
+      "roughness": "",
+      "center": [
+        0,
+        1,
+        0
+      ],
+      "size": [
+        2.4671173095703125,
+        2,
+        2.2573082447052
+      ],
+      "mesh": "rbxassetid://111225045539462",
+      "triangles": 494
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Clover_2",
+      "color": "rbxassetid://96148416703392",
+      "name": "Clover",
+      "roughness": "",
+      "center": [
+        0,
+        0.5000000596046448,
+        0
+      ],
+      "size": [
+        0.6734753847122192,
+        1.0000001192092896,
+        0.6620067358016968
+      ],
+      "mesh": "rbxassetid://99315687693379",
+      "triangles": 615
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Flower_3_Group",
+      "color": "rbxassetid://96148416703392",
+      "name": "FlowerAccent",
+      "roughness": "",
+      "center": [
+        0,
+        1.100000023841858,
+        0
+      ],
+      "size": [
+        1.5936307907104492,
+        2.200000047683716,
+        1.7035331726074219
+      ],
+      "mesh": "rbxassetid://95444774480749",
+      "triangles": 755
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Rock_Medium_1",
+      "color": "rbxassetid://96148416703392",
+      "name": "RockLedge",
+      "roughness": "",
+      "center": [
+        0,
+        4,
+        0
+      ],
+      "size": [
+        11.417482376098633,
+        8,
+        10.581966400146484
+      ],
+      "mesh": "rbxassetid://97865775590857",
+      "triangles": 342
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Rock_Medium_2",
+      "color": "rbxassetid://96148416703392",
+      "name": "RockShoulder",
+      "roughness": "",
+      "center": [
+        0,
+        4.5,
+        0
+      ],
+      "size": [
+        14.449292182922363,
+        9,
+        11.749309539794922
+      ],
+      "mesh": "rbxassetid://104065192066039",
+      "triangles": 244
+    },
+    {
+      "normal": "",
+      "source": "Quaternius Standard / Rock_Medium_3",
+      "color": "rbxassetid://96148416703392",
+      "name": "RockRound",
+      "roughness": "",
+      "center": [
+        0,
+        2.5,
+        0
+      ],
+      "size": [
+        7.382701396942139,
+        5,
+        7.503639221191406
+      ],
+      "mesh": "rbxassetid://120955899022973",
+      "triangles": 522
+    },
+    {
+      "normal": "",
+      "source": "KayKit Forest Free / Bush_2_D_Color1",
+      "color": "rbxassetid://96148416703392",
+      "name": "GroundShrub",
+      "roughness": "",
+      "center": [
+        0,
+        1.75,
+        0
+      ],
+      "size": [
+        6.413773059844971,
+        3.5,
+        4.154606819152832
+      ],
+      "mesh": "rbxassetid://88588678706054",
+      "triangles": 196
+    },
+    {
+      "normal": "",
+      "source": "KayKit Forest Free / Rock_1_J_Color1",
+      "color": "rbxassetid://96148416703392",
+      "name": "LowBoulder",
+      "roughness": "",
+      "center": [
+        0,
+        2.25,
+        0
+      ],
+      "size": [
+        4.547120571136475,
+        4.5,
+        5.038121700286865
+      ],
+      "mesh": "rbxassetid://82102903495810",
+      "triangles": 521
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "Mountain3",
+      "roughness": "",
+      "center": [
+        0,
+        52.307838439941406,
+        0
+      ],
+      "size": [
+        180,
+        104.61567687988281,
+        190
+      ],
+      "mesh": "rbxassetid://108807419953112",
+      "triangles": 960
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "CrescentBed",
+      "roughness": "",
+      "center": [
+        85.4465103149414,
+        1.25,
+        0
+      ],
+      "size": [
+        21.306976318359375,
+        2.5,
+        45.68644332885742
+      ],
+      "mesh": "rbxassetid://91221661113591",
+      "triangles": 432
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "CrescentSoil",
+      "roughness": "",
+      "center": [
+        85.55697631835938,
+        1.1349999904632568,
+        0
+      ],
+      "size": [
+        18.88603973388672,
+        1.96999990940094,
+        42.57539749145508
+      ],
+      "mesh": "rbxassetid://99232330087336",
+      "triangles": 196
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "FossilRibcage",
+      "roughness": "",
+      "center": [
+        0,
+        4.076018810272217,
+        0
+      ],
+      "size": [
+        9.085371017456055,
+        8.152037620544434,
+        20.039464950561523
+      ],
+      "mesh": "rbxassetid://133527321165489",
+      "triangles": 3072
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "CascadeSheet",
+      "roughness": "",
+      "center": [
+        0,
+        42.250938415527344,
+        23.5
+      ],
+      "size": [
+        17,
+        83.97811889648438,
+        47
+      ],
+      "mesh": "rbxassetid://130040100195693",
+      "triangles": 144
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "Mountain1",
+      "roughness": "",
+      "center": [
+        0,
+        55,
+        0
+      ],
+      "size": [
+        180,
+        110,
+        190
+      ],
+      "mesh": "rbxassetid://115882288500643",
+      "triangles": 960
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "Mountain2",
+      "roughness": "",
+      "center": [
+        0,
+        52.74279022216797,
+        0
+      ],
+      "size": [
+        180,
+        105.48558044433594,
+        190
+      ],
+      "mesh": "rbxassetid://87406822631307",
+      "triangles": 960
+    },
+    {
+      "normal": "",
+      "source": "Original project geometry",
+      "color": "rbxassetid://96148416703392",
+      "name": "PlantedSlope",
+      "roughness": "",
+      "center": [
+        0,
+        6.461596488952637,
+        0
+      ],
+      "size": [
+        130,
+        12.923192977905273,
+        90
+      ],
+      "mesh": "rbxassetid://117912230010789",
+      "triangles": 640
+    },
+    {
+      "normal": "rbxassetid://71024494699962",
+      "source": "Original paving / ambientCG Rock004 CC0",
+      "color": "rbxassetid://96148416703392",
+      "name": "PavingQuarter",
+      "roughness": "rbxassetid://113355786572368",
+      "center": [
+        133.48789978027344,
+        0.03750000149011612,
+        133.48789978027344
+      ],
+      "size": [
+        266.9126281738281,
+        0.07500000298023224,
+        266.9126281738281
+      ],
+      "mesh": "rbxassetid://112632412627763",
+      "triangles": 14432
+    }
+  ],
+  "placedInstances": {
+    "Broadleaf": 118,
+    "PavingQuarter": 4,
+    "FlowerAccent": 8,
+    "RockShoulder": 28,
+    "CrescentBed": 4,
+    "Mountain1": 3,
+    "Mountain3": 4,
+    "Mountain2": 6,
+    "CascadeSheet": 2,
+    "CanopyOak": 24,
+    "RockLedge": 47,
+    "FossilRibcage": 2,
+    "CrescentSoil": 4,
+    "LanceLeaf": 38,
+    "MountainPine": 10,
+    "RockRound": 24,
+    "PlantedSlope": 22,
+    "CanopyYoung": 12,
+    "LowBoulder": 9,
+    "ForestFern": 118,
+    "CanopyTwisted": 11,
+    "GroundShrub": 126,
+    "LeafShrub": 118,
+    "Clover": 38,
+    "SoftGrass": 240
+  },
+  "instancedTriangleSum": 822315,
+  "notes": [
+    "Counts from Edit-mode property inspection, not measured performance.",
+    "Paving alone uses the stone normal/roughness maps; nature uses shared color/alpha atlas.",
+    "Exterior decorations have CanCollide/CanQuery/CanTouch disabled; original dome enclosure retained."
+  ]
+}

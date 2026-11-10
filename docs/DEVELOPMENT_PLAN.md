@@ -1,3 +1,5 @@
+Environment art checkpoint v156 is published and frozen for owner review: [implementation, five runtime views and open defects](reviews/lab-art/REVIEW.md). Next work depends on owner feedback; do not advance to UI/tree/progression or claim full world completion. Existing unfinished systems and interface rebuild milestones remain open.
+
 Living laboratory checkpoint delivered and frozen for owner review: [version 149, actual screenshots and open issues](reviews/living-lab/REVIEW.md). No next phase is authorized by this delivery. Resolve environmental composition/machinery feedback before expanding scope; HUD/loading, skill tree, shop/room/secondary interfaces and broader art remain unapproved.
 
 Equipment-shop replacement checkpoint delivered for review: [implementation, captures and open defects](reviews/outfitter/REVIEW.md). It does not approve the shop or complete HUD/loading, skill tree, creature/room/secondary interfaces, room/world presentation. Resolve owner feedback before new skills or rebirth.

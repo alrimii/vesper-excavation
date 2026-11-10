@@ -1,3 +1,5 @@
+Follow-up: the owner accepted this v149 direction as a foundation only. The [v156 environment-art checkpoint](../lab-art/REVIEW.md) replaces its floor/planting/scenery, lowers frontage, adds focal displays and replaces the obsolete hanging rig generator. Captured quality defects remain open; neither checkpoint is visually approved.
+
 # Living discovery laboratory — frozen checkpoint
 
 Original place **94763223427049**, same universe **10773858644**; published **version 149**, 10 November 2026. Branch `planning/development-foundation`. Owner visual review remains pending. Baseline was v144 / `fb867adf475f7a56474e1382e5ed18f6cad3f034`.

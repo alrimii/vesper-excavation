@@ -1,0 +1,377 @@
+[
+  {
+    "name": "CanopyOak",
+    "source": "Quaternius Standard / CommonTree_1",
+    "triangles": 6265,
+    "boundsMin": [
+      -8.308562278747559,
+      -8.821733474731445,
+      0.0
+    ],
+    "boundsMax": [
+      8.308562278747559,
+      8.821733474731445,
+      28.0
+    ]
+  },
+  {
+    "name": "CanopyYoung",
+    "source": "Quaternius Standard / CommonTree_3",
+    "triangles": 3505,
+    "boundsMin": [
+      -4.741688251495361,
+      -4.949698448181152,
+      0.0
+    ],
+    "boundsMax": [
+      4.741688251495361,
+      4.949698448181152,
+      22.000001907348633
+    ]
+  },
+  {
+    "name": "CanopyTwisted",
+    "source": "Quaternius Standard / TwistedTree_2",
+    "triangles": 9134,
+    "boundsMin": [
+      -7.2466020584106445,
+      -6.313386917114258,
+      0.0
+    ],
+    "boundsMax": [
+      7.2466020584106445,
+      6.313386917114258,
+      26.000001907348633
+    ]
+  },
+  {
+    "name": "MountainPine",
+    "source": "Quaternius Standard / Pine_2",
+    "triangles": 3648,
+    "boundsMin": [
+      -12.424945831298828,
+      -11.325462341308594,
+      0.0
+    ],
+    "boundsMax": [
+      12.424945831298828,
+      11.325462341308594,
+      32.000003814697266
+    ]
+  },
+  {
+    "name": "LeafShrub",
+    "source": "Quaternius Standard / Bush_Common",
+    "triangles": 900,
+    "boundsMin": [
+      -2.663229465484619,
+      -2.733182907104492,
+      0.0
+    ],
+    "boundsMax": [
+      2.663229465484619,
+      2.733182907104492,
+      4.400000095367432
+    ]
+  },
+  {
+    "name": "ForestFern",
+    "source": "Quaternius Standard / Fern_1",
+    "triangles": 288,
+    "boundsMin": [
+      -7.065288543701172,
+      -6.628880023956299,
+      0.0
+    ],
+    "boundsMax": [
+      7.065288543701172,
+      6.628880023956299,
+      4.199999809265137
+    ]
+  },
+  {
+    "name": "Broadleaf",
+    "source": "Quaternius Standard / Plant_1_Big",
+    "triangles": 360,
+    "boundsMin": [
+      -2.2314646244049072,
+      -2.413649797439575,
+      0.0
+    ],
+    "boundsMax": [
+      2.2314646244049072,
+      2.413649797439575,
+      5.800000190734863
+    ]
+  },
+  {
+    "name": "LanceLeaf",
+    "source": "Quaternius Standard / Plant_7_Big",
+    "triangles": 112,
+    "boundsMin": [
+      -16.034019470214844,
+      -16.66218376159668,
+      0.0
+    ],
+    "boundsMax": [
+      16.034019470214844,
+      16.66218376159668,
+      6.199999809265137
+    ]
+  },
+  {
+    "name": "SoftGrass",
+    "source": "Quaternius Standard / Grass_Wispy_Short",
+    "triangles": 494,
+    "boundsMin": [
+      -1.2335586547851562,
+      -1.1286541223526,
+      0.0
+    ],
+    "boundsMax": [
+      1.2335586547851562,
+      1.1286541223526,
+      2.0
+    ]
+  },
+  {
+    "name": "Clover",
+    "source": "Quaternius Standard / Clover_2",
+    "triangles": 615,
+    "boundsMin": [
+      -0.3367376923561096,
+      -0.3310033679008484,
+      0.0
+    ],
+    "boundsMax": [
+      0.3367376923561096,
+      0.3310033679008484,
+      1.0000001192092896
+    ]
+  },
+  {
+    "name": "FlowerAccent",
+    "source": "Quaternius Standard / Flower_3_Group",
+    "triangles": 755,
+    "boundsMin": [
+      -0.7968153953552246,
+      -0.8517665863037109,
+      0.0
+    ],
+    "boundsMax": [
+      0.7968153953552246,
+      0.8517665863037109,
+      2.200000047683716
+    ]
+  },
+  {
+    "name": "RockLedge",
+    "source": "Quaternius Standard / Rock_Medium_1",
+    "triangles": 342,
+    "boundsMin": [
+      -5.708741188049316,
+      -5.290983200073242,
+      0.0
+    ],
+    "boundsMax": [
+      5.708741188049316,
+      5.290983200073242,
+      8.0
+    ]
+  },
+  {
+    "name": "RockShoulder",
+    "source": "Quaternius Standard / Rock_Medium_2",
+    "triangles": 244,
+    "boundsMin": [
+      -7.224646091461182,
+      -5.874654769897461,
+      0.0
+    ],
+    "boundsMax": [
+      7.224646091461182,
+      5.874654769897461,
+      9.0
+    ]
+  },
+  {
+    "name": "RockRound",
+    "source": "Quaternius Standard / Rock_Medium_3",
+    "triangles": 522,
+    "boundsMin": [
+      -3.6913506984710693,
+      -3.751819610595703,
+      0.0
+    ],
+    "boundsMax": [
+      3.6913506984710693,
+      3.751819610595703,
+      5.0
+    ]
+  },
+  {
+    "name": "GroundShrub",
+    "source": "KayKit Forest Free / Bush_2_D_Color1",
+    "triangles": 196,
+    "boundsMin": [
+      -3.2068865299224854,
+      -2.077303409576416,
+      0.0
+    ],
+    "boundsMax": [
+      3.2068865299224854,
+      2.077303409576416,
+      3.5
+    ]
+  },
+  {
+    "name": "LowBoulder",
+    "source": "KayKit Forest Free / Rock_1_J_Color1",
+    "triangles": 521,
+    "boundsMin": [
+      -2.2735602855682373,
+      -2.5190608501434326,
+      0.0
+    ],
+    "boundsMax": [
+      2.2735602855682373,
+      2.5190608501434326,
+      4.5
+    ]
+  },
+  {
+    "name": "PavingQuarter",
+    "source": "Original project geometry",
+    "triangles": 14432,
+    "boundsMin": [
+      0.03159869834780693,
+      0.03159869834780693,
+      0.0
+    ],
+    "boundsMax": [
+      266.9442138671875,
+      266.9442138671875,
+      0.07500000298023224
+    ]
+  },
+  {
+    "name": "CrescentBed",
+    "source": "Original project geometry",
+    "triangles": 432,
+    "boundsMin": [
+      74.79302215576172,
+      -22.84322166442871,
+      0.0
+    ],
+    "boundsMax": [
+      96.0999984741211,
+      22.84322166442871,
+      2.5
+    ]
+  },
+  {
+    "name": "CrescentSoil",
+    "source": "Original project geometry",
+    "triangles": 196,
+    "boundsMin": [
+      76.11396026611328,
+      -21.28769874572754,
+      0.15000000596046448
+    ],
+    "boundsMax": [
+      95.0,
+      21.28769874572754,
+      2.119999885559082
+    ]
+  },
+  {
+    "name": "FossilRibcage",
+    "source": "Original project geometry",
+    "triangles": 3072,
+    "boundsMin": [
+      -4.542685508728027,
+      -10.019732475280762,
+      0.0
+    ],
+    "boundsMax": [
+      4.542685508728027,
+      10.019732475280762,
+      8.152037620544434
+    ]
+  },
+  {
+    "name": "Mountain1",
+    "source": "Original project geometry",
+    "triangles": 960,
+    "boundsMin": [
+      -90.0,
+      -95.0,
+      0.0
+    ],
+    "boundsMax": [
+      90.0,
+      95.0,
+      110.0
+    ]
+  },
+  {
+    "name": "Mountain2",
+    "source": "Original project geometry",
+    "triangles": 960,
+    "boundsMin": [
+      -90.0,
+      -95.0,
+      0.0
+    ],
+    "boundsMax": [
+      90.0,
+      95.0,
+      105.48558044433594
+    ]
+  },
+  {
+    "name": "Mountain3",
+    "source": "Original project geometry",
+    "triangles": 960,
+    "boundsMin": [
+      -90.0,
+      -95.0,
+      0.0
+    ],
+    "boundsMax": [
+      90.0,
+      95.0,
+      104.61567687988281
+    ]
+  },
+  {
+    "name": "PlantedSlope",
+    "source": "Original project geometry",
+    "triangles": 640,
+    "boundsMin": [
+      -65.0,
+      -45.0,
+      0.0
+    ],
+    "boundsMax": [
+      65.0,
+      45.0,
+      12.923192977905273
+    ]
+  },
+  {
+    "name": "CascadeSheet",
+    "source": "Original project geometry",
+    "triangles": 144,
+    "boundsMin": [
+      -8.5,
+      0.0,
+      0.26187920570373535
+    ],
+    "boundsMax": [
+      8.5,
+      47.0,
+      84.23999786376953
+    ]
+  }
+]

@@ -1,3 +1,5 @@
+Latest environment checkpoint: [v156 art pass and actual captures](reviews/lab-art/REVIEW.md). The v149 living-laboratory direction is accepted as a foundation only. Quaternius/KayKit planting, composed scenery, stone material, fossil displays and frontage changes are implemented, but waterfall/mountain quality, broad paving, repetition and other captured shortcomings remain open. No visual approval is implied.
+
 Current environment direction: a living discovery laboratory, using owner example.png selectively. Bright mineral circulation and an enclosed glass dome balance darker blue-grey research bays, muted teal structure, warm task lights, integrated planting, shaped stone slab joints, curated fossils/specimens, and inaccessible layered exterior scenery. Preserve the current egg. [Implemented checkpoint and visible limitations](reviews/living-lab/REVIEW.md); appearance remains unapproved. Earlier art statuses below are historical.
 
 # Art direction and asset delivery

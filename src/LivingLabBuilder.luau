@@ -3,6 +3,7 @@ local B={}
 local C={stone=Color3.fromRGB(211,211,191),trim=Color3.fromRGB(82,128,126),dark=Color3.fromRGB(49,67,79),recess=Color3.fromRGB(65,82,94),metal=Color3.fromRGB(97,113,119),warm=Color3.fromRGB(255,222,164),leaf=Color3.fromRGB(86,126,69),soil=Color3.fromRGB(67,72,56),bone=Color3.fromRGB(219,205,169)}
 local function guard()
 	assert(game.PlaceId==94763223427049 and not game:GetService('RunService'):IsRunning(),'Original Edit-mode place only')
+	assert(not workspace.VesperLab:GetAttribute('LivingLabArtRevision'),'Foundation recipe retired by LivingLabArtBuilder; do not restore v149 dressing')
 	return workspace.VesperLab
 end
 local function model(parent,name)

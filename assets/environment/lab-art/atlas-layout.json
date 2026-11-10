@@ -1,0 +1,171 @@
+{
+  "images": {
+    "source/quaternius/Leaves.png": 0,
+    "source/quaternius/Bark_NormalTree.png": 1,
+    "source/quaternius/Leaves_NormalTree_C.png": 2,
+    "source/quaternius/Bark_TwistedTree.png": 3,
+    "source/quaternius/Leaves_TwistedTree_C.png": 4,
+    "source/quaternius/Flowers.png": 5,
+    "source/kaykit/forest_texture.png": 6,
+    "source/quaternius/Leaf_Pine_C.png": 7,
+    "source/quaternius/Rocks_Diffuse.png": 8,
+    "source/quaternius/Grass.png": 9
+  },
+  "materials": {
+    "Leaves.001": {
+      "image": "source/quaternius/Leaves.png"
+    },
+    "Bark_NormalTree": {
+      "image": "source/quaternius/Bark_NormalTree.png"
+    },
+    "Leaves_NormalTree": {
+      "image": "source/quaternius/Leaves_NormalTree_C.png"
+    },
+    "Bark_TwistedTree": {
+      "image": "source/quaternius/Bark_TwistedTree.png"
+    },
+    "Leaves_TwistedTree": {
+      "image": "source/quaternius/Leaves_TwistedTree_C.png"
+    },
+    "Bark_NormalTree.001": {
+      "image": "source/quaternius/Bark_NormalTree.png"
+    },
+    "Leaves_NormalTree.001": {
+      "image": "source/quaternius/Leaves_NormalTree_C.png"
+    },
+    "Water": {
+      "color": 0
+    },
+    "Leaves.003": {
+      "image": "source/quaternius/Leaves.png"
+    },
+    "Dressed limestone": {
+      "color": 1
+    },
+    "Living soil": {
+      "color": 2
+    },
+    "Leaves.004": {
+      "image": "source/quaternius/Leaves.png"
+    },
+    "Flowers": {
+      "image": "source/quaternius/Flowers.png"
+    },
+    "Leaves": {
+      "image": "source/quaternius/Leaves.png"
+    },
+    "Fossil ivory": {
+      "color": 3
+    },
+    "Scientific bronze": {
+      "color": 4
+    },
+    "forest": {
+      "image": "source/kaykit/forest_texture.png"
+    },
+    "Leaves.002": {
+      "image": "source/quaternius/Leaves.png"
+    },
+    "Leaves_TwistedTree.001": {
+      "image": "source/quaternius/Leaves_TwistedTree_C.png"
+    },
+    "forest.001": {
+      "image": "source/kaykit/forest_texture.png"
+    },
+    "Mineral00": {
+      "color": 5
+    },
+    "Mineral01": {
+      "color": 6
+    },
+    "Mineral02": {
+      "color": 7
+    },
+    "Bark_NormalTree.002": {
+      "image": "source/quaternius/Bark_NormalTree.png"
+    },
+    "Leaves_Pine": {
+      "image": "source/quaternius/Leaf_Pine_C.png"
+    },
+    "Mineral03": {
+      "color": 8
+    },
+    "Mineral04": {
+      "color": 9
+    },
+    "Rocks": {
+      "image": "source/quaternius/Rocks_Diffuse.png"
+    },
+    "Rocks.002": {
+      "image": "source/quaternius/Rocks_Diffuse.png"
+    },
+    "Rocks.001": {
+      "image": "source/quaternius/Rocks_Diffuse.png"
+    },
+    "Grass": {
+      "image": "source/quaternius/Grass.png"
+    }
+  },
+  "colors": [
+    [
+      0.30000001192092896,
+      0.6200000047683716,
+      0.6499999761581421,
+      1.0
+    ],
+    [
+      0.6899999976158142,
+      0.6700000166893005,
+      0.5600000023841858,
+      1.0
+    ],
+    [
+      0.1899999976158142,
+      0.25,
+      0.15000000596046448,
+      1.0
+    ],
+    [
+      0.7699999809265137,
+      0.6899999976158142,
+      0.5,
+      1.0
+    ],
+    [
+      0.2800000011920929,
+      0.3499999940395355,
+      0.3199999928474426,
+      1.0
+    ],
+    [
+      0.4699999988079071,
+      0.49000000953674316,
+      0.46000000834465027,
+      1.0
+    ],
+    [
+      0.5099999904632568,
+      0.5199999809265137,
+      0.49000000953674316,
+      1.0
+    ],
+    [
+      0.44999998807907104,
+      0.47999998927116394,
+      0.4699999988079071,
+      1.0
+    ],
+    [
+      0.5400000214576721,
+      0.5299999713897705,
+      0.47999998927116394,
+      1.0
+    ],
+    [
+      0.49000000953674316,
+      0.5,
+      0.47999998927116394,
+      1.0
+    ]
+  ]
+}

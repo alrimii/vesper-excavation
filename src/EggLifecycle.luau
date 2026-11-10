@@ -8,56 +8,39 @@ function M.Start(gui, state, egg)
 	local folder = Instance.new("Folder")
 	folder.Name = "LocalExpeditionPresentation"
 	folder.Parent = workspace
-	local function part(name, size, cf, color, material)
-		local p = Instance.new("Part")
-		p.Name, p.Size, p.CFrame = name, size, cf
-		p.Color, p.Material = color, material or Enum.Material.Metal
-		p.Anchored = true
-		p.CanCollide, p.CanTouch, p.CanQuery = false, false, false
-		p.CastShadow = name:find("Yoke") ~= nil or name:find("UpperArm") ~= nil or name:find("Forearm") ~= nil
-		p.Parent = folder
-		return p
-	end
 	local dark, gold = Color3.fromRGB(35, 44, 54), Color3.fromRGB(183, 192, 196)
 	local access = require(script.Parent.AccessRetraction).new(workspace.VesperLab)
 	local dispatch = require(script.Parent.DispatchUI).new(gui, script.Parent)
 	local impact = require(script.Parent.CradleImpact).new(folder)
-	local yokeX = part("MovingYokeX", Vector3.new(48, 3, 4), CFrame.new(), gold)
-	local yokeFront = part("MovingYokeFront", Vector3.new(4, 3, 22), CFrame.new(), gold)
-	local yokeBack = part("MovingYokeBack", Vector3.new(4, 3, 22), CFrame.new(), gold)
-	local arms = {}
-	for i = 1, 4 do
-		local a = {}
-		for _, name in
-			{
-				"UpperArm",
-				"Forearm",
-				"Cable",
-				"Grip",
-				"Shoulder",
-				"Elbow",
-				"PistonBarrel",
-				"PistonRod",
-				"ArmInset",
-			}
-		do
-			a[name] = part(name .. i, Vector3.one, CFrame.new(), name == "Cable" and dark or gold)
+	-- The retired arm/yoke rig had no gameplay authority. Delivery cables now attach
+	-- to the saved dome-crown sockets and exist only during actual delivery.
+	local cables = {}
+	local function updateDeliveryCables(delivering, eggLift)
+		if not delivering then
+			for _, cable in cables do cable:Destroy() end
+			table.clear(cables)
+			return
 		end
-		a.Shoulder.Shape, a.Elbow.Shape = Enum.PartType.Cylinder, Enum.PartType.Cylinder
-		a.Shoulder.Size, a.Elbow.Size = Vector3.new(4.6, 5.6, 5.6), Vector3.new(4.4, 5, 5)
-		a.Grip.Size = Vector3.new(8, 7, 2.6)
-		a.Grip.Color = Color3.fromRGB(22, 27, 32)
-		a.Grip.Material = Enum.Material.SmoothPlastic
-		a.UpperArm.Color = dark
-		a.PistonBarrel.Color = dark
-		a.PistonRod.Color = Color3.fromRGB(164, 176, 184)
-		a.PistonRod.Reflectance = 0.05
-		a.ArmInset.Color = Color3.fromRGB(214, 156, 68)
-		arms[i] = a
-	end
-	local function link(p, a, b, width)
-		p.Size = Vector3.new(width, width, math.max(0.01, (b - a).Magnitude))
-		p.CFrame = CFrame.lookAt((a + b) / 2, b)
+		local dock = workspace.VesperLab:FindFirstChild("CrownDeliveryDock")
+		if not dock then return end
+		for i = 1, 4 do
+			local socket = dock:FindFirstChild("DeliverySocket" .. i)
+			if not socket then continue end
+			local cable = cables[i]
+			if not cable then
+				cable = Instance.new("Part")
+				cable.Name = "AttachedDeliveryCable" .. i
+				cable.Anchored = true
+				cable.CanCollide, cable.CanTouch, cable.CanQuery, cable.CastShadow = false, false, false, false
+				cable.Material, cable.Color = Enum.Material.Metal, dark
+				cable.Parent = folder
+				cables[i] = cable
+			end
+			local top = socket.Position
+			local bottom = Vector3.new(top.X, 101 + eggLift, top.Z)
+			cable.Size = Vector3.new(0.22, 0.22, math.max(0.01, (top-bottom).Magnitude))
+			cable.CFrame = CFrame.lookAt((top+bottom)/2, bottom)
+		end
 	end
 	local proxy = require(script.Parent.DeliverySurface).Build(egg)
 	proxy.Parent = folder
@@ -150,32 +133,7 @@ function M.Start(gui, state, egg)
 				lastLift = sample.eggLift
 			end
 		end
-		local lift = active and sample.rigLift or Sequence.Lift
-		local opened = active and (selecting and 0 or sample.open) or 1
-		yokeX.CFrame = CFrame.new(0, 110 + lift, 0)
-		yokeFront.CFrame = CFrame.new(0, 110 + lift, -13)
-		yokeBack.CFrame = CFrame.new(0, 110 + lift, 13)
-		for i, a in arms do
-			local theta = (i - 1) * math.pi / 2
-			local radial = Vector3.new(math.cos(theta), 0, math.sin(theta))
-			local shoulder = radial * 22 + Vector3.yAxis * (110 + lift)
-			local elbow = radial * (46 + opened * 6) + Vector3.yAxis * (88 + lift)
-			local tip = radial * (35.4 + opened * 18) + Vector3.yAxis * (64 + lift)
-			link(a.UpperArm, shoulder:Lerp(elbow, 0.055), elbow:Lerp(shoulder, 0.055), 2.8)
-			link(a.Forearm, elbow:Lerp(tip, 0.06), tip:Lerp(elbow, 0.045), 2.3)
-			link(a.Cable, radial * 22 + Vector3.yAxis * 189, shoulder, 0.35)
-			local hingeAxis = radial:Cross(Vector3.yAxis)
-			a.Shoulder.CFrame = CFrame.fromMatrix(shoulder, hingeAxis, Vector3.yAxis)
-			a.Elbow.CFrame = CFrame.fromMatrix(elbow, hingeAxis, Vector3.yAxis)
-			local tangent = radial:Cross(Vector3.yAxis) * 2.1
-			local mount = shoulder:Lerp(elbow, 0.25) + tangent
-			local rodEnd = elbow:Lerp(tip, 0.6) + tangent
-			local joint = mount:Lerp(rodEnd, 0.55)
-			link(a.PistonBarrel, mount, joint, 1.4)
-			link(a.PistonRod, joint:Lerp(mount, 0.035), rodEnd, 0.65)
-			link(a.ArmInset, shoulder:Lerp(elbow, 0.2) + tangent, shoulder:Lerp(elbow, 0.7) + tangent, 0.35)
-			a.Grip.CFrame = CFrame.lookAt(tip, Vector3.new(0, tip.Y, 0))
-		end
+		updateDeliveryCables(delivery, sample.eggLift)
 	end)
 end
 return M
