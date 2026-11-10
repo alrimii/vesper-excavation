@@ -34,10 +34,14 @@ local function practiceFor(p)
 end
 local function inTrainingArea(root, device)
 	local spot = device and device:FindFirstChild("TrainingSpot")
-	if not root or not spot then return false end
+	if not root or not spot then
+		return false
+	end
 	local offset = spot.CFrame:PointToObjectSpace(root.Position)
-	return math.abs(offset.X) <= spot.Size.X / 2 and math.abs(offset.Z) <= spot.Size.Z / 2
-		and offset.Y >= 0 and offset.Y <= 7
+	return math.abs(offset.X) <= spot.Size.X / 2
+		and math.abs(offset.Z) <= spot.Size.Z / 2
+		and offset.Y >= 0
+		and offset.Y <= 7
 end
 local function training(p, s, enabled)
 	local ch = p.Character
@@ -54,7 +58,8 @@ local function training(p, s, enabled)
 			or hum.Health <= 0
 			or not device
 			or not inTrainingArea(root, device)
-			or s.worldMenu or s.skillMenu
+			or s.worldMenu
+			or s.skillMenu
 		then
 			return false
 		end
@@ -82,7 +87,9 @@ local function training(p, s, enabled)
 		device:SetAttribute("TrainingFamily", family)
 		cancelAttack(p, s)
 	else
-		if s.trainingDevice and s.trainingDevice.Parent then s.trainingDevice:SetAttribute("TrainingActive", false) end
+		if s.trainingDevice and s.trainingDevice.Parent then
+			s.trainingDevice:SetAttribute("TrainingActive", false)
+		end
 		s.trainingDevice = nil
 		-- Suppress immediate re-entry after a manual stop, tool switch or menu cancellation.
 		s.trainingSuppressed = true
@@ -941,11 +948,10 @@ local function ordinaryHit(p, a, session, target, impact, power, sequence, famil
 	local opportunity = not charged
 		and skill(a, "technique.chain_lightning") > 0
 		and guards.lastWindow ~= window
-	local neighbors = opportunity and now >= (guards.lightningUntil or 0) and lightningSnapshot(
-		p,
-		target,
-		impact
-	) or {}
+	local neighbors = opportunity
+			and now >= (guards.lightningUntil or 0)
+			and lightningSnapshot(p, target, impact)
+		or {}
 	local relayWasReady = session.relay ~= nil
 	local damage, precise, critical = damageRoll(a, session, target, impact.Position, power, not charged)
 	if relayWasReady and not charged then
@@ -1378,24 +1384,35 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	local shopAction = kind == "BuyTool" or kind == "EquipTool" or kind == "Upgrade"
 	local requestId = shopAction and c or nil
 	local function reply(ok, message)
-		if not requestId then return end
-		local receipt = {ok=ok, message=message}
+		if not requestId then
+			return
+		end
+		local receipt = { ok = ok, message = message }
 		s.shopReceipts[requestId] = receipt
 		Feedback:FireClient(p, "ShopReceipt", requestId, ok, message)
 	end
 	if requestId ~= nil then
-		if typeof(requestId) ~= "string" or #requestId > 64 or #requestId < 8 then return end
+		if typeof(requestId) ~= "string" or #requestId > 64 or #requestId < 8 then
+			return
+		end
 		s.shopReceipts = s.shopReceipts or {}
 		s.shopReceiptOrder = s.shopReceiptOrder or {}
 		local prior = s.shopReceipts[requestId]
 		if prior then
-			if prior ~= true then Feedback:FireClient(p, "ShopReceipt", requestId, prior.ok, prior.message) end
+			if prior ~= true then
+				Feedback:FireClient(p, "ShopReceipt", requestId, prior.ok, prior.message)
+			end
 			return
 		end
 		s.shopReceipts[requestId] = true
 		table.insert(s.shopReceiptOrder, requestId)
-		if #s.shopReceiptOrder > 32 then s.shopReceipts[table.remove(s.shopReceiptOrder, 1)] = nil end
-		if not accounts[p.UserId] then reply(false, "Your profile is still loading."); return end
+		if #s.shopReceiptOrder > 32 then
+			s.shopReceipts[table.remove(s.shopReceiptOrder, 1)] = nil
+		end
+		if not accounts[p.UserId] then
+			reply(false, "Your profile is still loading.")
+			return
+		end
 		if kind == "Upgrade" and (typeof(d) ~= "string" or d ~= effectiveTool(accounts[p.UserId])) then
 			reply(false, "The equipped tool changed. Select it again before upgrading.")
 			return
@@ -1411,7 +1428,9 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	end
 	if kind == "WorldInteractionMenu" and typeof(a) == "boolean" then
 		s.worldMenu = a
-		if a and s.training then training(p, s, false) end
+		if a and s.training then
+			training(p, s, false)
+		end
 		return
 	end
 	if (kind == "SkillMenu" or kind == "BlockingMenu") and typeof(a) == "boolean" then
@@ -1777,7 +1796,31 @@ for _, desc in Depot:GetDescendants() do
 	end
 end
 giveTools = function(p, ch, s)
-	if sessions[p] ~= s or p.Character ~= ch then
+	if sessions[p] ~= s or not ch or p.Character ~= ch then
+		return
+	end
+	-- CharacterAdded precedes completion of LoadCharacterAsync and Backpack replacement.
+	if ch:GetAttribute("EquipmentSpawnComplete") ~= true then
+		p:SetAttribute("EquipmentReady", false)
+		return
+	end
+	local current = s.tools.Pickaxe
+	local pack = p:FindFirstChildOfClass("Backpack")
+	local a = accounts[p.UserId]
+	local h = ch:FindFirstChildOfClass("Humanoid")
+	local handle = current and current:FindFirstChild("Handle")
+	if
+		current
+		and a
+		and h
+		and h.Health > 0
+		and (current.Parent == ch or (pack and current.Parent == pack))
+		and current:GetAttribute("ToolFamily") == effectiveTool(a)
+		and current:GetAttribute("OwnerUserId") == p.UserId
+		and (not current.RequiresHandle or (handle and handle:IsA("BasePart")))
+	then
+		p:SetAttribute("EquipmentReady", true)
+		p:SetAttribute("EquipmentLoadError", nil)
 		return
 	end
 	s.equipRevision = (s.equipRevision or 0) + 1
@@ -1809,13 +1852,16 @@ giveTools = function(p, ch, s)
 		old:Destroy()
 	end
 	s.tools = {}
-	for kind, name in { Pickaxe = "StarterPickaxe" } do
+	for _, kind in { "Pickaxe" } do
 		local a = accounts[p.UserId]
-		local template = Kit:FindFirstChild("Starter" .. effectiveTool(a)) or Kit:FindFirstChild(name)
+		local template = Kit:FindFirstChild("Starter" .. effectiveTool(a))
 		if
 			not template
 			or not template:IsA("Tool")
-			or (template.RequiresHandle and not template:FindFirstChild("Handle"))
+			or (
+				template.RequiresHandle
+				and (not template:FindFirstChild("Handle") or not template.Handle:IsA("BasePart"))
+			)
 		then
 			p:SetAttribute("EquipmentLoadError", "The server could not prepare your tool. Please reconnect.")
 			warn("[Vesper] Equipment template unavailable", effectiveTool(a))
@@ -1844,6 +1890,18 @@ giveTools = function(p, ch, s)
 				return
 			end
 			cancelAttack(p, s)
+		end)
+		t.CanBeDropped = false
+		t.AncestryChanged:Connect(function()
+			task.defer(function()
+				if sessions[p] == s and s.tools[kind] == t then
+					local currentPack = p:FindFirstChildOfClass("Backpack")
+					if t.Parent ~= p.Character and (not currentPack or t.Parent ~= currentPack) then
+						p:SetAttribute("EquipmentReady", false)
+						giveTools(p, p.Character, s)
+					end
+				end
+			end)
 		end)
 		t.Parent = backpack
 		if human.Health > 0 then
@@ -1909,14 +1967,27 @@ local function joined(p)
 	EggRewards:IncludeSpectator(round, p.UserId)
 	p:SetAttribute("RecoveredEggCreatures", deliverEggRewards(p))
 	publishEggResults(p)
-	s.connection = p.CharacterAdded:Connect(function(ch)
+	local function bindCharacter(ch)
+		if s.spawnConnection then
+			s.spawnConnection:Disconnect()
+		end
 		training(p, s, false)
-		giveTools(p, ch, s)
+		p:SetAttribute("EquipmentReady", false)
+		s.spawnConnection = ch:GetAttributeChangedSignal("EquipmentSpawnComplete"):Connect(function()
+			giveTools(p, ch, s)
+		end)
+		task.spawn(giveTools, p, ch, s)
+	end
+	s.connection = p.CharacterAdded:Connect(bindCharacter)
+	s.backpackConnection = p.ChildAdded:Connect(function(child)
+		if child:IsA("Backpack") then
+			task.defer(giveTools, p, p.Character, s)
+		end
 	end)
 	syncPlayer(p)
 	p:SetAttribute("ProfileReady", true)
 	if p.Character then
-		task.spawn(giveTools, p, p.Character, s)
+		bindCharacter(p.Character)
 	end
 end
 for _, s in Sections:GetChildren() do
@@ -1941,6 +2012,12 @@ Players.PlayerRemoving:Connect(function(p)
 	if s then
 		training(p, s, false)
 		s.connection:Disconnect()
+		if s.spawnConnection then
+			s.spawnConnection:Disconnect()
+		end
+		if s.backpackConnection then
+			s.backpackConnection:Disconnect()
+		end
 		if s.deathConnection then
 			s.deathConnection:Disconnect()
 		end
@@ -2025,10 +2102,19 @@ task.spawn(function()
 			local ownedDevice = practiceFor(p)
 			local account = accounts[p.UserId]
 			local inside = inTrainingArea(nearbyRoot, ownedDevice)
-			if not inside then session.trainingSuppressed = false end
-			if inside and not session.training and not session.trainingSuppressed
-				and account and account.strength < 10000 and p:GetAttribute("LabReady") == true
-				and not session.worldMenu and not session.skillMenu then
+			if not inside then
+				session.trainingSuppressed = false
+			end
+			if
+				inside
+				and not session.training
+				and not session.trainingSuppressed
+				and account
+				and account.strength < 10000
+				and p:GetAttribute("LabReady") == true
+				and not session.worldMenu
+				and not session.skillMenu
+			then
 				training(p, session, true)
 			end
 			if session.training then
@@ -2045,7 +2131,8 @@ task.spawn(function()
 					or session.tools.Pickaxe.Parent ~= p.Character
 					or not inTrainingArea(root, device)
 					or device ~= session.trainingDevice
-					or session.worldMenu or session.skillMenu
+					or session.worldMenu
+					or session.skillMenu
 				then
 					training(p, session, false)
 				else

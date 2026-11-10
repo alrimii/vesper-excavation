@@ -83,7 +83,12 @@ requestLoad = function(player, state)
 	task.spawn(function()
 		while active(player, state) do
 			local ok, err = pcall(function()
+				player:SetAttribute("CharacterLoadComplete", false)
 				player:LoadCharacterAsync()
+				if active(player, state) and player.Character then
+					player.Character:SetAttribute("EquipmentSpawnComplete", true)
+					player:SetAttribute("CharacterLoadComplete", true)
+				end
 			end)
 			if ok then
 				break
