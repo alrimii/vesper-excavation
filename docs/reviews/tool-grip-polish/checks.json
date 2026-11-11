@@ -1,0 +1,61 @@
+{
+  "before": {
+    "start": "2026-11-11 14:21:49 UTC",
+    "end": "2026-11-11 14:23:43 UTC"
+  },
+  "firstCorrection": {
+    "start": "2026-11-11 14:25:28 UTC",
+    "end": "2026-11-11 14:30:57 UTC"
+  },
+  "affectedAimRecheck": {
+    "start": "2026-11-11 14:33:17 UTC",
+    "end": "2026-11-11 14:34:29 UTC"
+  },
+  "aims": [
+    {
+      "name": "active",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"tipDirection\":\"-0.8969607949256897, 0.13466429710388184, -0.42110157012939453\",\"leftElbow\":\"-1.1320652961730957, 0.08027839660644531, -0.35139262676239014\",\"supportReached\":true,\"rightElbow\":\"1.3787932395935059, 0.027507781982421875, -0.09507229924201965\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "name": "aim-up",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"tipDirection\":\"-0.8498339653015137, 0.34607502818107605, -0.39751043915748596\",\"leftElbow\":\"-1.1725826263427734, 0.11240100860595703, -0.4245739281177521\",\"supportReached\":true,\"rightElbow\":\"1.372217059135437, 0.031307220458984375, -0.11077877879142761\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "name": "aim-down",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"tipDirection\":\"-0.8983930349349976, -0.12074160575866699, -0.42226970195770264\",\"leftElbow\":\"-1.0729223489761353, 0.06232404708862305, -0.3637666404247284\",\"supportReached\":true,\"rightElbow\":\"1.384958028793335, 0.04873371124267578, -0.18925948441028595\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ],
+  "switchAndUnequip": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"running\":false,\"autoRotate\":true,\"switchedTo\":\"Field Pickaxe\",\"drillHelpers\":0,\"unequipped\":true}"
+      }
+    ],
+    "isError": false
+  }
+}

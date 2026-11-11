@@ -1,0 +1,36 @@
+{
+  "placeId": 94763223427049,
+  "publishedVersion": 244,
+  "publishedAtUtc": "2026-11-11T14:35:55.843Z",
+  "publicationEvidence": "Studio log publishType=1; PublishSuccessful; original placeId; Add publish notes to v244",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "c2b00109b355d72c41a94b8d0eca9bd98dadd395",
+  "ownerAvatarUserId": 291892217,
+  "approvedModelsAndMaterialsPreserved": true,
+  "ownerTestModePreserved": true,
+  "poseVisualApproval": false,
+  "productionDataTouched": false,
+  "studioMode": "Edit",
+  "temporaryHelperRemoved": true,
+  "runtimeSeconds": [
+    114,
+    329,
+    72
+  ],
+  "nativeBefore": "Backups\\ToolGripPolish_20261111\\ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups\\ToolGripPolish_20261111\\ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "26810a889fa4680c1728ab5e619111f74b970b678764ef7022010d6366b2b215",
+  "screenshots": [
+    "active-drilling.png",
+    "aim-down.png",
+    "aim-up.png",
+    "before-drill-front.png",
+    "before-drill-side.png",
+    "before-pickaxe.png",
+    "drill-equipment.png",
+    "final-drill-front.png",
+    "final-drill-side.png",
+    "final-pickaxe.png",
+    "unequipped.png"
+  ]
+}

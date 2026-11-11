@@ -99,7 +99,7 @@ function B.Drill()
 	replace(drill, Assets.RodinDrill, "Drill", CFrame.identity)
 	drill.TextureId = Visuals.DrillIcon
 	drill:SetAttribute("HandlingRevision", "RodinRearAndAuxiliaryGrip")
-	drill:SetAttribute("HoldOffset", Vector3.new(0.65, -0.05, 0.35))
+	drill:SetAttribute("HoldOffset", Vector3.new(1.15, -0.1, -0.85))
 	local handle = drill.Handle
 	local support = Instance.new("Attachment")
 	support.Name = "SupportGrip"

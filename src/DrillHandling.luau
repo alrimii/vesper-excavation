@@ -3,15 +3,23 @@ local D = {}
 local Players = game:GetService("Players")
 -- Reuse the rigid-grip two-bone method already used by PickaxeHandling. Some
 -- avatar joint rigs do not follow IKControl's requested hand rotation.
-local function orient(part, from, to, direction)
-	local axisFrom = part.CFrame:VectorToWorldSpace(to - from).Unit
+local function orient(restFrame, from, to, direction)
+	local axisFrom = restFrame:VectorToWorldSpace(to - from).Unit
 	local axis = axisFrom:Cross(direction.Unit)
 	local rotation = axis.Magnitude > 1e-5
 			and CFrame.fromAxisAngle(axis.Unit, math.acos(math.clamp(axisFrom:Dot(direction.Unit), -1, 1)))
 		or CFrame.identity
-	return rotation * part.CFrame.Rotation
+	return rotation * restFrame.Rotation
 end
-local function solveArm(ch, side, torsoFrame, handFrame)
+local function restorePose(d)
+	for joint, original in d.posed or {} do
+		if joint.Parent then
+			joint.Transform = original
+		end
+	end
+	d.posed = {}
+end
+local function solveArm(d, ch, side, torsoFrame, handFrame)
 	local upper, lower, hand =
 		ch:FindFirstChild(side .. "UpperArm"),
 		ch:FindFirstChild(side .. "LowerArm"),
@@ -42,19 +50,26 @@ local function solveArm(ch, side, torsoFrame, handFrame)
 		return
 	end
 	local direction = delta.Unit
-	local pole = torsoFrame.RightVector * (side == "Left" and -1 or 1)
+	-- Elbows sit below the shoulder, outside the ribs and slightly forward.
+	local pole = torsoFrame:VectorToWorldSpace(Vector3.new(side == "Left" and -0.7 or 0.7, -1, -0.15))
 	pole = pole - direction * pole:Dot(direction)
 	if pole.Magnitude < 0.01 then
 		return
 	end
 	local along = (l1 * l1 - l2 * l2 + distance * distance) / (2 * distance)
 	local mid = origin + direction * along + pole.Unit * math.sqrt(math.max(0, l1 * l1 - along * along))
+	-- Solve from bind frames, not last frame's posed parts: no accumulated twist.
+	local upperRest = torsoFrame * shoulder.C0 * shoulder.C1:Inverse()
 	local upperFrame = CFrame.new(origin)
-		* orient(upper, ua.Position, ub.Position, mid - origin)
+		* orient(upperRest, ua.Position, ub.Position, mid - origin)
 		* CFrame.new(-ua.Position)
+	local lowerRest = upperFrame * elbow.C0 * elbow.C1:Inverse()
 	local lowerFrame = CFrame.new(mid)
-		* orient(lower, la.Position, lb.Position, endPoint - mid)
+		* orient(lowerRest, la.Position, lb.Position, endPoint - mid)
 		* CFrame.new(-la.Position)
+	for _, joint in { shoulder, elbow, wrist } do
+		d.posed[joint] = joint.Transform
+	end
 	shoulder.Transform = shoulder.C0:Inverse() * torsoFrame:Inverse() * upperFrame * shoulder.C1
 	elbow.Transform = elbow.C0:Inverse() * upperFrame:Inverse() * lowerFrame * elbow.C1
 	wrist.Transform = wrist.C0:Inverse() * lowerFrame:Inverse() * handFrame * wrist.C1
@@ -69,6 +84,7 @@ function D.Release(actor)
 	if not d then
 		return
 	end
+	restorePose(d)
 	local hum = actor.character:FindFirstChildOfClass("Humanoid")
 	if hum and d.autoRotate ~= nil then
 		hum.AutoRotate = d.autoRotate
@@ -172,6 +188,9 @@ function D.Update(actor, dt)
 	if not d or not d.tool.Parent then
 		return
 	end
+	-- Restore the Animator's prior pose before it evaluates this frame. Release
+	-- uses the same path so neither elbow nor wrist remains in the drill brace.
+	restorePose(d)
 	local hum = actor.character:FindFirstChildOfClass("Humanoid")
 	if not hum or hum.Health <= 0 then
 		D.Release(actor)
@@ -201,8 +220,9 @@ function D.Update(actor, dt)
 			hum.AutoRotate = false
 			local flat = Vector3.new(aim.X, root.Position.Y, aim.Z) - root.Position
 			if flat.Magnitude > 0.2 then
+				local stance = d.rigidGrip and -math.rad(55) or 0
 				root.CFrame = root.CFrame:Lerp(
-					CFrame.lookAt(root.Position, root.Position + flat),
+					CFrame.lookAt(root.Position, root.Position + flat) * CFrame.Angles(0, stance, 0),
 					1 - math.exp(-dt * 12)
 				)
 			end
@@ -224,17 +244,30 @@ function D.Update(actor, dt)
 	if not d.torso then
 		return
 	end
-	local pitch, yaw = 0, 0
-	if (driving or actor.training) and typeof(aim) == "Vector3" then
-		local delta = d.torso.CFrame:PointToObjectSpace(aim) - Vector3.new(0.52, 0.66, -0.95)
-		pitch = math.clamp(math.atan2(delta.Y, math.sqrt(delta.X ^ 2 + delta.Z ^ 2)), -0.55, 0.55)
-		yaw = math.clamp(math.atan2(-delta.X, -delta.Z), -0.65, 0.65)
-	end
-	local vibration = reduced and 0 or math.sin(now * 71) * 0.006 * d.drive
 	local scale = math.clamp(d.torso.Size.Y / 1.7, 0.7, 1.35)
 	local holdOffset = d.tool:GetAttribute("HoldOffset") or Vector3.new(0.52, -0.56, -0.83)
-	local handleFrame = CFrame.new((holdOffset + Vector3.new(0, 0.06 * d.drive, -0.12 * d.drive)) * scale)
-		* CFrame.Angles(pitch - math.rad(10) * (1 - d.drive), yaw, vibration)
+	local pitch, yaw = 0, d.rigidGrip and math.rad(55) or 0
+	if (driving or actor.training) and typeof(aim) == "Vector3" then
+		local delta = d.torso.CFrame:PointToObjectSpace(aim)
+			- (d.rigidGrip and holdOffset * scale or Vector3.new(0.52, 0.66, -0.95))
+		pitch = math.clamp(math.atan2(delta.Y, math.sqrt(delta.X ^ 2 + delta.Z ^ 2)), -0.55, 0.55)
+		yaw = math.clamp(
+			math.atan2(-delta.X, -delta.Z),
+			d.rigidGrip and math.rad(20) or -0.65,
+			d.rigidGrip and math.rad(80) or 0.65
+		)
+	end
+	local vibration = reduced and 0 or math.sin(now * 71) * 0.006 * d.drive
+	-- Lowering the bit lowers the auxiliary grip even further. Lift the rear
+	-- frame with that pitch so the support arm stays bent and within reach.
+	local aimLift = d.rigidGrip and math.max(0, -math.sin(pitch)) * 2 or 0
+	local handleFrame = CFrame.new(
+		(holdOffset + Vector3.new(0, 0.06 * d.drive + aimLift, -0.12 * d.drive)) * scale
+	) * (d.rigidGrip and CFrame.Angles(0, yaw, 0) * CFrame.Angles(pitch, 0, vibration) or CFrame.Angles(
+		pitch - math.rad(10) * (1 - d.drive),
+		yaw,
+		vibration
+	))
 	local handle = d.tool:FindFirstChild("Handle")
 	local support = handle and handle:FindFirstChild("SupportGrip")
 	local hand = actor.character:FindFirstChild("RightHand") or actor.character:FindFirstChild("Right Arm")
@@ -249,6 +282,11 @@ function D.Update(actor, dt)
 	-- Pull the entire rig toward the chest when avatar proportions or aiming
 	-- would otherwise overextend an arm; both hands keep the same contact frame.
 	for _ = 1, 6 do
+		-- The Rodin brace stays in front of the chest; never resolve reach by
+		-- drawing its rear handle through the torso.
+		if d.rigidGrip then
+			break
+		end
 		local reachable = true
 		for side, data in { Right = d.Right, Left = d.Left } do
 			local contact = side == "Right" and d.tool.Grip or support and support.CFrame
@@ -291,10 +329,11 @@ function D.Apply(actor)
 		local grip = hand and hand:FindFirstChild("RightGrip")
 		local support = d.tool.Handle:FindFirstChild("SupportGrip")
 		if grip and grip:IsA("JointInstance") then
-			solveArm(actor.character, "Right", torsoFrame, handleFrame * grip.C1 * grip.C0:Inverse())
+			solveArm(d, actor.character, "Right", torsoFrame, handleFrame * grip.C1 * grip.C0:Inverse())
 		end
 		if support and d.Left and d.Left.grip then
 			solveArm(
+				d,
 				actor.character,
 				"Left",
 				torsoFrame,

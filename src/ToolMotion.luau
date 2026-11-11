@@ -20,6 +20,8 @@ local function capture(ch)
 				or d.Name == "RightElbow"
 				or d.Name == "RightWrist"
 				or d.Name == "LeftShoulder"
+				or d.Name == "LeftElbow"
+				or d.Name == "LeftWrist"
 				or d.Name == "Left Shoulder"
 				or d.Name == "Waist"
 			)

@@ -1,4 +1,12 @@
-# Current checkpoint - temporary owner live test access, published v242
+# Current checkpoint - approved tools, grip polish delivered v244
+
+Owner approved the **pickaxe and drill models/materials**. Preserve both. Grip-only correction delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v244** at **2026-11-11 14:35:55 UTC**. [Review and before/after screenshots](reviews/tool-grip-polish/REVIEW.md), [delivery identity](reviews/tool-grip-polish/delivery.json). Corrected pose appearance is awaiting owner review.
+
+The drill uses a forward diagonal brace, downward/outward elbow plane, stable bind-frame orientation and a downward-aim lift. All six arm joints restore on release/switch. Pickaxe hold was inspected and left unchanged. Approved geometry/materials/icons, bit-only rotation, gameplay values, environment, UI and player data are preserved. **Owner live test access from v242 remains active and unchanged.**
+
+Three memory-only sessions (114 + 329 + 72 seconds) inspected the actual owner's R15 avatar. The middle capture/diagnosis pass was longer than intended; final controlled motion captures and remaining limitations are disclosed in the review. Temporary helper removed; native before/final recovery is private under `Backups/ToolGripPolish_20261111/`; Studio stopped in Edit. Screenshot files are committed for GitHub review. Retain all deferred requirements; do not extend this pose task into tool redesign or other screens.
+
+# Historical delivery - temporary owner live test access, still active
 
 Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v242** at **2026-11-11 14:10:02 UTC**. See [review and use instructions](reviews/owner-test-access/REVIEW.md) and [delivery identity](reviews/owner-test-access/delivery.json).
 
