@@ -333,7 +333,9 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			or string.format("FLOW %.1f / 4.0s", build)
 		local sprint = gui:FindFirstChild("SprintToggle")
 		if sprint then
-			sprint.Size, sprint.Position = UDim2.fromOffset(70, 28), UDim2.fromOffset(w - 80, 108)
+			sprint.Size, sprint.Position =
+				UDim2.fromOffset(80, 40), UDim2.fromOffset(w - 90, w < 700 and 180 or 122)
+			sprint.Font = require(Shared.InterfaceKit).Bold
 			sprint.BackgroundColor3, sprint.TextColor3 =
 				require(Shared.InterfaceKit).Dark, require(Shared.InterfaceKit).Paper
 		end
@@ -362,7 +364,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		local target = gui:FindFirstChild("TargetStatus")
 		gui:SetAttribute("CoreTargetSuppressed", false)
 		if target then
-			target.Position = UDim2.new(0.5, 0, 1, -ui.BeltHeight - 112)
+			target.Position = UDim2.new(0.5, 0, 1, -ui.BeltHeight - (w < 450 and 92 or 112))
 			target.Visible = target.Visible and not blocked and not running and gui.Toast.Text == ""
 		end
 		gui.Toast.AnchorPoint = Vector2.new(0.5, 0)

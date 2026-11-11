@@ -6,7 +6,8 @@ function H.Attach(gui, player)
 	local Catalog = require(Shared.DiscoveryCatalog)
 	local State = Shared.RoundState
 	require(Shared.ExpeditionResults).Attach(gui, player)
-	local shell = K.Shell(player, "FieldJournal", "Research journal", "ResearchModal", nil, 900)
+	local shell = K.Shell(player, "FieldJournal", "Discovery journal", "ResearchModal", nil, 900)
+	shell.HeightCap = 520
 	local active = "RESEARCH"
 	local b1 = K.Button(shell.Body, "ResearchTab", "Research", function()
 		active = "RESEARCH"
@@ -20,28 +21,24 @@ function H.Attach(gui, player)
 	K.Stack(research, 14)
 	local species = K.Scroll(shell.Body, "Discoveries")
 	K.Stack(species, 14)
-	local level = K.Paragraph(research, "Level", "", 28)
+	local level = K.Paragraph(research, "Level", "", 36)
 	level.Font = K.Title
 	local xp = K.Paragraph(research, "XP", "", 16, K.Green)
 	local contract = K.Surface(research, "Contract")
 	contract.Size = UDim2.new(1, -8, 0, 0)
 	contract.AutomaticSize = Enum.AutomaticSize.Y
-	K.Make(
-		"UIPadding",
-		contract,
-		{
-			PaddingTop = UDim.new(0, 16),
-			PaddingBottom = UDim.new(0, 16),
-			PaddingLeft = UDim.new(0, 18),
-			PaddingRight = UDim.new(0, 18),
-		}
-	)
+	K.Make("UIPadding", contract, {
+		PaddingTop = UDim.new(0, 16),
+		PaddingBottom = UDim.new(0, 16),
+		PaddingLeft = UDim.new(0, 18),
+		PaddingRight = UDim.new(0, 18),
+	})
 	K.Stack(contract, 10)
 	K.Paragraph(contract, "Caption", "ACTIVE CONTRACT", 12, K.Green)
 	local ct = K.Paragraph(contract, "Title", "", 23, K.Ink)
 	ct.Font = K.Bold
 	local hint = K.Paragraph(contract, "Hint", "", 16, K.Muted)
-	local progress = K.Paragraph(contract, "Progress", "", 18, K.Green)
+	local progress = K.Paragraph(contract, "Progress", "", 25, K.Green)
 	local upcoming = {}
 	for i = 1, 3 do
 		upcoming[i] = K.Paragraph(research, "Upcoming" .. i, "", 16, K.Muted)
@@ -50,18 +47,14 @@ function H.Attach(gui, player)
 	for _, entry in Catalog.Specimens do
 		local card = K.Surface(species, entry.Id)
 		card.Size = UDim2.new(1, -8, 0, 280)
-		local view = K.Make(
-			"ViewportFrame",
-			card,
-			{
-				Name = "Specimen",
-				BackgroundTransparency = 1,
-				Position = UDim2.fromOffset(12, 8),
-				Size = UDim2.new(1, -24, 0, 202),
-				Ambient = Color3.fromRGB(180, 190, 180),
-				LightColor = Color3.fromRGB(255, 246, 220),
-			}
-		)
+		local view = K.Make("ViewportFrame", card, {
+			Name = "Specimen",
+			BackgroundTransparency = 1,
+			Position = UDim2.fromOffset(12, 8),
+			Size = UDim2.new(1, -24, 0, 202),
+			Ambient = Color3.fromRGB(180, 190, 180),
+			LightColor = Color3.fromRGB(255, 246, 220),
+		})
 		local preview = require(Shared.SpecimenPreview).Create(view, entry.Id, entry.Color)
 		local name = K.Text(card, "Name", "", 23, K.Ink, true)
 		name.Position = UDim2.fromOffset(18, 212)
@@ -99,7 +92,7 @@ function H.Attach(gui, player)
 	local rName = K.Text(reward, "Name", "", 21, K.Paper, true)
 	rName.Position = UDim2.fromOffset(14, 32)
 	rName.Size = UDim2.new(1, -28, 0, 36)
-	local rValue = K.Text(reward, "Value", "", 14, K.Line)
+	local rValue = K.Text(reward, "Value", "", 24, K.Gold)
 	rValue.Position = UDim2.fromOffset(14, 74)
 	rValue.Size = UDim2.new(1, -28, 0, 24)
 	local queue, presenting = {}, false

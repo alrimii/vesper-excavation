@@ -69,13 +69,7 @@ function M.Build(shell, player, _base, remote, feedback)
 	K.Stack(room, 12)
 	local rt = K.Paragraph(room, "RoomIntro", "Your room", 28, K.Ink)
 	rt.Font = K.Title
-	K.Paragraph(
-		room,
-		"RoomDescription",
-		"Choose the lighting and accent theme for your own collection. Your discoveries and training equipment stay in place.",
-		16,
-		K.Muted
-	)
+	K.Paragraph(room, "RoomDescription", "Give your collection a home that feels like you.", 16, K.Muted)
 	local home = K.Button(room, "GoHome", "Go to my room", function()
 		shell:SetOpen(false)
 		remote:FireServer("Home")
@@ -99,15 +93,9 @@ function M.Build(shell, player, _base, remote, feedback)
 	end
 	local options = page("OPTIONS")
 	K.Stack(options, 14)
-	local ot = K.Paragraph(options, "Intro", "Make yourself comfortable", 28, K.Ink)
+	local ot = K.Paragraph(options, "Intro", "Play your way!", 28, K.Ink)
 	ot.Font = K.Title
-	K.Paragraph(
-		options,
-		"Subheading",
-		"Your sound and motion preferences are saved with your profile.",
-		15,
-		K.Muted
-	)
+	K.Paragraph(options, "Subheading", "Your choices are saved automatically.", 15, K.Muted)
 	local settingButtons = {}
 	for _, entry in
 		{
@@ -121,15 +109,15 @@ function M.Build(shell, player, _base, remote, feedback)
 		}
 	do
 		local r = K.Surface(options, entry[1])
-		r.Size = UDim2.new(1, -8, 0, 130)
+		r.Size = UDim2.new(1, -8, 0, 114)
 		local icon = K.Icon(r, entry[1])
-		K.Rect(icon, 12, 12, 40, 40)
+		K.Rect(icon, 12, 12, 58, 58)
 		local title = K.Text(r, "Name", entry[2], 19, K.Ink, true)
-		title.Position = UDim2.fromOffset(64, 10)
-		title.Size = UDim2.new(1, -78, 0, 28)
+		title.Position = UDim2.fromOffset(82, 10)
+		title.Size = UDim2.new(1, -96, 0, 28)
 		local body = K.Text(r, "Description", entry[3], 14, K.Muted)
-		body.Position = UDim2.fromOffset(64, 40)
-		body.Size = UDim2.new(1, -78, 0, 36)
+		body.Position = UDim2.fromOffset(82, 38)
+		body.Size = UDim2.new(1, -96, 0, 28)
 		local b = K.Button(r, "Toggle", "", function()
 			local current = entry[4] == "SFXVolume" and (attr("SFXVolume") or 1) > 0
 				or entry[4] == "ReducedMotion" and attr("ReducedMotion") == true
@@ -139,8 +127,8 @@ function M.Build(shell, player, _base, remote, feedback)
 				entry[4] == "SFXVolume" and (current and 0 or 1) or not current
 			)
 		end)
-		b.Position = UDim2.fromOffset(64, 78)
-		b.Size = UDim2.new(1, -78, 0, 40)
+		b.Position = UDim2.fromOffset(82, 68)
+		b.Size = UDim2.new(1, -96, 0, 36)
 		settingButtons[entry[4]] = b
 	end
 	local saveStatus = K.Paragraph(options, "SaveFeedback", "", 14, K.Green)
@@ -155,20 +143,20 @@ function M.Build(shell, player, _base, remote, feedback)
 	end, true)
 	training.Size = UDim2.new(1, -8, 0, 44)
 	K.Paragraph(options, "TrainingHint", "Training begins at the device in your own room.", 14, K.Muted)
-	local help = K.Button(options, "Controls", "Controls & field guide", function()
+	local help = K.Button(options, "Controls", "How to play", function()
 		active = "HELP"
 	end, true)
 	help.Size = UDim2.new(1, -8, 0, 44)
 	K.Paragraph(
 		options,
 		"Attribution",
-		"Interface icons: Lorc, Delapouite, Skoll & Faithtoken / Game-icons.net / CC BY 3.0. Resized and tinted. Tool and world asset credits are recorded in the project.",
+		"Original illustrated UI. Pickaxe: Kay Lousberg (CC0). Dynamite: Neko (CC BY 3.0). Full asset credits are recorded in the project.",
 		12,
 		K.Muted
 	)
 	local guide = page("HELP")
 	K.Stack(guide, 12)
-	local gt = K.Paragraph(guide, "Title", "Your field guide", 28)
+	local gt = K.Paragraph(guide, "Title", "Let's dig in!", 28)
 	gt.Font = K.Title
 	for _, row in
 		{

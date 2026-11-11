@@ -4,12 +4,12 @@ function M.Attach(gui, player)
 	local K = require(script.Parent.InterfaceKit)
 	local Shared = script.Parent
 	local Rules = require(Shared.ProgressionRules)
-	local shell = K.Shell(player, "FieldResults", "Expedition results", "EggResultsOpen", nil, 780)
+	local shell = K.Shell(player, "FieldResults", "Egg rewards!", "EggResultsOpen", nil, 780)
 	local scroll = K.Scroll(shell.Body, "Result")
 	scroll.Size = UDim2.new(1, 0, 1, -56)
 	K.Stack(scroll, 12)
 	local kicker = K.Paragraph(scroll, "Egg", "", 13, K.Green)
-	local title = K.Paragraph(scroll, "OutcomeTitle", "", 30)
+	local title = K.Paragraph(scroll, "OutcomeTitle", "", 34)
 	title.Font = K.Title
 	local previewHost = K.Make(
 		"Frame",
@@ -17,7 +17,7 @@ function M.Attach(gui, player)
 		{ Name = "Specimen", BackgroundTransparency = 1, Size = UDim2.new(1, -8, 0, 160) }
 	)
 	local outcome = K.Paragraph(scroll, "Outcome", "", 19, K.Ink)
-	local earnings = K.Paragraph(scroll, "Earnings", "", 22, K.Green)
+	local earnings = K.Paragraph(scroll, "Earnings", "", 32, K.Green)
 	local benefits = K.Paragraph(scroll, "Benefits", "", 15, K.Muted)
 	local contribution = K.Paragraph(scroll, "Contribution", "", 15, K.Muted)
 	local chance = K.Paragraph(scroll, "Chance", "", 15, K.Muted)
@@ -186,20 +186,16 @@ function M.Attach(gui, player)
 			local current = d
 				and state:GetAttribute("RoundId") == d.round
 				and state:GetAttribute("Status") == "Revealed"
-			nextRound.Text = current and string.format(
-				"Next egg in %ds",
-				math.max(0, math.ceil(d.nextAt - now))
-			) or ""
+			nextRound.Text = current
+					and string.format("Next egg in %ds", math.max(0, math.ceil(d.nextAt - now)))
+				or ""
 			local recovered = player:GetAttribute("RecoveredEggCreatures") or 0
 			recovery.Text = recovered > 0 and recovered .. " earned creature(s) delivered on this join" or ""
 			if
 				not manual
 				and (
-					os.clock() - opened > 14 or (
-						d
-						and state:GetAttribute("RoundId") == d.round
-						and not current
-					)
+					os.clock() - opened > 14
+					or (d and state:GetAttribute("RoundId") == d.round and not current)
 				)
 			then
 				shell:SetOpen(false)

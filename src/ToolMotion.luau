@@ -380,9 +380,8 @@ function M.Start()
 			local blend = math.clamp((os.clock() - a.equippedAt) / C.Animation.EquipTime, 0, 1)
 			local sway = math.sin(os.clock() * 8) * h.MoveDirection.Magnitude * math.deg(C.Animation.WalkSway)
 			local shoulder = a.joints.RightShoulder or a.joints["Right Shoulder"]
-			-- Animator has already solved IK. Do not overwrite that contact pose afterward.
-			local contactWeight = a.pickHandling and a.pickHandling.ik.Enabled and a.pickHandling.ik.Weight
-				or 0
+			-- Author the swing first; the rigid-grip contact pose blends in below.
+			local contactWeight = 0
 			if shoulder then
 				local r6 = shoulder.Name == "Right Shoulder"
 				local authored = r6 and CFrame.Angles(0, math.rad(pose[2] * blend), math.rad(pose[1] * blend))
@@ -422,6 +421,7 @@ function M.Start()
 				waist.Transform = waist.Transform * addition
 				a.additive[waist] = addition
 			end
+			Pick.Apply(a)
 		end
 	end)
 	Run:BindToRenderStep("VesperToolVisibility", Enum.RenderPriority.Camera.Value + 1, function()

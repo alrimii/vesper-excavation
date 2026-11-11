@@ -1,0 +1,19 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 230,
+  "publishedAtUtc": "2026-11-11T10:29:04.128Z",
+  "publicationEvidence": "Studio log: publishType=1; PublishSuccessful; Publish succeeded for placeId 94763223427049; Add publish notes to v230",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "6cb2768af4152abe34b29f5435c5f07c6a6e9549",
+  "repository": "https://github.com/alrimii/vesper-excavation",
+  "nativeBefore": "Backups/PlayfulInterface_20261111/ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups/PlayfulInterface_20261111/ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "ec0616c1f4f2d3c14fa4af0a8e2e7c259b4e196e642c71c51c486794cfb5b099",
+  "studioMode": "Edit",
+  "visualApproval": false,
+  "temporaryFixtureRemoved": true,
+  "fixedSaveGenerationChanged": false,
+  "accessSettingsChanged": false,
+  "productionDataTouched": false
+}

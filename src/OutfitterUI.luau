@@ -21,7 +21,7 @@ function M.Build(shell, player, base, remote, feedback)
 		page = "RIG"
 		dirty = true
 	end, true)
-	local wallet = K.Text(root, "Balance", "", 16, K.Muted, true)
+	local wallet = K.Text(root, "Balance", "", 24, K.Ink, true)
 	local selectors = {}
 	for _, id in Rules.ToolOrder do
 		local b = K.Button(root, "Select" .. id, "", function()
@@ -37,6 +37,7 @@ function M.Build(shell, player, base, remote, feedback)
 	end
 	local scroll = K.Scroll(root, "EquipmentContent")
 	local stage = K.Surface(scroll, "ToolStage", K.Dark)
+	K.Shine(stage)
 	local views = {}
 	for _, id in Rules.ToolOrder do
 		views[id] = Preview.Create(stage, script.Parent.EquipmentAssets[id])
@@ -45,7 +46,8 @@ function M.Build(shell, player, base, remote, feedback)
 	local name = K.Text(detail, "Name", "", 30, K.Ink)
 	name.Font = K.Title
 	local role = K.Text(detail, "Role", "", 16, K.Green, true)
-	local stats = K.Text(detail, "Stats", "", 18)
+	local stats = K.Text(detail, "Stats", "", 24)
+	local powerLabel = K.Text(detail, "Power", "", 44, K.Purple, true)
 	local hint = K.Text(detail, "Availability", "", 14, K.Muted)
 	local receipt = K.Text(root, "Receipt", "", 14, K.Green)
 	local function attr(k)
@@ -60,7 +62,7 @@ function M.Build(shell, player, base, remote, feedback)
 		receipt.Text = "Waiting for confirmation…"
 		dirty = true
 	end
-	local action = K.Button(detail, "PrimaryAction", "", function()
+	local action = K.Button(root, "PrimaryAction", "", function()
 		send(attr("OwnsTool_" .. selected) and "EquipTool" or "BuyTool", selected)
 	end)
 	local trial = K.Button(detail, "Trial", "Try drill · 90 seconds", function()
@@ -102,7 +104,7 @@ function M.Build(shell, player, base, remote, feedback)
 			icon = K.Icon(row, "Storage"),
 			title = K.Text(row, "Name", names[key], 18, K.Ink, true),
 			rank = K.Text(row, "Rank", "", 13, K.Muted),
-			value = K.Text(row, "Comparison", "", 16, K.Ink, true),
+			value = K.Text(row, "Comparison", "", 22, K.Ink, true),
 			why = K.Text(row, "Benefit", descriptions[key], 13, K.Muted),
 			buy = K.Button(row, "Upgrade", "", function()
 				send("Upgrade", key, quantity)
@@ -110,9 +112,9 @@ function M.Build(shell, player, base, remote, feedback)
 		}
 	end
 	local roles = {
-		Pickaxe = "Measured strikes · precise excavation",
-		Drill = "Continuous contact · focused drilling",
-		Explosive = "Surface charge · controlled area blast",
+		Pickaxe = "Make every swing count!",
+		Drill = "Keep the treasure flowing!",
+		Explosive = "Set it. Step back. BOOM!",
 	}
 	local function effect(key, rank, config)
 		if key == "Power" then
@@ -197,33 +199,29 @@ function M.Build(shell, player, base, remote, feedback)
 				or attr("OwnsTool_" .. id) and "Owned"
 				or cash >= Rules.Tools[id].Cost and "Available"
 				or "Locked"
-			s.b.BackgroundColor3 = selected == id and K.Card or K.Line
+			s.b.BackgroundColor3 = selected == id and K.Gold or K.Card
 		end
-		K.Rect(scroll, 0, 130, w, h - 164)
+		K.Rect(scroll, 0, 130, w, h - 230)
+		K.Rect(action, 0, h - 88, w, 50)
 		K.Rect(receipt, 0, h - 30, w, 28)
 		local owned = attr("OwnsTool_" .. selected) == true
 		local equipped = attr("ToolFamily") == selected
 		local ready = attr("LabReady") == true and attr("Cash") ~= nil
 		local config = Rules.ToolConfig(selected, base)
 		local power, cd = P.ToolStats(selected, player, Rules, base)
+		powerLabel.Text = K.Number(power)
 		local price = Rules.Tools[selected].Cost
 		name.Text = Rules.Tools[selected].Name
 		role.Text = roles[selected]
 		stats.Text = selected == "Drill"
-				and string.format(
-					"%s damage / tick\n%.3fs interval · %.1f DPS",
-					K.Number(power),
-					cd,
-					power / cd
-				)
+				and string.format("DAMAGE / TICK\n%.3fs interval · %.1f DPS", cd, power / cd)
 			or selected == "Explosive" and string.format(
-				"%s center damage\n%.2fs cooldown · %g stud radius\n%d%% damage at edge",
-				K.Number(power),
+				"CENTER DAMAGE\n%.2fs cooldown · %g stud radius\n%d%% damage at edge",
 				cd,
 				base.Tools.Explosive.Radius,
 				base.Tools.Explosive.EdgeMultiplier * 100
 			)
-			or string.format("%s damage / strike\n%.2fs between swings", K.Number(power), cd)
+			or string.format("DAMAGE / STRIKE\n%.2fs between swings", cd)
 		hint.Text = not ready and "Loading equipment…"
 			or not owned and (cash < price and "Need " .. K.Number(price - cash) .. " more credits." or "One-time purchase. Each tool keeps its own upgrades.")
 			or not equipped and "Ready to equip."
@@ -246,7 +244,7 @@ function M.Build(shell, player, base, remote, feedback)
 		quantityHost.Visible = page == "RIG"
 		local cw = w - 8
 		if page == "TOOLS" then
-			local sh = narrow and 200 or 300
+			local sh = narrow and 180 or math.max(190, math.min(320, h - 170))
 			local dw = narrow and cw or cw * 0.48
 			K.Rect(stage, 0, 0, narrow and cw or cw * 0.49, sh)
 			for id, v in views do
@@ -254,18 +252,18 @@ function M.Build(shell, player, base, remote, feedback)
 				v.Position = UDim2.fromOffset(16, 12)
 				v.Size = UDim2.new(1, -32, 1, -24)
 			end
-			K.Rect(detail, narrow and 0 or cw * 0.52, narrow and sh + 16 or 0, dw, 310)
+			K.Rect(detail, narrow and 0 or cw * 0.52, narrow and sh + 12 or 0, dw, 270)
 			K.Rect(name, 0, 0, dw, 42)
-			K.Rect(role, 0, 48, dw, 42)
-			K.Rect(stats, 0, 100, dw, 76)
-			K.Rect(hint, 0, 185, dw, 40)
-			K.Rect(action, 0, 236, dw, 44)
-			K.Rect(trial, 0, 290, dw, 44)
-			detail.Size = UDim2.fromOffset(dw, trial.Visible and 338 or 284)
+			K.Rect(role, 0, 46, dw, 28)
+			K.Rect(powerLabel, 0, 80, 100, 62)
+			K.Rect(stats, 108, 80, dw - 108, 76)
+			stats.TextSize = 16
+			K.Rect(hint, 0, 166, dw, 32)
+			K.Rect(trial, 0, 210, dw, 44)
+			detail.Size = UDim2.fromOffset(dw, trial.Visible and 258 or 202)
 		else
 			K.Rect(detail, 0, 0, cw, 52)
 			K.Rect(hint, 0, 0, math.max(0, cw - 180), 48)
-			K.Rect(action, cw - 172, 0, 172, 44)
 			K.Rect(quantityHost, 0, 60, cw, 48)
 			K.Rect(qtyLabel, 0, 0, 100, 44)
 			for i, b in qty do
@@ -276,6 +274,7 @@ function M.Build(shell, player, base, remote, feedback)
 		name.Visible = page == "TOOLS"
 		role.Visible = page == "TOOLS"
 		stats.Visible = page == "TOOLS"
+		powerLabel.Visible = page == "TOOLS"
 		local cols = narrow and 1 or 2
 		local rw = (cw - (cols - 1) * 12) / cols
 		for i, key in E.Order do

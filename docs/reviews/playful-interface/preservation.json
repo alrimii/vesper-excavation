@@ -1,0 +1,645 @@
+{
+  "beforeWorldParts": 15963,
+  "afterWorldParts": 15965,
+  "removedOrChanged": [
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.PickGrip",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "818a5b6a",
+          "83d13e46"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          43,
+          52,
+          50
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://99150418990680",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7d8aa0c6",
+          "80296db0",
+          "7ceadec6"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.PickTimber",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "8231fa82",
+          "83d13e46"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          151,
+          100,
+          66
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://123654191517178",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7d654a6c",
+          "811e7c5a",
+          "7cd8f57a"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.PickSteel",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "826de344",
+          "83d00058"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          144,
+          157,
+          161
+        ],
+        "Material": "00000440",
+        "MeshId": "rbxassetid://111087107844403",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "81262c94",
+          "7e551b86",
+          "7de8df60"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.drill bit_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8600e1c8",
+          "822a86c6",
+          "84685eb6"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          163,
+          162,
+          165
+        ],
+        "Material": "00000100",
+        "MeshId": "rbxassetid://115643581220190",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://70688239826451",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7e0f32b0",
+          "7ca7f9c6",
+          "7f74bd2a"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.handle_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8606082a",
+          "81b71aa6",
+          "84532290"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          163,
+          162,
+          165
+        ],
+        "Material": "00000100",
+        "MeshId": "rbxassetid://137418981669214",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://138487582679031",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7f5b3620",
+          "80dc6a8c",
+          "801d0d94"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.body_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8604e968",
+          "822bf828",
+          "8457c772"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          163,
+          162,
+          165
+        ],
+        "Material": "00000100",
+        "MeshId": "rbxassetid://121206435734736",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://100714057797210",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7fa04cd8",
+          "7fa6e952",
+          "811a7380"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.RubberGrip",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8605ce92",
+          "82255390",
+          "8464989e"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          30,
+          39,
+          46
+        ],
+        "Material": "00000110",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7f74bd2a",
+          "7df9dc26",
+          "7df9dc26"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.MountCollar",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8604b9a2",
+          "82255390",
+          "846064c2"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          105,
+          126,
+          137
+        ],
+        "Material": "00000440",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7d3f7d92",
+          "7e74bd2a",
+          "7e74bd2a"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.EndCap",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8606ed0e",
+          "82255390",
+          "8468f192"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          105,
+          126,
+          137
+        ],
+        "Material": "00000440",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7c74bd2a",
+          "7e322dac",
+          "7e322dac"
+        ]
+      }
+    ]
+  ],
+  "addedOrChanged": [
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.GoldenSocket",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050002",
+          "825f0dbc",
+          "83d000da"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          189,
+          52
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://77576142290595",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7ee25490",
+          "7fa73126",
+          "7f61c958"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.VioletWrap",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "8186a7c2",
+          "83d000f2"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          173,
+          84,
+          204
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://122896331198648",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7e7b4480",
+          "7f465e6c",
+          "7e48adbc"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.GoldenCaps",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "820ccccc",
+          "83d00100"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          204,
+          74
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://124266008954625",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7e927eb2",
+          "81b33334",
+          "7e528dea"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.PlumShaft",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "8227c774",
+          "83d00100"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          100,
+          52,
+          139
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://120302976562567",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7e927eb2",
+          "8140353c",
+          "7e528dea"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.PickaxeDisplay.AquaHead",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "2ebdbb3300000000000080bf000000000000803f000000000000803f000000002ebdbb33",
+          "86050000",
+          "8251edc0",
+          "83d0005c"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          43,
+          206,
+          228
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://108913423749208",
+        "Reflectance": "00000000",
+        "TextureID": "",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "81c70374",
+          "7fb02a22",
+          "7fd76348"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.drill bit_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8600e1c8",
+          "822a86c6",
+          "84685eb6"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          255,
+          255
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://115643581220190",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://70688239826451",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7e0f32b0",
+          "7ca7f9c6",
+          "7f74bd2a"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.handle_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8606082a",
+          "81b71aa6",
+          "84532290"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          255,
+          255
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://137418981669214",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://138487582679031",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7f5b3620",
+          "80dc6a8c",
+          "801d0d94"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.body_geom",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8604e968",
+          "822bf828",
+          "8457c772"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          255,
+          255
+        ],
+        "Material": "00000110",
+        "MeshId": "rbxassetid://121206435734736",
+        "Reflectance": "00000000",
+        "TextureID": "rbxassetid://100714057797210",
+        "Transparency": "00000000",
+        "class": "MeshPart",
+        "size": [
+          "7fa04cd8",
+          "7fa6e952",
+          "811a7380"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.RubberGrip",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8605ce92",
+          "82255390",
+          "8464989e"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          73,
+          39,
+          112
+        ],
+        "Material": "00000110",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7f74bd2a",
+          "7df9dc26",
+          "7df9dc26"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.MountCollar",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8604b9a2",
+          "82255390",
+          "846064c2"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          186,
+          46
+        ],
+        "Material": "00000440",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7d3f7d92",
+          "7e74bd2a",
+          "7e74bd2a"
+        ]
+      }
+    ],
+    [
+      "Workspace.VesperLab.SharedWorkshop.IntegratedWorkshop.DrillDisplay.EndCap",
+      {
+        "Anchored": 1,
+        "CFrame": [
+          "a6a437bf000000005f5b323f000000000000803f000000005f5b32bf00000000a6a437bf",
+          "8606ed0e",
+          "82255390",
+          "8468f192"
+        ],
+        "CanCollide": 0,
+        "CanQuery": 0,
+        "CanTouch": 0,
+        "Color3uint8": [
+          255,
+          186,
+          46
+        ],
+        "Material": "00000440",
+        "Reflectance": "00000000",
+        "Transparency": "00000000",
+        "class": "Part",
+        "size": [
+          "7c74bd2a",
+          "7e322dac",
+          "7e322dac"
+        ]
+      }
+    ]
+  ],
+  "lightingMatches": true,
+  "unchangedWorldParts": 15954,
+  "protectedGeometryMatches": true,
+  "changedSourcePaths": [
+    "ReplicatedFirst.LoadingView",
+    "ReplicatedStorage.VesperShared.MaterialBag",
+    "ReplicatedStorage.VesperShared.ToolMotion",
+    "ReplicatedStorage.VesperShared.InterfaceTheme",
+    "ReplicatedStorage.VesperShared.WorkshopUI",
+    "ReplicatedStorage.VesperShared.MiningFeedback",
+    "ReplicatedStorage.VesperShared.SkillArt",
+    "ReplicatedStorage.VesperShared.DiscoveryHUD",
+    "ReplicatedStorage.VesperShared.PickaxeHandling",
+    "ReplicatedStorage.VesperShared.SkillTreeUI",
+    "ReplicatedStorage.VesperShared.InterfaceKit",
+    "ReplicatedFirst.InterfaceTheme",
+    "ReplicatedStorage.VesperShared.HUDController",
+    "ReplicatedFirst.Loading",
+    "ReplicatedStorage.VesperShared.MotionClips",
+    "ReplicatedStorage.VesperShared.Targeting",
+    "ReplicatedStorage.VesperShared.OutfitterUI",
+    "ReplicatedStorage.VesperShared.SecondaryMenus",
+    "ReplicatedStorage.VesperShared.ExpeditionResults",
+    "ServerStorage.VesperTools.ToolPresentationBuilder",
+    "ReplicatedStorage.VesperShared.ToolVisuals",
+    "ReplicatedStorage.VesperShared.FieldHUD"
+  ],
+  "unchangedSources": 193,
+  "temporaryFixtureRemoved": true
+}

@@ -19,3 +19,6 @@
 # Phase 3 temporary hosted mesh derivatives; original downloads and editable masters remain private.
 assets/environment/compact-interior/exports/ArchitecturalIvy.glb
 assets/environment/compact-interior/exports/TrailingVine.glb
+# Upload staging copies; canonical illustrated atlases are in assets/ui/playful.
+assets/environment/compact-interior/exports/PlayfulIcons.png
+assets/environment/compact-interior/exports/PlayfulSkills.png

@@ -1,7 +1,7 @@
 -- Phase 5: one presentation vocabulary and one modal owner. No gameplay mutations here.
 local K = table.clone(require(script.Parent.InterfaceTheme))
 local active, bound = nil, false
-local atlas = "rbxassetid://121599750729304"
+local atlas = "rbxassetid://132558544808738"
 local keys = {
 	"Pickaxe",
 	"Drill",
@@ -37,12 +37,28 @@ function K.Rect(o, x, y, w, h)
 	o.Size = UDim2.fromOffset(math.max(0, w), math.max(0, h))
 end
 function K.Round(o, r)
-	return K.Make("UICorner", o, { CornerRadius = UDim.new(0, r or 8) })
+	return K.Make("UICorner", o, { CornerRadius = UDim.new(0, r or 16) })
+end
+function K.Outline(o, color, thickness)
+	return K.Make("UIStroke", o, {
+		Name = "Outline",
+		Color = color or K.Ink,
+		Thickness = thickness or 3,
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+	})
+end
+function K.Shine(o)
+	return K.Make(
+		"UIGradient",
+		o,
+		{ Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(195, 215, 241)), Rotation = 90 }
+	)
 end
 function K.Surface(parent, name, color)
 	local o =
 		K.Make("Frame", parent, { Name = name, BackgroundColor3 = color or K.Card, BorderSizePixel = 0 })
 	K.Round(o)
+	K.Outline(o)
 	return o
 end
 function K.Text(parent, name, value, size, color, bold)
@@ -70,7 +86,31 @@ function K.Button(parent, name, value, callback, secondary)
 		AutoButtonColor = true,
 		Selectable = true,
 	})
-	K.Round(b, 7)
+	K.Round(b, 12)
+	K.Outline(b)
+	K.Shine(b)
+	local scale = K.Make("UIScale", b, { Scale = 1 })
+	local function pulse(targetScale)
+		local player = game:GetService("Players").LocalPlayer
+		if player and player:GetAttribute("ReducedMotion") then
+			return
+		end
+		game:GetService("TweenService")
+			:Create(scale, TweenInfo.new(0.1, Enum.EasingStyle.Quad), { Scale = targetScale })
+			:Play()
+	end
+	b.MouseEnter:Connect(function()
+		pulse(1.025)
+	end)
+	b.MouseLeave:Connect(function()
+		pulse(1)
+	end)
+	b.MouseButton1Down:Connect(function()
+		pulse(0.96)
+	end)
+	b.MouseButton1Up:Connect(function()
+		pulse(1)
+	end)
 	if callback then
 		b.Activated:Connect(callback)
 	end
@@ -85,13 +125,13 @@ function K.Enabled(b, on, label)
 		b.Text = label
 	end
 end
-function K.Icon(parent, key, color)
+function K.Icon(parent, key, _color)
 	local icon = K.Make("ImageLabel", parent, {
 		Name = key .. "Icon",
 		BackgroundTransparency = 1,
 		Image = atlas,
 		ScaleType = Enum.ScaleType.Fit,
-		ImageColor3 = color or K.Green,
+		ImageColor3 = Color3.new(1, 1, 1),
 	})
 	K.SetIcon(icon, key)
 	return icon
@@ -99,8 +139,12 @@ end
 function K.SetIcon(icon, key)
 	local i = (table.find(keys, key) or 5) - 1
 	icon.Image = atlas
-	icon.ImageRectOffset = Vector2.new(i % 5 * 128, math.floor(i / 5) * 128)
-	icon.ImageRectSize = Vector2.new(128, 128)
+	local row = math.floor(i / 5) + 1
+	local y = ({ 0, 310, 585, 845 })[row]
+	local height = ({ 305, 270, 260, 275 })[row]
+	icon.ImageRectOffset = Vector2.new(math.floor(i % 5 * 204.8), math.floor(y * 1024 / 1402))
+	icon.ImageRectSize = Vector2.new(204, math.floor(height * 1024 / 1402))
+	icon.ImageColor3 = Color3.new(1, 1, 1)
 end
 function K.Scroll(parent, name)
 	return K.Make("ScrollingFrame", parent, {
@@ -163,7 +207,7 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 	local cover = K.Button(shade, "InputShield", "", nil)
 	cover.Size = UDim2.fromScale(1, 1)
 	cover.BackgroundColor3 = K.Dark
-	cover.BackgroundTransparency = 0.24
+	cover.BackgroundTransparency = 0.42
 	cover.Selectable = false
 	cover.AutoButtonColor = false
 	cover.Modal = true
@@ -172,10 +216,11 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 	root.Position = UDim2.fromScale(0.5, 0.5)
 	root.Active = true
 	root.ClipsDescendants = true
-	local head = K.Surface(root, "Header", K.Dark)
+	local head = K.Surface(root, "Header", K.Purple)
+	K.Shine(head)
 	local cap = K.Text(head, "Title", title, 30, K.Paper)
 	cap.Font = K.Title
-	local tag = K.Text(head, "Kicker", "VESPER  /  FIELD NOTES", 10, K.Gold, true)
+	local tag = K.Text(head, "Kicker", "", 10, K.Gold, true)
 	local body = K.Make("Frame", root, { Name = "Body", BackgroundTransparency = 1, ClipsDescendants = true })
 	local changed = Instance.new("BindableEvent")
 	local api =
@@ -216,22 +261,24 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 			end
 		end
 	end
-	api.Close = K.Button(head, "Close", "Close", function()
+	api.Close = K.Button(head, "Close", "X", function()
 		api:SetOpen(false)
-	end, true)
+	end)
+	api.Close.BackgroundColor3 = K.Error
+	api.Close.TextSize = 26
 	function api:Layout()
 		local s = screen.AbsoluteSize
-		local w = math.min(maxWidth or 1040, math.max(100, s.X - 24))
+		local w = math.min(self.WidthCap or maxWidth or 1040, math.max(100, s.X - 24))
 		local h = math.min(self.HeightCap or 700, math.max(100, s.Y - 24))
 		K.Rect(root, 0, 0, w, h)
 		root.Position = UDim2.fromScale(0.5, 0.5)
-		K.Rect(head, 0, 0, w, 72)
+		K.Rect(head, 0, 0, w, 64)
 		K.Rect(tag, 20, 8, w - 120, 14)
-		K.Rect(cap, 20, 25, w - 120, 38)
-		K.Rect(self.Close, w - 88, 17, 70, 42)
-		K.Rect(body, 18, 86, w - 36, h - 104)
+		K.Rect(cap, 20, 8, w - 100, 48)
+		K.Rect(self.Close, w - 61, 10, 46, 44)
+		K.Rect(body, 18, 78, w - 36, h - 96)
 		self.Width = w - 36
-		self.Height = h - 104
+		self.Height = h - 96
 		self.Narrow = w < 660
 		changed:Fire(self.Width, self.Height, self.Narrow)
 	end

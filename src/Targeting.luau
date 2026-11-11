@@ -4,6 +4,7 @@ function T.new(player, gui, egg, C)
 	local UIS = game:GetService("UserInputService")
 	local Run = game:GetService("RunService")
 	local shared = game.ReplicatedStorage.VesperShared
+	local theme = require(shared.InterfaceTheme)
 	local state = shared:WaitForChild("RoundState")
 	local targeter = { confirmedUntil = 0 }
 	local highlight = Instance.new("Highlight")
@@ -52,11 +53,11 @@ function T.new(player, gui, egg, C)
 	status.Size = UDim2.fromOffset(300, 32)
 	status.AnchorPoint = Vector2.new(0.5, 1)
 	status.Position = UDim2.new(0.5, 0, 1, -118)
-	status.BackgroundColor3 = Color3.fromRGB(20, 30, 35)
+	status.BackgroundColor3 = theme.Dark
 	status.BackgroundTransparency = 0.18
-	status.TextColor3 = Color3.fromRGB(222, 235, 229)
-	status.TextSize = 13
-	status.Font = Enum.Font.GothamMedium
+	status.TextColor3 = theme.Paper
+	status.TextSize = 15
+	status.Font = theme.Bold
 	status.Visible = false
 	status.Parent = gui
 	local round = Instance.new("UICorner")
@@ -67,8 +68,8 @@ function T.new(player, gui, egg, C)
 	hp.Position = UDim2.new(0, 0, 1, -3)
 	hp.BorderSizePixel = 0
 	hp.Parent = status
-	local ready = Color3.fromRGB(126, 228, 190)
-	local distant = Color3.fromRGB(246, 177, 72)
+	local ready = theme.Cyan
+	local distant = theme.Gold
 	local function blockedByUI(ignorePointer)
 		if
 			gui.Station.Visible

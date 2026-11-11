@@ -10,13 +10,13 @@ function M.Attach(_gui, player, remote, counter)
 	local scroll = K.Scroll(shell.Body, "Contents")
 	scroll.Size = UDim2.fromScale(1, 1)
 	K.Stack(scroll, 14)
-	local capacity = K.Paragraph(scroll, "Capacity", "", 24, K.Ink)
+	local capacity = K.Paragraph(scroll, "Capacity", "", 30, K.Ink)
 	capacity.Font = K.Title
 	local rows = {}
 	for _, layer in require(script.Parent.ExcavationConfig).Layers do
 		rows[layer.Id] = K.Paragraph(scroll, layer.Id, "", 18, K.Green)
 	end
-	local value = K.Paragraph(scroll, "SaleValue", "", 23, K.Ink)
+	local value = K.Paragraph(scroll, "SaleValue", "", 32, K.Ink)
 	K.Paragraph(
 		scroll,
 		"Pending",
@@ -36,6 +36,7 @@ function M.Attach(_gui, player, remote, counter)
 		shell:SetOpen(not shell.Open)
 	end)
 	hit.BackgroundTransparency = 1
+	hit:FindFirstChild("Outline"):Destroy()
 	hit.Size = UDim2.fromScale(1, 1)
 	hit.ZIndex = 8
 	return {

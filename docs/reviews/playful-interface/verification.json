@@ -1,0 +1,161 @@
+{
+  "contact": {
+    "min": 0.000881480926182121,
+    "samples": {
+      "1": {
+        "t": 0.050653934478759766,
+        "d": 1.8429877758026123
+      },
+      "8": {
+        "t": 0.4838700294494629,
+        "d": 2.4174492359161377
+      },
+      "3": {
+        "t": 0.18288898468017578,
+        "d": 3.877128839492798
+      },
+      "2": {
+        "t": 0.11672282218933105,
+        "d": 3.743804454803467
+      },
+      "5": {
+        "t": 0.3032498359680176,
+        "d": 0.000881480926182121
+      },
+      "4": {
+        "t": 0.233367919921875,
+        "d": 0.12524856626987457
+      },
+      "7": {
+        "t": 0.4175529479980469,
+        "d": 2.285069227218628
+      },
+      "6": {
+        "t": 0.36701083183288574,
+        "d": 1.0044031143188477
+      }
+    },
+    "feedback": {
+      "1": {
+        "a": 291892217,
+        "time": 45.71579313278198,
+        "b": 0.6,
+        "e": "Workspace.Alrimi.Field Pickaxe",
+        "kind": "Windup",
+        "c": 2,
+        "d": "-0.014047578908503056, 20.021709442138672, 39.8391227722168"
+      },
+      "2": {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "-0.014046205207705498, 20.021760940551758, 39.83913803100586",
+        "e": 2,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R14_C51",
+        "g": true,
+        "f": 35,
+        "h": false,
+        "time": 46.015177965164185,
+        "kind": "Hit"
+      }
+    }
+  },
+  "transactions": {
+    "fixture": {
+      "progression": {
+        "guards": {
+          "lastMiningAt": 1794391777.098017,
+          "lastDamageAt": 1794391777.397781,
+          "nextAttackAt": 1794391777.6630168
+        },
+        "xpUnits": 280030000,
+        "version": 1,
+        "highestLevel": 20,
+        "saleLatch": false,
+        "loadout": {
+          "1": "",
+          "2": ""
+        },
+        "ranks": {
+          "impact.fault_survey": 1
+        }
+      },
+      "levels": {
+        "Drill": {
+          "Speed": 0,
+          "Critical": 0,
+          "Power": 1,
+          "Value": 0,
+          "Precision": 0,
+          "Yield": 0,
+          "Capacity": 0
+        },
+        "Pickaxe": {
+          "Speed": 0,
+          "Critical": 0,
+          "Power": 0,
+          "Value": 0,
+          "Precision": 0,
+          "Yield": 0,
+          "Capacity": 0
+        },
+        "Explosive": {
+          "Speed": 0,
+          "Critical": 0,
+          "Power": 0,
+          "Value": 0,
+          "Precision": 0,
+          "Yield": 0,
+          "Capacity": 0
+        }
+      },
+      "preferences": {
+        "sound": false,
+        "reducedMotion": false
+      },
+      "owned": {
+        "Drill": true,
+        "Pickaxe": true,
+        "Explosive": true
+      },
+      "save": "STUDIO PREVIEW",
+      "tool": "Pickaxe",
+      "cash": 21928
+    },
+    "save": "STUDIO PREVIEW",
+    "hp": {
+      "1": {
+        "time": 367.68557500839233,
+        "hp": 155
+      },
+      "3": {
+        "time": 453.0155839920044,
+        "hp": 105
+      },
+      "2": {
+        "time": 434.51552391052246,
+        "hp": 130
+      }
+    }
+  },
+  "cancellation": {
+    "beforeHP": 111,
+    "afterHP": 111,
+    "event": "Windup then Cancel; no Hit"
+  },
+  "narrowScroll": {
+    "canvasBefore": [
+      0,
+      0
+    ],
+    "canvasAfter": [
+      0,
+      136
+    ],
+    "primaryActionPosition": [
+      30,
+      490
+    ]
+  },
+  "runtimeSessions": 4,
+  "notes": "First three sessions included pointer fallback/contact diagnosis. Last session only rechecked narrow counter/sprint layout and compact journal. No production profiles used."
+}

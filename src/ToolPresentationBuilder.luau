@@ -72,7 +72,7 @@ end
 function B.Build()
 	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
 	local clips = require(Shared.MotionClips)
-	replace(Kit.StarterPickaxe, Assets.FieldPickaxe, "Pickaxe", clips.PickaxeGrip)
+	replace(Kit.StarterPickaxe, Assets.TreasurePickaxe, "Pickaxe", clips.PickaxeGrip)
 	local tip = Instance.new("Attachment")
 	tip.Name = "StrikeTip"
 	tip.Position = clips.PickaxeStrikeTip
@@ -88,8 +88,22 @@ function B.Build()
 	drill:SetAttribute("ToolVisualRevision", Visuals.Revision)
 	for _, root in { drill, game.ServerStorage.HelixDrillSource } do
 		for _, p in root:GetDescendants() do
+			if p:IsA("MeshPart") then
+				p.Color = Color3.new(1, 1, 1)
+				p.Material = Enum.Material.SmoothPlastic
+			end
 			if p:IsA("MeshPart") and p.Name == "body_geom" then
 				p.TextureID = Assets:GetAttribute("DrillBodyTexture")
+			end
+		end
+	end
+	for _, p in drill:GetDescendants() do
+		if p:IsA("BasePart") then
+			if p.Name == "MountCollar" or p.Name == "EndCap" then
+				p.Color = Color3.fromRGB(255, 186, 46)
+			end
+			if p.Name == "RubberGrip" then
+				p.Color = Color3.fromRGB(73, 39, 112)
 			end
 		end
 	end

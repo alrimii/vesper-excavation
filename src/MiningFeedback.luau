@@ -19,7 +19,10 @@ function M.Start(folder, roundState)
 		local group = award and "Award" or "Damage"
 		local count, oldest = 0, nil
 		for i, entry in popups do
-			if entry.group == group then count += 1; oldest = oldest or i end
+			if entry.group == group then
+				count += 1
+				oldest = oldest or i
+			end
 		end
 		local limit = award and 2 or 4
 		if count >= limit and oldest then
@@ -41,7 +44,7 @@ function M.Start(folder, roundState)
 		gui.Adornee, gui.Parent = part, part
 		local label = Instance.new("TextLabel")
 		label.Size, label.BackgroundTransparency = UDim2.fromScale(1, 1), 1
-		label.Font, label.TextSize = Enum.Font.GothamBold, award and 14 or 21
+		label.Font, label.TextSize = Enum.Font.FredokaOne, award and 20 or 27
 		label.TextWrapped = award
 		label.TextColor3, label.TextStrokeTransparency = color, 0.25
 		label.Text, label.Parent = text, gui
@@ -49,51 +52,98 @@ function M.Start(folder, roundState)
 		table.insert(popups, entry)
 		local life = award and 1.8 or 0.75
 		if not player:GetAttribute("ReducedMotion") then
-			Tween:Create(part, TweenInfo.new(life, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				{ Position = position + Vector3.yAxis * 0.6 }):Play()
+			Tween:Create(
+				part,
+				TweenInfo.new(life, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+				{ Position = position + Vector3.yAxis * 0.6 }
+			):Play()
 		end
-		Tween:Create(label, TweenInfo.new(0.22, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, life - 0.22),
-			{ TextTransparency = 1, TextStrokeTransparency = 1 }):Play()
+		Tween:Create(
+			label,
+			TweenInfo.new(0.22, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, life - 0.22),
+			{ TextTransparency = 1, TextStrokeTransparency = 1 }
+		):Play()
 		Debris:AddItem(part, life + 0.05)
 		task.delay(life, function()
 			local index = table.find(popups, entry)
-			if index then table.remove(popups, index) end
+			if index then
+				table.remove(popups, index)
+			end
 			part:Destroy()
 		end)
 	end
 	roundState:GetAttributeChangedSignal("RoundId"):Connect(function()
 		table.clear(hits)
-		for _, entry in popups do entry.part:Destroy() end
+		for _, entry in popups do
+			entry.part:Destroy()
+		end
 		table.clear(popups)
 	end)
-	Players.PlayerRemoving:Connect(function(p) hits[p.UserId] = nil end)
+	Players.PlayerRemoving:Connect(function(p)
+		hits[p.UserId] = nil
+	end)
 	local controller = {}
 	function controller:AcceptHit(userId, sequence, result)
-		if typeof(result) ~= "table" or result.RoundId ~= roundState:GetAttribute("RoundId") then return false end
-		if typeof(sequence) ~= "number" or typeof(result.SectionId) ~= "string" then return false end
-		local previous = hits[userId]
-		if previous and sequence < previous.sequence then return false end
-		if not previous or sequence > previous.sequence then
-			previous = { sequence = sequence, sections = {} }; hits[userId] = previous
+		if typeof(result) ~= "table" or result.RoundId ~= roundState:GetAttribute("RoundId") then
+			return false
 		end
-		if previous.sections[result.SectionId] then return false end
+		if typeof(sequence) ~= "number" or typeof(result.SectionId) ~= "string" then
+			return false
+		end
+		local previous = hits[userId]
+		if previous and sequence < previous.sequence then
+			return false
+		end
+		if not previous or sequence > previous.sequence then
+			previous = { sequence = sequence, sections = {} }
+			hits[userId] = previous
+		end
+		if previous.sections[result.SectionId] then
+			return false
+		end
 		previous.sections[result.SectionId] = true
 		return true
 	end
 	function controller:Hit(userId, position, damage, precise, critical, result)
-		if userId ~= player.UserId then return end
-		local prefix = result.Broken and "BREAK  " or critical and "CRITICAL  " or precise and "PRECISE  " or ""
-		popup(position, prefix .. tostring(damage), result.Broken and Color3.fromRGB(160, 243, 204)
-			or (precise or critical) and Color3.fromRGB(255, 218, 145) or Color3.fromRGB(246, 241, 224), false)
+		if userId ~= player.UserId then
+			return
+		end
+		local prefix = result.Broken and "BREAK  "
+			or critical and "CRITICAL  "
+			or precise and "PRECISE  "
+			or ""
+		popup(
+			position,
+			prefix .. tostring(damage),
+			result.Broken and Color3.fromRGB(160, 243, 204)
+				or (precise or critical) and Color3.fromRGB(255, 218, 145)
+				or Color3.fromRGB(255, 248, 170),
+			false
+		)
 	end
 	function controller:Award(amount, receipt)
-		if typeof(receipt) ~= "table" or typeof(amount) ~= "number" or amount < 0
-			or typeof(receipt.Position) ~= "Vector3" or typeof(receipt.ResourceName) ~= "string" then return end
-		local key = tostring(receipt.RoundId) .. ":" .. tostring(receipt.Sequence) .. ":" .. tostring(receipt.SectionId)
-		if receipts[key] then return end
+		if
+			typeof(receipt) ~= "table"
+			or typeof(amount) ~= "number"
+			or amount < 0
+			or typeof(receipt.Position) ~= "Vector3"
+			or typeof(receipt.ResourceName) ~= "string"
+		then
+			return
+		end
+		local key = tostring(receipt.RoundId)
+			.. ":"
+			.. tostring(receipt.Sequence)
+			.. ":"
+			.. tostring(receipt.SectionId)
+		if receipts[key] then
+			return
+		end
 		receipts[key] = true
 		table.insert(receiptOrder, key)
-		if #receiptOrder > 64 then receipts[table.remove(receiptOrder, 1)] = nil end
+		if #receiptOrder > 64 then
+			receipts[table.remove(receiptOrder, 1)] = nil
+		end
 		-- Final receipts remain valid even if next-round replication overtakes them.
 		local delivered, pending = receipt.Delivered or amount, receipt.Pending or 0
 		local caption = amount == 0 and (receipt.ResourceName .. ": 0 units (rounded share)")
@@ -104,8 +154,7 @@ function M.Start(folder, roundState)
 			-- Contributors may have moved away before settlement; keep their receipt visible.
 			position = camera.CFrame.Position + camera.CFrame.LookVector * 12
 		end
-		popup(position, caption,
-			Color3.fromRGB(160, 243, 204), true)
+		popup(position, caption, Color3.fromRGB(160, 243, 204), true)
 	end
 	return controller
 end

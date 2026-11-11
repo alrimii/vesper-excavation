@@ -1,0 +1,59 @@
+[
+  {
+    "path": "assets/132558544808738",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T09:44:12.632Z",
+    "assetId": "132558544808738",
+    "displayName": "Vesper Treasure Icons",
+    "description": "Original colorful excavation interface artwork.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  {
+    "path": "assets/82521932688624",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T09:48:36.050Z",
+    "assetId": "82521932688624",
+    "displayName": "Vesper Treasure Skills",
+    "description": "Original illustrated excavation skill artwork.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  {
+    "path": "assets/73344349949628",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T09:47:38.408Z",
+    "assetId": "73344349949628",
+    "displayName": "Vesper Treasure Pickaxe",
+    "description": "Stylized pickaxe adapted from Kay Lousberg CC0 tools.",
+    "assetType": "Model",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  }
+]

@@ -1,0 +1,156 @@
+[
+  {
+    "file": "01-hud.png",
+    "source": "hud-delivery-full.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "ad8eb27e77875aea230bf2d7b6a8b785d80cbb48eb9833b200ab2433945172d0"
+  },
+  {
+    "file": "02-equipment.png",
+    "source": "equipment-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "be592546b0adc3c73ea8a0fb7ff69e625a88ecf78a5ea56f3083dc5e119552b6"
+  },
+  {
+    "file": "03-skills.png",
+    "source": "skills-selected-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "770b410ab524ab235924173c1c08fd26a811693e428fb62b9c777a533838ecbc"
+  },
+  {
+    "file": "04-settings.png",
+    "source": "settings-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "580217c8becb45d5d4c6b099339217ef2322408386f7aaa7a7fad55b83a82d41"
+  },
+  {
+    "file": "05-pickaxe-in-use.png",
+    "source": "pickaxe-use-delivery.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "9abfbc51bc5fdf1362a802bc02227916c9b3120330d0aec9f3e1195d611078cc"
+  },
+  {
+    "file": "10-navigation.png",
+    "source": "navigation-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "17800b304ad2afcaf50aa0e304c8047b960bd7575ba5c7fe86134c55c15f8a9b"
+  },
+  {
+    "file": "11-journal.png",
+    "source": "journal-delivery.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "1ec785d2624e8e4c86ebfd3c1687b4721798b9de8e1c3cc74c3a675f56c2f411"
+  },
+  {
+    "file": "12-collection.png",
+    "source": "collection-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "49bc6402ff3ba8cda563b82882f45849676696428b9a8fcc8ed490e45c809ab4"
+  },
+  {
+    "file": "13-room.png",
+    "source": "room-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "7efd919adb133e0131f3756bec073657233fc662fabbecd43e095a4c80fad71a"
+  },
+  {
+    "file": "14-results-fixture.png",
+    "source": "results-final.png",
+    "crop": [
+      294,
+      217,
+      1657,
+      969
+    ],
+    "sha256": "dda1e0fd23670d22ba8e7dfa8beda3611e9f93025a11747f972b7757bafad48d"
+  },
+  {
+    "file": "06-narrow-hud.png",
+    "source": "narrow-hud-delivery-full.png",
+    "crop": [
+      815,
+      321,
+      1121,
+      866
+    ],
+    "sha256": "52241a0cfabd797d33b85a63289d253227ec647d5aa1815c4d2e751cef22237c"
+  },
+  {
+    "file": "07-narrow-equipment.png",
+    "source": "narrow-equipment-final.png",
+    "crop": [
+      815,
+      321,
+      1121,
+      866
+    ],
+    "sha256": "5cf9dbbcdc7cdd34e86ef5694e76cd29b18932a2baf3542d6278322d4d079ec6"
+  },
+  {
+    "file": "08-narrow-scrolled.png",
+    "source": "narrow-scrolled-final.png",
+    "crop": [
+      815,
+      321,
+      1121,
+      866
+    ],
+    "sha256": "ddcb4a676a72506b961ecbe35d2725c637717bede8ed6007a504154c670ee71d"
+  },
+  {
+    "file": "09-narrow-settings.png",
+    "source": "narrow-current-full.png",
+    "crop": [
+      815,
+      321,
+      1121,
+      866
+    ],
+    "sha256": "695d08680af09d0a61b7fb0468970cd11963cd34c52a1d6838debec297f1c9db"
+  }
+]

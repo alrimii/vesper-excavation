@@ -1,18 +1,24 @@
--- Returned runtime export IDs; preserved masters and upload history in assets/ui/progression.
-return {
-	chain_lightning = "rbxassetid://78441203265195",
-	fault_survey = "rbxassetid://118913090520717",
-	batch_unload = "rbxassetid://127558201030086",
-	charged_swing = "rbxassetid://82949303996806",
-	core_drill = "rbxassetid://80111142298950",
-	steady_aim = "rbxassetid://130426459761525",
-	sale_latch = "rbxassetid://113113623542720",
-	precision_relay = "rbxassetid://96316761308050",
-	journal_hub = "rbxassetid://107667320750383",
-	panel = "rbxassetid://89278413581087",
-	branch_collection = "rbxassetid://122540486084073",
-	node_frame = "rbxassetid://83888114535206",
-	branch_impact = "rbxassetid://90509800938646",
-	branch_technique = "rbxassetid://122874428525975",
-	background = "rbxassetid://96547618113632",
+-- Original illustrated skills shared by map and inspector.
+local Art = {}
+local keys = {
+	"fault_survey",
+	"charged_swing",
+	"steady_aim",
+	"batch_unload",
+	"sale_latch",
+	"precision_relay",
+	"chain_lightning",
+	"core_drill",
 }
+function Art.Apply(image, id, branch)
+	local i = table.find(keys, id:match("%.(.+)$") or id)
+	if not i then
+		i = branch == "Collection" and 4 or branch == "Technique" and 7 or 2
+	end
+	i -= 1
+	image.Image = "rbxassetid://82521932688624"
+	image.ImageRectOffset = Vector2.new(i % 4 * 256, math.floor(i / 4) * 256)
+	image.ImageRectSize = Vector2.new(256, 256)
+	image.ImageColor3 = Color3.new(1, 1, 1)
+end
+return Art

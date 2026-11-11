@@ -125,7 +125,7 @@ end
 task.spawn(function()
 	local icons = {}
 	local atlas = Instance.new("ImageLabel")
-	atlas.Image = "rbxassetid://121599750729304"
+	atlas.Image = "rbxassetid://132558544808738"
 	table.insert(icons, atlas)
 	for _, uri in require(shared.ExcavationArt) do
 		local image = Instance.new("ImageLabel")

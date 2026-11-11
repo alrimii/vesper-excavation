@@ -1,6 +1,6 @@
 -- Shared appearance and surface frame. This module never applies gameplay effects.
 local V = {}
-V.Revision = "Phase4_20261111"
+V.Revision = "TreasureTools_20261111"
 V.PreviewDirections = {
 	Pickaxe = Vector3.new(0.45, 0.20, -1),
 	Drill = Vector3.new(1, 0.32, -0.65),
@@ -64,6 +64,6 @@ function V.FramePreview(camera, model, family, aspect)
 	local distance = math.max(extentY, extentX / math.max(0.25, aspect or 1))
 			/ math.tan(math.rad(camera.FieldOfView / 2))
 		+ depth
-	camera.CFrame = CFrame.lookAt(cf.Position + direction * distance * 1.12, cf.Position)
+	camera.CFrame = CFrame.lookAt(cf.Position + direction * distance * 1.02, cf.Position)
 end
 return V

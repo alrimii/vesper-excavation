@@ -1,4 +1,12 @@
-# Latest delivery — Phase 5 interface, published v223
+# Current checkpoint — playful interface and stylized tools, published v230
+
+The owner rejected v223 and authorized the complete cheerful cartoon interface replacement plus stylized tool correction, isolated checks, original-place publication and branch push. Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v230** at **2026-11-11 10:29:04 UTC**. See [review and actual screenshots](reviews/playful-interface/REVIEW.md) and [delivery identity](reviews/playful-interface/delivery.json). The parchment/mineral direction is rejected historical work, not approved art direction.
+
+Original illustrated cyan/purple/gold UI now covers all existing entry points. A finished adapted CC0 KayKit pickaxe replaces the realistic source across equipped tool, workshop and previews; existing drill/dynamite presentation is coordinated. The rigid-grip cosmetic contact solve measured under 0.001 stud at the observed R15 impact, without changing damage, prices, cadence, reach or balance. Transactions/settings/skill/navigation and desktop/narrow layout checks used only memory profiles. Four sessions were longer than intended because of pointer fallback/contact diagnosis; the exact scope, limitations and remaining visual observations are disclosed in the review. No live data/reset/access changes, delegates or deferred content work.
+
+Native before/final recovery is private under `Backups/PlayfulInterface_20261111/`. Temporary fixtures/helpers are removed, canonical source readback matches, archived source copies were restored, protected world geometry and lighting match. Original publication verified; Studio stopped in Edit. No owner visual approval is claimed. Retain every deferred requirement in [retained plan](reviews/playful-interface/PLAN.md) and the earlier complete owner briefs; do not restart a general audit or revisit friend access.
+
+# Historical checkpoint — rejected Phase 5 presentation, v223
 
 Original place **94763223427049**, branch `planning/development-foundation`. Published **v223** on **2026-11-11 at 09:28:00 UTC**, confirmed by the original Studio publication log. Native final saved; Studio stopped in Edit. [Review and actual screenshots](reviews/interior-phase-5/REVIEW.md), [delivery identity](reviews/interior-phase-5/delivery.json).
 

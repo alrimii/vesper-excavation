@@ -10,7 +10,7 @@ function M.Build(player, remote, feedback)
 		remote:FireServer("SkillMenu", false)
 	end, 1180)
 	local body = shell.Body
-	local summary = K.Text(body, "Progress", "", 16, K.Green, true)
+	local summary = K.Text(body, "Progress", "", 22, K.Purple, true)
 	local canvas = K.Scroll(body, "SkillMap")
 	canvas.AutomaticCanvasSize = Enum.AutomaticSize.None
 	canvas.ScrollingDirection = Enum.ScrollingDirection.XY
@@ -25,11 +25,12 @@ function M.Build(player, remote, feedback)
 	local scale = K.Make("UIScale", map, { Scale = 1 })
 	local inspector = K.Scroll(body, "Details")
 	K.Stack(inspector, 10)
-	local portrait = K.Make(
-		"ImageLabel",
-		inspector,
-		{ Name = "Portrait", Size = UDim2.fromOffset(70, 70), BackgroundTransparency = 1, ScaleType = Enum.ScaleType.Fit }
-	)
+	local portrait = K.Make("ImageLabel", inspector, {
+		Name = "Portrait",
+		Size = UDim2.fromOffset(70, 70),
+		BackgroundTransparency = 1,
+		ScaleType = Enum.ScaleType.Fit,
+	})
 	local title = K.Paragraph(inspector, "Name", "Choose a skill", 26, K.Ink)
 	title.Font = K.Title
 	local description = K.Paragraph(
@@ -49,11 +50,11 @@ function M.Build(player, remote, feedback)
 	latch.Size = UDim2.new(1, -8, 0, 44)
 	local receipt = K.Paragraph(inspector, "Receipt", "", 14, K.Green)
 	local selected, ranks, loadout = nil, {}, {}
-	local zoom, detailsMode = 1, false
+	local zoom, detailsMode = 0.8, false
 	local colors = {
-		Impact = Color3.fromRGB(204, 158, 87),
-		Collection = Color3.fromRGB(136, 186, 140),
-		Technique = Color3.fromRGB(135, 170, 194),
+		Impact = K.Orange,
+		Collection = K.Green,
+		Technique = K.Cyan,
 	}
 	local positions = {
 		["impact.fault_survey"] = Vector2.new(180, 120),
@@ -85,20 +86,16 @@ function M.Build(player, remote, feedback)
 		for _, req in n.Prerequisites do
 			local a = positions[req]
 			local delta = pos - a
-			local e = K.Make(
-				"Frame",
-				map,
-				{
-					Name = "Link",
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromOffset((a.X + pos.X) / 2, (a.Y + pos.Y) / 2),
-					Size = UDim2.fromOffset(delta.Magnitude, 3),
-					Rotation = math.deg(math.atan2(delta.Y, delta.X)),
-					BorderSizePixel = 0,
-					BackgroundColor3 = K.Muted,
-					ZIndex = 1,
-				}
-			)
+			local e = K.Make("Frame", map, {
+				Name = "Link",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromOffset((a.X + pos.X) / 2, (a.Y + pos.Y) / 2),
+				Size = UDim2.fromOffset(delta.Magnitude, 6),
+				Rotation = math.deg(math.atan2(delta.Y, delta.X)),
+				BorderSizePixel = 0,
+				BackgroundColor3 = K.Muted,
+				ZIndex = 1,
+			})
 			table.insert(edges, { root = e, from = req, to = id })
 		end
 	end
@@ -121,7 +118,7 @@ function M.Build(player, remote, feedback)
 		end, true)
 		b.AnchorPoint = Vector2.new(0.5, 0.5)
 		b.Position = UDim2.fromOffset(p.X, p.Y)
-		b.Size = UDim2.fromOffset(72, 72)
+		b.Size = UDim2.fromOffset(96, 96)
 		b.ZIndex = 3
 		b:FindFirstChildOfClass("UICorner").CornerRadius = UDim.new(1, 0)
 		local edge = K.Make(
@@ -129,25 +126,22 @@ function M.Build(player, remote, feedback)
 			b,
 			{ Thickness = 2, Color = colors[n.Branch], ApplyStrokeMode = Enum.ApplyStrokeMode.Border }
 		)
-		local icon = K.Make(
-			"ImageLabel",
-			b,
-			{
-				Name = "Art",
-				Position = UDim2.fromOffset(8, 8),
-				Size = UDim2.fromOffset(56, 56),
-				BackgroundTransparency = 1,
-				Image = Art[id:match("%.(.+)$")] or Art["branch_" .. n.Branch:lower()],
-				ScaleType = Enum.ScaleType.Fit,
-				ZIndex = 4,
-			}
-		)
-		local label = K.Text(b, "Name", n.Name, 15, K.Paper, true)
-		K.Rect(label, -42, 78, 156, 24)
+		local icon = K.Make("ImageLabel", b, {
+			Name = "Art",
+			Position = UDim2.fromOffset(8, 8),
+			Size = UDim2.fromOffset(80, 80),
+			BackgroundTransparency = 1,
+			Image = "",
+			ScaleType = Enum.ScaleType.Fit,
+			ZIndex = 4,
+		})
+		Art.Apply(icon, id, n.Branch)
+		local label = K.Text(b, "Name", n.Name, 18, K.Paper, true)
+		K.Rect(label, -38, 100, 172, 28)
 		label.TextXAlignment = Enum.TextXAlignment.Center
 		label.ZIndex = 4
-		local state = K.Text(b, "Rank", "", 12, colors[n.Branch])
-		K.Rect(state, -42, 104, 156, 20)
+		local state = K.Text(b, "Rank", "", 16, colors[n.Branch], true)
+		K.Rect(state, -38, 128, 172, 22)
 		state.TextXAlignment = Enum.TextXAlignment.Center
 		state.ZIndex = 4
 		nodes[id] = { button = b, edge = edge, icon = icon, state = state }
@@ -246,7 +240,7 @@ function M.Build(player, remote, feedback)
 				or rank == n.MaxRank and rank .. "/" .. n.MaxRank .. " · complete"
 				or available and rank .. "/" .. n.MaxRank .. " · available"
 				or rank .. "/" .. n.MaxRank .. " · locked"
-			v.button.BackgroundColor3 = rank > 0 and K.Green or K.Dark
+			v.button.BackgroundColor3 = rank > 0 and K.Green or available and K.Gold or K.Dark
 			v.edge.Color = selected == id and K.Paper or colors[n.Branch]
 			v.edge.Thickness = selected == id and 4 or available and 3 or 1
 			v.icon.ImageTransparency = n.Implemented and (available or rank > 0) and 0 or 0.42
@@ -263,7 +257,7 @@ function M.Build(player, remote, feedback)
 		portrait.Visible = n ~= nil
 		if n then
 			local rank = ranks[selected] or 0
-			portrait.Image = Art[selected:match("%.(.+)$")] or Art["branch_" .. n.Branch:lower()]
+			Art.Apply(portrait, selected, n.Branch)
 			title.Text = n.Name
 			local req = {}
 			for _, id in n.Prerequisites do
@@ -272,7 +266,7 @@ function M.Build(player, remote, feedback)
 			description.Text = not n.Implemented
 					and "Planned specialization\n\nThis skill is not available yet."
 				or string.format(
-					"%s · rank %d / %d\n\n%s\n\nNext rank\n%s\n\nRequires %s\nLevel %s · %s points",
+					"%s  •  %d / %d\n%s\n\nNEXT: %s\n\nRequires %s\nLevel %s  •  %s points",
 					n.Tool,
 					rank,
 					n.MaxRank,
