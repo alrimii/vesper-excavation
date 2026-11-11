@@ -1,0 +1,29 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 242,
+  "publishedAtUtc": "2026-11-11T14:10:02.003Z",
+  "publicationEvidence": "Studio log publishType=1; PublishSuccessful; original placeId; Add publish notes to v242",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "4fd6c492b57fd494fb37f8de03f8e0b2d67d2ffb",
+  "ownerUserId": 291892217,
+  "identityEvidence": [
+    "Authenticated StudioService:GetUserId()",
+    "CreatorType.User with matching CreatorId"
+  ],
+  "nativeBefore": "Backups\\OwnerTestAccess_20261111\\ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups\\OwnerTestAccess_20261111\\ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "c5a7fee663489daaeffd9b2b35a015b7ea0a0f763fb791d3fbe60c7a227fee0c",
+  "focusedAssertionsPassed": 22,
+  "realProfileOperationsPerformed": 0,
+  "playSessions": 0,
+  "publishedClientVerified": false,
+  "studioMode": "Edit",
+  "occupiedServersRestarted": false,
+  "fixedSaveGenerationChanged": false,
+  "screenshotZip": "Backups\\OwnerTestAccess_20261111\\rodin-drill-screenshots.zip",
+  "screenshotsReusedUnchanged": [
+    "docs/reviews/rodin-drill/in-hand.png",
+    "docs/reviews/rodin-drill/equipment.png"
+  ]
+}

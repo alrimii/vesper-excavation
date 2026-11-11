@@ -117,6 +117,8 @@ local transitioning = false
 local random = Random.new()
 local Catalog = require(Shared:WaitForChild("DiscoveryCatalog"))
 local Profiles = require(script.Parent.ResearchProfiles)
+local OwnerTest = require(script.Parent.OwnerTestAccess)
+OwnerTest.Start()
 local Materials = require(script.Parent.MaterialRewards)
 local EggRewards = require(script.Parent.EggRewards).new(random)
 local Action = Shared.Remotes:WaitForChild("Action")
@@ -232,6 +234,7 @@ local function writablePlayer(userId)
 		not shuttingDown
 		and p
 		and p.Parent == Players
+		and not p:GetAttribute("OwnerTestRouting")
 		and sessions[p]
 		and accounts[userId]
 		and Profiles.CanMutate(p)
@@ -1319,7 +1322,8 @@ local function purchase(p, key, quantity)
 	if quantity ~= 1 and quantity ~= 5 and quantity ~= "Max" then
 		return false, "Choose 1, 5 or Max ranks."
 	end
-	local count, cost = Economy.Quote(key, a[key], a.cash, quantity, config)
+	local testMode = Profiles.IsTest(a)
+	local count, cost = Economy.Quote(key, a[key], testMode and math.huge or a.cash, quantity, config)
 	if count == 0 then
 		note(
 			p,
@@ -1328,7 +1332,9 @@ local function purchase(p, key, quantity)
 		)
 		return false, a[key] >= u.MaxLevel and "Already at maximum rank." or "Not enough credits."
 	end
-	a.cash -= cost
+	if not testMode then
+		a.cash -= cost
+	end
 	a[key] += count
 	a.toolLevels[a.toolId] = a.toolLevels[a.toolId] or {}
 	a.toolLevels[a.toolId][key] = a[key]
@@ -1529,7 +1535,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 			if typeof(a) ~= "string" or #a > 80 then
 				return
 			end
-			failure = Skills.PurchaseReason(level, prog.ranks, a)
+			failure = Skills.PurchaseReason(level, prog.ranks, a, Profiles.IsTest(account))
 			if not failure then
 				prog.ranks[a] = (prog.ranks[a] or 0) + 1
 			end
@@ -1553,17 +1559,23 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 				and localPos.Y >= 0
 				and ceiling
 				and root.Position.Y < ceiling.Position.Y
-			if not inside then
+			if not inside and not Profiles.IsTest(account) then
 				failure = "Go inside your own room to change your build."
 			elseif
-				s.pending
-				or workspace:GetServerTimeNow()
-						- math.max(prog.guards.lastDamageAt or 0, prog.guards.lastMiningAt or 0)
-					< 10
+				not Profiles.IsTest(account)
+				and (
+					s.pending
+					or workspace:GetServerTimeNow()
+							- math.max(prog.guards.lastDamageAt or 0, prog.guards.lastMiningAt or 0)
+						< 10
+				)
 			then
 				failure = "Wait 10 seconds after mining, with no pending action."
 			elseif kind == "SkillRespec" then
-				if workspace:GetServerTimeNow() < (prog.guards.respecUntil or 0) then
+				if
+					not Profiles.IsTest(account)
+					and workspace:GetServerTimeNow() < (prog.guards.respecUntil or 0)
+				then
 					failure = "Free respec is available once every 60 seconds."
 				else
 					prog.ranks = {}
@@ -1954,6 +1966,9 @@ local function joined(p)
 		return
 	end
 	p:SetAttribute("ProfileReady", false)
+	if OwnerTest.Route(p) then
+		return
+	end
 	local loaded = Profiles.Load(p)
 	if not loaded then
 		p:Kick(
@@ -1986,6 +2001,12 @@ local function joined(p)
 		lastStation = -math.huge,
 	}
 	sessions[p] = s
+	s.modeConnection = p:GetAttributeChangedSignal("OwnerTestRouting"):Connect(function()
+		if p:GetAttribute("OwnerTestRouting") then
+			training(p, s, false)
+			cancelAttack(p, s)
+		end
+	end)
 	-- Transfer once, into the newly locked loaded profile; never write an offline profile.
 	local claims = serverClaims[p.UserId]
 	if claims and writablePlayer(p.UserId) == p then
@@ -2050,6 +2071,9 @@ Players.PlayerRemoving:Connect(function(p)
 	if s then
 		training(p, s, false)
 		s.connection:Disconnect()
+		if s.modeConnection then
+			s.modeConnection:Disconnect()
+		end
 		if s.spawnConnection then
 			s.spawnConnection:Disconnect()
 		end

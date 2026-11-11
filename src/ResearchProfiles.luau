@@ -5,7 +5,7 @@
 -- Retired records are not read, copied or migrated; namespace isolation is NOT deletion.
 local LIVE_STORE = "VesperDiscovery_FreshStart_20261110"
 local GENERATION = "fresh-start-20261110"
-local function create(store, studio, pause)
+local function create(store, studio, pause, testPolicy)
 	local P = {}
 	local wait = pause or task.wait
 	local function isStudio()
@@ -17,6 +17,9 @@ local function create(store, studio, pause)
 	local Progression = require(game.ReplicatedStorage.VesperShared.ProgressionRules)
 	local token = game.JobId .. Http:GenerateGUID(false)
 	local locks, saving, closing, leases = {}, {}, {}, {}
+	local tests = {}
+	local testAccounts = setmetatable({}, { __mode = "k" })
+	local OwnerTest = require(script.Parent.OwnerTestAccess)
 	local Materials = require(script.Parent.MaterialRewards)
 	local EggRewards = require(script.Parent.EggRewards)
 	local SkillProgress = require(script.Parent.PlayerProgression)
@@ -126,13 +129,21 @@ local function create(store, studio, pause)
 		end
 		return a
 	end
+	function P.IsTest(account)
+		return testAccounts[account] == true
+	end
 	function P.CanMutate(player)
 		return not closing[player]
-			and (isStudio() or (locks[player] ~= nil and (leases[player] or 0) > os.time()))
+			and (
+				tests[player] ~= nil
+				or isStudio()
+				or (locks[player] ~= nil and (leases[player] or 0) > os.time())
+			)
 	end
 	function P.Load(player)
-		if isStudio() then
-			player:SetAttribute("SaveStatus", "STUDIO PREVIEW")
+		local ownerTest = OwnerTest.IsOwner(player.UserId) and (testPolicy or OwnerTest.IsTestPlayer)(player)
+		if ownerTest or isStudio() then
+			player:SetAttribute("SaveStatus", ownerTest and "TEST - NOT SAVED" or "STUDIO PREVIEW")
 			local preview = P.Normalize(nil)
 			for id in Progression.Tools do
 				preview.ownedTools[id] = true
@@ -148,8 +159,19 @@ local function create(store, studio, pause)
 				preview.creatures,
 				Progression.CreatureVariants
 			)
-			preview.cash = 100000000
-			player:SetAttribute("StudioTestUnlocks", true)
+			preview.cash = ownerTest and 1000000000 or 100000000
+			if ownerTest then
+				tests[player], testAccounts[preview] = preview, true
+				preview.progression.xpUnits = require(game.ReplicatedStorage.VesperShared.SkillCatalog).Threshold(
+					100
+				) * require(game.ReplicatedStorage.VesperShared.SkillCatalog).XPScale
+				preview.progression.highestLevel = 100
+				preview.tutorial, preview.introStage = 8, 5
+				for id in preview.discoveries do
+					preview.discoveries[id] = 1
+				end
+			end
+			player:SetAttribute("StudioTestUnlocks", not ownerTest)
 			return preview
 		end
 		local key = tostring(player.UserId)
@@ -210,6 +232,18 @@ local function create(store, studio, pause)
 		return nil
 	end
 	function P.Save(player, a, release)
+		-- Identity guard covers autosave, leave, shutdown and stray old references.
+		-- Test accounts never reach the serializer or any persistent-store call.
+		if testAccounts[a] then
+			local active = tests[player] == a
+			if release then
+				tests[player] = nil
+			end
+			return active
+		end
+		if tests[player] then
+			return false
+		end
 		if isStudio() then
 			return true
 		end

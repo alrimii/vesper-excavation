@@ -213,7 +213,7 @@ function S.Spent(ranks)
 	end
 	return spent
 end
-function S.PurchaseReason(level, ranks, id)
+function S.PurchaseReason(level, ranks, id, testMode)
 	local n = S.Nodes[id]
 	if not n or not n.Implemented then
 		return "This node is PLANNED, not purchasable."
@@ -222,6 +222,7 @@ function S.PurchaseReason(level, ranks, id)
 	if rank >= n.MaxRank then
 		return "All ranks already learned."
 	end
+	if testMode == true then return nil end
 	if level < n.Levels[rank + 1] then
 		return "Requires level " .. n.Levels[rank + 1] .. "."
 	end

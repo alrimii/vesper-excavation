@@ -336,7 +336,8 @@ function M.Build(shell, player, base, remote, feedback)
 			r.buy.TextSize = 20
 			local level = attr("ToolLevel_" .. selected .. "_" .. key) or 0
 			local max = config.Upgrades[key].MaxLevel
-			local count, cost = E.Quote(key, level, cash, quantity, config)
+			local testMode = attr("OwnerTestMode") == true
+			local count, cost = E.Quote(key, level, testMode and math.huge or cash, quantity, config)
 			local nextRank = math.min(max, level + math.max(1, count))
 			r.rank.Text = selected .. " · rank " .. level .. " / " .. max
 			r.value.Text = effect(key, level, config)
@@ -355,6 +356,7 @@ function M.Build(shell, player, base, remote, feedback)
 					or not equipped and "Equip this tool first"
 					or count == 0 and "Need " .. K.Number(E.Price(key, level, config) - cash) .. " credits"
 					or pending and "Confirming…"
+					or testMode and "+" .. count .. " rank - free test upgrade"
 					or "+" .. count .. " rank · " .. K.Number(cost) .. " credits"
 			)
 		end

@@ -1,4 +1,12 @@
-# Current checkpoint - supplied Rodin drill, published v241
+# Current checkpoint - temporary owner live test access, published v242
+
+Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v242** at **2026-11-11 14:10:02 UTC**. See [review and use instructions](reviews/owner-test-access/REVIEW.md) and [delivery identity](reviews/owner-test-access/delivery.json).
+
+Only exact authenticated owner **UserId 291892217** gets automatic live test access in a separate reserved server. Reuses memory-only preview profiles, with all implemented tools/collection content and eight skills available; upgrades/skill ranks start at zero, upgrades are free, planned content stays unavailable. The small owner-only Test Mode dialog switches via rejoin. Normal play restores normal locked saves; later ordinary joins default to test mode again. Other public players and occupied servers are untouched. Test state never writes normal profiles. Preserve the fixed save generation and all drill/pickaxe/world/UI work.
+
+One focused **22-assertion** verification used only fake Players/store in Edit. No real profile reads/writes, Play or live-client testing. Live teleport/client behavior remains for the owner to verify in a fresh **v242+** server. Native before/final recovery is private under `Backups/OwnerTestAccess_20261111/`; Studio is stopped in Edit. Existing drill screenshots were reused and packaged for manual upload. This remains temporary owner access, not a general admin system; retain all deferred requirements.
+
+# Historical checkpoint - supplied Rodin drill, published v241
 
 Drill-only integration delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v241** at **2026-11-11 13:44:21 UTC**. See [actual screenshots and review](reviews/rodin-drill/REVIEW.md) and [delivery identity](reviews/rodin-drill/delivery.json).
 

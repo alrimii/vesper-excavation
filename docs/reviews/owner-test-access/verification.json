@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"playSessions\":0,\"checks\":{\"22\":\"profile layer independently rejects non-owner test authorization\",\"21\":\"normal profile retains normal locked save path\",\"20\":\"stale test reference cannot overwrite normal profile\",\"19\":\"normal mode restores original currency, ownership and progression\",\"18\":\"normal saved profile unchanged by test activity\",\"9\":\"tool available: Explosive\",\"1\":\"owner auto-routes before profile load\",\"15\":\"test autosave cannot persist rewards or upgrades\",\"3\":\"spoofed teleport data grants no access\",\"2\":\"owner reserved-server test authorization\",\"5\":\"off toggle selects normal profile on rejoin\",\"4\":\"other players cannot join owner test world\",\"7\":\"tool available: Drill\",\"6\":\"live-mode test profile requires no datastore operation\",\"14\":\"normal zero-currency quote still blocked\",\"8\":\"tool available: Pickaxe\",\"16\":\"test account cannot save through another player\",\"17\":\"test leave/shutdown discards profile without writes\",\"13\":\"individual test upgrade rank quote\",\"12\":\"normal skill gates preserved\",\"11\":\"all eight implemented skills available; thirteen planned stay unavailable\",\"10\":\"skill ranks start at zero\"},\"plannedSkills\":13,\"realDatastoreOperations\":0,\"implementedSkills\":8,\"passed\":22}"
+    }
+  ],
+  "isError": false
+}

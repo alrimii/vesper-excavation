@@ -29,6 +29,7 @@ local Feedback = Shared.Remotes:WaitForChild("Feedback")
 local State = Shared:WaitForChild("RoundState")
 local Egg = workspace:WaitForChild("VesperLab"):WaitForChild("Egg")
 local gui = player:WaitForChild("PlayerGui"):WaitForChild("ExcavationHUD")
+require(Shared:WaitForChild("OwnerTestUI")).Attach(player)
 local DiscoveryHUD = require(Shared:WaitForChild("DiscoveryHUD")).Attach(gui, player)
 local shopOpen = false
 local skillTree = require(Shared.SkillTreeUI).Build(player, Action, Feedback)

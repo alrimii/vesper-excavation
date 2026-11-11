@@ -234,7 +234,7 @@ function M.Build(player, remote, feedback)
 		for id, v in nodes do
 			local n = C.Nodes[id]
 			local rank = ranks[id] or 0
-			local reason = C.PurchaseReason(level, ranks, id)
+			local reason = C.PurchaseReason(level, ranks, id, player:GetAttribute("OwnerTestMode") == true)
 			local available = n.Implemented and reason == nil
 			v.state.Text = not n.Implemented and "PLANNED"
 				or rank == n.MaxRank and rank .. "/" .. n.MaxRank .. " · complete"
@@ -277,7 +277,8 @@ function M.Build(player, remote, feedback)
 					tostring(n.Cost)
 				)
 			if n.Implemented then
-				local reason = C.PurchaseReason(level, ranks, selected)
+				local reason =
+					C.PurchaseReason(level, ranks, selected, player:GetAttribute("OwnerTestMode") == true)
 				K.Enabled(purchase, reason == nil, reason or "Learn rank · " .. n.Cost .. " points")
 				purchase.TextSize = 14
 				if n.Active and rank > 0 then

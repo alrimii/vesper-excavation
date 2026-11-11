@@ -1,0 +1,19 @@
+# Temporary owner test access — published v242
+
+Published to original place **94763223427049** at **2026-11-11 14:10:02 UTC**, branch `planning/development-foundation`. Baseline `4fd6c492b57fd494fb37f8de03f8e0b2d67d2ffb` was clean; the six affected existing Studio sources matched the local baseline before edits.
+
+Exact authorized UserId: **291892217**, established independently by authenticated `StudioService:GetUserId()` and the experience's `CreatorType.User / CreatorId`. No group ID, collaborator list or client attribute grants access. The server checks this exact ID at routing, remote handling and profile creation.
+
+On an ordinary join to this version, the owner automatically moves into a fresh reserved test server. Profile loading and gameplay remain blocked in the entry server during routing. Other players cannot enter that test server, so test mining, shared egg settlement and rewards cannot change their economy. Other public players keep normal profiles and rules. No occupied servers were closed or restarted.
+
+Live test profiles reuse the existing memory-only preview construction. All three tools, three creature variants, room themes and journal discoveries are available. Test research level is 100 to open existing skill slots; **all tool upgrade ranks and skill ranks start at zero**. Learn any of the eight implemented skills individually without level, prerequisite or point restrictions, and buy upgrades one rank at a time for free (existing 1 / 5 / Max controls remain). Test respec/loadout changes bypass room/wait restrictions. The thirteen PLANNED nodes remain unavailable; no unfinished content is invented. Existing areas have no additional progression gates to remove.
+
+The compact owner-only **Test Mode: ON/OFF** button sits below the egg status. Its dialog explains the separate server and rejoin. **Normal play · rejoin** discards the test session and uses the owner's normal profile in public matchmaking. **Test play · rejoin** opens another fresh test server. Ordinary later joins default to test access again. Teleport errors retain the current mode and offer retry/normal play; mode data carries no profile or currency. Normal saves use the unchanged fixed namespace and session-lock path. Test autosave, leave and shutdown return before serialization or datastore operations, and stale test references are rejected. Studio's pre-existing preview is preserved separately.
+
+## Verification actually performed
+
+One focused Edit-mode check: **22 assertions passed**, using synthetic Player tables and a fake in-memory store with Studio mode explicitly disabled. It verified owner/non-owner routing, forged teleport-data rejection, all implemented skill availability, zero ranks, individual upgrade quotes, normal currency gates, test autosave/leave/shutdown isolation, foreign/stale account rejection and restoration of an unchanged sentinel normal profile. [Script](verify.luau), [actual result](verification.json). No real owner save was read or written; **no Play session or live-client test** was run. Supported `TeleportOptions.ReservedServerId` assignment was checked without teleporting. New/affected source was parsed; StyLua checks passed for the new modules and the other formatted edits.
+
+Live teleport success, real-client rendering and restoration against the owner's actual saved record remain for owner testing. Join a **fresh server running v242 or newer**; already-running older servers do not acquire this code. Publication does not prove live behavior.
+
+Native before/final recovery is private under `Backups/OwnerTestAccess_20261111/`. Studio is stopped in Edit. Drill screenshots were reused unchanged, without recapture. The available image renderer can display them, but cannot create transferable chat file attachments; a two-image ZIP fallback is at `C:\Users\BOSS\Desktop\egg\Backups\OwnerTestAccess_20261111\rodin-drill-screenshots.zip`. [Delivery identity](delivery.json).
