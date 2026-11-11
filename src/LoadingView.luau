@@ -1,53 +1,116 @@
--- Minimal readiness screen. No camera, 3D scene, progress percentage or entry gate.
+-- Early readiness presentation. The joining pipeline and retry behavior remain unchanged.
 local V = {}
 function V.Build(parent)
-	local gui = Instance.new("ScreenGui")
-	gui.Name, gui.DisplayOrder, gui.ResetOnSpawn = "LabEntry", 1000, false
-	-- Full-bleed backdrop; interactive content remains centered away from device edges.
-	gui.ScreenInsets = Enum.ScreenInsets.None
-	gui.IgnoreGuiInset = true
-	local background = Instance.new("Frame")
-	background.Size, background.BackgroundColor3 = UDim2.fromScale(1, 1), Color3.fromRGB(22, 36, 47)
-	background.BorderSizePixel, background.Active, background.Parent = 0, true, gui
-	local card = Instance.new("Frame")
-	card.AnchorPoint, card.Position = Vector2.new(0.5, 0.5), UDim2.fromScale(0.5, 0.5)
-	card.Size, card.BackgroundTransparency, card.Parent = UDim2.new(1, -32, 0, 180), 1, background
-	local limit = Instance.new("UISizeConstraint")
-	limit.MaxSize, limit.Parent = Vector2.new(460, 180), card
-	local function label(name, value, y, height, size, color)
-		local t = Instance.new("TextLabel")
-		t.Name, t.Text, t.TextSize = name, value, size
-		t.Position, t.Size = UDim2.fromOffset(0, y), UDim2.new(1, 0, 0, height)
-		t.BackgroundTransparency, t.Font, t.TextColor3 = 1, Enum.Font.GothamBold, color
-		t.TextWrapped, t.Parent = true, card
-		return t
+	local T = require(script.Parent.InterfaceTheme)
+	local function make(class, p, props)
+		local o = Instance.new(class)
+		for k, v in props do
+			o[k] = v
+		end
+		o.Parent = p
+		return o
 	end
-	local title = label("Title", "Joining the excavation", 0, 36, 24, Color3.fromRGB(249, 239, 211))
-	local stage = label("Stage", "CONNECTING", 44, 24, 13, Color3.fromRGB(122, 232, 193))
-	local status =
-		label("Status", "Waiting for the current server state...", 76, 48, 15, Color3.fromRGB(220, 231, 237))
-	local enter = Instance.new("TextButton")
-	enter.Name, enter.Text, enter.Visible = "Enter", "", false
-	enter.AnchorPoint, enter.Position = Vector2.new(0.5, 0), UDim2.new(0.5, 0, 0, 134)
-	enter.Size, enter.BackgroundColor3 = UDim2.fromOffset(180, 44), Color3.fromRGB(122, 232, 193)
-	enter.TextColor3, enter.Font, enter.TextSize = Color3.fromRGB(22, 36, 47), Enum.Font.GothamBold, 14
-	enter.Parent = card
-	Instance.new("UICorner", enter).CornerRadius = UDim.new(0, 12)
+	local gui = make(
+		"ScreenGui",
+		parent,
+		{
+			Name = "LabEntry",
+			DisplayOrder = 1000,
+			ResetOnSpawn = false,
+			ScreenInsets = Enum.ScreenInsets.None,
+			SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
+		}
+	)
+	local bg = make(
+		"Frame",
+		gui,
+		{ Size = UDim2.fromScale(1, 1), BackgroundColor3 = T.Dark, BorderSizePixel = 0, Active = true }
+	)
+	local card = make(
+		"Frame",
+		bg,
+		{
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.new(1, -48, 0, 280),
+			BackgroundTransparency = 1,
+		}
+	)
+	make("UISizeConstraint", card, { MaxSize = Vector2.new(640, 280) })
+	local function text(name, value, y, height, size, color, font)
+		return make(
+			"TextLabel",
+			card,
+			{
+				Name = name,
+				Text = value,
+				Position = UDim2.fromOffset(0, y),
+				Size = UDim2.new(1, 0, 0, height),
+				TextColor3 = color,
+				Font = font or T.Font,
+				TextSize = size,
+				TextWrapped = true,
+				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}
+		)
+	end
+	text("Brand", "VESPER   /   EXCAVATION DIVISION", 0, 22, 12, T.Gold, T.Bold)
+	local title = text("Title", "A new discovery awaits", 34, 64, 40, T.Paper, T.Title)
+	local status = text("Status", "Connecting to the laboratory…", 113, 56, 16, T.Line)
+	local stages = {}
+	for i, label in { "CONNECT", "SYNC", "ASSETS", "READY" } do
+		local t = text("Stage" .. i, label, 190, 28, 11, T.Muted, T.Bold)
+		t.Position = UDim2.new((i - 1) / 4, 0, 0, 190)
+		t.Size = UDim2.new(0.25, -8, 0, 28)
+		local rule = make(
+			"Frame",
+			card,
+			{
+				Position = UDim2.new((i - 1) / 4, 0, 0, 182),
+				Size = UDim2.new(0.25, -12, 0, 2),
+				BackgroundColor3 = T.Muted,
+				BorderSizePixel = 0,
+			}
+		)
+		stages[i] = { text = t, line = rule }
+	end
+	local enter = make(
+		"TextButton",
+		card,
+		{
+			Name = "Enter",
+			Text = "",
+			Visible = false,
+			Position = UDim2.fromOffset(0, 232),
+			Size = UDim2.fromOffset(200, 44),
+			BackgroundColor3 = T.Green,
+			TextColor3 = T.Card,
+			Font = T.Bold,
+			TextSize = 15,
+			BorderSizePixel = 0,
+		}
+	)
+	make("UICorner", enter, { CornerRadius = UDim.new(0, 7) })
 	enter:GetPropertyChangedSignal("Text"):Connect(function()
 		enter.Visible = enter.Text == "RETRY LOADING"
 	end)
 	local api = { gui = gui, status = status, enter = enter }
 	function api:Stage(index)
-		stage.Text = ({ "CONNECTING", "SYNCHRONIZING", "LOADING ASSETS", "READY" })[index] or ""
+		for i, s in stages do
+			s.text.TextColor3 = i <= index and T.Paper or T.Muted
+			s.line.BackgroundColor3 = i <= index and T.Gold or T.Muted
+		end
 	end
 	function api:Failure(heading, message)
 		title.Text = "Unable to join"
-		stage.Text, stage.TextColor3 = heading, Color3.fromRGB(255, 161, 111)
-		status.Text = message
+		status.Text = heading .. "\n" .. message
+		status.TextColor3 = T.Paper
 		enter.Visible = false
 	end
-	function api:Resize(_size) end -- Constraints own layout; retained caller interface.
-	gui.Parent = parent
+	function api:Resize(size)
+		title.TextSize = size.X < 500 and 30 or 40
+	end
 	return api
 end
 return V

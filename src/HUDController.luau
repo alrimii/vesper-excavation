@@ -109,7 +109,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 			"Help",
 			"Controls & guidance",
 			function()
-				showHelp, dismissed = true, false
+				openEquipment("HELP")
 			end,
 		},
 		{
@@ -135,11 +135,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		remote:FireServer("Training")
 	end)
 	trainEntry.LayoutOrder = 9
-	local contract = Instance.new("TextLabel")
-	contract.Name, contract.BackgroundTransparency, contract.Font = "Contract", 1, Enum.Font.GothamBold
-	contract.TextSize, contract.TextColor3, contract.TextWrapped = 14, Color3.fromRGB(37, 56, 64), true
-	contract.Size, contract.LayoutOrder, contract.ZIndex, contract.Parent =
-		UDim2.new(1, -4, 0, 96), 10, 22, ui.List
+	local contract = ui.Contract
 	local function number(value)
 		if typeof(value) ~= "number" then
 			return "..."
@@ -339,7 +335,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		if sprint then
 			sprint.Size, sprint.Position = UDim2.fromOffset(70, 28), UDim2.fromOffset(w - 80, 108)
 			sprint.BackgroundColor3, sprint.TextColor3 =
-				Color3.fromRGB(255, 253, 248), Color3.fromRGB(26, 29, 67)
+				require(Shared.InterfaceKit).Dark, require(Shared.InterfaceKit).Paper
 		end
 		trainEntry.Visible = menuOpen and alive and ownedTraining()
 		ui.Training.Button.Visible = not blocked and running

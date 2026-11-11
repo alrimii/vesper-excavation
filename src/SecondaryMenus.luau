@@ -1,406 +1,334 @@
--- Existing creature/room/settings presentation, pending its own replacement milestone. No equipment/upgrade pages.
-local W = {}
-function W.Build(gui, player, base, remote)
-	local shared = script.Parent
-	local Rules = require(shared.ProgressionRules)
-	local Preview = require(shared.EquipmentPreview)
-	local Style = require(shared.InterfaceStyle)
-	local panel = gui.Station
-	for _, child in panel:GetChildren() do
-		if child:IsA("GuiObject") and child.Name ~= "Close" then
-			if child.Name == "WorkshopContent" or child.Name == "InventoryMenu" then
-				child:Destroy()
-			else
-				child.Visible = false
-			end
-		end
-	end
-	local C = {
-		ink = Color3.fromRGB(28, 42, 68),
-		muted = Color3.fromRGB(93, 110, 137),
-		blue = Color3.fromRGB(53, 137, 237),
-		gold = Color3.fromRGB(255, 201, 77),
-		paper = Color3.fromRGB(244, 248, 255),
-		mint = Color3.fromRGB(93, 226, 156),
-	}
-	panel.BackgroundColor3 = C.paper
-	panel.BackgroundTransparency = 0
-	panel.BorderSizePixel = 0
-	local round = panel:FindFirstChildOfClass("UICorner") or Instance.new("UICorner", panel)
-	round.CornerRadius = UDim.new(0, 20)
-	local edge = panel:FindFirstChildOfClass("UIStroke") or Instance.new("UIStroke", panel)
-	edge.Color, edge.Thickness = C.ink, 3
-	local function frame(parent, name, color)
-		local f = Instance.new("Frame")
-		f.Name, f.BackgroundColor3, f.BorderSizePixel = name, color or C.paper, 0
-		f.Parent = parent
-		local r = Instance.new("UICorner", f)
-		r.CornerRadius = UDim.new(0, 14)
-		return f
-	end
-	local function label(parent, name, size, color)
-		local t = Instance.new("TextLabel")
-		t.Name, t.BackgroundTransparency = name, 1
-		t.Text, t.TextColor3, t.TextSize = "", color or C.ink, size
-		t.Font, t.TextXAlignment = Enum.Font.GothamBold, Enum.TextXAlignment.Left
-		t.Parent = parent
-		return t
-	end
-	local function button(parent, name, value, color)
-		local b = Instance.new("TextButton")
-		b.Name, b.Text = name, value
-		b.BackgroundColor3, b.TextColor3 = color or C.mint, C.ink
-		b.Font, b.TextSize, b.BorderSizePixel = Enum.Font.GothamBold, 14, 0
-		b.Parent = parent
-		local r = Instance.new("UICorner", b)
-		r.CornerRadius = UDim.new(0, 12)
-		local e = Instance.new("UIStroke", b)
-		e.Color, e.Thickness = C.ink, 1.5
-		e.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		Style.Button(b)
-		return b
-	end
-	local root = frame(panel, "InventoryMenu")
-	root.Size, root.BackgroundTransparency = UDim2.fromScale(1, 1), 1
-	local header = frame(root, "Header", C.blue)
-	header.Size, header.Position = UDim2.new(1, -12, 0, 65), UDim2.fromOffset(6, 6)
-	Style.Surface(header, Color3.fromRGB(149, 218, 255), Color3.fromRGB(83, 147, 237))
-	local title = label(header, "Title", 28, Color3.new(1, 1, 1))
-	title.Position, title.Size = UDim2.fromOffset(20, 4), UDim2.new(1, -90, 0, 36)
-	title.TextStrokeColor3, title.TextStrokeTransparency = C.ink, 0.55
-	local wallet = label(header, "Wallet", 12, Color3.fromRGB(226, 243, 255))
-	wallet.Position, wallet.Size = UDim2.fromOffset(22, 40), UDim2.new(1, -90, 0, 18)
-	local close = panel.Close
-	close.Visible, close.ZIndex = true, 20
-	close.Size, close.Position = UDim2.fromOffset(44, 44), UDim2.new(1, -58, 0, 16)
-	close.BackgroundColor3, close.TextColor3, close.TextSize =
-		Color3.fromRGB(244, 102, 112), Color3.new(1, 1, 1), 24
-	Style.Button(close)
+-- Personal collections, room choices, preferences and controls share the field journal shell.
+local M = {}
+function M.Build(shell, player, _base, remote, feedback)
+	local K = require(script.Parent.InterfaceKit)
+	local Rules = require(script.Parent.ProgressionRules)
+	local Preview = require(script.Parent.EquipmentPreview)
+	local root = K.Make(
+		"Frame",
+		shell.Body,
+		{ Name = "PersonalMenus", Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Visible = false }
+	)
+	local scroll = K.Scroll(root, "Content")
+	scroll.Size = UDim2.fromScale(1, 1)
 	local active, selected = "ARCHIVE", nil
-	local pages = { ARCHIVE = {}, ROOM = {}, OPTIONS = {} }
-	local tabs, tabOrder = {}, { "ARCHIVE", "ROOM", "OPTIONS" }
-	local titles = {
-		ARCHIVE = "Creatures",
-		ROOM = "My Room",
-		OPTIONS = "Settings",
-	}
-	local list = Instance.new("ScrollingFrame")
-	list.Name, list.BackgroundColor3, list.BorderSizePixel = "ItemGrid", Color3.fromRGB(220, 232, 248), 0
-	list.ScrollBarThickness, list.ScrollBarImageColor3 = 4, C.blue
-	list.Parent = root
-	local lr = Instance.new("UICorner", list)
-	lr.CornerRadius = UDim.new(0, 14)
-	local inspector = frame(root, "SelectedItem", Color3.new(1, 1, 1))
-	local badge = label(inspector, "Rarity", 11, C.blue)
-	badge.Position, badge.Size = UDim2.fromOffset(18, 12), UDim2.new(1, -36, 0, 18)
-	local itemTitle = label(inspector, "ItemName", 22)
-	itemTitle.Position, itemTitle.Size = UDim2.fromOffset(18, 33), UDim2.new(1, -36, 0, 32)
-	itemTitle.TextWrapped = true
-	local previewHost = frame(inspector, "PreviewStage", Color3.fromRGB(229, 240, 255))
-	previewHost.Position, previewHost.Size = UDim2.fromOffset(14, 76), UDim2.new(1, -28, 0, 150)
-	local previewText = label(previewHost, "Fallback", 28, C.blue)
-	previewText.Size, previewText.TextXAlignment = UDim2.fromScale(1, 1), Enum.TextXAlignment.Center
-	local descriptionScroll = Instance.new("ScrollingFrame")
-	descriptionScroll.Name = "DescriptionScroll"
-	descriptionScroll.BackgroundTransparency, descriptionScroll.BorderSizePixel = 1, 0
-	descriptionScroll.ScrollBarThickness = 3
-	descriptionScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
-	descriptionScroll.CanvasSize = UDim2.new()
-	descriptionScroll.Parent = inspector
-	local details = label(descriptionScroll, "Details", 14, C.muted)
-	details.Size = UDim2.new(1, -6, 0, 0)
-	details.AutomaticSize = Enum.AutomaticSize.Y
-	details.TextWrapped, details.TextYAlignment = true, Enum.TextYAlignment.Top
-	details.Font = Enum.Font.GothamMedium
-	local action = button(inspector, "PrimaryAction", "SELECT AN ITEM")
-	action.Size, action.Position = UDim2.new(1, -28, 0, 46), UDim2.new(0, 14, 1, -60)
-	local extras = frame(inspector, "ExtraActions")
-	extras.BackgroundTransparency = 1
-	extras.Size, extras.Position = UDim2.new(1, -28, 0, 38), UDim2.new(0, 14, 1, -106)
-	local extraButtons = {}
+	local pages = {}
+	local function attr(k)
+		return player:GetAttribute(k)
+	end
+	local function page(id)
+		local p = K.Make("Frame", scroll, {
+			Name = id,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, -8, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Visible = false,
+		})
+		pages[id] = p
+		return p
+	end
+	local archive = page("ARCHIVE")
+	local owner = K.Text(archive, "Owner", player.DisplayName .. "'s collection", 18, K.Green, true)
+	local tabs = {}
+	for _, d in Rules.CreatureVariants do
+		local b = K.Button(archive, "Creature_" .. d.Id, "", function()
+			selected = d.Id
+		end, true)
+		local view = Preview.Create(b, script.Parent.SpecimenAssets.crownback, d.Color)
+		tabs[d.Id] = {
+			root = b,
+			view = view,
+			name = K.Text(b, "Name", "", 16, K.Ink, true),
+			state = K.Text(b, "State", "", 13, K.Muted),
+		}
+	end
+	local detail = K.Surface(archive, "CreatureDetails")
+	local dname = K.Text(detail, "Name", "", 28)
+	dname.Font = K.Title
+	local desc = K.Text(detail, "Description", "", 15, K.Muted)
+	local odds = K.Text(detail, "Chance", "", 14, K.Muted)
+	local equip = K.Button(detail, "Activate", "", function()
+		if selected then
+			remote:FireServer("Creature", selected)
+		end
+	end)
+	local slotsLabel = K.Text(detail, "DisplayLabel", "Featured room shelves", 15, K.Ink, true)
+	local slots = {}
 	for i = 1, 3 do
-		local b = button(extras, "Choice" .. i, "", Color3.fromRGB(221, 232, 249))
-		b.Size, b.Position = UDim2.new(1 / 3, -6, 1, 0), UDim2.new((i - 1) / 3, 3, 0, 0)
-		b.TextSize = 12
-		extraButtons[i] = b
-		b.Activated:Connect(function()
-			if active == "ARCHIVE" and selected then
+		slots[i] = K.Button(detail, "Shelf" .. i, "Shelf " .. i, function()
+			if selected then
 				remote:FireServer(
 					"DisplayCreature",
 					i,
-					player:GetAttribute("DisplaySlot" .. i) == selected.id and "" or selected.id
+					attr("DisplaySlot" .. i) == selected and "" or selected
 				)
 			end
-		end)
+		end, true)
 	end
-	local empty = label(list, "Empty", 15, C.muted)
-	empty.Text, empty.Size, empty.Position =
-		"Nothing here yet. Keep exploring!", UDim2.new(1, -24, 0, 60), UDim2.fromOffset(12, 12)
-	local footer = label(root, "Footer", 11, C.muted)
-	footer.Position, footer.Size = UDim2.new(0, 20, 1, -28), UDim2.new(1, -40, 0, 20)
-	local function number(n)
-		return n >= 1e6 and string.format("%.1fM", n / 1e6)
-			or n >= 1000 and string.format("%.1fK", n / 1000)
-			or tostring(math.floor(n))
-	end
-	local previewSelection
-	local function select(item)
-		selected = item
-		if previewSelection == item then
-			return
-		end
-		previewSelection = item
-		descriptionScroll.CanvasPosition = Vector2.zero
-		local old = previewHost:FindFirstChild("EquipmentPreview")
-		if old then
-			old:Destroy()
-		end
-		if item and item.source then
-			local v = Preview.Create(previewHost, item.source, item.tint)
-			if v then
-				v.Position, v.Size = UDim2.new(), UDim2.fromScale(1, 1)
-			end
-		end
-		previewText.Visible = not (item and item.source)
-		previewText.Text = item and (item.symbol or item.name) or ""
-	end
-	for i, key in tabOrder do
-		local b = button(root, "Tab" .. key, titles[key], Color3.fromRGB(220, 232, 248))
-		b.Position, b.Size = UDim2.new((i - 1) / #tabOrder, 8, 0, 82), UDim2.new(1 / #tabOrder, -16, 0, 44)
-		b.Activated:Connect(function()
-			active = key
-			list.CanvasPosition = Vector2.zero
-			select(pages[key][1])
-		end)
-		tabs[key] = b
-	end
-	local function add(page, id, name, color, source, tint, read, perform, symbol)
-		local item = {
-			id = id,
-			name = name,
-			color = color or C.blue,
-			source = source,
-			tint = tint,
-			read = read,
-			perform = perform,
-			symbol = symbol,
-		}
-		local tile = button(list, id, "", Color3.new(1, 1, 1))
-		tile.ClipsDescendants = true
-		local cap = label(tile, "Name", 12)
-		cap.Text, cap.TextWrapped, cap.TextXAlignment = name, true, Enum.TextXAlignment.Center
-		cap.Size, cap.Position = UDim2.new(1, -10, 0, 32), UDim2.new(0, 5, 1, -54)
-		local state = label(tile, "State", 10, C.blue)
-		state.Size, state.Position, state.TextXAlignment =
-			UDim2.new(1, -8, 0, 18), UDim2.new(0, 4, 1, -20), Enum.TextXAlignment.Center
-		if source then
-			local view = Preview.Create(tile, source, tint)
-			if view then
-				view.Position, view.Size = UDim2.fromOffset(6, 6), UDim2.new(1, -12, 1, -63)
-			end
-		else
-			local glyph = label(tile, "Symbol", 28, item.color)
-			glyph.Text, glyph.TextXAlignment = symbol or name:sub(1, 1), Enum.TextXAlignment.Center
-			glyph.Position, glyph.Size = UDim2.fromOffset(6, 6), UDim2.new(1, -12, 1, -63)
-		end
-		item.tile, item.caption, item.state = tile, cap, state
-		tile.Activated:Connect(function()
-			select(item)
-		end)
-		table.insert(pages[page], item)
-		return item
-	end
-	for _, d in Rules.CreatureVariants do
-		add(
-			"ARCHIVE",
-			d.Id,
-			d.Name,
-			d.Color,
-			shared.SpecimenAssets:FindFirstChild("crownback"),
-			d.Color,
-			function()
-				local owned = player:GetAttribute("Creature_" .. d.Id) or 0
-				local chosen = player:GetAttribute("EquippedCreature") == d.Id
-				local solo = shared.RoundState:GetAttribute("EggDropChance")
-				local personal = player:GetAttribute("MiningContribution")
-				local total = shared.RoundState:GetAttribute("EffectiveDamage")
-				local odds = "Synchronizing creature chances..."
-				if
-					typeof(solo) == "number"
-					and typeof(personal) == "number"
-					and typeof(total) == "number"
-					and player:GetAttribute("ContributionRound")
-						== shared.RoundState:GetAttribute("RoundId")
-				then
-					local share = total > 0 and personal / total or 0
-					local chance = solo * share
-					local weight = 0
-					for _, variant in Rules.CreatureVariants do
-						weight += variant.Weight
-					end
-					odds = string.format(
-						"Egg solo chance: %.6g%%\nYour contribution so far: %.6g%%\nAny creature: %.6g%% / This variant: %.6g%%\nProvisional until completion. Zero damage means no roll.",
-						solo * 100,
-						share * 100,
-						chance * 100,
-						chance * d.Weight / weight * 100
-					)
-				end
-				return d.Rarity .. "  /  " .. owned .. " OWNED",
-					string.format(
-						"+%d%% mining power\n\n%s\nChoose a shelf below to display this creature.",
-						math.floor(d.Power * 100 + 0.5),
-						odds
-					),
-					chosen and "BUFF ACTIVE" or owned > 0 and "ACTIVATE BUFF" or "NOT DISCOVERED",
-					owned > 0 and not chosen
-			end,
-			function()
-				remote:FireServer("Creature", d.Id)
-			end
-		)
-	end
+	local room = page("ROOM")
+	K.Stack(room, 12)
+	local rt = K.Paragraph(room, "RoomIntro", "Your room", 28, K.Ink)
+	rt.Font = K.Title
+	K.Paragraph(
+		room,
+		"RoomDescription",
+		"Choose the lighting and accent theme for your own collection. Your discoveries and training equipment stay in place.",
+		16,
+		K.Muted
+	)
+	local home = K.Button(room, "GoHome", "Go to my room", function()
+		shell:SetOpen(false)
+		remote:FireServer("Home")
+	end)
+	home.Size = UDim2.new(1, -8, 0, 44)
+	local themes = {}
 	for _, d in Rules.RoomThemes do
-		add("ROOM", d.Id, d.Name, d.Color, nil, nil, function()
-			local owned = player:GetAttribute("OwnsTheme_" .. d.Id)
-			local chosen = player:GetAttribute("RoomTheme") == d.Id
-			return chosen and "ACTIVE" or owned and "OWNED" or "LOCKED",
-				"Personalize your shelf lighting and room accents.",
-				chosen and "APPLIED" or owned and "APPLY THEME" or "UNLOCK  /  " .. number(d.Cost),
-				not chosen and (owned or (player:GetAttribute("Cash") or 0) >= d.Cost)
-		end, function()
+		local r = K.Surface(room, "Theme_" .. d.Id)
+		r.Size = UDim2.new(1, -8, 0, 96)
+		local swatch = K.Surface(r, "MaterialSample", d.Color)
+		K.Rect(swatch, 12, 12, 56, 72)
+		local title = K.Text(r, "Name", d.Name, 21, K.Ink, true)
+		title.Position = UDim2.fromOffset(82, 8)
+		title.Size = UDim2.new(1, -98, 0, 28)
+		local b = K.Button(r, "Apply", "", function()
 			remote:FireServer("RoomTheme", d.Id)
-		end, "+")
+		end)
+		b.Position = UDim2.fromOffset(82, 42)
+		b.Size = UDim2.new(1, -98, 0, 42)
+		themes[d.Id] = b
 	end
-	add("OPTIONS", "Sound", "Sound effects", C.gold, nil, nil, function()
-		local on = (player:GetAttribute("SFXVolume") or 1) > 0
-		return on and "ON" or "OFF", "Impact and collection sound effects.", on and "MUTE" or "ENABLE", true
-	end, function()
-		player:SetAttribute("SFXVolume", (player:GetAttribute("SFXVolume") or 1) > 0 and 0 or 1)
-	end, "+")
-	add("OPTIONS", "Motion", "Reduced motion", C.blue, nil, nil, function()
-		local on = player:GetAttribute("ReducedMotion")
-		return on and "ON" or "OFF",
-			"Reduce camera movement, impact effects, and interface motion.",
-			on and "TURN OFF" or "TURN ON",
-			true
-	end, function()
-		player:SetAttribute("ReducedMotion", not player:GetAttribute("ReducedMotion"))
-	end, "+")
-	add("OPTIONS", "Training", "Training", C.mint, nil, nil, function()
-		local on = player:GetAttribute("Training")
-		return on and "TRAINING" or "READY",
-			"Use the practice device in your room to gain permanent strength.",
-			on and "STOP TRAINING" or "START AT YOUR DEVICE",
-			true
-	end, function()
-		remote:FireServer("Training")
-	end, "+")
-	action.Activated:Connect(function()
-		if selected then
-			local _, _, _, enabled = selected.read()
-			if enabled then
-				selected.perform()
-			end
+	local options = page("OPTIONS")
+	K.Stack(options, 14)
+	local ot = K.Paragraph(options, "Intro", "Make yourself comfortable", 28, K.Ink)
+	ot.Font = K.Title
+	K.Paragraph(
+		options,
+		"Subheading",
+		"Your sound and motion preferences are saved with your profile.",
+		15,
+		K.Muted
+	)
+	local settingButtons = {}
+	for _, entry in
+		{
+			{ "Sound", "Sound effects", "Impact, tool and collection sounds.", "SFXVolume" },
+			{
+				"Motion",
+				"Reduced motion",
+				"Reduce camera movement and interface animation.",
+				"ReducedMotion",
+			},
+		}
+	do
+		local r = K.Surface(options, entry[1])
+		r.Size = UDim2.new(1, -8, 0, 130)
+		local icon = K.Icon(r, entry[1])
+		K.Rect(icon, 12, 12, 40, 40)
+		local title = K.Text(r, "Name", entry[2], 19, K.Ink, true)
+		title.Position = UDim2.fromOffset(64, 10)
+		title.Size = UDim2.new(1, -78, 0, 28)
+		local body = K.Text(r, "Description", entry[3], 14, K.Muted)
+		body.Position = UDim2.fromOffset(64, 40)
+		body.Size = UDim2.new(1, -78, 0, 36)
+		local b = K.Button(r, "Toggle", "", function()
+			local current = entry[4] == "SFXVolume" and (attr("SFXVolume") or 1) > 0
+				or entry[4] == "ReducedMotion" and attr("ReducedMotion") == true
+			remote:FireServer(
+				"InterfacePreference",
+				entry[4],
+				entry[4] == "SFXVolume" and (current and 0 or 1) or not current
+			)
+		end)
+		b.Position = UDim2.fromOffset(64, 78)
+		b.Size = UDim2.new(1, -78, 0, 40)
+		settingButtons[entry[4]] = b
+	end
+	local saveStatus = K.Paragraph(options, "SaveFeedback", "", 14, K.Green)
+	feedback.OnClientEvent:Connect(function(kind, ok, message)
+		if kind == "PreferenceReceipt" then
+			saveStatus.Text = message
+			saveStatus.TextColor3 = ok and K.Green or K.Error
 		end
 	end)
-	select(pages.ARCHIVE[1])
-	local api = {}
-	function api:Select(page)
-		if pages[page] then
-			active = page
-			list.CanvasPosition = Vector2.zero
-			select(pages[page][1])
-		end
+	local training = K.Button(options, "Training", "", function()
+		remote:FireServer("Training")
+	end, true)
+	training.Size = UDim2.new(1, -8, 0, 44)
+	K.Paragraph(options, "TrainingHint", "Training begins at the device in your own room.", 14, K.Muted)
+	local help = K.Button(options, "Controls", "Controls & field guide", function()
+		active = "HELP"
+	end, true)
+	help.Size = UDim2.new(1, -8, 0, 44)
+	K.Paragraph(
+		options,
+		"Attribution",
+		"Interface icons: Lorc, Delapouite, Skoll & Faithtoken / Game-icons.net / CC BY 3.0. Resized and tinted. Tool and world asset credits are recorded in the project.",
+		12,
+		K.Muted
+	)
+	local guide = page("HELP")
+	K.Stack(guide, 12)
+	local gt = K.Paragraph(guide, "Title", "Your field guide", 28)
+	gt.Font = K.Title
+	for _, row in
+		{
+			{
+				"Excavate",
+				"Aim at an exposed shell section. Click or hold E to use your tool. Touch: hold STRIKE; tap DRILL to start or stop. Controller: RT / R2.",
+			},
+			{
+				"Equipment",
+				"1–3 selects an owned tool. Controller: cycle tools with the directional controls. Use Equipment to buy tools and upgrade the equipped tool.",
+			},
+			{
+				"Move & explore",
+				"WASD to move, Space to jump, Shift to sprint. Ctrl toggles mouse lock. Touch uses the movement stick and sprint button.",
+			},
+			{
+				"Skills",
+				"K opens the skill tree. Select a node before learning it. Q uses Charged Swing when it is equipped. Active skills and free respec require your own room and 10 seconds without mining.",
+			},
+			{
+				"Research & collection",
+				"J opens your journal. Materials fill the bag; sell them for credits. Your contribution determines your personal creature chance. Choose one active creature bonus and three featured shelf displays.",
+			},
+			{
+				"Training",
+				"Enter the training station in your own room. Leave the area to stop. No training takes place while a blocking menu is open.",
+			},
+		}
+	do
+		local f = K.Surface(guide, row[1])
+		f.Size = UDim2.new(1, -8, 0, 0)
+		f.AutomaticSize = Enum.AutomaticSize.Y
+		K.Make("UIPadding", f, {
+			PaddingTop = UDim.new(0, 14),
+			PaddingBottom = UDim.new(0, 14),
+			PaddingLeft = UDim.new(0, 16),
+			PaddingRight = UDim.new(0, 16),
+		})
+		K.Stack(f, 7)
+		local t = K.Paragraph(f, "Heading", row[1], 19, K.Green)
+		t.Font = K.Bold
+		K.Paragraph(f, "Description", row[2], 15, K.Ink)
+	end
+	local titles = {
+		ARCHIVE = "Creature collection",
+		ROOM = "My room",
+		OPTIONS = "Settings",
+		HELP = "Controls & guidance",
+	}
+	local api = { Root = root }
+	function api:Select(p)
+		active = pages[p] and p or "ARCHIVE"
+		selected = selected or Rules.CreatureVariants[1].Id
+		scroll.CanvasPosition = Vector2.zero
 	end
 	function api:Update()
-		if not panel.Visible then
+		if not root.Visible then
 			return
 		end
-		local available = gui.AbsoluteSize
-		local width, height = require(script.Parent.ModalLayout).FitPanel(
-			panel,
-			available,
-			Vector2.new(560, 560),
-			Vector2.new(940, 640),
-			Vector2.new(24, 24),
-			"Fit"
-		)
-		local compact = width < 650
-		local bodyHeight = height - 170
-		local gridWidth = compact and width - 32 or math.floor(width * 0.54) - 24
-		local gridHeight = compact and 104 or bodyHeight
-		list.Position, list.Size = UDim2.fromOffset(16, 138), UDim2.fromOffset(gridWidth, gridHeight)
-		inspector.Position = compact and UDim2.fromOffset(16, 148 + gridHeight)
-			or UDim2.fromOffset(gridWidth + 30, 138)
-		inspector.Size = compact and UDim2.fromOffset(width - 32, bodyHeight - gridHeight - 10)
-			or UDim2.fromOffset(width - gridWidth - 46, bodyHeight)
-		local ih = inspector.Size.Y.Offset
-		local previewHeight = compact and 48 or 150
-		previewHost.Position, previewHost.Size =
-			UDim2.fromOffset(14, compact and 60 or 76), UDim2.new(1, -28, 0, previewHeight)
-		itemTitle.TextSize = compact and 17 or 22
-		badge.Position = UDim2.fromOffset(18, compact and 6 or 12)
-		itemTitle.Position = UDim2.fromOffset(18, compact and 23 or 33)
-		local extra = active == "ARCHIVE"
-		extras.Visible = extra
-		descriptionScroll.Position = UDim2.fromOffset(18, (compact and 68 or 86) + previewHeight)
-		descriptionScroll.Size = UDim2.new(
-			1,
-			-36,
-			0,
-			math.max(0, ih - descriptionScroll.Position.Y.Offset - (extra and 112 or 65))
-		)
-		details.TextSize = compact and 12 or 14
-		for _, key in tabOrder do
-			tabs[key].BackgroundColor3 = key == active and C.gold or Color3.fromRGB(220, 232, 248)
-			tabs[key].TextSize = compact and 10 or 14
+		shell.Title.Text = titles[active]
+		for id, p in pages do
+			p.Visible = id == active
 		end
-		title.Text = titles[active]
-		wallet.Text = number(player:GetAttribute("Cash") or 0)
-			.. " COINS  /  "
-			.. number(player:GetAttribute("Strength") or 0)
-			.. " STRENGTH"
-		local count = 0
-		local columns = compact and 3 or 3
-		local tileWidth = (gridWidth - 28 - (columns - 1) * 10) / columns
-		local tileHeight = compact and 120 or 156
-		for key, items in pages do
-			for _, item in items do
-				local visible = key == active and not (item.hidden and item.hidden())
-				item.tile.Visible = visible
-				if visible then
-					item.tile.Size = UDim2.fromOffset(tileWidth, tileHeight)
-					item.tile.Position = UDim2.fromOffset(
-						10 + (count % columns) * (tileWidth + 10),
-						10 + math.floor(count / columns) * (tileHeight + 10)
+		local w = root.AbsoluteSize.X - 8
+		if active == "OPTIONS" then
+			settingButtons.SFXVolume.Text = (attr("SFXVolume") or 1) > 0 and "Sound on · mute"
+				or "Sound off · enable"
+			settingButtons.ReducedMotion.Text = attr("ReducedMotion") and "Reduced motion on · disable"
+				or "Reduced motion off · enable"
+			K.Enabled(
+				training,
+				attr("Training") == true,
+				attr("Training") and "Stop training" or "Enter your training station"
+			)
+		elseif active == "ROOM" then
+			for _, d in Rules.RoomThemes do
+				local chosen = attr("RoomTheme") == d.Id
+				local owned = attr("OwnsTheme_" .. d.Id)
+				K.Enabled(
+					themes[d.Id],
+					not chosen and (owned or (attr("Cash") or 0) >= d.Cost),
+					chosen and "Applied"
+						or owned and "Apply theme"
+						or "Unlock · " .. K.Number(d.Cost) .. " credits"
+				)
+			end
+		elseif active == "ARCHIVE" then
+			K.Rect(owner, 0, 0, w, 32)
+			local cols = w < 600 and 2 or 3
+			local cw = (w - (cols - 1) * 10) / cols
+			for i, d in Rules.CreatureVariants do
+				local v = tabs[d.Id]
+				local count = attr("Creature_" .. d.Id) or 0
+				K.Rect(v.root, ((i - 1) % cols) * (cw + 10), 42 + math.floor((i - 1) / cols) * 178, cw, 168)
+				K.Rect(v.view, 8, 4, cw - 16, 106)
+				K.Rect(v.name, 10, 112, cw - 20, 24)
+				K.Rect(v.state, 10, 138, cw - 20, 20)
+				v.root.BackgroundColor3 = selected == d.Id and K.Card or K.Line
+				v.name.Text = count > 0 and d.Name or "Undiscovered"
+				v.state.Text = count > 0 and d.Rarity .. " · ×" .. count or "Not yet recovered"
+				v.view.ImageColor3 = count > 0 and Color3.new(1, 1, 1) or Color3.new(0.015, 0.02, 0.017)
+			end
+			local y = 42 + math.ceil(#Rules.CreatureVariants / cols) * 178
+			K.Rect(detail, 0, y, w, 354)
+			local d = Rules.Creature(selected)
+			local count = d and (attr("Creature_" .. selected) or 0) or 0
+			K.Rect(dname, 16, 12, w - 32, 40)
+			K.Rect(desc, 16, 56, w - 32, 50)
+			K.Rect(odds, 16, 112, w - 32, 70)
+			K.Rect(equip, 16, 194, w - 32, 44)
+			K.Rect(slotsLabel, 16, 252, w - 32, 24)
+			for i, b in slots do
+				K.Rect(b, 16 + (i - 1) * (w - 24) / 3, 288, (w - 48) / 3, 44)
+				K.Enabled(
+					b,
+					count > 0,
+					attr("DisplaySlot" .. i) == selected and "Clear shelf " .. i or "Shelf " .. i
+				)
+			end
+			dname.Text = count > 0 and d.Name or "Undiscovered creature"
+			desc.Text = count > 0
+					and string.format(
+						"%s · %d owned\n+%d%% mining power when active",
+						d.Rarity,
+						count,
+						math.floor(d.Power * 100 + 0.5)
 					)
-					count += 1
-					item.state.Text = item.read()
-					item.tile.BackgroundColor3 = item == selected and Color3.fromRGB(255, 237, 179)
-						or Color3.new(1, 1, 1)
+				or "Recover this creature from an egg to add it to your collection."
+			local state = script.Parent.RoundState
+			local solo, total, personal =
+				state:GetAttribute("EggDropChance"),
+				state:GetAttribute("EffectiveDamage"),
+				attr("MiningContribution")
+			odds.Text = ""
+			if
+				count > 0
+				and typeof(solo) == "number"
+				and typeof(total) == "number"
+				and typeof(personal) == "number"
+				and attr("ContributionRound") == state:GetAttribute("RoundId")
+			then
+				local weight = 0
+				for _, v in Rules.CreatureVariants do
+					weight += v.Weight
 				end
+				local chance = solo * (total > 0 and personal / total or 0)
+				odds.Text = string.format(
+					"Current chance: %.6g%% any creature · %.6g%% this variant\nBased on your contribution so far; final odds settle at completion.",
+					chance * 100,
+					chance * d.Weight / weight * 100
+				)
 			end
+			local chosen = attr("EquippedCreature") == selected
+			K.Enabled(
+				equip,
+				count > 0 and not chosen,
+				chosen and "Bonus active" or count > 0 and "Activate creature bonus" or "Not discovered"
+			)
 		end
-		empty.Visible = count == 0
-		list.CanvasSize = UDim2.fromOffset(0, 20 + math.ceil(count / columns) * (tileHeight + 10))
-		if selected then
-			local state, description, cta, enabled = selected.read()
-			badge.Text, itemTitle.Text, details.Text, action.Text = state, selected.name, description, cta
-			action.Interactable = enabled
-			action.BackgroundColor3 = enabled and C.mint or Color3.fromRGB(207, 219, 235)
-			for i, b in extraButtons do
-				b.Text = "SHELF " .. i
-				local chosen = active == "ARCHIVE" and player:GetAttribute("DisplaySlot" .. i) == selected.id
-				b.BackgroundColor3 = chosen and C.gold or Color3.fromRGB(221, 232, 249)
-				b.Interactable = active ~= "ARCHIVE"
-					or (player:GetAttribute("Creature_" .. selected.id) or 0) > 0
-			end
-		end
-		footer.Text = active == "ARCHIVE"
-				and "Choose one active buff. Display up to three creatures in your room."
-			or "Select an item to see its details."
 	end
 	return api
 end
-return W
+return M

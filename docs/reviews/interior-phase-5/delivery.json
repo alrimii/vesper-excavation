@@ -1,0 +1,20 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 223,
+  "publishedAtUtc": "2026-11-11T09:28:00.589Z",
+  "publicationEvidence": "Original Studio log: publishType=1, PublishSuccessful, Add publish notes to v223",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "65ae7715c8682ea0c1d705f7a66a0529be33f15d",
+  "repository": "https://github.com/alrimii/vesper-excavation",
+  "nativeBefore": "Backups/InteriorPhase5_20261111/ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups/InteriorPhase5_20261111/ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "22BBDDFE840F420CB599D23F7F2C2E80ECC29FE5BC7F4B22B6737F2605B4B2CD",
+  "studioMode": "Edit",
+  "ownerStoppedTesting": true,
+  "verificationComplete": false,
+  "visualApproval": false,
+  "temporaryFixtureRemoved": true,
+  "fixedSaveGenerationChanged": false,
+  "accessSettingsChanged": false
+}

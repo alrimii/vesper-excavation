@@ -1,212 +1,133 @@
+-- Journal, discoveries and rewards. Existing reveal/gallery behavior is retained below.
 local H = {}
 function H.Attach(gui, player)
-	local Shared = game.ReplicatedStorage.VesperShared
+	local Shared = script.Parent
+	local K = require(Shared.InterfaceKit)
 	local Catalog = require(Shared.DiscoveryCatalog)
-	local Preview = require(Shared.SpecimenPreview)
 	local State = Shared.RoundState
 	require(Shared.ExpeditionResults).Attach(gui, player)
-	local UIS = game:GetService("UserInputService")
-	local Tween = game:GetService("TweenService")
-	local teal = Color3.fromRGB(113, 236, 210)
-	local gold = Color3.fromRGB(255, 213, 138)
-	local muted = Color3.fromRGB(157, 180, 193)
-	local function frame(parent, name, size, pos)
-		local f = Instance.new("Frame")
-		f.Name = name
-		f.Size = size
-		f.Position = pos
-		f.BackgroundColor3 = Color3.fromRGB(14, 24, 36)
-		f.BorderSizePixel = 0
-		f.Parent = parent
-		local c = Instance.new("UICorner")
-		c.CornerRadius = UDim.new(0, 12)
-		c.Parent = f
-		local s = Instance.new("UIStroke")
-		s.Color = Color3.fromRGB(58, 81, 99)
-		s.Transparency = 0.25
-		s.Parent = f
-		return f
-	end
-	local function text(parent, name, value, size, pos, fs, color)
-		local t = Instance.new("TextLabel")
-		t.Name = name
-		t.Text = value
-		t.Size = size
-		t.Position = pos
-		t.BackgroundTransparency = 1
-		t.Font = Enum.Font.GothamMedium
-		t.TextColor3 = color or Color3.fromRGB(238, 246, 249)
-		t.TextSize = fs or 14
-		t.TextXAlignment = Enum.TextXAlignment.Left
-		t.Parent = parent
-		return t
-	end
-	local function button(parent, name, value, size, pos)
-		local b = Instance.new("TextButton")
-		b.Name = name
-		b.Size = size
-		b.Position = pos
-		b.Text = value
-		b.TextSize = 13
-		b.Font = Enum.Font.GothamBold
-		b.TextColor3 = teal
-		b.BackgroundColor3 = Color3.fromRGB(27, 51, 65)
-		b.BorderSizePixel = 0
-		b.Parent = parent
-		local c = Instance.new("UICorner")
-		c.CornerRadius = UDim.new(0, 9)
-		c.Parent = b
-		b.AutoButtonColor = false
-		return b
-	end
-	local dim = Instance.new("TextButton")
-	dim.Name = "JournalShade"
-	dim.Size = UDim2.fromScale(1, 1)
-	dim.BackgroundColor3 = Color3.new()
-	dim.BackgroundTransparency = 1
-	dim.Text = ""
-	dim.Visible = false
-	dim.ZIndex = 39
-	dim.Parent = gui
-	local journal = frame(gui, "Journal", UDim2.fromOffset(650, 510), UDim2.fromScale(0.5, 0.5))
-	journal.AnchorPoint = Vector2.new(0.5, 0.5)
-	journal.Visible = false
-	journal.Active = true
-	journal.ZIndex = 40
-	require(Shared.ModalLayout).Backdrop(gui, journal, { Color = Color3.new(), Transparency = 0.35 })
-	local fit = Instance.new("UIScale")
-	fit.Parent = journal
-	text(
-		journal,
-		"Kicker",
-		"VESPER  /  RESEARCH DIVISION",
-		UDim2.fromOffset(550, 20),
-		UDim2.fromOffset(24, 18),
-		11,
-		teal
+	local shell = K.Shell(player, "FieldJournal", "Research journal", "ResearchModal", nil, 900)
+	local active = "RESEARCH"
+	local b1 = K.Button(shell.Body, "ResearchTab", "Research", function()
+		active = "RESEARCH"
+	end, true)
+	local b2 = K.Button(shell.Body, "SpeciesTab", "Discoveries", function()
+		active = "SPECIES"
+	end, true)
+	K.Rect(b1, 0, 0, 130, 44)
+	K.Rect(b2, 138, 0, 130, 44)
+	local research = K.Scroll(shell.Body, "Research")
+	K.Stack(research, 14)
+	local species = K.Scroll(shell.Body, "Discoveries")
+	K.Stack(species, 14)
+	local level = K.Paragraph(research, "Level", "", 28)
+	level.Font = K.Title
+	local xp = K.Paragraph(research, "XP", "", 16, K.Green)
+	local contract = K.Surface(research, "Contract")
+	contract.Size = UDim2.new(1, -8, 0, 0)
+	contract.AutomaticSize = Enum.AutomaticSize.Y
+	K.Make(
+		"UIPadding",
+		contract,
+		{
+			PaddingTop = UDim.new(0, 16),
+			PaddingBottom = UDim.new(0, 16),
+			PaddingLeft = UDim.new(0, 18),
+			PaddingRight = UDim.new(0, 18),
+		}
 	)
-	text(journal, "Title", "The living archive", UDim2.fromOffset(560, 36), UDim2.fromOffset(24, 44), 28).Font =
-		Enum.Font.GothamBold
-	local sub = text(journal, "Subtitle", "", UDim2.fromOffset(580, 25), UDim2.fromOffset(24, 84), 13, muted)
-	local close = button(journal, "Close", "X", UDim2.fromOffset(38, 38), UDim2.new(1, -54, 0, 20))
-	local cards = {}
-	for i, entry in Catalog.Specimens do
-		local card = frame(
-			journal,
-			entry.Id,
-			UDim2.fromOffset(190, 165),
-			UDim2.fromOffset(24 + ((i - 1) % 3) * 206, 123 + math.floor((i - 1) / 3) * 181)
-		)
-		local view = Instance.new("ViewportFrame")
-		view.Size = UDim2.new(1, -16, 0, 108)
-		view.Position = UDim2.fromOffset(8, 5)
-		view.BackgroundTransparency = 1
-		view.Ambient = Color3.fromRGB(180, 190, 210)
-		view.LightColor = Color3.fromRGB(255, 246, 220)
-		view.Parent = card
-		local preview = Preview.Create(view, entry.Id, entry.Color)
-		local name = text(
-			card,
-			"Name",
-			entry.Name,
-			UDim2.new(1, -20, 0, 23),
-			UDim2.fromOffset(10, 116),
-			14,
-			entry.Color
-		)
-		local count = text(
-			card,
-			"Count",
-			"UNDISCOVERED",
-			UDim2.new(1, -20, 0, 18),
-			UDim2.fromOffset(10, 141),
-			10,
-			muted
-		)
-		table.insert(
-			cards,
-			{ root = card, view = view, name = name, count = count, entry = entry, preview = preview }
-		)
+	K.Stack(contract, 10)
+	K.Paragraph(contract, "Caption", "ACTIVE CONTRACT", 12, K.Green)
+	local ct = K.Paragraph(contract, "Title", "", 23, K.Ink)
+	ct.Font = K.Bold
+	local hint = K.Paragraph(contract, "Hint", "", 16, K.Muted)
+	local progress = K.Paragraph(contract, "Progress", "", 18, K.Green)
+	local upcoming = {}
+	for i = 1, 3 do
+		upcoming[i] = K.Paragraph(research, "Upcoming" .. i, "", 16, K.Muted)
 	end
-	for _, v in journal:GetDescendants() do
-		if v:IsA("GuiObject") then
-			v.ZIndex = 41
-		end
+	local cards = {}
+	for _, entry in Catalog.Specimens do
+		local card = K.Surface(species, entry.Id)
+		card.Size = UDim2.new(1, -8, 0, 280)
+		local view = K.Make(
+			"ViewportFrame",
+			card,
+			{
+				Name = "Specimen",
+				BackgroundTransparency = 1,
+				Position = UDim2.fromOffset(12, 8),
+				Size = UDim2.new(1, -24, 0, 202),
+				Ambient = Color3.fromRGB(180, 190, 180),
+				LightColor = Color3.fromRGB(255, 246, 220),
+			}
+		)
+		local preview = require(Shared.SpecimenPreview).Create(view, entry.Id, entry.Color)
+		local name = K.Text(card, "Name", "", 23, K.Ink, true)
+		name.Position = UDim2.fromOffset(18, 212)
+		name.Size = UDim2.new(1, -36, 0, 30)
+		local count = K.Text(card, "Count", "", 14, K.Muted)
+		count.Position = UDim2.fromOffset(18, 246)
+		count.Size = UDim2.new(1, -36, 0, 24)
+		table.insert(cards, { entry = entry, preview = preview, name = name, count = count })
 	end
 	local function toggle(open)
-		if open and player:GetAttribute("SkillTreeOpen") then
+		if open and (not player:GetAttribute("LabReady") or player:GetAttribute("DiscoveryCinematic")) then
 			return
 		end
-		journal.Visible = open
-		dim.Visible = open
-		player:SetAttribute("ResearchModal", open)
-		if open and UIS.PreferredInput == Enum.PreferredInput.Gamepad then
-			game:GetService("GuiService").SelectedObject = close
-		end
-		if not open and game:GetService("GuiService").SelectedObject == close then
-			game:GetService("GuiService").SelectedObject = nil
-		end
+		shell:SetOpen(open)
 	end
-	close.Activated:Connect(function()
-		toggle(false)
-	end)
-	dim.Activated:Connect(function()
-		toggle(false)
-	end)
-	UIS.InputBegan:Connect(function(input, processed)
-		if processed or player:GetAttribute("SkillTreeOpen") then
-			return
-		end
-		if input.KeyCode == Enum.KeyCode.J or input.KeyCode == Enum.KeyCode.ButtonX then
-			toggle(not journal.Visible)
-		elseif input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.ButtonB then
-			toggle(false)
+	game:GetService("UserInputService").InputBegan:Connect(function(i, processed)
+		if
+			not processed
+			and not game:GetService("UserInputService"):GetFocusedTextBox()
+			and (i.KeyCode == Enum.KeyCode.J or i.KeyCode == Enum.KeyCode.ButtonX)
+			and not player:GetAttribute("SkillTreeOpen")
+		then
+			toggle(not shell.Open)
 		end
 	end)
-	local reward = frame(gui, "ResearchReward", UDim2.fromOffset(390, 132), UDim2.fromScale(0.5, 0.28))
-	reward.AnchorPoint = Vector2.new(0.5, 0.5)
+	local reward = K.Surface(gui, "ResearchReward", K.Dark)
+	reward.AnchorPoint = Vector2.new(1, 1)
+	reward.Position = UDim2.new(1, -16, 1, -120)
+	reward.Size = UDim2.new(0.8, 0, 0, 110)
 	reward.Visible = false
-	reward.ZIndex = 30
-	local rewardScale = Instance.new("UIScale")
-	rewardScale.Parent = reward
-	local rTitle = text(reward, "Title", "", UDim2.new(1, -32, 0, 22), UDim2.fromOffset(16, 14), 12, teal)
-	local rName = text(reward, "Name", "", UDim2.new(1, -32, 0, 38), UDim2.fromOffset(16, 39), 23)
-	rName.Font = Enum.Font.GothamBold
-	local rValue = text(reward, "Value", "", UDim2.new(1, -32, 0, 24), UDim2.fromOffset(16, 88), 15, gold)
-	for _, v in reward:GetDescendants() do
-		if v:IsA("GuiObject") then
-			v.ZIndex = 31
-		end
-	end
-	local queue = {}
-	local presenting = false
+	K.Make("UISizeConstraint", reward, { MaxSize = Vector2.new(360, 110) })
+	local rTitle = K.Text(reward, "Title", "", 12, K.Gold, true)
+	rTitle.Position = UDim2.fromOffset(14, 10)
+	rTitle.Size = UDim2.new(1, -28, 0, 18)
+	local rName = K.Text(reward, "Name", "", 21, K.Paper, true)
+	rName.Position = UDim2.fromOffset(14, 32)
+	rName.Size = UDim2.new(1, -28, 0, 36)
+	local rValue = K.Text(reward, "Value", "", 14, K.Line)
+	rValue.Position = UDim2.fromOffset(14, 74)
+	rValue.Size = UDim2.new(1, -28, 0, 24)
+	local queue, presenting = {}, false
 	local function showNext()
-		if presenting or #queue == 0 then
+		if presenting or #queue == 0 or not gui.Parent then
 			return
 		end
 		presenting = true
 		local item = table.remove(queue, 1)
 		rTitle.Text = item[1]
 		rName.Text = item[2]
-		rValue.Text = "+" .. item[3] .. " credits  /  Research updated"
+		rValue.Text = "+" .. item[3] .. " credits"
 		reward.Visible = true
-		rewardScale.Scale = 0.9
-		Tween:Create(
-			rewardScale,
-			TweenInfo.new(0.3, Enum.EasingStyle.Back),
-			{ Scale = math.min(1, (workspace.CurrentCamera.ViewportSize.X - 28) / 390) }
-		):Play()
 		task.delay(3, function()
-			reward.Visible = false
-			presenting = false
-			showNext()
+			if reward.Parent then
+				reward.Visible = false
+				presenting = false
+				showNext()
+			end
 		end)
 	end
 	Shared.Remotes.Feedback.OnClientEvent:Connect(function(kind, a, b, c)
 		if kind == "ResearchReward" then
 			local function enqueue()
-				table.insert(queue, { a, b, c })
-				showNext()
+				if gui.Parent then
+					table.insert(queue, { a, b, c })
+					showNext()
+				end
 			end
 			if
 				a == "NEW DISCOVERY"
@@ -254,61 +175,58 @@ function H.Attach(gui, player)
 	end
 	updateGallery()
 	require(Shared.SpecimenMotion).Start(workspace.VesperLab.Egg.ContainedSpecimen, State)
-	local api = {}
-	local researchJournal = require(Shared.ResearchJournal).Attach(journal, cards, player)
-	-- The new HUD owns navigation; this retained controller owns journal/reveal only.
-	api.Toggle = toggle
-	function api.Update(_kind)
-		local v = gui.AbsoluteSize
-		local narrow = v.X < 800
-		local portrait = v.X < 600 and v.Y > v.X
-		local journalWidth, journalHeight = portrait and 440 or 650, portrait and 690 or 510
-		local short = v.Y < 450
-		if short then
-			journalHeight = 350
-		end
-		journal.Size = UDim2.fromOffset(journalWidth, journalHeight)
-		journal.Title.Size = UDim2.new(1, -48, 0, 36)
-		journal.Subtitle.Size = UDim2.new(1, -48, 0, 25)
-		journal.Subtitle.TextSize = portrait and 12 or 13
-		fit.Scale = math.min(1, (v.X - 24) / journalWidth, (v.Y - 26) / journalHeight)
-		for i, card in cards do
-			local columns = portrait and 2 or 3
-			card.root.Position = UDim2.fromOffset(
-				24 + ((i - 1) % columns) * 206,
-				(short and 112 or 123) + math.floor((i - 1) / columns) * (short and 116 or 181)
-			)
-			card.root.Size = UDim2.fromOffset(190, short and 110 or 165)
-			card.view.Size = UDim2.new(1, -16, 0, short and 64 or 108)
-			card.name.Position = UDim2.fromOffset(10, short and 70 or 116)
-			card.count.Position = UDim2.fromOffset(10, short and 92 or 141)
-			card.count.TextSize = (portrait or short) and 12 or 10
-			if #cards == 1 then
-				card.root.Position = UDim2.fromOffset(24, short and 112 or 123)
-				card.root.Size = UDim2.new(1, -48, 1, short and -132 or -145)
-				card.view.Size = UDim2.new(1, -32, 1, -66)
-				card.view.Position = UDim2.fromOffset(16, 5)
-				card.name.Position = UDim2.new(0, 16, 1, -52)
-				card.name.TextSize = 20
-				card.count.Position = UDim2.new(0, 16, 1, -27)
-				card.count.TextSize = 12
+
+	local hints = {
+		Break = "Finish breaking plates on the active layer.",
+		Collect = "Collect materials from broken plates. Keep space in your bag.",
+		Sell = "Sell a non-empty bag of materials.",
+		Upgrade = "Buy upgrade ranks for your equipped tool.",
+	}
+	return {
+		Toggle = toggle,
+		Update = function()
+			if not shell.Open then
+				return
 			end
-		end
-		if journal.Visible then
-			sub.Text = (player:GetAttribute("DiscoveryCount") or 0)
-				.. " / "
-				.. #Catalog.Specimens
-				.. " species documented  |  "
-				.. (player:GetAttribute("SaveStatus") or "LOADING")
-			for _, card in cards do
-				local count = player:GetAttribute("Discovery_" .. card.entry.Id) or 0
-				card.preview:SetUnlocked(count > 0)
-				card.name.Text = count > 0 and card.entry.Name or "Unknown lifeform"
-				card.count.Text = count > 0 and "RECOVERED  x" .. count or card.entry.Class .. "  /  LOCKED"
+			local w, h = shell.Width, shell.Height
+			K.Rect(research, 0, 58, w, h - 58)
+			K.Rect(species, 0, 58, w, h - 58)
+			research.Visible = active == "RESEARCH"
+			species.Visible = active == "SPECIES"
+			for i, b in { b1, b2 } do
+				local on = (i == 1) == (active == "RESEARCH")
+				b.BackgroundColor3 = on and K.Green or K.Line
+				b.TextColor3 = on and K.Card or K.Ink
 			end
-		end
-		researchJournal.Update()
-	end
-	return api
+			local lv = player:GetAttribute("ResearchLevel") or 0
+			local amount = player:GetAttribute("ResearchXP") or 0
+			local Skills = require(Shared.SkillCatalog)
+			level.Text = "Researcher " .. lv
+			xp.Text = lv == 100 and "Maximum research level"
+				or string.format(
+					"%.2f / %d XP · %d skill points",
+					amount - Skills.Threshold(lv),
+					Skills.Threshold(lv + 1) - Skills.Threshold(lv),
+					player:GetAttribute("SkillPoints") or 0
+				)
+			local index = player:GetAttribute("ContractIndex") or 1
+			local c = Catalog.Contract(index)
+			local done = math.clamp(player:GetAttribute("ContractProgress") or 0, 0, c.Goal)
+			ct.Text = c.Title
+			hint.Text = hints[c.Kind] or ""
+			progress.Text = string.format("%d / %d complete · %d credits", done, c.Goal, c.Reward)
+			for i, t in upcoming do
+				local n = Catalog.Contract(index + i)
+				t.Text = "Next " .. i .. "   " .. n.Title .. "  ·  " .. n.Reward .. " credits"
+			end
+			for _, v in cards do
+				local count = player:GetAttribute("Discovery_" .. v.entry.Id) or 0
+				v.preview:SetUnlocked(count > 0)
+				v.name.Text = count > 0 and v.entry.Name or "Unknown lifeform"
+				v.count.Text = count > 0 and "Recovered ×" .. count .. " · " .. v.entry.Class
+					or "Undiscovered"
+			end
+		end,
+	}
 end
 return H

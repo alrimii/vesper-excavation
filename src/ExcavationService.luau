@@ -256,6 +256,8 @@ local function syncPlayer(p)
 		drainPending(p, a, cap)
 	end
 	local config = Rules.ToolConfig(effectiveTool(a), C)
+	p:SetAttribute("SFXVolume", a.preferences.sound and 1 or 0)
+	p:SetAttribute("ReducedMotion", a.preferences.reducedMotion)
 	p:SetAttribute("ToolFamily", effectiveTool(a))
 	p:SetAttribute("IntroStage", a.introStage)
 	p:SetAttribute("DrillTrialUsed", a.drillTrialUsed)
@@ -1488,6 +1490,23 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 	s.requests = (s.requests or 0) + 1
 	if s.requests > 24 then
 		reply(false, "Please wait a moment and try again.")
+		return
+	end
+	if kind == "InterfacePreference" then
+		if now - (s.lastPreference or -math.huge) < 0.2 then
+			return
+		end
+		s.lastPreference = now
+		local account = accounts[p.UserId]
+		if a == "SFXVolume" and typeof(b) == "number" and (b == 0 or b == 1) then
+			account.preferences.sound = b == 1
+		elseif a == "ReducedMotion" and typeof(b) == "boolean" then
+			account.preferences.reducedMotion = b
+		else
+			return
+		end
+		syncPlayer(p)
+		Feedback:FireClient(p, "PreferenceReceipt", true, "Preference updated.")
 		return
 	end
 	if

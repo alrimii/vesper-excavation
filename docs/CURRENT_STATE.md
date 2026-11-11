@@ -1,3 +1,13 @@
+# Current checkpoint — Phase 5 interface, published v223
+
+Original place **94763223427049**, branch `planning/development-foundation`. Published **v223** on **2026-11-11 at 09:28:00 UTC**, confirmed by the original Studio publication log. Native final saved; Studio stopped in Edit. [Review and actual screenshots](reviews/interior-phase-5/REVIEW.md), [delivery identity](reviews/interior-phase-5/delivery.json).
+
+Unified parchment/mineral interface replaces HUD/navigation, equipment/upgrades, skills, journal/discoveries, collection/room menus, settings/help, materials, results, confirmations and loading/reveal captions. Shared tokens, safe modal ownership and actual Phase 4 tool previews. Twenty attributed icons; 32 retired native UI modules/factories removed and eight obsolete canonical modules deleted. Existing data/actions preserved; sound/reduced-motion preferences now use validated profile-backed settings.
+
+The owner stopped testing during the focused memory-only session. Drill purchase/equip/one upgrade, one skill rank, preference updates/normalization and shelf assignment were observed. Remaining verification and missing captures are explicitly retained in the review. No further tests after that instruction; final UTF-8 synchronization correction was made in Edit mode. Temporary fixture removed before saving/publishing. No production writes/reset/grants, no access changes. All 15,962 protected world parts and global lighting matched the baseline.
+
+[All later/deferred requirements](reviews/interior-phase-5/PLAN.md) remain unchanged, including the separate pickaxe contact-offset finding. No visual approval or complete device/respawn/rejoin verification is claimed. Do not resume testing without a new owner instruction.
+
 # Current checkpoint — Phase 4 tools, published v221
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v221** at **2026-11-11 01:05:14 UTC**, verified from Studio's actual publication log. [Review, screenshots, clips and limitations](reviews/interior-phase-4/REVIEW.md), [delivery identity](reviews/interior-phase-4/delivery.json). Final native saved; Studio stopped in Edit; art frozen. Friend-access settings were not changed.

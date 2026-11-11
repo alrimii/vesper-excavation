@@ -11,37 +11,33 @@ function M.Start(player, entry, revealedAt)
 	local hudWasEnabled = hud and hud.Enabled
 	local state = game.ReplicatedStorage.VesperShared.RoundState
 	local round = state:GetAttribute("RoundId")
-	local gui = Instance.new("ScreenGui")
-	gui.Name = "DiscoveryReveal"
-	gui.IgnoreGuiInset = true
-	gui.DisplayOrder = 200
-	gui.Parent = player.PlayerGui
-	local function text(name, value, y, size, color)
-		local t = Instance.new("TextLabel")
-		t.Name = name
-		t.Size = UDim2.new(0.9, 0, 0, size + 14)
-		t.Position = UDim2.fromScale(0.05, y)
-		t.BackgroundTransparency = 1
-		t.Text = value
-		t.TextSize = size
-		t.Font = Enum.Font.GothamBold
-		t.TextColor3 = color
-		t.TextWrapped = true
-		t.Parent = gui
-		return t
-	end
-	for _, y in { 0, 0.83 } do
-		local bar = Instance.new("Frame")
-		bar.Size = UDim2.fromScale(1, 0.17)
-		bar.Position = UDim2.fromScale(0, y)
-		bar.BackgroundColor3 = Color3.fromRGB(6, 13, 23)
-		bar.BackgroundTransparency = 0.1
-		bar.BorderSizePixel = 0
-		bar.Parent = gui
-	end
-	text("Header", "LIFEFORM IDENTIFIED", 0.045, 15, entry.Color)
-	text("Name", entry.Name, 0.85, 30, Color3.fromRGB(242, 248, 255))
-	text("Description", entry.Description, 0.92, 13, entry.Color)
+	local K = require(game.ReplicatedStorage.VesperShared.InterfaceKit)
+	K.CloseAll()
+	local gui = K.Make(
+		"ScreenGui",
+		player.PlayerGui,
+		{
+			Name = "DiscoveryReveal",
+			DisplayOrder = 200,
+			ScreenInsets = Enum.ScreenInsets.CoreUISafeInsets,
+			ResetOnSpawn = false,
+		}
+	)
+	local card = K.Surface(gui, "DiscoveryCaption", K.Dark)
+	card.AnchorPoint = Vector2.new(0.5, 1)
+	card.Position = UDim2.new(0.5, 0, 1, -24)
+	card.Size = UDim2.new(1, -32, 0, 134)
+	K.Make("UISizeConstraint", card, { MaxSize = Vector2.new(620, 134) })
+	local header = K.Text(card, "Header", "LIFEFORM IDENTIFIED", 12, K.Gold, true)
+	header.Position = UDim2.fromOffset(20, 12)
+	header.Size = UDim2.new(1, -40, 0, 20)
+	local name = K.Text(card, "Name", entry.Name, 32, K.Paper)
+	name.Font = K.Title
+	name.Position = UDim2.fromOffset(20, 36)
+	name.Size = UDim2.new(1, -40, 0, 44)
+	local desc = K.Text(card, "Description", entry.Description, 15, K.Line)
+	desc.Position = UDim2.fromOffset(20, 84)
+	desc.Size = UDim2.new(1, -40, 0, 40)
 	local oldType, oldCF, oldFov = camera.CameraType, camera.CFrame, camera.FieldOfView
 	player:SetAttribute("DiscoveryCinematic", true)
 	if hud then
@@ -76,10 +72,14 @@ function M.Start(player, entry, revealedAt)
 		player:SetAttribute("DiscoveryCinematic", false)
 		if camera == workspace.CurrentCamera then
 			camera.CameraType = player.Character == character and oldType or Enum.CameraType.Custom
-			if player.Character == character then camera.CFrame = oldCF end
+			if player.Character == character then
+				camera.CFrame = oldCF
+			end
 			camera.FieldOfView = oldFov
 			local current = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-			if current then camera.CameraSubject = current end
+			if current then
+				camera.CameraSubject = current
+			end
 		end
 		if hud then
 			hud.Enabled = hudWasEnabled

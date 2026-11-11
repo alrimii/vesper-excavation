@@ -124,7 +124,10 @@ end
 -- Optional HUD artwork must not block egg readiness.
 task.spawn(function()
 	local icons = {}
-	for _, uri in config.Icons do
+	local atlas = Instance.new("ImageLabel")
+	atlas.Image = "rbxassetid://121599750729304"
+	table.insert(icons, atlas)
+	for _, uri in require(shared.ExcavationArt) do
 		local image = Instance.new("ImageLabel")
 		image.Image = uri
 		table.insert(icons, image)

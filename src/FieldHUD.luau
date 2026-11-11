@@ -1,237 +1,203 @@
--- Production HUD composition. Pure view; same factory is used for temporary Edit previews.
+-- Compact field instruments and a two-column navigation folio.
 local V = {}
 function V.Build(gui, callbacks)
-	local C = require(script.Parent.ExcavationChrome)
-	local make, rect, text = C.Make, C.Rect, C.Text
-	local root = make(
+	local K = require(script.Parent.InterfaceKit)
+	local root = K.Make(
 		"Frame",
 		gui,
 		{ Name = "FieldHUD", Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Visible = false }
 	)
 	local ui = { Root = root }
-	local function button(name, label, key, color, round)
-		local b = C.Button(root, name, callbacks[name], color, round)
-		local t = text(b, "Label", label, 18)
-		return { Button = b, Label = t, Icon = key and C.Icon(b, key) }
-	end
-	local function counter(name, key, caption)
-		local f = make("Frame", root, { Name = name, BackgroundTransparency = 1, ZIndex = 5 })
-		local pill = make("Frame", f, { Name = "ValuePlate", ZIndex = 5 })
-		C.Surface(pill, C.White, 16)
-		local icon = C.Icon(f, key)
+	local function button(name, label, key)
+		local b = K.Button(root, name, "", callbacks[name], true)
 		return {
-			Frame = f,
-			Plate = pill,
-			Icon = icon,
-			Value = text(f, "Value", "...", 22),
-			Caption = text(f, "Caption", caption, 11),
+			Button = b,
+			Label = K.Text(b, "Label", label, 14, K.Ink, true),
+			Icon = key and K.Icon(b, key),
 		}
 	end
-	ui.Cash = counter("Credits", "credits", "CREDITS")
-	ui.Relics = counter("Relics", "relic", "RELICS")
-	ui.Bucket = counter("Storage", "bucket", "STORAGE")
-	ui.BucketTrack = make(
-		"Frame",
-		ui.Bucket.Frame,
-		{ Name = "Track", BorderSizePixel = 0, BackgroundColor3 = C.Ink, ZIndex = 7 }
-	)
-	make("UICorner", ui.BucketTrack, { CornerRadius = UDim.new(1, 0) })
-	ui.BucketFill = make("Frame", ui.BucketTrack, {
-		Name = "Fill",
-		Size = UDim2.fromScale(0, 1),
-		BorderSizePixel = 0,
-		BackgroundColor3 = C.Blue,
-		ZIndex = 8,
-	})
-	make("UICorner", ui.BucketFill, { CornerRadius = UDim.new(1, 0) })
-	ui.Sell = button("Sell", "SELL", nil, C.Gold, 18)
-	ui.Egg = button("EggDetails", "CURRENT EGG", "bronze", C.White, 24)
-	ui.EggPercent = text(ui.Egg.Button, "Percent", "...", 14)
-	ui.EggTrack = make(
-		"Frame",
-		ui.Egg.Button,
-		{ Name = "Track", BackgroundColor3 = C.Ink, BorderSizePixel = 0, ZIndex = 7 }
-	)
-	make("UICorner", ui.EggTrack, { CornerRadius = UDim.new(1, 0) })
-	ui.EggFill = make("Frame", ui.EggTrack, {
-		Name = "Fill",
-		Size = UDim2.fromScale(0, 1),
-		BackgroundColor3 = C.Gold,
-		BorderSizePixel = 0,
-		ZIndex = 8,
-	})
-	make("UICorner", ui.EggFill, { CornerRadius = UDim.new(1, 0) })
-	ui.EggCaption = text(ui.Egg.Button, "Caption", "EXCAVATION", 10)
-	ui.Details = make("Frame", root, { Name = "EggDetailsPanel", Visible = false, ZIndex = 20 })
-	C.Surface(ui.Details, C.White, 16)
-	ui.DetailText = text(ui.Details, "Text", "", 15)
+	local function counter(name, key, caption)
+		local f = K.Surface(root, name, K.Dark)
+		return {
+			Frame = f,
+			Plate = f,
+			Icon = K.Icon(f, key, K.Gold),
+			Value = K.Text(f, "Value", "", 17, K.Paper, true),
+			Caption = K.Text(f, "Caption", caption, 10, K.Line),
+		}
+	end
+	ui.Cash = counter("Credits", "Credits", "CREDITS")
+	ui.Relics = counter("Relics", "Research", "RELICS")
+	ui.Bucket = counter("Storage", "Storage", "MATERIALS")
+	local function bar(parent, color)
+		local track =
+			K.Make("Frame", parent, { Name = "Track", BorderSizePixel = 0, BackgroundColor3 = K.Muted })
+		local fill = K.Make(
+			"Frame",
+			track,
+			{ Name = "Fill", BorderSizePixel = 0, Size = UDim2.fromScale(0, 1), BackgroundColor3 = color }
+		)
+		return track, fill
+	end
+	ui.BucketTrack, ui.BucketFill = bar(ui.Bucket.Frame, K.Gold)
+	ui.Sell = button("Sell", "SELL")
+	ui.Egg = button("EggDetails", "CURRENT EGG", "Research")
+	ui.Egg.Button.BackgroundColor3 = K.Dark
+	ui.Egg.Label.TextColor3 = K.Paper
+	ui.EggPercent = K.Text(ui.Egg.Button, "Percent", "", 13, K.Paper)
+	ui.EggTrack, ui.EggFill = bar(ui.Egg.Button, K.Gold)
+	ui.EggCaption = K.Text(ui.Egg.Button, "Caption", "EXCAVATION", 10, K.Line)
+	ui.Details = K.Surface(root, "EggDetailsPanel", K.Card)
+	ui.Details.Visible = false
+	ui.Details.ZIndex = 20
+	ui.DetailText = K.Text(ui.Details, "Text", "", 14, K.Ink)
 	ui.DetailText.ZIndex = 21
-	ui.DetailText.TextWrapped = true
-	ui.Skills = button("Progression", "SKILLS", "skills", C.Purple, 100)
-	ui.Equipment = button("Upgrades", "TOOLS", "equipment", C.Orange, 100)
-	ui.More = button("More", "EXPLORE", "explore", C.Blue, 100)
-	ui.Progress = button("ProgressionStrip", "LV ...", nil, C.White, 16)
+	ui.Skills = button("Progression", "SKILLS", "Skills")
+	ui.Equipment = button("Upgrades", "TOOLS", "Equipment")
+	ui.More = button("More", "EXPLORE", "Explore")
+	ui.Progress = button("ProgressionStrip", "LV 0")
 	ui.Progress.Button.Activated:Connect(callbacks.Progression)
-	ui.XP = text(ui.Progress.Button, "XP", "...", 13)
-	ui.Points = text(ui.Skills.Button, "Points", "0", 13)
-	ui.Points.BackgroundTransparency = 0
-	ui.Points.BackgroundColor3 = C.White
-	make("UICorner", ui.Points, { CornerRadius = UDim.new(1, 0) })
-	ui.XPTrack = make(
-		"Frame",
-		ui.Progress.Button,
-		{ Name = "Track", BackgroundColor3 = C.Ink, BorderSizePixel = 0, ZIndex = 7 }
-	)
-	make("UICorner", ui.XPTrack, { CornerRadius = UDim.new(1, 0) })
-	ui.XPFill = make("Frame", ui.XPTrack, {
-		Name = "Fill",
-		BackgroundColor3 = C.Purple,
-		Size = UDim2.fromScale(0, 1),
-		BorderSizePixel = 0,
-		ZIndex = 8,
+	ui.XP = K.Text(ui.Progress.Button, "XP", "", 12, K.Muted)
+	ui.Points = K.Text(ui.Skills.Button, "Points", "", 12, K.Green, true)
+	ui.XPTrack, ui.XPFill = bar(ui.Progress.Button, K.Green)
+	ui.Guide = K.Surface(root, "ContextHint", K.Dark)
+	ui.Hint = K.Text(ui.Guide, "Text", "", 14, K.Paper)
+	ui.Dismiss = K.Button(ui.Guide, "Dismiss", "×", callbacks.Dismiss, true)
+	ui.Drawer = K.Surface(root, "NavigationFolio", K.Paper)
+	ui.Drawer.Visible = false
+	ui.Drawer.ZIndex = 20
+	ui.Drawer.Active = true
+	local heading = K.Text(ui.Drawer, "Heading", "Field journal", 26, K.Ink)
+	heading.Font = K.Title
+	heading.ZIndex = 21
+	K.Rect(heading, 16, 8, 250, 34)
+	ui.List = K.Scroll(ui.Drawer, "Destinations")
+	ui.List.ZIndex = 21
+	K.Make("UIGridLayout", ui.List, {
+		CellSize = UDim2.new(0.5, -5, 0, 64),
+		CellPadding = UDim2.fromOffset(8, 8),
+		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
-	make("UICorner", ui.XPFill, { CornerRadius = UDim.new(1, 0) })
-	ui.Guide = make("Frame", root, { Name = "ContextHint", Visible = false, ZIndex = 5 })
-	C.Surface(ui.Guide, C.White, 12)
-	ui.Hint = text(ui.Guide, "Text", "", 14)
-	ui.Hint.TextWrapped = true
-	ui.Dismiss = make("TextButton", ui.Guide, {
-		Name = "Dismiss",
-		Text = "X",
-		TextSize = 16,
-		Font = Enum.Font.FredokaOne,
-		TextColor3 = C.Ink,
-		BackgroundTransparency = 1,
-		ZIndex = 9,
-	})
-	ui.Dismiss.Activated:Connect(callbacks.Dismiss)
-	ui.Drawer = make("Frame", root, { Name = "ExploreDrawer", Visible = false, ZIndex = 20 })
-	C.Surface(ui.Drawer, C.White, 20)
-	ui.List = make("ScrollingFrame", ui.Drawer, {
-		Name = "Actions",
-		Size = UDim2.new(1, -20, 1, -20),
-		Position = UDim2.fromOffset(10, 10),
-		CanvasSize = UDim2.new(),
-		AutomaticCanvasSize = Enum.AutomaticSize.Y,
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		ScrollBarThickness = 5,
-		ZIndex = 21,
-	})
-	make("UIListLayout", ui.List, { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder })
+	ui.Contract = K.Text(ui.Drawer, "Contract", "", 13, K.Muted)
+	ui.Contract.ZIndex = 21
+	local entryKeys = {
+		Journal = "Journal",
+		Equipment = "Equipment",
+		Creatures = "Creatures",
+		Home = "Home",
+		Decorate = "Storage",
+		Settings = "Settings",
+		Help = "Research",
+		EggResults = "Results",
+		Train = "Precision",
+	}
+	local short = {
+		Journal = "Journal",
+		Equipment = "Equipment",
+		Creatures = "Creatures",
+		Home = "My room",
+		Decorate = "Room collection",
+		Settings = "Settings",
+		Help = "Field guide",
+		EggResults = "Egg results",
+		Train = "Training",
+	}
+	function ui:AddEntry(name, label, callback)
+		local b = K.Button(self.List, name, "", callback, true)
+		b.ZIndex = 22
+		b.BackgroundColor3 = K.Card
+		local icon = K.Icon(b, entryKeys[name] or "Explore")
+		K.Rect(icon, 8, 12, 34, 34)
+		icon.ZIndex = 23
+		local t = K.Text(b, "Label", short[name] or label, 14, K.Ink, true)
+		t.Position = UDim2.fromOffset(48, 4)
+		t.Size = UDim2.new(1, -54, 1, -8)
+		t.ZIndex = 23
+		return b
+	end
 	local old = gui:FindFirstChild("Use")
 	if old then
 		old:Destroy()
 	end
-	ui.Use = C.Button(gui, "Use", nil, C.Orange, 100)
-	ui.UseLabel = text(ui.Use, "Action", "STRIKE", 20)
-	ui.UseHint = text(ui.Use, "Hint", "", 12)
-	ui.Charged = button("ChargedSwing", "CHARGED", nil, C.Purple, 18)
-	ui.Flow = text(root, "Flow", "", 14)
-	ui.Flow.Visible = false
-	C.Surface(ui.Flow, C.White, 10)
-	ui.Training = button("Training", "STOP TRAINING", nil, C.Blue, 18)
-	function ui:AddEntry(name, label, callback)
-		local b = C.Button(self.List, name, callback, Color3.fromRGB(229, 239, 255), 12)
-		b.Text, b.Font, b.TextSize, b.TextColor3 = label, Enum.Font.FredokaOne, 16, C.Ink
-		b.Size, b.ZIndex = UDim2.new(1, -4, 0, 44), 22
-		return b
-	end
-	function ui:Layout(w, h, touch)
-		local phone = touch or w < 850 or h < 430
+	ui.Use = K.Button(gui, "Use", "")
+	ui.Use.BackgroundColor3 = K.Green
+	ui.UseLabel = K.Text(ui.Use, "Action", "STRIKE", 17, K.Card, true)
+	ui.UseHint = K.Text(ui.Use, "Hint", "", 11, K.Paper)
+	ui.Charged = button("ChargedSwing", "CHARGED", "Skills")
+	ui.Flow = K.Text(root, "Flow", "", 14, K.Paper, true)
+	ui.Flow.BackgroundTransparency = 0.1
+	ui.Flow.BackgroundColor3 = K.Dark
+	ui.Training = button("Training", "STOP TRAINING")
+	function ui:Layout(w, h, _touch)
+		local phone = w < 700 or h < 420
 		self.Phone = phone
-		local m = phone and 10 or 22
-		local cw, ch = phone and 92 or 130, phone and 34 or 48
+		local m = 10
+		local cw = w < 450 and 94 or 112
 		for i, c in { self.Cash, self.Relics } do
-			rect(c.Frame, m + (i - 1) * (cw + 6), m, cw, ch)
-			rect(c.Plate, 18, 2, cw - 18, ch - 3)
-			rect(c.Icon, -5, -6, ch + 9, ch + 9)
-			rect(c.Value, ch - 1, 0, cw - ch, phone and 23 or 31)
-			c.Value.TextSize = phone and 16 or 22
-			rect(c.Caption, ch - 1, phone and 21 or 30, cw - ch, 12)
-			c.Caption.TextSize = 11
+			K.Rect(c.Frame, m + (i - 1) * (cw + 6), m, cw, 42)
+			K.Rect(c.Icon, 5, 5, 30, 30)
+			K.Rect(c.Value, 40, 3, cw - 44, 23)
+			K.Rect(c.Caption, 40, 25, cw - 44, 12)
 		end
-		local pw = phone and 190 or 266
-		rect(self.Progress.Button, m, m + ch + 8, pw, phone and 32 or 38)
-		rect(self.Progress.Label, 4, 0, 54, phone and 24 or 27)
-		self.Progress.Label.TextSize = phone and 15 or 18
-		rect(self.XP, 58, 0, pw - 64, 20)
-		self.XP.TextSize = phone and 12 or 13
-		rect(self.XPTrack, 58, phone and 24 or 27, pw - 70, 5)
-		local ew = phone and math.min(236, math.max(180, w - 2 * pw - 50)) or 370
-		local ex = (w - ew) / 2 + (phone and 20 or 0)
-		rect(self.Egg.Button, ex, m, ew, phone and 54 or 72)
-		rect(self.Egg.Icon, -12, -10, phone and 66 or 88, phone and 66 or 88)
-		local left = phone and 54 or 78
-		rect(self.Egg.Label, left, phone and 7 or 9, ew - left - 12, 24)
-		self.Egg.Label.TextSize = phone and 15 or 21
-		self.Egg.Label.TextXAlignment = Enum.TextXAlignment.Left
-		rect(self.EggTrack, left, phone and 36 or 45, ew - left - 51, phone and 10 or 13)
-		rect(self.EggPercent, ew - 47, phone and 29 or 40, 44, 22)
-		self.EggPercent.TextSize = phone and 12 or 15
-		rect(self.EggCaption, left, phone and 24 or 31, ew - left - 10, 10)
-		self.EggCaption.Visible = not phone
-		rect(self.Details, ex, m + (phone and 64 or 84), ew, 100)
-		rect(self.DetailText, 12, 8, ew - 24, 84)
-		local bw = phone and 112 or 176
-		rect(self.Bucket.Frame, w - bw - m, m, bw, phone and 48 or 68)
-		rect(self.Bucket.Plate, 20, 5, bw - 20, phone and 41 or 59)
-		rect(self.Bucket.Icon, -8, -6, phone and 57 or 80, phone and 57 or 80)
-		local bl = phone and 48 or 68
-		rect(self.Bucket.Value, bl, phone and 4 or 8, bw - bl - 4, 24)
-		self.Bucket.Value.TextSize = phone and 15 or 21
-		rect(self.Bucket.Caption, bl, phone and 24 or 33, bw - bl - 4, 13)
-		self.Bucket.Caption.TextSize = 11
-		rect(self.BucketTrack, bl, phone and 40 or 52, bw - bl - 8, 5)
-		rect(
-			self.Sell.Button,
-			w - bw - m + (phone and 34 or 48),
-			m + (phone and 53 or 74),
-			bw - (phone and 34 or 48),
-			32
-		)
-		rect(self.Sell.Label, 0, 0, self.Sell.Button.Size.X.Offset, 32)
-		self.Sell.Label.TextSize = 16
-		local ns = phone and 46 or 66
-		for i, b in { self.Skills, self.Equipment, self.More } do
-			local x = phone and (m + (i - 1) * 66) or m
-			local y = phone and m + ch + 49 or 156 + (i - 1) * 96
-			rect(b.Button, x, y, ns, ns)
-			rect(b.Icon, phone and -2 or -5, phone and -5 or -8, ns + 4, ns + 4)
-			rect(b.Label, -7, ns - 1, ns + 14, phone and 19 or 24)
-			b.Label.TextSize = phone and 12 or 16
-			b.Label.TextColor3 = C.White
-			b.Label.TextStrokeColor3 = C.Ink
-			b.Label.TextStrokeTransparency = 0
+		local bw = w < 450 and 104 or 134
+		K.Rect(self.Bucket.Frame, w - bw - m, m, bw, 42)
+		K.Rect(self.Bucket.Icon, 3, 4, 30, 30)
+		K.Rect(self.Bucket.Value, 36, 1, bw - 40, 22)
+		K.Rect(self.Bucket.Caption, 36, 22, bw - 40, 13)
+		K.Rect(self.BucketTrack, 36, 37, bw - 44, 3)
+		K.Rect(self.Sell.Button, w - 74 - m, 58, 74, 36)
+		K.Rect(self.Sell.Label, 0, 0, 74, 36)
+		K.Rect(self.Progress.Button, m, 58, cw * 2 + 6, 36)
+		K.Rect(self.Progress.Label, 8, 2, 45, 25)
+		K.Rect(self.XP, 60, 2, cw * 2 - 62, 24)
+		K.Rect(self.XPTrack, 60, 29, cw * 2 - 66, 3)
+		local ew = w >= 850 and math.min(280, w - 2 * cw - 2 * bw - 60) or math.min(300, w - 20)
+		local ey = w >= 850 and 10 or 104
+		K.Rect(self.Egg.Button, (w - ew) / 2, ey, ew, 48)
+		K.Rect(self.Egg.Icon, 3, 3, 40, 40)
+		self.Egg.Icon.ImageRectSize = Vector2.zero
+		self.Egg.Icon.ImageRectOffset = Vector2.zero
+		self.Egg.Icon.ImageColor3 = Color3.new(1, 1, 1)
+		K.Rect(self.Egg.Label, 48, 2, ew - 90, 24)
+		K.Rect(self.EggPercent, ew - 44, 10, 42, 25)
+		K.Rect(self.EggTrack, 48, 34, ew - 100, 4)
+		self.EggCaption.Visible = false
+		K.Rect(self.Details, math.max(10, (w - ew) / 2), ey + 54, ew, 110)
+		K.Rect(self.DetailText, 12, 8, ew - 24, 94)
+		local navY = w >= 850 and 106 or 162
+		local nw = w < 450 and 94 or 104
+		for i, b in { self.More, self.Equipment, self.Skills } do
+			K.Rect(b.Button, m + (i - 1) * (nw + 6), navY, nw, 44)
+			K.Rect(b.Icon, 5, 8, 28, 28)
+			K.Rect(b.Label, 35, 0, nw - 39, 44)
+			b.Label.TextSize = 12
 		end
-		rect(self.Points, ns - 12, -6, 24, 24)
-		self.BeltWidth, self.BeltHeight = phone and 216 or 300, phone and 58 or 82
-		self.BeltPosition = UDim2.new(0.5, 0, 1, -8)
-		local gw = phone and 210 or 260
-		rect(self.Guide, phone and ex or w - gw - m, phone and m + 62 or m + 120, gw, phone and 28 or 42)
-		rect(self.Hint, 8, 0, gw - 40, self.Guide.Size.Y.Offset)
-		self.Hint.TextSize = phone and 12 or 14
-		rect(self.Dismiss, gw - 32, 0, 32, self.Guide.Size.Y.Offset)
-		local size = phone and 78 or 94
-		local uy = phone and math.max(142, h - 174) or h - size - 24
-		rect(self.Use, w - size - m, uy, size, size)
-		rect(self.UseLabel, 0, phone and 21 or 29, size, 26)
-		self.UseLabel.TextSize = phone and 18 or 21
-		rect(self.UseHint, 0, phone and 47 or 56, size, 18)
-		self.UseHint.TextSize = phone and 10 or 12
-		rect(self.Charged.Button, w - size - m - 86, uy + 12, 76, 48)
-		rect(self.Charged.Label, 0, 0, 76, 48)
+		K.Rect(self.Points, nw - 16, -5, 22, 18)
+		local dw = math.min(414, w - 20)
+		local dy = navY + 52
+		local dh = math.min(436, h - dy - 12)
+		K.Rect(self.Drawer, 10, dy, dw, math.max(130, dh))
+		K.Rect(self.List, 12, 50, dw - 24, math.max(60, dh - 128))
+		K.Rect(self.Contract, 16, dh - 70, dw - 32, 64)
+		self.BeltWidth, self.BeltHeight = phone and 204 or 252, phone and 58 or 68
+		self.BeltPosition = UDim2.new(0.5, 0, 1, -10)
+		K.Rect(self.Use, w - 94 - m, h - 98, 94, 76)
+		K.Rect(self.UseLabel, 0, 13, 94, 30)
+		self.UseLabel.TextXAlignment = Enum.TextXAlignment.Center
+		K.Rect(self.UseHint, 0, 45, 94, 20)
+		self.UseHint.TextXAlignment = Enum.TextXAlignment.Center
+		K.Rect(self.Charged.Button, w - 94 - m, h - 151, 94, 44)
+		K.Rect(self.Charged.Label, 4, 0, 86, 44)
 		self.Charged.Label.TextSize = 12
-		rect(self.Flow, w - (phone and 180 or 230) - m, m + (phone and 92 or 175), phone and 180 or 230, 24)
-		rect(self.Training.Button, (w - 170) / 2, h - 64, 170, 44)
-		rect(self.Training.Label, 0, 0, 170, 44)
-		rect(
-			self.Drawer,
-			phone and m or 108,
-			phone and 158 or 140,
-			math.min(280, w - 24),
-			math.max(100, h - (phone and 168 or 154))
-		)
+		self.Charged.Icon.Visible = false
+		local gw = math.min(310, w - 24)
+		K.Rect(self.Guide, (w - gw) / 2, h - self.BeltHeight - 64, gw, 36)
+		K.Rect(self.Hint, 10, 0, gw - 50, 36)
+		K.Rect(self.Dismiss, gw - 38, 0, 38, 36)
+		K.Rect(self.Flow, (w - 220) / 2, h - self.BeltHeight - 54, 220, 32)
+		self.Flow.TextXAlignment = Enum.TextXAlignment.Center
+		K.Rect(self.Training.Button, (w - 180) / 2, h - 70, 180, 44)
+		K.Rect(self.Training.Label, 0, 0, 180, 44)
 	end
 	return ui
 end

@@ -1,0 +1,322 @@
+[
+  {
+    "key": "Pickaxe",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/mining.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "mining.png",
+    "sha256": "2c35e6bcad4bb61669853c3dbf5ccdb6442f46daa238060986d375af65ec0bba",
+    "rect": [
+      0,
+      0,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Drill",
+    "author": "delapouite",
+    "source": "https://game-icons.net/1x1/delapouite/drill.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "drill.png",
+    "sha256": "20d61b8a22b3abeef229d87cd7ddb738b28937e9f4e1f6c0e3eb3be1969d5657",
+    "rect": [
+      128,
+      0,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Explosive",
+    "author": "delapouite",
+    "source": "https://game-icons.net/1x1/delapouite/dynamite.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "dynamite.png",
+    "sha256": "f1d230b3167acca8a4702919792e66b10e3878e5e4212894798aa3315cd66238",
+    "rect": [
+      256,
+      0,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Journal",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/book-cover.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "book-cover.png",
+    "sha256": "9600123d330d173ddb99aae34fca79f9c4db6ff5596a5b111596cd22e5e464d1",
+    "rect": [
+      384,
+      0,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Explore",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/compass.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "compass.png",
+    "sha256": "40cb9911d769e87c75e0d5038819c2e25a8fe4d651316a13124ccef94e706e35",
+    "rect": [
+      512,
+      0,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Equipment",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/gear-hammer.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "gear-hammer.png",
+    "sha256": "5b3ee6999a1e432f8da5e161d821305ac37b08a70d425f8d935734bacea2685c",
+    "rect": [
+      0,
+      128,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Settings",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/gears.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "gears.png",
+    "sha256": "dd5a465c134165fbf7c223fe086d271057e062f57ac14aad24a98124bcd757aa",
+    "rect": [
+      128,
+      128,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Skills",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/crystal-growth.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "crystal-growth.png",
+    "sha256": "9aa2b8ff125fe6a6ac16f8504920f9bf88d67fd0cb980bf653902f10f6f13515",
+    "rect": [
+      256,
+      128,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Storage",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/swap-bag.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "swap-bag.png",
+    "sha256": "54673d4cc97a84c90cab1d0a38b46183eb182c567493de676d7124ff3d70fe3e",
+    "rect": [
+      384,
+      128,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Research",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/round-bottom-flask.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "round-bottom-flask.png",
+    "sha256": "d3859560034520a6ea1757e99a2582652de696d2ecbe3d0d90a6bcf159cfea21",
+    "rect": [
+      512,
+      128,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Creatures",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/dinosaur-bones.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "dinosaur-bones.png",
+    "sha256": "39508dc44a4b34a24359131be918acfdd9ae4c6244ad118b15b0549d71bb1d65",
+    "rect": [
+      0,
+      256,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Home",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/wooden-door.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "wooden-door.png",
+    "sha256": "7b05b3e88ff5ba69c59b2111885b23be3cdb1e34766bbcd4f57fa6bb73cf122b",
+    "rect": [
+      128,
+      256,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Sound",
+    "author": "delapouite",
+    "source": "https://game-icons.net/1x1/delapouite/speaker.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "speaker.png",
+    "sha256": "4f91274932ae4c90fda6b161927f90f48f05106164ca41a997fcc30d1f3a8b2c",
+    "rect": [
+      256,
+      256,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Motion",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/feather.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "feather.png",
+    "sha256": "12b6a82e573404a69dd8ee5814d198dae494b6318fb20dd3060fb99cd0938c5b",
+    "rect": [
+      384,
+      256,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Results",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/trophy.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "trophy.png",
+    "sha256": "e7bf311cf25e7a7ec7a17bef1d762987fd8f76c16c630d9c96a9934ba44a800b",
+    "rect": [
+      512,
+      256,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Credits",
+    "author": "delapouite",
+    "source": "https://game-icons.net/1x1/delapouite/coins.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "coins.png",
+    "sha256": "41a1e960176ebddde3a442ebff8b03747ca6bbb56fa5a343631941ee7bbc5705",
+    "rect": [
+      0,
+      384,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Speed",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/stopwatch.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "stopwatch.png",
+    "sha256": "98887eb2745cdddb3a910bd8a5a6ab9634a6ee1695883bfc8b12ca26d6aa027e",
+    "rect": [
+      128,
+      384,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Precision",
+    "author": "skoll",
+    "source": "https://game-icons.net/1x1/skoll/bullseye.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "bullseye.png",
+    "sha256": "1d5c4a4d01e57a51b11b1e1fdaf25180a436c0dcfc4ab890ba850903f3c40f16",
+    "rect": [
+      256,
+      384,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Yield",
+    "author": "faithtoken",
+    "source": "https://game-icons.net/1x1/faithtoken/ore.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "ore.png",
+    "sha256": "6d232c0fbfb8f154c65c057e49a1cf83e4851d3f1da75f7b069e75f8cf6b59d3",
+    "rect": [
+      384,
+      384,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  },
+  {
+    "key": "Value",
+    "author": "lorc",
+    "source": "https://game-icons.net/1x1/lorc/cash.html",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "file": "cash.png",
+    "sha256": "d9e6210b16fac0ed9e97b075e526950648d05b6467bea783c74c6c6bec6b25a1",
+    "rect": [
+      512,
+      384,
+      128,
+      128
+    ],
+    "changes": "Resized to 112px with 8px transparent padding; runtime color tint"
+  }
+]

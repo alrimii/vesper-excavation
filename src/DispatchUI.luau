@@ -1,92 +1,56 @@
 local M = {}
 function M.new(gui, shared)
 	local rules = require(shared.ProgressionRules)
-	local screen = Instance.new("Frame")
-	screen.Name = "DispatchCinema"
-	screen.Size = UDim2.fromScale(1, 1)
-	screen.BackgroundTransparency = 1
-	screen.Visible = false
-	screen.Parent = gui
-	local function text(parent, value, size, pos, fontSize, color)
-		local t = Instance.new("TextLabel")
-		t.Text = value
-		t.Size = size
-		t.Position = pos
-		t.TextSize = fontSize
-		t.Font = Enum.Font.GothamBold
-		t.TextColor3 = color or Color3.fromRGB(235, 240, 243)
-		t.BackgroundTransparency = 1
-		t.Parent = parent
-		return t
-	end
-	for _, bottom in { false, true } do
-		local bar = Instance.new("Frame")
-		bar.Size = UDim2.new(1, 0, 0, bottom and 108 or 48)
-		bar.Position = bottom and UDim2.new(0, 0, 1, -108) or UDim2.new()
-		bar.BackgroundColor3 = Color3.fromRGB(13, 18, 25)
-		bar.BackgroundTransparency = 0.12
-		bar.BorderSizePixel = 0
-		bar.Parent = screen
-	end
-	local heading = text(
-		screen,
-		"VESPER / SPECIMEN TRANSFER",
-		UDim2.new(1, -40, 0, 24),
-		UDim2.fromOffset(20, 12),
-		12,
-		Color3.fromRGB(211, 170, 103)
+	local K = require(shared.InterfaceKit)
+	local screen = K.Make(
+		"Frame",
+		gui,
+		{ Name = "DispatchCinema", Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Visible = false }
 	)
-	local name = text(screen, "", UDim2.new(1, -32, 0, 32), UDim2.new(0, 16, 1, -92), 23)
-	local detail = text(
-		screen,
-		"",
-		UDim2.new(1, -32, 0, 22),
-		UDim2.new(0, 16, 1, -54),
-		12,
-		Color3.fromRGB(161, 177, 188)
-	)
-	local track = Instance.new("Frame")
+	local caption = K.Surface(screen, "TransferCaption", K.Dark)
+	caption.AnchorPoint = Vector2.new(0.5, 1)
+	caption.Position = UDim2.new(0.5, 0, 1, -20)
+	caption.Size = UDim2.new(1, -32, 0, 104)
+	K.Make("UISizeConstraint", caption, { MaxSize = Vector2.new(640, 104) })
+	local heading = K.Text(caption, "Heading", "SPECIMEN TRANSFER", 11, K.Gold, true)
+	K.Rect(heading, 18, 8, 300, 18)
+	local name = K.Text(caption, "Name", "", 28, K.Paper)
+	name.Font = K.Title
+	name.Position = UDim2.fromOffset(18, 28)
+	name.Size = UDim2.new(1, -36, 0, 36)
+	local detail = K.Text(caption, "Detail", "", 14, K.Line)
+	detail.Position = UDim2.fromOffset(18, 68)
+	detail.Size = UDim2.new(1, -36, 0, 28)
+	local track = K.Surface(screen, "SelectionTrack", K.Dark)
 	track.AnchorPoint = Vector2.new(0.5, 1)
-	track.Position = UDim2.new(0.5, 0, 1, -119)
-	track.Size = UDim2.new(0.75, 0, 0, 132)
-	track.BackgroundColor3 = Color3.fromRGB(16, 23, 31)
-	track.BorderSizePixel = 0
+	track.Position = UDim2.new(0.5, 0, 1, -134)
+	track.Size = UDim2.new(1, -32, 0, 132)
 	track.ClipsDescendants = true
-	track.Parent = screen
-	local limit = Instance.new("UISizeConstraint")
-	limit.MaxSize = Vector2.new(620, 132)
-	limit.Parent = track
+	K.Make("UISizeConstraint", track, { MaxSize = Vector2.new(620, 132) })
 	local cards = {}
 	for i = 1, 5 do
-		local card = Instance.new("Frame")
+		local card = K.Surface(track, "Egg" .. i, K.Ink)
 		card.AnchorPoint = Vector2.new(0.5, 0.5)
 		card.Size = UDim2.new(0.32, 0, 1, -12)
-		card.BackgroundColor3 = Color3.fromRGB(32, 43, 54)
-		card.BorderSizePixel = 0
-		card.Parent = track
-		local corner = Instance.new("UICorner")
-		corner.CornerRadius = UDim.new(0, 9)
-		corner.Parent = card
-		local title = text(card, "", UDim2.new(1, -10, 0, 22), UDim2.fromOffset(5, 73), 12)
-		local rarity = text(
-			card,
-			"",
-			UDim2.new(1, -10, 0, 17),
-			UDim2.fromOffset(5, 98),
-			9,
-			Color3.fromRGB(177, 188, 198)
-		)
+		local title = K.Text(card, "Name", "", 13, K.Paper, true)
+		title.Position = UDim2.fromOffset(5, 73)
+		title.Size = UDim2.new(1, -10, 0, 22)
+		title.TextXAlignment = Enum.TextXAlignment.Center
+		local rarity = K.Text(card, "Rarity", "", 11, K.Line)
+		rarity.Position = UDim2.fromOffset(5, 98)
+		rarity.Size = UDim2.new(1, -10, 0, 17)
+		rarity.TextXAlignment = Enum.TextXAlignment.Center
 		cards[i] = { frame = card, title = title, rarity = rarity }
 	end
-	local pointer = text(
-		track,
-		"▼",
-		UDim2.fromOffset(26, 22),
-		UDim2.new(0.5, -13, 0, 0),
-		18,
-		Color3.fromRGB(246, 189, 89)
-	)
-	pointer.ZIndex = 5
+	K.Make("Frame", track, {
+		Name = "SelectedMark",
+		Position = UDim2.new(0.5, -1, 0, 0),
+		Size = UDim2.fromOffset(2, 132),
+		BackgroundColor3 = K.Gold,
+		BackgroundTransparency = 0.4,
+		BorderSizePixel = 0,
+		ZIndex = 5,
+	})
 	local function previews()
 		local source = shared:FindFirstChild("DeliveryShell")
 		if not source or not shared:GetAttribute("PresentationReady") then
@@ -139,14 +103,15 @@ function M.new(gui, shared)
 		end
 		local destination = #rules.Eggs * 2 + selectedIndex - 1
 		local t = math.clamp(age / 3.5, 0, 1)
-		local progress = destination * (1 - (1 - t) ^ 3)
+		local progress = game.Players.LocalPlayer:GetAttribute("ReducedMotion") and destination
+			or destination * (1 - (1 - t) ^ 3)
 		local whole = math.floor(progress + 0.5)
 		for offset = -2, 2 do
 			local index = whole + offset
 			-- A card keeps its identity while crossing the track. Recycle only offscreen.
 			local card = cards[index % #cards + 1]
 			local entry = rules.Eggs[index % #rules.Eggs + 1]
-			card.frame.Position = UDim2.new(0.5 + (index - progress) * 0.34, 0, 0.5, 0)
+			card.frame.Position = UDim2.fromScale(0.5 + (index - progress) * 0.34, 0.5)
 			if card.entryId == entry.Id then
 				continue
 			end

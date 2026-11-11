@@ -1,0 +1,38 @@
+{
+  "geometryCount": 15962,
+  "geometryChecksum": "a56b4ddd",
+  "geometryMatches": true,
+  "lightingMatches": true,
+  "changedSourcePaths": [
+    "ReplicatedStorage.VesperShared.ExpeditionResults",
+    "ReplicatedStorage.VesperShared.MaterialBag",
+    "ReplicatedStorage.VesperShared.ExcavationChrome",
+    "ReplicatedStorage.VesperShared.DiscoveryCinematic",
+    "ReplicatedStorage.VesperShared.ResearchJournal",
+    "ReplicatedStorage.VesperShared.WorkshopUI",
+    "ReplicatedStorage.VesperShared.UIMotion",
+    "ReplicatedStorage.VesperShared.EquipmentDock",
+    "ServerScriptService.Vesper.ExcavationService",
+    "ReplicatedStorage.VesperShared.ExcavationArt",
+    "ReplicatedStorage.VesperShared.DispatchUI",
+    "ServerStorage.VesperTools.ExcavationUI",
+    "ReplicatedStorage.VesperShared.SecondaryMenus",
+    "ReplicatedStorage.VesperShared.OutfitterComponents",
+    "ReplicatedStorage.VesperShared.NavigationArtwork",
+    "ReplicatedStorage.VesperShared.SkillTreeUI",
+    "ServerScriptService.Vesper.ResearchProfiles",
+    "ReplicatedStorage.VesperShared.OutfitterUI",
+    "ReplicatedStorage.VesperShared.OutfitterArt",
+    "ReplicatedStorage.VesperShared.ModalLayout",
+    "ReplicatedStorage.VesperShared.DiscoveryHUD",
+    "ReplicatedStorage.VesperShared.InterfaceStyle",
+    "ReplicatedStorage.VesperShared.HUDController",
+    "ReplicatedStorage.VesperShared.FieldHUD"
+  ],
+  "addedSourcePaths": [
+    "ReplicatedStorage.VesperShared.InterfaceKit",
+    "ReplicatedStorage.VesperShared.InterfaceTheme"
+  ],
+  "temporaryFixtureRemoved": true,
+  "placeId": 94763223427049
+}

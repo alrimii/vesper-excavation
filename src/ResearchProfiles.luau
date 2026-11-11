@@ -25,7 +25,12 @@ local function create(store, studio, pause)
 	end
 	function P.Normalize(raw)
 		raw = type(raw) == "table" and raw or {}
+		local preferences = type(raw.preferences) == "table" and raw.preferences or {}
 		local a = {
+			preferences = {
+				sound = preferences.sound ~= false,
+				reducedMotion = preferences.reducedMotion == true,
+			},
 			cash = number(raw.cash, 1e9),
 			income = number(raw.income, 1e9),
 			mining = 0,
