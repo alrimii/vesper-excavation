@@ -1,3 +1,7 @@
+# Latest delivery — Phase 4, v221
+
+See [Phase 4 review](reviews/interior-phase-4/REVIEW.md) for actual evidence, observed behavior, failures/corrections, remaining limitations and native recovery. [Delivery identity](reviews/interior-phase-4/delivery.json). Original place 94763223427049, existing planning/development-foundation branch; stopped in Edit, art frozen. Phase 5 and all deferred requirements remain recorded, not implemented. No access settings changed.
+
 # Current delivery ? Phase 3 environment
 
 [Published v215 review and actual evidence](reviews/interior-phase-3/REVIEW.md), [Git delivery identity](reviews/interior-phase-3/delivery.json). Original place 94763223427049 saved/published, stopped in Edit. Integrated planting, existing scenery placement, nearer moving mist and coordinated lighting replace their superseded instances/generators. Protected rooms/training/services/egg/dome/gameplay/data remain unchanged. One 391.106-second capture-only session, one Q1/Q21 comparison with restoration, and an actual 18-second fixed-camera video; no gameplay/device actions. Art frozen after capture. Asset/provenance replacement records, private recovery, visible shortcomings, texture warnings and unverified device behavior are explicit in the review. All later requirements remain intact; no new visual-approval gate or later-phase implementation was introduced.

@@ -69,11 +69,8 @@ for o in micros:
  apply(o)
 select(micros);bpy.ops.object.join();scope=bpy.context.object;scope.name='Microscope';apply(scope)
 select([scope]);m=scope.modifiers.new('RetainInstrumentSilhouette','DECIMATE');m.ratio=.55;bpy.ops.object.modifier_apply(modifier=m.name)
-charge=import_source('charge');lo,hi=bounds(charge);sc=2.1/max(hi-lo);center=(lo+hi)/2
-for o in charge:o.matrix_world=Matrix.Scale(sc,4)@Matrix.Translation(-center)@o.matrix_world;apply(o)
-select(charge);bpy.ops.object.join();charge=bpy.context.object;charge.name='ChargeBundle'
 # Keep authored material colors; all source meshes remain genuine 3D geometry.
-allmesh=fossils+[scope,charge]
+allmesh=fossils+[scope] # Phase 4 replaces ChargeBundle through assets/tools/phase-4.
 report={}
 for o in allmesh:
  # Ensure export origin is world zero and geometry records exact Roblox-space extents.

@@ -45,14 +45,20 @@ function M.Create(parent, source, tint)
 		end
 	end
 	model.Parent = world
-	local cf, size = model:GetBoundingBox()
-	model:PivotTo(CFrame.new(-cf.Position) * model:GetPivot())
 	local camera = Instance.new("Camera")
 	camera.FieldOfView = 32
-	camera.CFrame =
-		CFrame.lookAt(Vector3.new(0.8, 0.4, -1).Unit * math.max(size.X, size.Y, size.Z) * 2.05, Vector3.zero)
 	camera.Parent = view
 	view.CurrentCamera = camera
+	local function fit()
+		require(script.Parent.ToolVisuals).FramePreview(
+			camera,
+			model,
+			source:GetAttribute("ToolFamily") or source.Name,
+			view.AbsoluteSize.X / math.max(1, view.AbsoluteSize.Y)
+		)
+	end
+	view:GetPropertyChangedSignal("AbsoluteSize"):Connect(fit)
+	fit()
 	return view
 end
 return M

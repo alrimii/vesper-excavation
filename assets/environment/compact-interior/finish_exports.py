@@ -7,7 +7,7 @@ fossils=[o for o in bpy.context.scene.objects if o.name.startswith('FossilScan')
 bpy.ops.object.select_all(action='DESELECT')
 for o in fossils:o.select_set(True)
 bpy.ops.export_scene.gltf(filepath=str(ROOT/'exports/FossilStudy.glb'),export_format='GLB',use_selection=True)
-for name,objs in [('fossil',fossils),('microscope',[bpy.data.objects['Microscope']]),('charge',[bpy.data.objects['ChargeBundle']])]:
+for name,objs in [('fossil',fossils),('microscope',[bpy.data.objects['Microscope']])]:
  for o in bpy.context.scene.objects:o.hide_render=o not in objs
  pts=[o.matrix_world@v.co for o in objs for v in o.data.vertices];lo=Vector([min(p[i] for p in pts) for i in range(3)]);hi=Vector([max(p[i] for p in pts) for i in range(3)]);mid=(lo+hi)/2;span=max(hi-lo)
  bpy.ops.object.camera_add(location=mid+Vector((1.2,-1.9,.65))*span);cam=bpy.context.object;cam.rotation_euler=(mid-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.type='ORTHO';cam.data.ortho_scale=span*1.5

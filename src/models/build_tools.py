@@ -17,7 +17,7 @@ dark=material('Graphite rubber',(.025,.043,.05),.03,.76)
 teal=material('Petrol enamel',(.035,.21,.22),.5,.32)
 amber=material('Safety ochre',(.92,.43,.055),.35,.37)
 inside=material('Bucket interior',(.14,.2,.21),.75,.38)
-groups={'Pickaxe':[],'Bucket':[]}; group='Pickaxe'
+groups={'Bucket':[]}; group='Bucket'
 def finish(o,name,mat,bevel=0,smooth=True):
     o.name=name; o.data.materials.append(mat); groups[group].append(o)
     if bevel:
@@ -46,17 +46,7 @@ def profile(name,points,thickness,mat):
     fs=[tuple(reversed(range(n))),tuple(range(n,2*n))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
     mesh=bpy.data.meshes.new(name);mesh.from_pydata(vs,[],fs);mesh.update();o=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(o)
     return finish(o,name,mat,.035)
-# Tapered shaft and a full curved forging, not a rectangular hammer head.
-cyl('Handle spine',(0,0,-1.65),(0,0,1.56),.145,teal)
-cyl('Rubber grip',(0,0,-1.50),(0,0,-.35),.19,dark)
-for i in range(10):torus('Grip ridge %02d'%i,(0,0,-1.43+i*.108),.19,.018,dark)
-cyl('Pommel',(0,0,-1.69),(0,0,-1.52),.205,steel)
-torus('Grip top collar',(0,0,-.32),.171,.035,amber)
-cube('Forged eye socket',(0,0,1.37),(.47,.48,.58),dark,.07)
-profile('Curved pick forging',[(-1.53,1.03),(-1.16,1.50),(-.60,1.79),(-.15,1.87),(.48,1.80),(1.08,1.56),(1.65,1.00),(1.24,1.24),(.70,1.42),(.18,1.46),(-.40,1.43),(-.93,1.22)],.28,steel)
-for y in [-.255,.255]:
-    cyl('Head pin',(0,y-.018,1.40),(0,y+.018,1.40),.105,amber,12)
-cube('Shaft identification band',(0,-.151,.25),(.22,.03,.42),amber,.025)
+# Phase 4 pickaxe uses the finished sourced mesh; its obsolete generator was removed.
 # Bucket origin is the carrying grip, with contents below the hand.
 group='Bucket'
 segments=32; vs=[]; faces=[]; matids=[]
@@ -107,7 +97,7 @@ for kind,objects in groups.items():
     (OUT/(kind.lower()+'.mesh.json')).write_text(json.dumps(data,separators=(',',':')))
     bpy.ops.export_scene.fbx(filepath=str(OUT/(kind.lower()+'.fbx')),use_selection=True,add_leaf_bones=False,axis_forward='-Z',axis_up='Y')
     report[kind]={'vertices':len(verts),'triangles':len(triangles)}
-    obj.location+=Vector((-2.0,0,2.0) if kind=='Pickaxe' else (2.0,0,2.27))
+    obj.location+=Vector((2.0,0,2.27))
 # Presentation scene, kept separate from exported prop meshes.
 bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,-.05));floor=bpy.context.object;floor.name='Presentation floor';floor.data.materials.append(material('Backdrop',(.035,.05,.063),.05,.65))
 world=bpy.context.scene.world;world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.16,.19,.23,1);world.node_tree.nodes['Background'].inputs[1].default_value=.35

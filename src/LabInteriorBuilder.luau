@@ -368,26 +368,6 @@ end
 function B.Commons()
 	return require(script.Parent.IntegratedGreeneryBuilder).Commons()
 end
-local function displayTool(parent, tool, cf, height, name)
-	local m = Instance.new("Model")
-	m.Name = name
-	for _, p in tool:GetChildren() do
-		p:Clone().Parent = m
-	end
-	for _, p in m:GetDescendants() do
-		if p:IsA("BasePart") then
-			p.Anchored = true
-			p.CanCollide = false
-			p.CanTouch = false
-			p.CanQuery = false
-		end
-	end
-	local box, size = m:GetBoundingBox()
-	m:ScaleTo(m:GetScale() * height / size.Y)
-	box, size = m:GetBoundingBox()
-	m:PivotTo(cf * CF(0, size.Y / 2, 0) * box:Inverse() * m:GetPivot())
-	m.Parent = parent
-end
 function B.Workshop()
 	local r = lab()
 	local shop = r.SharedWorkshop
@@ -420,27 +400,7 @@ function B.Workshop()
 		part(g, "Handle", V(2.3, 0.16, 0.35), cf * CF(x, 3.4, -5.15), C.metal, false, Enum.Material.Metal)
 		part(g, "ToolMount", V(7, 0.35, 3.2), cf * CF(x, 4.82, -1.7), C.metal, true, Enum.Material.Metal)
 	end
-	displayTool(
-		g,
-		game.ServerStorage.VesperKit.StarterPickaxe,
-		cf * CF(15, 5, -1.7) * CFrame.Angles(0, math.pi, 0.15),
-		8,
-		"PickaxeDisplay"
-	)
-	displayTool(
-		g,
-		game.ServerStorage.VesperKit.StarterDrill,
-		cf * CF(0, 5, -1.7) * CFrame.Angles(0, 0.8, 0),
-		6.4,
-		"DrillDisplay"
-	)
-	displayTool(
-		g,
-		game.ServerStorage.VesperKit.StarterExplosive,
-		cf * CF(-15, 5, -1.7) * CFrame.Angles(0, 0.35, 0),
-		3.6,
-		"ChargeDisplay"
-	)
+	require(script.Parent.ToolPresentationBuilder).Displays()
 	lamp(g, cf * CF(0, 16.8, -1.1), 44)
 	shop.Console.CFrame = cf * CF(12, 2.8, -5.25)
 	shop.UpgradeConsole.CFrame = cf * CF(-12, 2.8, -5.25)
@@ -952,45 +912,7 @@ function B.Enclosure()
 	return "Lower enclosure fitted to compact wings; original crown and hoist retained"
 end
 function B.Tools()
-	lab()
-	local template = assert(
-		game.ServerStorage.CompactInteriorAssets:FindFirstChild("ChargeBundle"),
-		"Finished charge missing"
-	)
-	for _, tool in
-		{
-			game.ServerStorage.VesperKit.StarterExplosive,
-			game.ReplicatedStorage.VesperShared.EquipmentAssets.Explosive,
-		}
-	do
-		local handle = tool.Handle
-		for _, p in tool:GetChildren() do
-			if p ~= handle then
-				p:Destroy()
-			end
-		end
-		-- Invisible functional grip remains; all rejected visible cells are deleted.
-		handle.Transparency = 1
-		for _, p in template:GetDescendants() do
-			if p:IsA("BasePart") then
-				local q = p:Clone()
-				q.Name = "FinishedCharge"
-				q.CFrame = handle.CFrame * CF(0, 0.4, 0) * p.CFrame
-				q.Anchored = false
-				q.Massless = true
-				q.CanCollide = false
-				q.CanQuery = false
-				q.CanTouch = false
-				q.Parent = tool
-				local w = Instance.new("WeldConstraint")
-				w.Part0 = handle
-				w.Part1 = q
-				w.Parent = q
-			end
-		end
-		tool:SetAttribute("ChargeVisualRevision", 2)
-	end
-	return "Finished charge shared by equipped and displayed templates; grip and statistics preserved"
+	return require(script.Parent.ToolPresentationBuilder).Build()
 end
 function B.RemoveRetiredScenery()
 	lab()

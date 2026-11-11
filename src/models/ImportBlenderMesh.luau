@@ -1,6 +1,7 @@
 -- Edit-only importer for our original Blender mesh data. Creates durable mesh assets.
 local Import={}
 function Import.Upload(kind)
+ assert(kind=='Bucket','Legacy pickaxe import retired; use ToolPresentationBuilder and assets/tools/phase-4')
  assert(not game:GetService('RunService'):IsRunning(),'Edit mode only')
  local http=game:GetService('HttpService') local asset=game:GetService('AssetService')
  local enabled=http.HttpEnabled http.HttpEnabled=true

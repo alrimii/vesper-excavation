@@ -4,6 +4,8 @@ local Shared = game.ReplicatedStorage:WaitForChild("VesperShared")
 require(script.Parent:WaitForChild("ProgressiveFractureBuilder")).Prepare(Shared)
 local C = require(Shared:WaitForChild("ExcavationConfig"))
 local Clips = require(Shared:WaitForChild("MotionClips"))
+local Contact = require(Shared.ToolContact)
+local ToolVisuals = require(Shared.ToolVisuals)
 local Economy = require(Shared.UpgradeEconomy)
 local Rules = require(Shared.ProgressionRules)
 local TrainingCycle = require(Shared.TrainingCycle)
@@ -134,8 +136,25 @@ local Depot = workspace.VesperLab.ResourceDepot
 local Kit = game.ServerStorage.VesperKit
 local sessions, accounts, sections = {}, {}, {}
 local serverSkillGuards = {} -- retained by UserId across same-server reconnects, including Studio previews
+local function clearPlacement(placement)
+	if not placement then
+		return
+	end
+	if placement.visual then
+		placement.visual:Destroy()
+		placement.visual = nil
+	end
+	for _, connection in placement.connections or {} do
+		connection:Disconnect()
+	end
+	placement.connections = nil
+end
+local placedCharges = Instance.new("Folder")
+placedCharges.Name = "PlacedExcavationCharges"
+placedCharges.Parent = workspace
 cancelAttack = function(p, session)
 	session.attack = (session.attack or 0) + 1
+	clearPlacement(session.pending)
 	session.pending = nil
 	session.flow, session.relay = nil, nil
 	session.inputUntil = 0
@@ -370,15 +389,6 @@ local function rayParams(ch)
 	p.FilterDescendantsInstances = { ch }
 	p.RespectCanCollide = false
 	return p
-end
-local function finite(v)
-	return typeof(v) == "Vector3"
-		and v.X == v.X
-		and v.Y == v.Y
-		and v.Z == v.Z
-		and math.abs(v.X) < 1e5
-		and math.abs(v.Y) < 1e5
-		and math.abs(v.Z) < 1e5
 end
 local function syncRound()
 	for k, v in
@@ -784,22 +794,8 @@ local function eligible(target, layer)
 		and target:GetAttribute("Exposed") == true
 end
 local function contact(p, target, point, grace)
-	local ch, root, head = alive(p)
-	if not ch or not finite(point) then
-		return
-	end
-	local delta = point - head.Position
-	if
-		delta.Magnitude < 0.01
-		or delta.Magnitude > C.Mining.Reach + grace
-		or (point - root.Position).Magnitude > C.Mining.Reach + grace + 3
-	then
-		return
-	end
-	local hit = workspace:Raycast(head.Position, delta.Unit * (delta.Magnitude + 0.7), rayParams(ch))
-	if hit and hit.Instance.Parent == target and (hit.Position - point).Magnitude <= 1.3 then
-		return hit
-	end
+	local ch = alive(p)
+	return ch and Contact.Resolve(ch, target, point, C.Mining.Reach, grace)
 end
 local function damageRoll(a, session, target, point, power, ordinary)
 	local radius = ordinary and ({ [0] = 0.75, 1, 1.2 })[skill(a, "impact.steady_aim")] or C.Precision.Radius
@@ -1209,6 +1205,30 @@ local function strike(p, target, point, requestRound, sequence, charged)
 	}
 	if family == "Explosive" then
 		placement.damage, placement.precise, placement.critical = damageRoll(a, session, target, point, power)
+		-- One replicated model, created only after every existing placement check passed.
+		local visual = ToolVisuals.Clone(attackTool, "Charge_" .. p.UserId .. "_" .. sequence)
+		visual:SetAttribute("OwnerUserId", p.UserId)
+		visual:SetAttribute("Sequence", sequence)
+		visual:SetAttribute("RoundId", round)
+		visual:PivotTo(ToolVisuals.SurfaceFrame(point, hit.Normal))
+		visual.Parent = placedCharges
+		placement.visual = visual
+		game:GetService("Debris"):AddItem(visual, windup + 0.15)
+		local function surfaceGone()
+			if
+				not hit.Instance:IsDescendantOf(target)
+				or not target.Parent
+				or not target:GetAttribute("Intact")
+			then
+				-- Existing gameplay preserves the authorized blast's original position/layer.
+				-- Its model must not remain suspended after the supporting plate disappears.
+				clearPlacement(placement)
+			end
+		end
+		placement.connections = {
+			target:GetAttributeChangedSignal("Intact"):Connect(surfaceGone),
+			hit.Instance.AncestryChanged:Connect(surfaceGone),
+		}
 	end
 	session.pending = placement
 	Feedback:FireAllClients(
@@ -1235,8 +1255,10 @@ local function strike(p, target, point, requestRound, sequence, charged)
 	end
 	task.delay(windup, function()
 		if sessions[p] ~= session or session.attack ~= token then
+			clearPlacement(placement)
 			return
 		end
+		clearPlacement(session.pending)
 		session.pending = nil
 		if
 			not equipped(p, "Pickaxe")
@@ -1452,17 +1474,7 @@ Action.OnServerEvent:Connect(function(p, kind, a, b, c, d)
 		return
 	end
 	if kind == "Cancel" or kind == "DrillStop" then
-		s.attack = (s.attack or 0) + 1
-		s.pending = nil
-		s.flow, s.relay = nil, nil
-		s.inputUntil = 0
-		p:SetAttribute("FlowBuild", 0)
-		p:SetAttribute("FlowUntil", 0)
-		p:SetAttribute("FlowReadyUntil", 0)
-		if now - (s.lastCancelBroadcast or -math.huge) >= 0.1 then
-			s.lastCancelBroadcast = now
-			Feedback:FireAllClients("Cancel", p.UserId)
-		end
+		cancelAttack(p, s)
 		return
 	end
 	if writablePlayer(p.UserId) ~= p then

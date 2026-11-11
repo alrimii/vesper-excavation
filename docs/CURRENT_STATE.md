@@ -1,3 +1,13 @@
+# Current checkpoint — Phase 4 tools, published v221
+
+Original place **94763223427049**, branch `planning/development-foundation`. **Published v221** at **2026-11-11 01:05:14 UTC**, verified from Studio's actual publication log. [Review, screenshots, clips and limitations](reviews/interior-phase-4/REVIEW.md), [delivery identity](reviews/interior-phase-4/delivery.json). Final native saved; Studio stopped in Edit; art frozen. Friend-access settings were not changed.
+
+Finished sourced pickaxe and dynamite replace the rejected actual models across tools, surface placement, workshop and previews. Existing Helix drill texture recovered/reuploaded, working bit and interruption handling corrected. Shared contact validation, server-only placed charge, explicit clone-weld removal and bounded blast effects replace the previous local cue/sphere. Obsolete templates and generators removed; one `ToolPresentationBuilder` recipe remains. [Exact cleanup](reviews/interior-phase-4/replacement-ledger.md), [asset provenance](../assets/tools/phase-4/SOURCES.md).
+
+One 282.501-second memory-only session plus a 206.783-second concrete-defect follow-up observed pickaxe damage, drill ticks and switch stop, invalid rejection, then a corrected charge with one blast/seven distinct section hits and no character displacement. Verification caught the clone-weld defect; earlier failed attempts are disclosed. No production writes/grants/reset/balance changes. Remaining ~0.7-stud pickaxe contact offset, HUD/view limitations and unverified lifecycle/device cases are explicit. Final invalid-target text classification was source-checked without another Play session.
+
+15,952 protected VesperLab parts and global lighting match the baseline; save generation, economy, progression, training, joining, rooms, egg, delivery and environment remain preserved. Private native before/final and source snapshot: `Backups/InteriorPhase4_20261111/`. [Phase 5 and all deferred requirements retained](reviews/interior-phase-4/PLAN.md). Publication is not owner visual approval; no later phase began.
+
 # Current checkpoint ? Phase 3 environment, published v215
 
 Original place **94763223427049**, branch `planning/development-foundation`. **Published v215** at **2026-11-10 23:50:40 UTC**, verified from Studio's actual publish log. [Review, screenshots and motion video](reviews/interior-phase-3/REVIEW.md), [delivery identity](reviews/interior-phase-3/delivery.json). Studio is stopped in Edit, native final saved, art frozen.

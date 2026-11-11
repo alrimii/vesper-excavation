@@ -99,15 +99,35 @@ function T.new(player, gui, egg, C)
 		mark.Enabled = false
 		status.Visible = false
 	end
+	local Contact = require(script.Parent.ToolContact)
 	local function solve(centerAim)
 		if blockedByUI(centerAim) then
 			return
 		end
 		local ch = player.Character
+		local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+		local tool = ch and ch:FindFirstChildOfClass("Tool")
+		if
+			not hum
+			or hum.Health <= 0
+			or not tool
+			or not tool.Enabled
+			or tool:GetAttribute("OwnerUserId") ~= player.UserId
+			or player:GetAttribute("Training")
+			or not player:GetAttribute("EquipmentReady")
+		then
+			return
+		end
 		local head = ch and ch:FindFirstChild("Head")
 		local camera = workspace.CurrentCamera
 		local root = ch and ch:FindFirstChild("HumanoidRootPart")
-		if not head or not root or not camera or state:GetAttribute("Status") ~= "Excavating" or not state:GetAttribute("Ready") then
+		if
+			not head
+			or not root
+			or not camera
+			or state:GetAttribute("Status") ~= "Excavating"
+			or not state:GetAttribute("Ready")
+		then
 			return
 		end
 		local params = RaycastParams.new()
@@ -127,19 +147,21 @@ function T.new(player, gui, egg, C)
 		end
 		local delta = hit.Position - head.Position
 		local distance = delta.Magnitude
-		local direct = distance > 0.01
-			and workspace:Raycast(head.Position, delta.Unit * (distance + 0.35), params)
+		local withinReach = distance <= C.Mining.Reach + 0.5
+			and (hit.Position - root.Position).Magnitude <= C.Mining.Reach + 3.5
+		local direct = Contact.Resolve(ch, section, hit.Position, C.Mining.Reach, 0.5, { ch, anchor })
 		local exposed = direct and direct.Instance.Parent == section
 		return section,
 			(exposed and direct.Position or hit.Position),
 			(exposed and direct.Normal or hit.Normal),
-			exposed and (direct.Position - head.Position).Magnitude <= C.Mining.Reach
-				and (direct.Position - root.Position).Magnitude <= C.Mining.Reach + 3
-				and section:GetAttribute("Exposed") == true
-				and not section:GetAttribute("Permanent")
-				and section:GetAttribute("Layer") == state:GetAttribute("ActiveLayer"),
+			exposed and (direct.Position - head.Position).Magnitude <= C.Mining.Reach + 0.5 and (
+				direct.Position - root.Position
+			).Magnitude <= C.Mining.Reach + 3.5 and section:GetAttribute("Exposed") == true and not section:GetAttribute(
+				"Permanent"
+			) and section:GetAttribute("Layer") == state:GetAttribute("ActiveLayer"),
 			distance,
-			exposed
+			exposed,
+			withinReach
 	end
 	function targeter:Get(centerAim)
 		local section, point, _, valid = solve(centerAim)
@@ -176,7 +198,7 @@ function T.new(player, gui, egg, C)
 			gui.Crosshair.Position = UDim2.fromOffset(cursor.X, cursor.Y)
 		end
 		if kind == "Pickaxe" then
-			local section, point, normal, valid, _distance, exposed = solve()
+			local section, point, normal, valid, _distance, exposed, withinReach = solve()
 			valid = valid == true
 			if not section then
 				hide()
@@ -197,11 +219,12 @@ function T.new(player, gui, egg, C)
 			highlight.FillColor = color
 			highlight.OutlineColor = color
 			-- Damaged shell appearance must not depend on the selection pass.
-			highlight.Enabled = valid and not (
-				section:GetAttribute("Layer") == 1
-				and reactions
-				and reactions:FindFirstChild("Stress_" .. section.Name)
-			)
+			highlight.Enabled = valid
+				and not (
+					section:GetAttribute("Layer") == 1
+					and reactions
+					and reactions:FindFirstChild("Stress_" .. section.Name)
+				)
 			anchor.Position = point + normal * 0.06
 			stroke.Color = color
 			dot.BackgroundColor3 = color
@@ -226,6 +249,7 @@ function T.new(player, gui, egg, C)
 			local locked = not section:GetAttribute("Exposed")
 			status.Text = permanent and "PERMANENT SHELL BASE"
 				or locked and "FINISH THE OUTER LAYER FIRST"
+				or not withinReach and "OUT OF RANGE"
 				or not exposed and "BLOCKED - find a clear angle"
 				or not valid and "OUT OF RANGE"
 				or string.format(

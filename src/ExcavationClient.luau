@@ -170,9 +170,13 @@ require(Shared.WorldInteractions).Start(player, gui, Action, function(page)
 	cancel()
 	shopOpen = true
 	workshop:Select(page)
-end, function() return shopOpen end)
+end, function()
+	return shopOpen
+end)
 local function selectTool(id)
-	if shopOpen then return end
+	if shopOpen then
+		return
+	end
 	if
 		player:GetAttribute("LabReady") ~= true
 		or player:GetAttribute("DiscoveryCinematic")
@@ -271,7 +275,7 @@ local function use(charged, centerAim)
 		end
 		lastUse = now
 		sequence += 1
-		if family ~= "Drill" then
+		if family ~= "Drill" and family ~= "Explosive" then
 			Motion.Begin(
 				player,
 				charged
@@ -494,19 +498,20 @@ Feedback.OnClientEvent:Connect(function(kind, a, b, c, d, e, damage, precise, cr
 		notice(a)
 	elseif kind == "Windup" then
 		local p = Players:GetPlayerByUserId(a)
-		if p then
+		if p and (p ~= player or c > cancelledThrough) then
 			Motion.Begin(p, b, c, d, e)
 		end
 	elseif kind == "Charge" then
 		if a ~= player.UserId or b > cancelledThrough then
 			toolFeedback:Charge(a, b, c, d, e, damage)
+			if a == player.UserId then
+				targeter:Confirm()
+			end
 		end
 	elseif kind == "ChargeCancel" then
 		toolFeedback:Cancel(a, b)
 	elseif kind == "Blast" then
-		if toolFeedback:Blast(a, b, c, d, e) then
-			ImpactFX.Emit(c, Color3.fromRGB(236, 209, 164), true, d, true, "Explosive")
-		end
+		toolFeedback:Blast(a, b, c, d, e)
 	elseif kind == "Cancel" then
 		if a ~= player.UserId then
 			toolFeedback:Cancel(a)

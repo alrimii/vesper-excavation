@@ -1,0 +1,443 @@
+{
+  "placeId": 94763223427049,
+  "baselineCommit": "475f40994c69f07bafca283ad3d22a9fa9f91077",
+  "sessions": [
+    {
+      "seconds": 282.501,
+      "scope": "Initial bounded tool session; one pickaxe, two drill ticks, switch interruption, invalid charge, one detonation"
+    },
+    {
+      "seconds": 206.783,
+      "scope": "Concrete-defect follow-up: one pickaxe; charge clone weld diagnosis and verification in the same session. Three charge attempts; only final attempt used corrected game-script-context clone."
+    }
+  ],
+  "preview": "Existing STUDIO PREVIEW memory-only branch; no production save writes or added grants. Temporary standing platform, capture camera, observers and correction Script removed on Stop.",
+  "pickaxe": {
+    "initialDamage": 25,
+    "followupDamage": 25,
+    "followupContactDistanceStuds": [
+      0.7076995968818665,
+      0.7074123620986938,
+      0.7084282040596008,
+      0.7081066370010376,
+      0.7078624963760376
+    ],
+    "limitation": "Contact improved, but sampled working-tip offset remains about 0.7 studs; not claimed exact."
+  },
+  "drill": {
+    "damageTicks": [
+      55,
+      55
+    ],
+    "firstTargetHP": [
+      180,
+      155,
+      100,
+      45
+    ],
+    "distinctRotorTransforms": 13,
+    "switchStoppedFurtherDamage": true,
+    "sampledLoopSoundPresent": true
+  },
+  "invalidPlacement": {
+    "charges": 0,
+    "hp": 45,
+    "time": 86.46410083770752
+  },
+  "finalCharge": {
+    "sequence": 4,
+    "authoritativeCount": 1,
+    "lifetimeSeconds": 0.46458005905151367,
+    "configuredFuseSeconds": 0.45,
+    "position": "-0.021619174629449844, 21.899660110473633, 40.71036911010742",
+    "look": "-0.0033804262056946754, -0.20552462339401245, 0.9786461591720581",
+    "hasWeld": false,
+    "characterBefore": "0, 20.647775650024414, 44.69990158081055",
+    "characterAfter": "0, 20.647775650024414, 44.69990158081055",
+    "targetHPBefore": 155,
+    "targetHPAfter": 0,
+    "targetIntactAfter": false,
+    "remainingCharges": 0,
+    "hitRecords": [
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "-5.617846965789795, 23.814899444580078, 40.27296829223633",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R15_C49",
+        "g": false,
+        "f": 101,
+        "h": false,
+        "time": 132.02378010749817,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "0.00009294127812609076, 27.70016098022461, 41.18677520751953",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R16_C51",
+        "g": false,
+        "f": 105,
+        "h": false,
+        "time": 132.02061200141907,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "1.8779858350753784, 23.815032958984375, 40.61954116821289",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R15_C51",
+        "g": false,
+        "f": 180,
+        "h": false,
+        "time": 132.0093400478363,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "-1.877950668334961, 23.815156936645508, 40.619544982910156",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R15_C50",
+        "g": false,
+        "f": 180,
+        "h": false,
+        "time": 132.00718808174133,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "-3.6763710975646973, 20.04127311706543, 39.6744499206543",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R14_C50",
+        "g": false,
+        "f": 153,
+        "h": false,
+        "time": 132.0138680934906,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "3.6763975620269775, 20.04131317138672, 39.67445755004883",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R14_C52",
+        "g": false,
+        "f": 152,
+        "h": false,
+        "time": 132.01732206344604,
+        "kind": "Hit"
+      },
+      {
+        "a": 291892217,
+        "c": "0.8784313797950745, 0.8274509906768799, 0.7215686440467834",
+        "b": "-0.02022116631269455, 21.984657287597656, 40.305641174316406",
+        "e": 4,
+        "d": "Workspace.VesperLab.Egg.Sections.L1_R14_C51",
+        "g": false,
+        "f": 155,
+        "h": false,
+        "time": 132.00297117233276,
+        "kind": "Hit"
+      }
+    ],
+    "distinctHitSections": 7,
+    "blastEvents": 1,
+    "cleanupSamples": [
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.03629302978516,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.82031798362732,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.85211515426636,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.43578600883484,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.4194781780243,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.28663301467896,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.36898803710938,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.40203213691711,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.20185899734497,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.0026409626007,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.93704295158386,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.38490796089172,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.16863012313843,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.10235214233398,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.95233511924744,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.96918106079102,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.11902713775635,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.1358871459961,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.335755109787,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.35205101966858,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.45223808288574,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.2689871788025,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.21881103515625,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.186665058136,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.1533019542694,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.08670806884766,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.06942701339722,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.0519299507141,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.01901698112488,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.98577308654785,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.91906905174255,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.9028241634369,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.86868000030518,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.8018660545349,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 133.8855481147766,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.30242395401,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.23709917068481,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.3190050125122,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.46853017807007,
+        "family": "Explosive",
+        "bursts": 0
+      },
+      {
+        "sounds": 1,
+        "charges": 0,
+        "time": 134.48610615730286,
+        "family": "Explosive",
+        "bursts": 0
+      }
+    ]
+  },
+  "unverified": [
+    "Death/respawn and player removal at runtime",
+    "Other player/multiplayer presentation",
+    "Menu interruption separately from tool switch",
+    "Support destroyed by another player during fuse",
+    "First person, R6 and other avatar proportions",
+    "Mobile/controller/device performance",
+    "Published-client asset rendering",
+    "Audible sound quality; recordings contain no audio",
+    "Reduced-motion/SFX settings runtime toggles (source reviewed only)"
+  ]
+}

@@ -27,6 +27,21 @@ function D.Release(actor)
 	end
 	actor.drill = nil
 end
+function D.Stop(actor)
+	local d = actor.drill
+	if not d then
+		return
+	end
+	d.speed, d.drive = 0, 0
+	local hum = actor.character:FindFirstChildOfClass("Humanoid")
+	if hum and d.autoRotate ~= nil then
+		hum.AutoRotate = d.autoRotate
+		d.autoRotate = nil
+	end
+	if d.rotor and d.rotor.Parent then
+		d.rotor.Transform = CFrame.identity
+	end
+end
 function D.Attach(actor, tool)
 	D.Release(actor)
 	if not tool or tool:GetAttribute("ToolFamily") ~= "Drill" then
@@ -138,7 +153,11 @@ function D.Update(actor, dt)
 	local requested = actor.training and (actor.trainingPressure or 0) or driving and 1 or 0
 	d.drive += (requested - d.drive) * (1 - math.exp(-dt * (driving and 18 or 12)))
 	local spin = requested > 0 and requested or spinning and 0.35 or 0
-	d.speed += (spin * 65 - d.speed) * (1 - math.exp(-dt * (driving and 12 or 8)))
+	if spin == 0 then
+		d.speed = 0
+	else
+		d.speed += (spin * 65 - d.speed) * (1 - math.exp(-dt * 12))
+	end
 	local reduced = Players.LocalPlayer and Players.LocalPlayer:GetAttribute("ReducedMotion")
 	d.angle = (d.angle + d.speed * dt * (reduced and 0.2 or 1)) % (math.pi * 2)
 	if not d.torso then
@@ -146,9 +165,9 @@ function D.Update(actor, dt)
 	end
 	local pitch, yaw = 0, 0
 	if (driving or actor.training) and typeof(aim) == "Vector3" then
-		local delta = d.torso.CFrame:PointToObjectSpace(aim) - Vector3.new(0.52, -0.5, -0.95)
-		pitch = math.clamp(math.atan2(delta.Y, math.sqrt(delta.X ^ 2 + delta.Z ^ 2)), -0.32, 0.32)
-		yaw = math.clamp(math.atan2(-delta.X, -delta.Z), -0.38, 0.38)
+		local delta = d.torso.CFrame:PointToObjectSpace(aim) - Vector3.new(0.52, 0.66, -0.95)
+		pitch = math.clamp(math.atan2(delta.Y, math.sqrt(delta.X ^ 2 + delta.Z ^ 2)), -0.55, 0.55)
+		yaw = math.clamp(math.atan2(-delta.X, -delta.Z), -0.65, 0.65)
 	end
 	local vibration = reduced and 0 or math.sin(now * 71) * 0.006 * d.drive
 	local scale = math.clamp(d.torso.Size.Y / 1.7, 0.7, 1.35)

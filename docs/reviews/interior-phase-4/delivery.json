@@ -1,0 +1,18 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "ownerUserId": 291892217,
+  "branch": "planning/development-foundation",
+  "baselineCommit": "475f40994c69f07bafca283ad3d22a9fa9f91077",
+  "publishedVersion": 221,
+  "publishedAtUtc": "2026-11-11T01:05:14Z",
+  "publicationEvidence": "Studio publishType=1; Publish succeeded for placeId 94763223427049; Add publish notes to v221",
+  "studioMode": "Edit",
+  "privateBackup": "Backups/InteriorPhase4_20261111/ComingSoon_94763223427049_before.rbxl",
+  "privateFinal": "Backups/InteriorPhase4_20261111/ComingSoon_94763223427049_final_verified.rbxl",
+  "finalNativeBytes": 6617124,
+  "finalNativeSha256": "FF05B2769FDC78FCA92B2BF40C52EA000DC825206B464F4992614866436A668A",
+  "commit": "pending",
+  "ownerVisualApproval": false,
+  "audienceChanged": false
+}
