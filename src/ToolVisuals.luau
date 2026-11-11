@@ -51,12 +51,20 @@ function V.Clone(source, name)
 end
 function V.SurfaceFrame(point, normal)
 	local n = normal.Unit
-	local up = math.abs(n:Dot(Vector3.yAxis)) > 0.94 and Vector3.zAxis or Vector3.yAxis
-	up = (up - n * up:Dot(n)).Unit
+	-- Upright azimuth frame, without the former 0.94-normal threshold flip.
+	local right = Vector3.new(-n.Z, 0, n.X)
+	if right.Magnitude < 0.001 then
+		right = Vector3.new(-point.Z, 0, point.X)
+		if right.Magnitude < 0.001 then
+			right = Vector3.xAxis
+		end
+	end
+	right = (right - n * right:Dot(n)).Unit
+	local up = right:Cross(n).Unit
 	-- Put the actual rear mounting-plate contact on the hit plane. The origin
 	-- belongs to the hand grip and is deliberately not the model center.
 	local contact = require(script.Parent.ChargePresentation).BackContact
-	return CFrame.lookAt(point + n * 0.012, point + n, up) * CFrame.new(-contact)
+	return CFrame.fromMatrix(point + n * 0.012, right, up, -n) * CFrame.new(-contact)
 end
 function V.FramePreview(camera, model, family, aspect)
 	local cf = model:GetBoundingBox()

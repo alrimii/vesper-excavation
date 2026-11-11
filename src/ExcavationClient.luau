@@ -97,6 +97,7 @@ local drillConfirmedTarget, drillConfirmedUntil = nil, 0
 local lastDrillStop = -math.huge
 local drillingTarget
 local drillLatched = false
+local targeter
 local function cancel()
 	held = false
 	drillLatched = false
@@ -110,6 +111,9 @@ local function cancel()
 		toolFeedback:Cancel(player.UserId)
 	end
 	Motion.Cancel(player)
+	if targeter then
+		targeter:Cancel()
+	end
 	Action:FireServer("Cancel")
 end
 State:GetAttributeChangedSignal("Status"):Connect(function()
@@ -219,7 +223,7 @@ local function cycleTool(direction)
 	end
 end
 require(Shared.RoomAnimation).Start(player)
-local targeter = require(Shared:WaitForChild("Targeting")).new(player, gui, Egg, C)
+targeter = require(Shared:WaitForChild("Targeting")).new(player, gui, Egg, C)
 require(Shared.SkillFeedback).Start(player, gui, targeter)
 local function aimedSection(centerAim)
 	return targeter:Get(centerAim)
@@ -289,6 +293,9 @@ local function use(charged, centerAim)
 			)
 		end
 		if section then
+			if family == "Explosive" then
+				targeter:Submitted()
+			end
 			Action:FireServer(
 				charged and "ChargedMine" or "Mine",
 				section,

@@ -316,14 +316,17 @@ function M.Start()
 				end
 				continue
 			end
-			local pose = table.clone(bucket and Clips.BucketIdle or Clips.PickaxeIdle)
+			local charge = tool:GetAttribute("ToolFamily") == "Explosive"
+			local pose =
+				table.clone(bucket and Clips.BucketIdle or charge and Clips.ChargeIdle or Clips.PickaxeIdle)
 			local phase = a.phase
 			if phase then
 				if phase.kind == "Strike" then
 					local elapsed = os.clock() - phase.at
 					local t = math.clamp(elapsed / phase.duration, 0, 1)
-					if tool:GetAttribute("ToolFamily") == "Explosive" then
-						pose = { 38 + math.sin(t * math.pi) * 32, 0, 8, 60, -15 * math.sin(t * math.pi) }
+					if charge then
+						local place = math.clamp(elapsed / 0.32, 0, 1)
+						pose = { 12 + math.sin(place * math.pi) * 20, 0, 6, 65, 8 }
 					else
 						pose = sample(t)
 					end
@@ -334,7 +337,7 @@ function M.Start()
 						end
 						t = recovery >= 1 and 1 or 0
 					end
-					a.visualPhase = t
+					a.visualPhase = charge and math.clamp(elapsed / 0.32, 0, 1) or t
 					if t >= 1 then
 						a.phase = nil
 					end

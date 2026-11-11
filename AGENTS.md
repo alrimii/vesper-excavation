@@ -1,4 +1,12 @@
-# Current checkpoint - supplied Crystal Triceratops delivered v250
+# Current checkpoint - charge pose, preview and three-second fuse delivered v254
+
+Owner approves the creature integration and charge model; preserve them along with the approved pickaxe/drill and corrected grips. Charge polish published original place **94763223427049**, branch `planning/development-foundation`, **v254** at **2026-11-11 16:48:09 UTC**. [Report, actual screenshots and runtime clip](docs/reviews/charge-polish/REVIEW.md), [delivery identity](docs/reviews/charge-polish/delivery.json).
+
+Charge-only idle/placement pose and compensated grip keep the assembly upright. Preview no longer reparents every frame; shared surface frame removes the old 0.94 up-axis flip. Explicit ray exclusions cover held/preview/placed visuals. Rear plate, approved geometry/maps and existing contact clearance remain. Shared fuse is intentionally **3.0 seconds**, with authoritative server deadline, integer countdown, sampled-rope ember/sparks/smoke, ticks/ignition and final pulse. Existing pending guard/token prevent stacked or canceled blasts. All damage/radius/prices/upgrades/rewards, other-tool scheduling, creature data and owner test isolation preserved.
+
+One **263-second memory-only session** included a concrete grip correction, moving preview, one complete 3/2/1/0 detonation, two later canceled placements, switch/unequip cleanup and evidence. Native before/final recovery private under `Backups/ChargePolish_20261111/`. Actual 7.5-second video uses recorded timestamps at normal speed and is silent; sound assets loaded/played but audible mix was not reviewed. Respawn, other avatars/devices, multiplayer and live-client play remain unverified. No corrected-pose approval claimed. Helpers removed; Studio stopped in Edit. Preserve all deferred work and the separately recorded creature texture-pack limitation.
+
+# Historical checkpoint - supplied Crystal Triceratops delivered v250
 
 Integrated `rodin-crystal-triceratops-source/base_basic_pbr.fbx` without topology or texture edits: one static UV-mapped mesh, **5,030 vertices / 10,050 triangles**, floor-center pivot, forward -Z. Published original place **94763223427049**, branch `planning/development-foundation`, **v250** at **2026-11-11 16:16:03 UTC**. [Review and actual GitHub screenshot files](docs/reviews/rodin-crystal-triceratops/REVIEW.md), [delivery identity](docs/reviews/rodin-crystal-triceratops/delivery.json).
 

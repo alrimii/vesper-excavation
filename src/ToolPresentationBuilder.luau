@@ -126,10 +126,10 @@ function B.Charge()
 		tool,
 		Assets.RodinCharge,
 		"Explosive",
-		CFrame.Angles(-math.pi / 2, 0, 0) * CFrame.new(-0.22, 0, 0.12)
+		CFrame.Angles(math.rad(-14), 0, 0) * CFrame.new(-0.10, 0.05, 0.10)
 	)
 	tool.TextureId = Visuals.ChargeIcon
-	tool:SetAttribute("ChargeVisualRevision", 3)
+	tool:SetAttribute("ChargeVisualRevision", 4)
 	require(Shared.ChargePresentation).AddScreen(tool)
 	B.Previews("Explosive")
 	B.Displays("Explosive")

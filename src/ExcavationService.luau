@@ -1201,6 +1201,7 @@ local function strike(p, target, point, requestRound, sequence, charged)
 			* (C.Animation.Anticipation + C.Animation.Acceleration)
 			/ (C.Animation.Anticipation + C.Animation.Acceleration + C.Animation.Recoil + C.Animation.Recovery)
 	local placement = {
+		deadline = workspace:GetServerTimeNow() + windup,
 		token = token,
 		target = target,
 		tool = attackTool,
@@ -1215,7 +1216,8 @@ local function strike(p, target, point, requestRound, sequence, charged)
 		visual:SetAttribute("OwnerUserId", p.UserId)
 		visual:SetAttribute("Sequence", sequence)
 		visual:SetAttribute("RoundId", round)
-		visual:SetAttribute("DetonatesAt", workspace:GetServerTimeNow() + windup)
+		visual:SetAttribute("DetonatesAt", placement.deadline)
+		visual.ChargeScreen.CountdownScreen.Digits.Text = tostring(math.ceil(windup))
 		visual:PivotTo(ToolVisuals.SurfaceFrame(point, hit.Normal))
 		visual.Parent = placedCharges
 		placement.visual = visual
@@ -1259,7 +1261,12 @@ local function strike(p, target, point, requestRound, sequence, charged)
 			workspace:GetServerTimeNow()
 		)
 	end
-	task.delay(windup, function()
+	-- A pending placement already rejects additional attacks, even when upgraded
+	-- cooldown is shorter than the fuse. The attack token also invalidates cancels.
+	local delayUntilImpact = family == "Explosive"
+			and math.max(0, placement.deadline - workspace:GetServerTimeNow())
+		or windup
+	task.delay(delayUntilImpact, function()
 		if sessions[p] ~= session or session.attack ~= token then
 			clearPlacement(placement)
 			return

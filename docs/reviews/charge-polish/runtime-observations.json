@@ -1,0 +1,52 @@
+{
+  "toolCleared": true,
+  "previewCleared": true,
+  "qa": {
+    "removed": 3,
+    "digits": [
+      {
+        "digit": "3",
+        "at": 1794415182.758143
+      },
+      {
+        "digit": "2",
+        "at": 1794415183.60444
+      },
+      {
+        "digit": "1",
+        "at": 1794415184.607298
+      },
+      {
+        "digit": "0",
+        "at": 1794415185.608011
+      },
+      {
+        "digit": "3",
+        "at": 1794415242.171551
+      }
+    ],
+    "previewParents": 5,
+    "tickLoaded": true,
+    "added": 3,
+    "soundPlaying": true,
+    "blast": 1,
+    "previewFrames": 4426,
+    "ignitionLoaded": true,
+    "blastAt": 1794415185.739654,
+    "fusePresent": true
+  },
+  "movingPreviewCheckpoint": {
+    "renderFrames": 821,
+    "parentChanges": 0,
+    "previewModels": 1,
+    "previewCountdownEnabled": false,
+    "previewFusePresent": false
+  },
+  "completedPlacement": {
+    "acceptedAtObserved": 1794415182.739438,
+    "serverDeadline": 1794415185.706504,
+    "blastAtObserved": 1794415185.739654,
+    "observedSeconds": 3.000216
+  },
+  "scope": "One memory-only runtime pass, one complete detonation and two later canceled placements; no live data."
+}

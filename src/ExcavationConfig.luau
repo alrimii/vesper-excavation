@@ -91,14 +91,19 @@ return {
 	Mining = { Power = 25, Cooldown = 0.60, MinimumCooldown = 0.30, Reach = 16, ImpactGrace = 2 },
 	-- Phase 3 provisional balance; existing damage/cooldowns/prices remain in ProgressionRules.
 	Tools = {
-		Explosive = { Radius = 6, MaxSections = 7, EdgeMultiplier = 0.35, Fuse = 0.45 },
+		Explosive = { Radius = 6, MaxSections = 7, EdgeMultiplier = 0.35, Fuse = 3.0 },
 		Drill = { ContactLeaseGrace = 0.12, InvalidUpdateInterval = 0.1 },
 	},
 	MiningAudio = {
 		Pickaxe = "rbxassetid://9118617342",
 		Drill = "rbxassetid://199754867",
 		Explosive = "rbxassetid://120212342534790",
-		MinDistance = 6, MaxDistance = 70, MaxSounds = 8, MaxLoops = 4,
+		ChargeIgnition = "rbxassetid://121468423287955",
+		ChargeTick = "rbxassetid://117751546358455",
+		MinDistance = 6,
+		MaxDistance = 70,
+		MaxSounds = 8,
+		MaxLoops = 4,
 	},
 	Precision = { Radius = 0.75, Multiplier = 1.35, ChainStep = 0.05, MaxChain = 3 },
 	Collection = { Radius = 12, Interval = 0.20, UnitsPerTick = 6, Capacity = 40 },

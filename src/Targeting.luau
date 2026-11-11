@@ -8,6 +8,8 @@ function T.new(player, gui, egg, C)
 	local state = shared:WaitForChild("RoundState")
 	local targeter = { confirmedUntil = 0 }
 	local chargePreview
+	local lastPoint, lastSection, cancelledPoint, cancelledSection, previousTool
+	local awaitingUntil = 0
 	local Visuals = require(shared.ToolVisuals)
 	local highlight = Instance.new("Highlight")
 	highlight.Name = "TargetPlate"
@@ -99,11 +101,22 @@ function T.new(player, gui, egg, C)
 	end
 	local function hide()
 		if chargePreview then
-			chargePreview.Parent = nil
+			if chargePreview.Parent then
+				chargePreview.Parent = nil
+			end
 		end
 		highlight.Enabled = false
 		mark.Enabled = false
 		status.Visible = false
+	end
+	function targeter:Cancel()
+		cancelledPoint, cancelledSection = lastPoint, lastSection
+		awaitingUntil = 0
+		hide()
+	end
+	function targeter:Submitted()
+		awaitingUntil = os.clock() + 0.8
+		hide()
 	end
 	local Contact = require(script.Parent.ToolContact)
 	local function solve(centerAim)
@@ -138,7 +151,7 @@ function T.new(player, gui, egg, C)
 		end
 		local params = RaycastParams.new()
 		params.FilterType = Enum.RaycastFilterType.Exclude
-		params.FilterDescendantsInstances = { ch, anchor }
+		params.FilterDescendantsInstances = Contact.Exclusions(ch, { anchor })
 		local ray = (
 			centerAim
 			or player:GetAttribute("CenteredAim")
@@ -170,6 +183,7 @@ function T.new(player, gui, egg, C)
 			withinReach
 	end
 	function targeter:Get(centerAim)
+		cancelledPoint, cancelledSection = nil, nil
 		local section, point, _, valid = solve(centerAim)
 		if valid then
 			return section, point
@@ -178,10 +192,14 @@ function T.new(player, gui, egg, C)
 	function targeter:Confirm()
 		self.confirmedUntil = os.clock() + 0.14
 	end
-	Run.RenderStepped:Connect(function()
+	local renderConnection = Run.RenderStepped:Connect(function()
 		local ch = player.Character
 		local tool = ch and ch:FindFirstChildOfClass("Tool")
 		local kind = tool and tool:GetAttribute("ToolKind")
+		if tool ~= previousTool then
+			previousTool = tool
+			cancelledPoint, cancelledSection, awaitingUntil = nil, nil, 0
+		end
 		if chargePreview and (not tool or tool:GetAttribute("ToolFamily") ~= "Explosive") then
 			chargePreview.Parent = nil
 		end
@@ -222,24 +240,41 @@ function T.new(player, gui, egg, C)
 					break
 				end
 			end
-			if chargePreview then
-				chargePreview.Parent = nil
+			lastPoint, lastSection = point, section
+			local cancelled = cancelledPoint
+				and cancelledSection == section
+				and (point - cancelledPoint).Magnitude < 0.15
+			if not cancelled then
+				cancelledPoint, cancelledSection = nil, nil
 			end
-			if tool:GetAttribute("ToolFamily") == "Explosive" and not pendingCharge then
+			local showCharge = tool:GetAttribute("ToolFamily") == "Explosive"
+				and not pendingCharge
+				and os.clock() >= awaitingUntil
+				and not cancelled
+			if showCharge then
 				if not chargePreview then
 					chargePreview = Visuals.Clone(shared.EquipmentAssets.Explosive, "LocalChargePreview")
+					for _, d in chargePreview:GetDescendants() do
+						if d:IsA("SurfaceGui") then
+							d.Enabled = false
+						end
+					end
 				end
 				for _, part in chargePreview:GetChildren() do
 					if part:IsA("BasePart") and part.Name ~= "ChargeScreen" then
-						part.Transparency = 0.45
+						part.Transparency = 0.35
 						local sa = part:FindFirstChildOfClass("SurfaceAppearance")
 						if sa then
-							sa.Color = valid and Color3.new(1, 1, 1) or Color3.fromRGB(255, 95, 75)
+							sa.Color = valid and Color3.new(1, 1, 1) or Color3.fromRGB(255, 175, 155)
 						end
 					end
 				end
 				chargePreview:PivotTo(Visuals.SurfaceFrame(point, normal))
-				chargePreview.Parent = workspace
+				if chargePreview.Parent ~= workspace then
+					chargePreview.Parent = workspace
+				end
+			elseif chargePreview and chargePreview.Parent then
+				chargePreview.Parent = nil
 			end
 			local color = valid and ready or distant
 			if os.clock() < targeter.confirmedUntil then
@@ -256,6 +291,7 @@ function T.new(player, gui, egg, C)
 			highlight.OutlineColor = color
 			-- Damaged shell appearance must not depend on the selection pass.
 			highlight.Enabled = valid
+				and tool:GetAttribute("ToolFamily") ~= "Explosive"
 				and not (
 					section:GetAttribute("Layer") == 1
 					and reactions
@@ -264,7 +300,7 @@ function T.new(player, gui, egg, C)
 			anchor.Position = point + normal * 0.06
 			stroke.Color = color
 			dot.BackgroundColor3 = color
-			mark.Enabled = valid
+			mark.Enabled = valid and tool:GetAttribute("ToolFamily") ~= "Explosive"
 			status.Visible = gui.Toast.Text == "" and not gui:GetAttribute("CoreTargetSuppressed")
 			local layer = C.Layers[section:GetAttribute("Layer")]
 			local maxHealth = section:GetAttribute("MaxHP") or layer.Durability
@@ -325,6 +361,12 @@ function T.new(player, gui, egg, C)
 				hp.Size = UDim2.fromScale(0, 0)
 				status.Text = full and "BUCKET FULL / SELL" or "LOOSE MATERIAL / HOLD TO COLLECT"
 			end
+		end
+	end)
+	gui.Destroying:Once(function()
+		renderConnection:Disconnect()
+		if chargePreview then
+			chargePreview:Destroy()
 		end
 	end)
 	return targeter
