@@ -17,7 +17,10 @@ local function replace(tool, source, family, grip)
 	handle.CanCollide, handle.CanTouch, handle.CanQuery = false, false, false
 	tool.Grip = grip
 	tool:SetAttribute("ToolFamily", family)
-	tool:SetAttribute("ToolVisualRevision", Visuals.Revision)
+	tool:SetAttribute(
+		"ToolVisualRevision",
+		family == "Pickaxe" and Visuals.PickaxeRevision or Visuals.Revision
+	)
 	for _, part in source:GetDescendants() do
 		if part:IsA("BasePart") then
 			local p = part:Clone()
@@ -29,8 +32,11 @@ local function replace(tool, source, family, grip)
 		end
 	end
 end
-function B.Previews()
+function B.Previews(onlyFamily)
 	for family, name in { Pickaxe = "StarterPickaxe", Drill = "StarterDrill", Explosive = "StarterExplosive" } do
+		if onlyFamily and family ~= onlyFamily then
+			continue
+		end
 		local old = Shared.EquipmentAssets:FindFirstChild(family)
 		if old then
 			old:Destroy()
@@ -40,7 +46,7 @@ function B.Previews()
 		copy.Parent = Shared.EquipmentAssets
 	end
 end
-function B.Displays()
+function B.Displays(onlyFamily)
 	local shop = workspace.VesperLab.SharedWorkshop
 	local g = shop.IntegratedWorkshop
 	local cf = shop:GetPivot()
@@ -51,6 +57,9 @@ function B.Displays()
 			{ "ChargeDisplay", "StarterExplosive", -15, 3.4, 0.35 },
 		}
 	do
+		if onlyFamily and Kit[s[2]]:GetAttribute("ToolFamily") ~= onlyFamily then
+			continue
+		end
 		local old = g:FindFirstChild(s[1])
 		if old then
 			old:Destroy()
@@ -69,14 +78,22 @@ function B.Displays()
 		model.Parent = g
 	end
 end
-function B.Build()
+function B.Pickaxe()
 	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
 	local clips = require(Shared.MotionClips)
-	replace(Kit.StarterPickaxe, Assets.AuthoredPickaxe, "Pickaxe", clips.PickaxeGrip)
+	replace(Kit.StarterPickaxe, Assets.RodinPickaxe, "Pickaxe", clips.PickaxeGrip)
+	Kit.StarterPickaxe.TextureId = Visuals.PickaxeIcon
 	local tip = Instance.new("Attachment")
 	tip.Name = "StrikeTip"
 	tip.Position = clips.PickaxeStrikeTip
 	tip.Parent = Kit.StarterPickaxe.Handle
+	B.Previews("Pickaxe")
+	B.Displays("Pickaxe")
+	return "Owner-supplied pickaxe updated; other tool assemblies unchanged"
+end
+function B.Build()
+	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
+	B.Pickaxe()
 	replace(
 		Kit.StarterExplosive,
 		Assets.SurveyDynamite,

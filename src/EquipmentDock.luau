@@ -2,19 +2,25 @@
 local M = {}
 function M.Build(gui, player, selectTool)
 	local K = require(script.Parent.InterfaceKit)
-	local root = K.Make(
-		"Frame",
-		gui,
-		{ Name = "EquipmentDock", BackgroundTransparency = 1, AnchorPoint = Vector2.new(0.5, 1), Visible = false }
-	)
+	local root = K.Make("Frame", gui, {
+		Name = "EquipmentDock",
+		BackgroundTransparency = 1,
+		AnchorPoint = Vector2.new(0.5, 1),
+		Visible = false,
+	})
 	local cards = {}
 	for i, id in require(script.Parent.ProgressionRules).ToolOrder do
 		local b = K.Button(root, id, "", function()
 			selectTool(id)
 		end, true)
-		local view = require(script.Parent.EquipmentPreview).Create(b, script.Parent.EquipmentAssets[id])
+		local view = id == "Pickaxe" and K.Icon(b, "Pickaxe")
+			or require(script.Parent.EquipmentPreview).Create(b, script.Parent.EquipmentAssets[id])
 		view.Position = UDim2.fromOffset(14, 0)
 		view.Size = UDim2.new(1, -28, 1, -18)
+		if id == "Pickaxe" then
+			view.Position = UDim2.fromOffset(3, 0)
+			view.Size = UDim2.new(1, -6, 1, -18)
+		end
 		local label = K.Text(b, "Label", id == "Explosive" and "CHARGE" or id:upper(), 11, K.Ink, true)
 		label.Position = UDim2.new(0, 0, 1, -20)
 		label.Size = UDim2.new(1, 0, 0, 20)

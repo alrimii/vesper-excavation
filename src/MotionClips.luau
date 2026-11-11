@@ -2,7 +2,7 @@
 return {
 	-- Finished pick's measured -X working point; grip origin is the actual hand contact.
 	PickaxeGrip = CFrame.Angles(0, math.pi / 2, 0),
-	PickaxeStrikeTip = Vector3.new(-1.751783, 1.800879, 0.004625),
+	PickaxeStrikeTip = Vector3.new(-1.456642, 1.052610, 0),
 	PickaxeIdle = { 22, -8, 14, 20, 0 },
 	BucketIdle = { 18, 0, 6, 12, 0 },
 	Strike = {

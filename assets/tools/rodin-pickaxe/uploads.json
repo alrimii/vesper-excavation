@@ -1,0 +1,62 @@
+{
+  "RodinPickaxe": {
+    "id": "125687100665406",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/assets/125687100665406 -> 200 OK\n\n{\"path\":\"assets/125687100665406\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T12:11:10.386Z\",\"assetId\":\"125687100665406\",\"displayName\":\"Vesper RodinPickaxe\",\"description\":\"Owner supplied agentic_0003 exact pickaxe integration. Private experience asset.\",\"assetType\":\"Model\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "RodinColor": {
+    "id": "90874713782709",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/assets/90874713782709 -> 200 OK\n\n{\"path\":\"assets/90874713782709\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T12:10:57.240Z\",\"assetId\":\"90874713782709\",\"displayName\":\"Vesper RodinColor\",\"description\":\"Owner supplied agentic_0003 exact pickaxe integration. Private experience asset.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "RodinMetalness": {
+    "id": "106595719402423",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/assets/106595719402423 -> 200 OK\n\n{\"path\":\"assets/106595719402423\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T12:10:57.669Z\",\"assetId\":\"106595719402423\",\"displayName\":\"Vesper RodinMetalness\",\"description\":\"Owner supplied agentic_0003 exact pickaxe integration. Private experience asset.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "RodinRoughness": {
+    "id": "71119738114898",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/assets/71119738114898 -> 200 OK\n\n{\"path\":\"assets/71119738114898\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T12:10:58.085Z\",\"assetId\":\"71119738114898\",\"displayName\":\"Vesper RodinRoughness\",\"description\":\"Owner supplied agentic_0003 exact pickaxe integration. Private experience asset.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "RodinPickaxeIcon": {
+    "id": "92425113043430",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/assets/92425113043430 -> 200 OK\n\n{\"path\":\"assets/92425113043430\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T12:10:59.226Z\",\"assetId\":\"92425113043430\",\"displayName\":\"Vesper RodinPickaxeIcon\",\"description\":\"Owner supplied agentic_0003 exact pickaxe integration. Private experience asset.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

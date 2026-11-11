@@ -14,6 +14,12 @@ function M.Create(parent, source, tint)
 	view.LightColor = Color3.fromRGB(255, 230, 191)
 	view.LightDirection = Vector3.new(-1, -1, -1)
 	view.Parent = parent
+	if (source:GetAttribute("ToolFamily") or source.Name) == "Pickaxe" then
+		local sky = game:GetService("Lighting"):FindFirstChildOfClass("Sky")
+		if sky then
+			sky:Clone().Parent = view
+		end
+	end
 	local world = Instance.new("WorldModel")
 	world.Parent = view
 	local model = Instance.new("Model")
@@ -45,9 +51,6 @@ function M.Create(parent, source, tint)
 		end
 	end
 	model.Parent = world
-	if (source:GetAttribute("ToolFamily") or source.Name) == "Pickaxe" then
-		model:PivotTo(CFrame.Angles(0, 0, math.rad(-28)) * model:GetPivot())
-	end
 	local camera = Instance.new("Camera")
 	camera.FieldOfView = 32
 	camera.Parent = view

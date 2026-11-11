@@ -26,3 +26,10 @@ assets/environment/compact-interior/exports/PlayfulSkills.png
 # Licensed identity slice models and illustrated derivative: private upload staging.
 assets/environment/compact-interior/exports/AuthoredPickaxe.glb
 assets/environment/compact-interior/exports/AuthoredPickaxeIcon.png
+
+# Owner-supplied Rodin source and upload derivatives remain private.
+assets/environment/compact-interior/exports/RodinPickaxe.glb
+assets/environment/compact-interior/exports/RodinPickaxeIcon.png
+assets/environment/compact-interior/exports/RodinColor.png
+assets/environment/compact-interior/exports/RodinMetalness.png
+assets/environment/compact-interior/exports/RodinRoughness.png

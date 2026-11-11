@@ -1,4 +1,12 @@
-# Current checkpoint — bounded Roblox identity slice, published v235
+# Current checkpoint - exact owner-supplied Rodin pickaxe, published v238
+
+The v235 pickaxe is rejected. The owner selected `agentic_0003_pack_fbx_model.fbx` and authorized only faithful pickaxe integration. Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v238** at **2026-11-11 12:22:57 UTC**. See [actual screenshots and review](reviews/rodin-pickaxe/REVIEW.md) and [delivery identity](reviews/rodin-pickaxe/delivery.json).
+
+Original FBX remains untouched. Only four dense grip-edge objects were simplified: **38,016 triangles, seven meshes**, seven source materials. The supplied teal crystals, dark steel, gold fittings and wrapped handle replace v235 across equipped tool, preview, workshop and exact-model rendered icon. Superseded live source and generation scripts are removed. No menu redesign, other-tool changes, balance/animation rewrite, player-data changes or delegates.
+
+One **76-second** memory-only check covered assembly, grip, one strike, equipment preview and actual-size icon. Native before/final recovery and model masters are private under `Backups/RodinPickaxe_20261111/`. Studio is in Edit; temporary helpers removed. **Stop for owner review.** No visual approval is claimed; preserve all deferred requirements and do not extend to other screens automatically.
+
+# Historical checkpoint - identity slice; v235 pickaxe rejected
 
 The owner rejected the v230 composition and pickaxe. All seven images in `roblox-identity-reference-pack/` and `START_HERE.md` were inspected; 01 is rejected, 02-05 control this slice, 06-07 are follow-up references only. Delivered HUD/illustrated navigation, Equipment/Upgrades, shared modal blur/interaction feedback, and a finished Baziliq Games PK-001 pickaxe in original place **94763223427049**, branch `planning/development-foundation`. Published **v235**, 2026-11-11 11:27:33 UTC. See [review/screenshots](reviews/identity-slice/REVIEW.md) and [delivery identity](reviews/identity-slice/delivery.json).
 

@@ -1,0 +1,40 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 238,
+  "publishedAtUtc": "2026-11-11T12:22:57.242Z",
+  "publicationEvidence": "Studio log publishType=1; PublishSuccessful; original placeId; Add publish notes to v238",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "b20fc091c3956d0679ba060483aee792f8badbed",
+  "nativeBefore": "Backups\\RodinPickaxe_20261111\\ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups\\RodinPickaxe_20261111\\ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "414562d1e5207421dd3e3d71a880d8945b1f69b2f87cb1c660ac668c2f53f150",
+  "sourceSha256": "fd986e665b296d1bb016b4f6da7fffb44ef6bee883d06d5c3cd2e096220f320c",
+  "sourceUnchanged": true,
+  "finalTriangles": 38016,
+  "finalVisibleMeshObjects": 7,
+  "toolBasePartsIncludingInvisibleHandle": 8,
+  "studioMode": "Edit",
+  "runtimeSessions": 1,
+  "runtimeSeconds": 76,
+  "runtimeStartedUtc": "2026-11-11T12:19:41Z",
+  "runtimeEndedUtc": "2026-11-11T12:20:57Z",
+  "strike": {
+    "hpBefore": 180,
+    "hpAfter": 146,
+    "baseDamage": 25,
+    "precisionMultiplier": 1.35
+  },
+  "modelAssetId": "125687100665406",
+  "iconAssetId": "92425113043430",
+  "creatorUserId": 291892217,
+  "visualApproval": false,
+  "fixedSaveGenerationChanged": false,
+  "productionDataTouched": false,
+  "temporaryFixturesRemoved": true,
+  "screenshots": [
+    "in-hand.png",
+    "equipment.png",
+    "icon-actual-size.png"
+  ]
+}

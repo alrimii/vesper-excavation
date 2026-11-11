@@ -1,8 +1,10 @@
 -- Shared appearance and surface frame. This module never applies gameplay effects.
 local V = {}
 V.Revision = "AuthoredTools_20261111"
+V.PickaxeRevision = "RodinSelected_20261111"
+V.PickaxeIcon = "rbxassetid://92425113043430"
 V.PreviewDirections = {
-	Pickaxe = Vector3.new(0.2, 0.10, 1),
+	Pickaxe = Vector3.new(0.34, 0.22, 1),
 	Drill = Vector3.new(1, 0.32, -0.65),
 	Explosive = Vector3.new(0.65, 0.30, -1),
 }
@@ -34,7 +36,10 @@ function V.Clone(source, name)
 		end
 	end
 	model.WorldPivot = CFrame.identity
-	model:SetAttribute("ToolVisualRevision", V.Revision)
+	model:SetAttribute(
+		"ToolVisualRevision",
+		source:GetAttribute("ToolFamily") == "Pickaxe" and V.PickaxeRevision or V.Revision
+	)
 	return model
 end
 function V.SurfaceFrame(point, normal)

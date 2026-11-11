@@ -1,3 +1,5 @@
+> RETIRED: The owner rejected this v235 pickaxe. Its active assembly and generation scripts were removed in v238. See [the exact owner-supplied replacement](../rodin-pickaxe/SOURCES.md). Records below are historical; private recovery retains the former recipes.
+
 # Identity slice assets
 
 The owner reference pack controls composition. All seven images were inspected; 01 is rejected, 02–05 guide this slice, and 06–07 are retained for later work. No artwork was extracted from the referenced games.

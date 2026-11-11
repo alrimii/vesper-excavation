@@ -168,7 +168,7 @@ function K.Icon(parent, key, _color)
 end
 function K.SetIcon(icon, key)
 	if key == "Pickaxe" then
-		icon.Image = "rbxassetid://89389342218586"
+		icon.Image = require(script.Parent.ToolVisuals).PickaxeIcon
 		icon.ImageRectOffset = Vector2.zero
 		icon.ImageRectSize = Vector2.zero
 		icon.ImageColor3 = Color3.new(1, 1, 1)
