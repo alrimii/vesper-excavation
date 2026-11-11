@@ -1,4 +1,12 @@
-# Current checkpoint — playful interface and stylized tools, published v230
+# Current checkpoint — bounded Roblox identity slice, published v235
+
+The owner rejected the v230 composition and pickaxe. All seven images in `roblox-identity-reference-pack/` and `START_HERE.md` were inspected; 01 is rejected, 02-05 control this slice, 06-07 are follow-up references only. Delivered HUD/illustrated navigation, Equipment/Upgrades, shared modal blur/interaction feedback, and a finished Baziliq Games PK-001 pickaxe in original place **94763223427049**, branch `planning/development-foundation`. Published **v235**, 2026-11-11 11:27:33 UTC. See [review/screenshots](docs/reviews/identity-slice/REVIEW.md) and [delivery identity](docs/reviews/identity-slice/delivery.json).
+
+One **335-second** memory-only runtime pass covered the affected purchase/equip/upgrade flow, category/navigation switching, modal close/reopen/blur restoration, reduced motion, portrait scrolling and one pickaxe strike. Two narrow-HUD spacing issues were corrected and rechecked in an Edit render. No IK rewrite, balance/save-generation/environment/access changes, production writes or delegates. Temporary fixtures are removed; native before/final recovery and restricted model/icon masters are private under `Backups/IdentitySlice_20261111/`. Studio is in Edit.
+
+**Stop this bounded slice for owner review.** Do not automatically reskin the remaining screens. Skills, Journal, Collection, Room, Settings and Results follow after review; timed reward presentation and server-confirmed training gains remain future work, with no new reward systems authorized. Preserve all earlier deferred gameplay/world requirements. No visual approval is claimed. The v230 KayKit pickaxe and prior composition are rejected historical work.
+
+# Historical checkpoint — rejected interface and pickaxe, v230
 
 The owner rejected v223 and authorized the complete cheerful cartoon interface replacement plus stylized tool correction, isolated checks, original-place publication and branch push. Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v230** at **2026-11-11 10:29:04 UTC**. See [review and actual screenshots](docs/reviews/playful-interface/REVIEW.md) and [delivery identity](docs/reviews/playful-interface/delivery.json). The parchment/mineral direction is rejected historical work, not approved art direction.
 

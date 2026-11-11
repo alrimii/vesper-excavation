@@ -45,6 +45,9 @@ function M.Create(parent, source, tint)
 		end
 	end
 	model.Parent = world
+	if (source:GetAttribute("ToolFamily") or source.Name) == "Pickaxe" then
+		model:PivotTo(CFrame.Angles(0, 0, math.rad(-28)) * model:GetPivot())
+	end
 	local camera = Instance.new("Camera")
 	camera.FieldOfView = 32
 	camera.Parent = view

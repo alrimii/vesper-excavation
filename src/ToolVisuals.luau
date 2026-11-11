@@ -1,8 +1,8 @@
 -- Shared appearance and surface frame. This module never applies gameplay effects.
 local V = {}
-V.Revision = "TreasureTools_20261111"
+V.Revision = "AuthoredTools_20261111"
 V.PreviewDirections = {
-	Pickaxe = Vector3.new(0.45, 0.20, -1),
+	Pickaxe = Vector3.new(0.2, 0.10, 1),
 	Drill = Vector3.new(1, 0.32, -0.65),
 	Explosive = Vector3.new(0.65, 0.30, -1),
 }
@@ -46,24 +46,30 @@ function V.SurfaceFrame(point, normal)
 	return CFrame.lookAt(center, center + n, up)
 end
 function V.FramePreview(camera, model, family, aspect)
-	local cf, size = model:GetBoundingBox()
+	local cf = model:GetBoundingBox()
 	local direction = (V.PreviewDirections[family] or Vector3.new(0.65, 0.25, -1)).Unit
 	local rotation = CFrame.lookAt(Vector3.zero, -direction)
-	local half = size / 2
-	local extentX, extentY, depth = 0, 0, 0
-	for _, x in { -1, 1 } do
-		for _, y in { -1, 1 } do
-			for _, z in { -1, 1 } do
-				local v = rotation:VectorToObjectSpace(cf:VectorToWorldSpace(half * Vector3.new(x, y, z)))
-				extentX = math.max(extentX, math.abs(v.X))
-				extentY = math.max(extentY, math.abs(v.Y))
-				depth = math.max(depth, math.abs(v.Z))
+	local tan = math.tan(math.rad(camera.FieldOfView / 2))
+	local distance = 0
+	for _, part in model:GetDescendants() do
+		if not part:IsA("BasePart") then
+			continue
+		end
+		for _, x in { -1, 1 } do
+			for _, y in { -1, 1 } do
+				for _, z in { -1, 1 } do
+					local point = part.CFrame:PointToWorldSpace(part.Size * Vector3.new(x, y, z) / 2)
+						- cf.Position
+					local v = rotation:VectorToObjectSpace(point)
+					distance = math.max(
+						distance,
+						v.Z + math.abs(v.Y) / tan,
+						v.Z + math.abs(v.X) / (tan * math.max(0.25, aspect or 1))
+					)
+				end
 			end
 		end
 	end
-	local distance = math.max(extentY, extentX / math.max(0.25, aspect or 1))
-			/ math.tan(math.rad(camera.FieldOfView / 2))
-		+ depth
-	camera.CFrame = CFrame.lookAt(cf.Position + direction * distance * 1.02, cf.Position)
+	camera.CFrame = CFrame.lookAt(cf.Position + direction * distance * 1.04, cf.Position)
 end
 return V

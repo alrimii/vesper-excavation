@@ -2,6 +2,7 @@
 local M = {}
 function M.Build(shell, player, base, remote, feedback)
 	local K = require(script.Parent.InterfaceKit)
+	local A = require(script.Parent.SimulatorStyle)
 	local Rules = require(script.Parent.ProgressionRules)
 	local E = require(script.Parent.UpgradeEconomy)
 	local P = require(script.Parent.UpgradePresentation)
@@ -13,43 +14,45 @@ function M.Build(shell, player, base, remote, feedback)
 	)
 	local page, selected, quantity = "TOOLS", "Pickaxe", 1
 	local dirty, pending, lastSize = true, nil, Vector2.zero
-	local tab1 = K.Button(root, "EquipmentTab", "Equipment", function()
+	local tab1 = A.Button(root, "EquipmentTab", "Equipment", function()
 		page = "TOOLS"
 		dirty = true
-	end, true)
-	local tab2 = K.Button(root, "UpgradesTab", "Upgrades", function()
+	end, A.Blue)
+	local tab2 = A.Button(root, "UpgradesTab", "Upgrades", function()
 		page = "RIG"
 		dirty = true
-	end, true)
-	local wallet = K.Text(root, "Balance", "", 24, K.Ink, true)
+	end, A.Blue)
+	local wallet = A.Text(root, "Balance", "", 26, A.Gold)
 	local selectors = {}
 	for _, id in Rules.ToolOrder do
-		local b = K.Button(root, "Select" .. id, "", function()
+		local b = A.Button(root, "Select" .. id, "", function()
 			selected = id
 			dirty = true
-		end, true)
+		end, A.Blue)
 		selectors[id] = {
 			b = b,
 			icon = K.Icon(b, id),
-			title = K.Text(b, "Name", id == "Explosive" and "Charge" or id, 17, K.Ink, true),
-			state = K.Text(b, "State", "", 12, K.Muted),
+			title = A.Text(b, "Name", id == "Explosive" and "Charge" or id, 22),
+			state = A.Text(b, "State", "", 12),
 		}
 	end
 	local scroll = K.Scroll(root, "EquipmentContent")
-	local stage = K.Surface(scroll, "ToolStage", K.Dark)
-	K.Shine(stage)
+	local stage = A.Card(scroll, "ToolStage", A.Blue)
+	A.Pattern(stage)
 	local views = {}
 	for _, id in Rules.ToolOrder do
 		views[id] = Preview.Create(stage, script.Parent.EquipmentAssets[id])
 	end
-	local detail = K.Make("Frame", scroll, { Name = "ToolDetails", BackgroundTransparency = 1 })
-	local name = K.Text(detail, "Name", "", 30, K.Ink)
+	local detail = A.Card(scroll, "ToolDetails", A.Teal)
+	local name = A.Text(stage, "Name", "", 30)
+	name.ZIndex = 5
+	name.TextXAlignment = Enum.TextXAlignment.Center
 	name.Font = K.Title
-	local role = K.Text(detail, "Role", "", 16, K.Green, true)
-	local stats = K.Text(detail, "Stats", "", 24)
-	local powerLabel = K.Text(detail, "Power", "", 44, K.Purple, true)
-	local hint = K.Text(detail, "Availability", "", 14, K.Muted)
-	local receipt = K.Text(root, "Receipt", "", 14, K.Green)
+	local role = A.Text(detail, "Role", "", 18, A.Gold)
+	local stats = A.Text(detail, "Stats", "", 20)
+	local powerLabel = A.Text(detail, "Power", "", 64, A.Gold)
+	local hint = A.Text(detail, "Availability", "", 14)
+	local receipt = A.Text(root, "Receipt", "", 14)
 	local function attr(k)
 		return player:GetAttribute(k)
 	end
@@ -62,21 +65,21 @@ function M.Build(shell, player, base, remote, feedback)
 		receipt.Text = "Waiting for confirmation…"
 		dirty = true
 	end
-	local action = K.Button(root, "PrimaryAction", "", function()
+	local action = A.Button(root, "PrimaryAction", "", function()
 		send(attr("OwnsTool_" .. selected) and "EquipTool" or "BuyTool", selected)
 	end)
-	local trial = K.Button(detail, "Trial", "Try drill · 90 seconds", function()
+	local trial = A.Button(detail, "Trial", "Try drill · 90 seconds", function()
 		remote:FireServer("TryDrill")
 		dirty = true
-	end, true)
+	end, A.Blue)
 	local quantityHost = K.Make("Frame", scroll, { Name = "Quantity", BackgroundTransparency = 1 })
-	local qtyLabel = K.Text(quantityHost, "Label", "Ranks to buy", 14, K.Muted)
+	local qtyLabel = A.Text(quantityHost, "Label", "BUY RANKS", 14)
 	local qty = {}
 	for i, v in { 1, 5, "Max" } do
-		qty[i] = K.Button(quantityHost, "Quantity" .. v, tostring(v), function()
+		qty[i] = A.Button(quantityHost, "Quantity" .. v, tostring(v), function()
 			quantity = v
 			dirty = true
-		end, true)
+		end, A.Blue)
 	end
 	local rows = {}
 	local names = {
@@ -97,16 +100,16 @@ function M.Build(shell, player, base, remote, feedback)
 		Value = "Material sale multiplier",
 		Critical = "Chance of a 1.5× hit",
 	}
-	for _, key in E.Order do
-		local row = K.Surface(scroll, key)
+	for index, key in E.Order do
+		local row = A.Card(scroll, key, ({ A.Blue, A.Purple, A.Teal })[(index - 1) % 3 + 1])
 		rows[key] = {
 			root = row,
 			icon = K.Icon(row, "Storage"),
-			title = K.Text(row, "Name", names[key], 18, K.Ink, true),
-			rank = K.Text(row, "Rank", "", 13, K.Muted),
-			value = K.Text(row, "Comparison", "", 22, K.Ink, true),
-			why = K.Text(row, "Benefit", descriptions[key], 13, K.Muted),
-			buy = K.Button(row, "Upgrade", "", function()
+			title = A.Text(row, "Name", names[key], 22),
+			rank = A.Text(row, "Rank", "", 13),
+			value = A.Text(row, "Comparison", "", 24, A.Gold),
+			why = A.Text(row, "Benefit", descriptions[key], 13),
+			buy = A.Button(row, "Upgrade", "", function()
 				send("Upgrade", key, quantity)
 			end),
 		}
@@ -122,7 +125,7 @@ function M.Build(shell, player, base, remote, feedback)
 				math.floor(
 					(config.Mining.Power + rank * config.Upgrades.Power.Step) * (attr("PowerBonus") or 1)
 				)
-			) .. (selected == "Drill" and " / tick" or selected == "Explosive" and " center damage" or " / strike")
+			)
 		end
 		if key == "Speed" then
 			return string.format(
@@ -134,15 +137,23 @@ function M.Build(shell, player, base, remote, feedback)
 			)
 		end
 		if key == "Yield" then
-			return "+" .. rank .. " at full share"
+			return "+" .. rank
 		end
-		return E.Effect(key, rank, config)
+		return E.Effect(key, rank, config):match("^%S+") or ""
 	end
 	feedback.OnClientEvent:Connect(function(kind, id, ok, message)
 		if kind == "ShopReceipt" and pending and id == pending.id then
 			pending = nil
+			if ok and not attr("ReducedMotion") then
+				local scale = receipt:FindFirstChildOfClass("UIScale")
+					or K.Make("UIScale", receipt, { Scale = 1 })
+				scale.Scale = 0.96
+				game:GetService("TweenService")
+					:Create(scale, TweenInfo.new(0.18, Enum.EasingStyle.Back), { Scale = 1 })
+					:Play()
+			end
 			receipt.Text = message or (ok and "Confirmed" or "Please try again")
-			receipt.TextColor3 = ok and K.Green or K.Error
+			receipt.TextColor3 = ok and A.Gold or A.Pink
 			dirty = true
 		end
 	end)
@@ -174,36 +185,39 @@ function M.Build(shell, player, base, remote, feedback)
 		shell.Title.Text = page == "TOOLS" and "Equipment" or "Tool upgrades"
 		local w, h = root.AbsoluteSize.X, root.AbsoluteSize.Y
 		local narrow = w < 660
-		K.Rect(tab1, 0, 0, 120, 44)
-		K.Rect(tab2, 128, 0, 120, 44)
-		wallet.Visible = w >= 470
-		K.Rect(wallet, 270, 0, w - 270, 44)
+		local tw = narrow and 128 or 160
+		K.Rect(tab1, 0, 0, tw, 40)
+		K.Rect(tab2, tw + 8, 0, tw, 40)
+		tab1.TextSize = narrow and 19 or 23
+		tab2.TextSize = tab1.TextSize
+		wallet.Visible = w >= 500
+		K.Rect(wallet, tw * 2 + 30, 0, w - tw * 2 - 32, 40)
 		wallet.Text = K.Number(attr("Cash")) .. " credits"
 		wallet.TextXAlignment = Enum.TextXAlignment.Right
-		tab1.BackgroundColor3 = page == "TOOLS" and K.Green or K.Line
-		tab1.TextColor3 = page == "TOOLS" and K.Card or K.Ink
-		tab2.BackgroundColor3 = page == "RIG" and K.Green or K.Line
-		tab2.TextColor3 = page == "RIG" and K.Card or K.Ink
+		tab1.BackgroundColor3 = page == "TOOLS" and A.Gold or A.Teal
+		tab2.BackgroundColor3 = page == "RIG" and A.Gold or A.Teal
 		local sw = (w - 16) / 3
 		local cash = attr("Cash") or 0
 		for i, id in Rules.ToolOrder do
 			local s = selectors[id]
-			K.Rect(s.b, (i - 1) * (sw + 8), 54, sw, 64)
-			K.Rect(s.icon, 6, 10, narrow and 30 or 44, narrow and 30 or 44)
-			local x = narrow and 38 or 56
-			K.Rect(s.title, x, 8, sw - x - 4, 24)
-			s.title.TextSize = narrow and 14 or 18
-			K.Rect(s.state, x, 32, sw - x - 4, 22)
-			s.state.TextSize = narrow and 11 or 12
+			K.Rect(s.b, (i - 1) * (sw + 8), 60, sw, 64)
+			K.Rect(s.icon, narrow and 0 or 6, -15, narrow and 44 or 82, 82)
+			local x = narrow and 40 or 88
+			K.Rect(s.title, x, 5, sw - x - 2, 28)
+			s.title.TextSize = narrow and 14 or 23
+			K.Rect(s.state, x, 34, sw - x - 2, 22)
+			s.state.TextSize = narrow and 10 or 13
 			s.state.Text = attr("ToolFamily") == id and "Equipped"
 				or attr("OwnsTool_" .. id) and "Owned"
 				or cash >= Rules.Tools[id].Cost and "Available"
 				or "Locked"
-			s.b.BackgroundColor3 = selected == id and K.Gold or K.Card
+			s.b.BackgroundColor3 = selected == id and A.Gold or A.Teal
+			s.b.Outline.Color = selected == id and A.White or A.Ink
 		end
-		K.Rect(scroll, 0, 130, w, h - 230)
-		K.Rect(action, 0, h - 88, w, 50)
-		K.Rect(receipt, 0, h - 30, w, 28)
+		K.Rect(scroll, 0, 140, w, h - 224)
+		K.Rect(action, 0, h - 72, w, 48)
+		action.TextSize = 25
+		K.Rect(receipt, 0, h - 22, w, 22)
 		local owned = attr("OwnsTool_" .. selected) == true
 		local equipped = attr("ToolFamily") == selected
 		local ready = attr("LabReady") == true and attr("Cash") ~= nil
@@ -226,7 +240,7 @@ function M.Build(shell, player, base, remote, feedback)
 			or not owned and (cash < price and "Need " .. K.Number(price - cash) .. " more credits." or "One-time purchase. Each tool keeps its own upgrades.")
 			or not equipped and "Ready to equip."
 			or "Equipped · bonuses included."
-		K.Enabled(
+		A.State(
 			action,
 			ready and not pending and not equipped and (owned or cash >= price),
 			pending and "Confirming…"
@@ -240,42 +254,57 @@ function M.Build(shell, player, base, remote, feedback)
 			and not attr("DrillTrialUsed")
 			and ready
 		stage.Visible = page == "TOOLS"
+		stage.BackgroundColor3 = selected == "Pickaxe" and A.Purple
+			or selected == "Drill" and A.Blue
+			or A.Gold
 		detail.Visible = true
 		quantityHost.Visible = page == "RIG"
 		local cw = w - 8
+		local needAction = page == "TOOLS" or not owned or not equipped
+		action.Visible = needAction
+		if not needAction then
+			K.Rect(scroll, 0, 140, w, h - 170)
+		end
 		if page == "TOOLS" then
-			local sh = narrow and 180 or math.max(190, math.min(320, h - 170))
-			local dw = narrow and cw or cw * 0.48
-			K.Rect(stage, 0, 0, narrow and cw or cw * 0.49, sh)
+			local sh = narrow and 260 or math.max(290, h - 230)
+			local swidth = narrow and cw or cw * 0.57
+			local dw = narrow and cw or cw * 0.41
+			K.Rect(stage, 3, 3, swidth - 6, sh)
 			for id, v in views do
 				v.Visible = id == selected
-				v.Position = UDim2.fromOffset(16, 12)
-				v.Size = UDim2.new(1, -32, 1, -24)
+				v.Position = UDim2.fromOffset(10, 50)
+				v.Size = UDim2.new(1, -20, 1, -62)
 			end
-			K.Rect(detail, narrow and 0 or cw * 0.52, narrow and sh + 12 or 0, dw, 270)
-			K.Rect(name, 0, 0, dw, 42)
-			K.Rect(role, 0, 46, dw, 28)
-			K.Rect(powerLabel, 0, 80, 100, 62)
-			K.Rect(stats, 108, 80, dw - 108, 76)
-			stats.TextSize = 16
-			K.Rect(hint, 0, 166, dw, 32)
-			K.Rect(trial, 0, 210, dw, 44)
-			detail.Size = UDim2.fromOffset(dw, trial.Visible and 258 or 202)
+			K.Rect(name, 10, 8, swidth - 26, 40)
+			name.TextSize = narrow and 25 or 30
+			K.Rect(detail, narrow and 3 or cw * 0.59, narrow and sh + 16 or 3, dw - 6, narrow and 260 or sh)
+			K.Rect(role, 16, 12, dw - 38, 44)
+			K.Rect(powerLabel, 16, 58, dw - 38, 80)
+			powerLabel.TextXAlignment = Enum.TextXAlignment.Center
+			K.Rect(stats, 16, 138, dw - 38, 76)
+			stats.TextSize = 18
+			stats.TextXAlignment = Enum.TextXAlignment.Center
+			K.Rect(hint, 16, 218, dw - 38, 42)
+			K.Rect(trial, 16, 270, dw - 38, 44)
+			trial.TextSize = 16
+			if trial.Visible then
+				detail.Size = UDim2.fromOffset(dw - 6, 320)
+			end
 		else
-			K.Rect(detail, 0, 0, cw, 52)
-			K.Rect(hint, 0, 0, math.max(0, cw - 180), 48)
-			K.Rect(quantityHost, 0, 60, cw, 48)
-			K.Rect(qtyLabel, 0, 0, 100, 44)
+			detail.Visible = false
+			K.Rect(quantityHost, 0, 0, cw, 44)
+			K.Rect(qtyLabel, 2, 0, 100, 40)
 			for i, b in qty do
-				K.Rect(b, 106 + (i - 1) * 58, 0, 52, 44)
-				b.BackgroundColor3 = quantity == ({ 1, 5, "Max" })[i] and K.Gold or K.Line
+				K.Rect(b, 106 + (i - 1) * 60, 0, 54, 40)
+				b.TextSize = 18
+				b.BackgroundColor3 = quantity == ({ 1, 5, "Max" })[i] and A.Gold or A.Teal
 			end
 		end
 		name.Visible = page == "TOOLS"
 		role.Visible = page == "TOOLS"
 		stats.Visible = page == "TOOLS"
 		powerLabel.Visible = page == "TOOLS"
-		local cols = narrow and 1 or 2
+		local cols = narrow and 1 or w >= 850 and 3 or 2
 		local rw = (cw - (cols - 1) * 12) / cols
 		for i, key in E.Order do
 			local r = rows[key]
@@ -283,7 +312,13 @@ function M.Build(shell, player, base, remote, feedback)
 			if page ~= "RIG" then
 				continue
 			end
-			K.Rect(r.root, ((i - 1) % cols) * (rw + 12), 120 + math.floor((i - 1) / cols) * 184, rw, 172)
+			K.Rect(
+				r.root,
+				((i - 1) % cols) * (rw + 12) + 3,
+				60 + math.floor((i - 1) / cols) * 222,
+				rw - 6,
+				208
+			)
 			K.SetIcon(
 				r.icon,
 				key == "Power" and selected
@@ -291,12 +326,14 @@ function M.Build(shell, player, base, remote, feedback)
 					or key == "Critical" and "Skills"
 					or key
 			)
-			K.Rect(r.icon, 12, 10, 46, 46)
-			K.Rect(r.title, 70, 10, rw - 82, 24)
-			K.Rect(r.rank, 70, 36, rw - 82, 22)
-			K.Rect(r.value, 14, 66, rw - 28, 26)
-			K.Rect(r.why, 14, 94, rw - 28, 22)
-			K.Rect(r.buy, 14, 122, rw - 28, 40)
+			K.Rect(r.icon, 10, 4, 82, 82)
+			K.Rect(r.title, 96, 12, rw - 110, 30)
+			K.Rect(r.rank, 96, 44, rw - 110, 38)
+			K.Rect(r.value, 14, 88, rw - 34, 34)
+			r.value.TextSize = rw < 300 and 20 or 24
+			K.Rect(r.why, 14, 123, rw - 34, 24)
+			K.Rect(r.buy, 14, 157, rw - 34, 40)
+			r.buy.TextSize = 20
 			local level = attr("ToolLevel_" .. selected .. "_" .. key) or 0
 			local max = config.Upgrades[key].MaxLevel
 			local count, cost = E.Quote(key, level, cash, quantity, config)
@@ -311,7 +348,7 @@ function M.Build(shell, player, base, remote, feedback)
 				and count > 0
 				and level < max
 				and (attr("DrillTrialEndsAt") or 0) <= workspace:GetServerTimeNow()
-			K.Enabled(
+			A.State(
 				r.buy,
 				on,
 				level >= max and "Fully upgraded"

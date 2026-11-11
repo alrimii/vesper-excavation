@@ -1,0 +1,32 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 235,
+  "publishedAtUtc": "2026-11-11T11:27:33.941Z",
+  "publicationEvidence": "Studio log: publishType=1; PublishSuccessful; original placeId; Add publish notes to v235",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "dab340738d6f2d0e6b95fff1df2906d6f84abcad",
+  "repository": "https://github.com/alrimii/vesper-excavation",
+  "nativeBefore": "Backups\\IdentitySlice_20261111\\ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups/IdentitySlice_20261111/ComingSoon_94763223427049_delivery.rbxl",
+  "nativeFinalSha256": "e94bf78f22340b1b857214dc1eba77d9a9f478efdb0e68cfed30ffa1293a2d10",
+  "studioMode": "Edit",
+  "visualApproval": false,
+  "runtimeSessions": 1,
+  "runtimeSeconds": 335,
+  "runtimeStartedUtc": "2026-11-11T11:13:18Z",
+  "runtimeEndedUtc": "2026-11-11T11:18:53Z",
+  "temporaryFixtureRemoved": true,
+  "fixedSaveGenerationChanged": false,
+  "productionDataTouched": false,
+  "accessSettingsChanged": false,
+  "modelAssetId": "94048862317867",
+  "iconAssetId": "89389342218586",
+  "creatorUserId": 291892217,
+  "screenshots": [
+    "hud.png",
+    "equipment.png",
+    "upgrades.png",
+    "pickaxe.png"
+  ]
+}

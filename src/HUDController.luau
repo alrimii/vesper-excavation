@@ -18,7 +18,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		player:SetAttribute("CoreMenuOpen", open)
 		if ui then
 			ui.Drawer.Visible = open
-			ui.More.Label.Text = open and "CLOSE" or "EXPLORE"
+			ui.More.Label.Text = open and "CLOSE" or "MENU"
 		end
 	end
 	ui = require(Shared.FieldHUD).Build(gui, {
@@ -31,6 +31,10 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		Upgrades = function()
 			setMenu(false)
 			openEquipment("TOOLS")
+		end,
+		Journal = function()
+			setMenu(false)
+			openJournal(true)
 		end,
 		Creatures = function()
 			setMenu(false)
@@ -334,7 +338,7 @@ function M.Build(gui, player, remote, openEquipment, equip, openJournal, openSki
 		local sprint = gui:FindFirstChild("SprintToggle")
 		if sprint then
 			sprint.Size, sprint.Position =
-				UDim2.fromOffset(80, 40), UDim2.fromOffset(w - 90, w < 700 and 180 or 122)
+				UDim2.fromOffset(80, 40), UDim2.fromOffset(w - 90, w < 700 and 268 or 222)
 			sprint.Font = require(Shared.InterfaceKit).Bold
 			sprint.BackgroundColor3, sprint.TextColor3 =
 				require(Shared.InterfaceKit).Dark, require(Shared.InterfaceKit).Paper

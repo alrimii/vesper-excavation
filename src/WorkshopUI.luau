@@ -16,7 +16,8 @@ function W.Build(gui, player, base, remote, feedback, close)
 	local secondary = require(script.Parent.SecondaryMenus).Build(shell, player, base, remote, feedback)
 	local api = {}
 	function api:Select(p)
-		shell.HeightCap = p == "TOOLS" and 610 or 700
+		shell.HeightCap = (p == "TOOLS" or p == "RIG") and 640 or 700
+		shell:SetIdentity(p == "TOOLS" or p == "RIG")
 		shell.WidthCap = p == "OPTIONS" and 700 or 1040
 		shop.Root.Visible = p == "TOOLS" or p == "RIG"
 		secondary.Root.Visible = not shop.Root.Visible

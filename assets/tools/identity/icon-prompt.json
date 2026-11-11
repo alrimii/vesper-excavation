@@ -1,0 +1,11 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Create ONE transparent illustrated Roblox game equipment icon. First attached image is the edit target: the authored pickaxe. Second attached image is ONLY the established icon-family style reference. Render only the pickaxe, not the other icons. Keep the first pickaxe's unmistakable design: wide asymmetric single curved pick on left, short squared hammer end on right, chunky beveled socket with TWO parallel vertical gold braces and rivets, gold collar, warm wooden shaft, navy grip with spiral brown wrapping and blue metal pommel. Make head bright steel blue/cyan with pale blue beveled cutting edges, bright gold fittings. Same polished hand-painted 3D cartoon illustration vocabulary, thick dark navy outer outline, controlled white highlights and warm shadow edges as the second image. Pose pickaxe diagonally, pommel lower left and head upper right, filling square canvas with 7% clear margin. Entire tool visible. Do not add crystals, eyes, background, badge, sparkles or any text. Transparent background. This is only 2D UI art matching the actual finished 3D model.",
+  "inputRoles": {
+    "target": "Private render of finished Baziliq Games PK-001",
+    "style": "assets/ui/playful/treasure-icons.png"
+  },
+  "output": "Backups/IdentitySlice_20261111/pickaxe-icon.png",
+  "uploadedImageId": "89389342218586",
+  "transparent": true
+}

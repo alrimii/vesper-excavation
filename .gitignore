@@ -22,3 +22,7 @@ assets/environment/compact-interior/exports/TrailingVine.glb
 # Upload staging copies; canonical illustrated atlases are in assets/ui/playful.
 assets/environment/compact-interior/exports/PlayfulIcons.png
 assets/environment/compact-interior/exports/PlayfulSkills.png
+
+# Licensed identity slice models and illustrated derivative: private upload staging.
+assets/environment/compact-interior/exports/AuthoredPickaxe.glb
+assets/environment/compact-interior/exports/AuthoredPickaxeIcon.png

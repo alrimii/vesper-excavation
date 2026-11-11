@@ -72,7 +72,7 @@ end
 function B.Build()
 	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
 	local clips = require(Shared.MotionClips)
-	replace(Kit.StarterPickaxe, Assets.TreasurePickaxe, "Pickaxe", clips.PickaxeGrip)
+	replace(Kit.StarterPickaxe, Assets.AuthoredPickaxe, "Pickaxe", clips.PickaxeGrip)
 	local tip = Instance.new("Attachment")
 	tip.Name = "StrikeTip"
 	tip.Position = clips.PickaxeStrikeTip

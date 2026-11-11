@@ -1,6 +1,31 @@
 -- Phase 5: one presentation vocabulary and one modal owner. No gameplay mutations here.
 local K = table.clone(require(script.Parent.InterfaceTheme))
 local active, bound = nil, false
+local modalBlur, blurTween
+local function blur(open)
+	if not modalBlur or not modalBlur.Parent then
+		modalBlur = Instance.new("BlurEffect")
+		modalBlur.Name = "VesperModalBlur"
+		modalBlur.Size = 0
+		modalBlur.Enabled = false
+		modalBlur.Parent = game:GetService("Lighting")
+	end
+	if blurTween then
+		blurTween:Cancel()
+	end
+	modalBlur.Enabled = true
+	local player = game:GetService("Players").LocalPlayer
+	local reduced = player and player:GetAttribute("ReducedMotion")
+	blurTween = game:GetService("TweenService")
+		:Create(modalBlur, TweenInfo.new(reduced and 0 or 0.16), { Size = open and 20 or 0 })
+	local current = blurTween
+	current.Completed:Once(function(state)
+		if blurTween == current and state == Enum.PlaybackState.Completed and not active then
+			modalBlur.Enabled = false
+		end
+	end)
+	current:Play()
+end
 local atlas = "rbxassetid://132558544808738"
 local keys = {
 	"Pickaxe",
@@ -90,14 +115,19 @@ function K.Button(parent, name, value, callback, secondary)
 	K.Outline(b)
 	K.Shine(b)
 	local scale = K.Make("UIScale", b, { Scale = 1 })
+	local runningTween
 	local function pulse(targetScale)
 		local player = game:GetService("Players").LocalPlayer
+		if runningTween then
+			runningTween:Cancel()
+		end
 		if player and player:GetAttribute("ReducedMotion") then
+			scale.Scale = 1
 			return
 		end
-		game:GetService("TweenService")
+		runningTween = game:GetService("TweenService")
 			:Create(scale, TweenInfo.new(0.1, Enum.EasingStyle.Quad), { Scale = targetScale })
-			:Play()
+		runningTween:Play()
 	end
 	b.MouseEnter:Connect(function()
 		pulse(1.025)
@@ -137,6 +167,13 @@ function K.Icon(parent, key, _color)
 	return icon
 end
 function K.SetIcon(icon, key)
+	if key == "Pickaxe" then
+		icon.Image = "rbxassetid://89389342218586"
+		icon.ImageRectOffset = Vector2.zero
+		icon.ImageRectSize = Vector2.zero
+		icon.ImageColor3 = Color3.new(1, 1, 1)
+		return
+	end
 	local i = (table.find(keys, key) or 5) - 1
 	icon.Image = atlas
 	local row = math.floor(i / 5) + 1
@@ -204,7 +241,7 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 		ClipToDeviceSafeArea = false,
 		Enabled = false,
 	})
-	local cover = K.Button(shade, "InputShield", "", nil)
+	local cover = K.Make("TextButton", shade, { Name = "InputShield", Text = "", BorderSizePixel = 0 })
 	cover.Size = UDim2.fromScale(1, 1)
 	cover.BackgroundColor3 = K.Dark
 	cover.BackgroundTransparency = 0.42
@@ -241,6 +278,7 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 			active = nil
 		end
 		self.Open = open
+		blur(open)
 		screen.Enabled = open
 		shade.Enabled = open
 		if attribute then
@@ -266,10 +304,44 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 	end)
 	api.Close.BackgroundColor3 = K.Error
 	api.Close.TextSize = 26
+	local pattern
+	function api:SetIdentity(on)
+		self.Identity = on
+		local A = require(script.Parent.SimulatorStyle)
+		root.ClipsDescendants = not on
+		body.ClipsDescendants = not on
+		root.BackgroundColor3 = on and A.Teal or K.Paper
+		root.Outline.Color = on and A.Blue or K.Ink
+		root.Outline.Thickness = on and 6 or 3
+		head.BackgroundColor3 = on and A.Gold or K.Purple
+		if on then
+			if not pattern then
+				pattern = A.Pattern(root)
+			end
+			A.Letter(cap, 34)
+			cap.TextXAlignment = Enum.TextXAlignment.Center
+			self.Close.Parent = root
+			A.Paint(self.Close, A.Pink)
+		else
+			cap.TextColor3 = K.Paper
+			cap.TextStrokeTransparency = 1
+			cap.TextXAlignment = Enum.TextXAlignment.Left
+			self.Close.Parent = head
+		end
+		if pattern then
+			pattern.Visible = on
+		end
+		head.ZIndex = 5
+		body.ZIndex = 3
+		self.Close.ZIndex = 8
+	end
 	function api:Layout()
 		local s = screen.AbsoluteSize
 		local w = math.min(self.WidthCap or maxWidth or 1040, math.max(100, s.X - 24))
 		local h = math.min(self.HeightCap or 700, math.max(100, s.Y - 24))
+		if self.Identity then
+			h = math.min(self.HeightCap or 620, math.max(100, s.Y - 84))
+		end
 		K.Rect(root, 0, 0, w, h)
 		root.Position = UDim2.fromScale(0.5, 0.5)
 		K.Rect(head, 0, 0, w, 64)
@@ -277,8 +349,16 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 		K.Rect(cap, 20, 8, w - 100, 48)
 		K.Rect(self.Close, w - 61, 10, 46, 44)
 		K.Rect(body, 18, 78, w - 36, h - 96)
+		if self.Identity then
+			local titleWidth = math.min(350, w - 90)
+			K.Rect(head, (w - titleWidth) / 2, -28, titleWidth, 58)
+			K.Rect(cap, 8, 0, titleWidth - 16, 58)
+			cap.TextSize = w < 500 and 26 or 34
+			K.Rect(self.Close, w - 48, -18, 48, 48)
+			K.Rect(body, 16, 50, w - 32, h - 68)
+		end
 		self.Width = w - 36
-		self.Height = h - 96
+		self.Height = h - (self.Identity and 68 or 96)
 		self.Narrow = w < 660
 		changed:Fire(self.Width, self.Height, self.Narrow)
 	end
@@ -296,6 +376,7 @@ function K.Shell(player, name, title, attribute, close, maxWidth)
 	screen.Destroying:Once(function()
 		if active == api then
 			active = nil
+			blur(false)
 		end
 		shade:Destroy()
 		changed:Destroy()
