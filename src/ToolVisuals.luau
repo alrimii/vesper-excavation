@@ -11,6 +11,9 @@ V.PreviewDirections = {
 	Pickaxe = Vector3.new(0.34, 0.22, 1),
 	Drill = Vector3.new(-1, 0.52, -0.8),
 	Explosive = Vector3.new(0.65, 0.30, -1),
+	frost_spirit_mammoth = Vector3.new(0.9, 0.3, -1),
+	volcanic_sabertooth = Vector3.new(0.65, 0.25, -1),
+	fossil_tortoise = Vector3.new(0.75, 0.4, -1),
 }
 function V.Clone(source, name)
 	local model = Instance.new("Model")
@@ -72,6 +75,23 @@ function V.FramePreview(camera, model, family, aspect)
 	local rotation = CFrame.lookAt(Vector3.zero, -direction)
 	local tan = math.tan(math.rad(camera.FieldOfView / 2))
 	local distance = 0
+	local encoded = model:GetAttribute("PreviewHull")
+	if encoded then
+		-- Actual projected support points keep these long creatures well framed
+		-- without fitting empty bounding-box corners. Source mesh is untouched.
+		for _, p in game:GetService("HttpService"):JSONDecode(encoded) do
+			local point = model:GetPivot():PointToWorldSpace(Vector3.new(p[1], p[2], p[3]) * model:GetScale())
+				- cf.Position
+			local v = rotation:VectorToObjectSpace(point)
+			distance = math.max(
+				distance,
+				v.Z + math.abs(v.Y) / tan,
+				v.Z + math.abs(v.X) / (tan * math.max(0.25, aspect or 1))
+			)
+		end
+		camera.CFrame = CFrame.lookAt(cf.Position + direction * distance * 1.08, cf.Position)
+		return
+	end
 	for _, part in model:GetDescendants() do
 		if not part:IsA("BasePart") then
 			continue

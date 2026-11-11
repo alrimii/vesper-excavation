@@ -1,0 +1,44 @@
+{
+  "combinedSessionSeconds": 249.092,
+  "physicalOnlyCheckSeconds": 61.452,
+  "finalScreenFitCheckSeconds": 76.27,
+  "profileCheck": {
+    "normalCountsPreserved": true,
+    "normalDropPoolUnchanged": true,
+    "ownerGrant": true,
+    "chargeFuse": 3,
+    "newNormalCounts": 0,
+    "testPersistentCalls": 0
+  },
+  "finalTimer": {
+    "ember": true,
+    "floating": 0,
+    "elapsed": 3.029093027114868,
+    "added": 1,
+    "remaining": 0,
+    "fuse": 2.9600961208343506,
+    "blasts": 1,
+    "removed": 1,
+    "digits": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true
+    },
+    "timerObjects": 0
+  },
+  "staging": "Studio memory-only owner avatar, temporary support and fixed camera; no normal saves read or written. Collection selection and shelf assignment used server Action remotes. Three ordinary pickaxe hits and one charge in initial session for egg documentation. Two charge-only follow-up sessions after owner correction.",
+  "normalCamera": {
+    "FOV": 72,
+    "cameraDistanceFromHit": 15.3,
+    "insideConfiguredOrbitRange": [
+      8,
+      42
+    ]
+  },
+  "limitations": [
+    "Published-client joining/teleport and multiplayer not exercised.",
+    "Journal/reveal/results mapping verified through shared factory/source inspection, not a settled egg round.",
+    "Final video is silent. Physical digits remain physically small at longer zoom; no overlay or scale bypass."
+  ]
+}

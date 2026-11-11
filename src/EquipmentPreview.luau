@@ -29,6 +29,10 @@ function M.Create(parent, source, tint)
 	local world = Instance.new("WorldModel")
 	world.Parent = view
 	local model = Instance.new("Model")
+	if source:GetAttribute("PreviewHull") then
+		model.WorldPivot = source:GetPivot()
+		model:SetAttribute("PreviewHull", source:GetAttribute("PreviewHull"))
+	end
 	for _, p in source:GetDescendants() do
 		if p:IsA("BasePart") and (p.Transparency < 1 or p.Name == "ChargeScreen") then
 			local clone = p:Clone()

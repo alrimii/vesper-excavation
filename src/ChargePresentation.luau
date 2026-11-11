@@ -1,7 +1,7 @@
 -- Cosmetic screen geometry and server-clock countdown; no authority or damage.
 local M = {}
 M.BackContact = Vector3.new(0.553454, 0.245960, 0.368089)
-M.ScreenCenter = Vector3.new(0.5525, 0.306, -0.30685)
+M.ScreenCenter = Vector3.new(0.54825, 0.31875, -0.3077)
 -- Centers sampled along the supplied rope, tip to cap, in the tool's frame.
 M.FusePath = {
 	Vector3.new(0.5073, 1.018, 0.0712),
@@ -10,9 +10,11 @@ M.FusePath = {
 	Vector3.new(0.5493, 0.847, 0.0740),
 	Vector3.new(0.5748, 0.7756, 0.0873),
 }
+-- Usable glass measured on source OBJ: x?[-.248,.258], y?[.784,1.166], front z?.357.
+-- This inset overlay stays inside that glass; the approved mesh never changes.
 function M.AddScreen(tool)
 	local screen = Instance.new("Part")
-	screen.Name, screen.Size = "ChargeScreen", Vector3.new(0.391, 0.255, 0.005)
+	screen.Name, screen.Size = "ChargeScreen", Vector3.new(0.40, 0.30, 0.005)
 	screen.CFrame = tool.Handle.CFrame * CFrame.new(M.ScreenCenter)
 	screen.Transparency, screen.Massless = 1, true
 	screen.CanCollide, screen.CanTouch, screen.CanQuery, screen.CastShadow = false, false, false, false
@@ -21,15 +23,25 @@ function M.AddScreen(tool)
 	weld.Name, weld.Part0, weld.Part1, weld.Parent = "ScreenMount", tool.Handle, screen, screen
 	local gui = Instance.new("SurfaceGui")
 	gui.Name, gui.Face = "CountdownScreen", Enum.NormalId.Front
-	gui.CanvasSize, gui.LightInfluence = Vector2.new(400, 220), 0
+	-- TextScaled caps at 100px: the old 400x220 canvas left a tiny glyph.
+	gui.CanvasSize, gui.LightInfluence = Vector2.new(64, 64), 0
 	gui.AlwaysOnTop = false
+	gui.ZOffset = 0.002
 	gui.Parent = screen
 	local text = Instance.new("TextLabel")
 	text.Name, text.Size = "Digits", UDim2.fromScale(1, 1)
-	text.BackgroundTransparency = 1
-	text.Font, text.TextScaled = Enum.Font.GothamBold, true
-	text.Size, text.Position = UDim2.fromScale(0.9, 0.9), UDim2.fromScale(0.05, 0.05)
+	text.BackgroundTransparency = 0
+	text.BackgroundColor3 = Color3.fromRGB(3, 10, 17)
+	text.ClipsDescendants = true
+	text.Font, text.TextSize, text.TextScaled = Enum.Font.GothamBlack, 84, false
+	text.TextStrokeTransparency = 1
+	local padding = Instance.new("UIPadding")
+	padding.PaddingTop, padding.PaddingBottom = UDim.new(0.025, 0), UDim.new(0.025, 0)
+	padding.PaddingLeft, padding.PaddingRight = UDim.new(0.025, 0), UDim.new(0.025, 0)
+	padding.Parent = text
 	text.TextColor3, text.Text = Color3.fromRGB(90, 249, 248), "--"
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius, corner.Parent = UDim.new(0.22, 0), text
 	text.Parent = gui
 	return screen
 end

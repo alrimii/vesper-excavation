@@ -1,0 +1,344 @@
+{
+  "BatchMammoth": {
+    "path": "assets/110851154930516",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:23.894Z",
+    "assetId": "110851154930516",
+    "displayName": "Vesper BatchMammoth",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Model",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchMammothColor": {
+    "path": "assets/89676473184332",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:21.479Z",
+    "assetId": "89676473184332",
+    "displayName": "Vesper BatchMammothColor",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchMammothMetalness": {
+    "path": "assets/139449647120814",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:19.527Z",
+    "assetId": "139449647120814",
+    "displayName": "Vesper BatchMammothMetalness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchMammothRoughness": {
+    "path": "assets/116791514205363",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:21.516Z",
+    "assetId": "116791514205363",
+    "displayName": "Vesper BatchMammothRoughness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchMammothNormal": {
+    "path": "assets/81094437087114",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:23.571Z",
+    "assetId": "81094437087114",
+    "displayName": "Vesper BatchMammothNormal",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchMammothIcon": {
+    "path": "assets/92417754262688",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:24.160Z",
+    "assetId": "92417754262688",
+    "displayName": "Vesper BatchMammothIcon",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertooth": {
+    "path": "assets/89946088148783",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:27.308Z",
+    "assetId": "89946088148783",
+    "displayName": "Vesper BatchSabertooth",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Model",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertoothColor": {
+    "path": "assets/98107851285232",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:27.625Z",
+    "assetId": "98107851285232",
+    "displayName": "Vesper BatchSabertoothColor",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertoothMetalness": {
+    "path": "assets/137529352823710",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:26.882Z",
+    "assetId": "137529352823710",
+    "displayName": "Vesper BatchSabertoothMetalness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertoothRoughness": {
+    "path": "assets/103712927558256",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:27.911Z",
+    "assetId": "103712927558256",
+    "displayName": "Vesper BatchSabertoothRoughness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertoothNormal": {
+    "path": "assets/115584028424159",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:29.985Z",
+    "assetId": "115584028424159",
+    "displayName": "Vesper BatchSabertoothNormal",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchSabertoothIcon": {
+    "path": "assets/87450192565257",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:30.102Z",
+    "assetId": "87450192565257",
+    "displayName": "Vesper BatchSabertoothIcon",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoise": {
+    "path": "assets/133648508991483",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:37.256Z",
+    "assetId": "133648508991483",
+    "displayName": "Vesper BatchTortoise",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Model",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoiseColor": {
+    "path": "assets/126847232711664",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:33.234Z",
+    "assetId": "126847232711664",
+    "displayName": "Vesper BatchTortoiseColor",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoiseMetalness": {
+    "path": "assets/81588182124134",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:32.796Z",
+    "assetId": "81588182124134",
+    "displayName": "Vesper BatchTortoiseMetalness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoiseRoughness": {
+    "path": "assets/108289457700796",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:35.470Z",
+    "assetId": "108289457700796",
+    "displayName": "Vesper BatchTortoiseRoughness",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoiseNormal": {
+    "path": "assets/76754067501947",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:34.802Z",
+    "assetId": "76754067501947",
+    "displayName": "Vesper BatchTortoiseNormal",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "BatchTortoiseIcon": {
+    "path": "assets/113226296678070",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T19:47:36.355Z",
+    "assetId": "113226296678070",
+    "displayName": "Vesper BatchTortoiseIcon",
+    "description": "Owner supplied creature; faithful source geometry and original explicit PBR maps.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  }
+}

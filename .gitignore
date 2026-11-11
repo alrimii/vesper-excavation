@@ -48,3 +48,7 @@ assets/environment/compact-interior/exports/Charge*.png
 assets/environment/compact-interior/exports/CrystalTriceratops.glb
 assets/environment/compact-interior/exports/CrystalTriceratopsIcon.png
 assets/environment/compact-interior/exports/Triceratops*.png
+
+# Owner-supplied three-creature batch derivatives stay private.
+assets/environment/compact-interior/exports/Batch*.glb
+assets/environment/compact-interior/exports/Batch*.png

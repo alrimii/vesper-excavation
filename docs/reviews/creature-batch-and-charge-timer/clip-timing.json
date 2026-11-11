@@ -1,0 +1,6 @@
+{
+  "durationSeconds": 6.5,
+  "sourceFramesUsed": 47,
+  "encodedFps": 60,
+  "method": "Actual frames held until next timestamp; no interpolation or time compression. Studio chrome cropped. Silent."
+}

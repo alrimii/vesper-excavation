@@ -1,3 +1,15 @@
+# Current checkpoint ? Rodin creature batch and physical charge timer, v257
+
+Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v257** at **2026-11-11 20:11:30 UTC**. [Creature/timer report and actual evidence](docs/reviews/creature-batch-and-charge-timer/REVIEW.md), [delivery identity](docs/reviews/creature-batch-and-charge-timer/delivery.json), [read-only egg shell inspection](docs/reviews/egg-shell-current-state/REVIEW.md).
+
+Three distinct source-faithful, unrigged canonical creatures were added: Frost Spirit Mammoth, Volcanic Sabertooth and Fossil Tortoise. Original files remain unchanged; no decimation. Existing shared collection/shelf/journal/results/reveal paths resolve them. They follow Crystal Triceratops test-only acquisition: no normal drops, bonus or rewards. Exact owner 291892217 gets them through the unchanged isolated Test Mode in a fresh server; normal save restrictions remain intact.
+
+The owner rejected the initially permitted floating countdown. **Final countdown is physical-screen-only: no ScreenGui/BillboardGui timer.** Large bold cyan digits on a near-black, fitted glass overlay; approved mesh/scale/materials and authoritative 3-second fuse, placement, grip, pending guard, damage and effects remain unchanged. Future work must preserve this superseding instruction.
+
+Actual memory-only runtime: combined session 249 seconds; after owner correction, charge-only checks 61 and 76 seconds. Three collection/shelf displays and selection/assignment observed; final charge showed 3/2/1/0, exactly one Blast and complete cleanup. Other reveal/results paths source/factory-inspected, not a completed round. Published-client joining/teleport, multiplayer and other devices remain unverified. Physical digits remain small at long zoom; no owner visual approval is claimed. Content-representation warnings during shell debris are disclosed, not fixed outside scope.
+
+Egg inspection/docs only: current 8,160 curved MeshParts, 120 row/layer templates, progressive cosmetic fracture geometry distinct from targeting Highlight. No egg code/geometry/material/targeting changes. Private before/final native recovery and masters are in `Backups/CreatureBatchTimer_20261111/`. Actual PNGs and silent clip are committed for GitHub review; Studio stopped in Edit. Preserve prior approved tools/grips/creatures, owner data isolation and all deferred requirements.
+
 # Current checkpoint - charge pose, preview and three-second fuse delivered v254
 
 Owner approves the creature integration and charge model; preserve them along with the approved pickaxe/drill and corrected grips. Charge polish published original place **94763223427049**, branch `planning/development-foundation`, **v254** at **2026-11-11 16:48:09 UTC**. [Report, actual screenshots and runtime clip](docs/reviews/charge-polish/REVIEW.md), [delivery identity](docs/reviews/charge-polish/delivery.json).

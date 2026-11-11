@@ -1,0 +1,28 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "branch": "planning/development-foundation",
+  "baselineCommit": "9fab38f9907c3a6a651fde4eab34ddce9169f87f",
+  "publishedVersion": 257,
+  "publishedAtUTC": "2026-11-11T20:11:30Z",
+  "publicationVerified": "Studio log: publishType=1, PublishSuccessful, original placeId, Add publish notes to v257",
+  "studioMode": "Edit",
+  "backups": {
+    "ComingSoon_94763223427049_before.rbxl": {
+      "path": "Backups\\CreatureBatchTimer_20261111\\ComingSoon_94763223427049_before.rbxl",
+      "bytes": 6719602,
+      "sha256": "99e9c0d093de90db8feadf07219ef16b7e89e2f65633deeab67bbdced1461043"
+    },
+    "ComingSoon_94763223427049_final.rbxl": {
+      "path": "Backups\\CreatureBatchTimer_20261111\\ComingSoon_94763223427049_final.rbxl",
+      "bytes": 6808634,
+      "sha256": "a2b3a785c5b1cef0e7b3f484a3851e7b190bd772b5d264494d23dec012cfb7e3"
+    }
+  },
+  "ownerUserId": 291892217,
+  "ownerTestMode": "Existing authorization/reserved memory-only profiles unchanged; new catalogs included in grants",
+  "normalAcquisition": "Unconfigured for three new test-only species",
+  "sourceFilesVerifiedUnchanged": 28,
+  "eggChanges": false,
+  "evidence": "Containing Git commit; actual PNGs and MP4 checked before push"
+}
