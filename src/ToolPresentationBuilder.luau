@@ -21,6 +21,7 @@ local function replace(tool, source, family, grip)
 		"ToolVisualRevision",
 		family == "Pickaxe" and Visuals.PickaxeRevision
 			or family == "Drill" and Visuals.DrillRevision
+			or family == "Explosive" and Visuals.ChargeRevision
 			or Visuals.Revision
 	)
 	for _, part in source:GetDescendants() do
@@ -118,15 +119,26 @@ function B.Drill()
 	B.Displays("Drill")
 	return "Supplied Rodin drill fitted to rear and auxiliary grips in all destinations"
 end
+function B.Charge()
+	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
+	local tool = Kit.StarterExplosive
+	replace(
+		tool,
+		Assets.RodinCharge,
+		"Explosive",
+		CFrame.Angles(-math.pi / 2, 0, 0) * CFrame.new(-0.22, 0, 0.12)
+	)
+	tool.TextureId = Visuals.ChargeIcon
+	tool:SetAttribute("ChargeVisualRevision", 3)
+	require(Shared.ChargePresentation).AddScreen(tool)
+	B.Previews("Explosive")
+	B.Displays("Explosive")
+	return "Supplied sticky charge in all tool/preview/display destinations"
+end
 function B.Build()
 	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
 	B.Pickaxe()
-	replace(
-		Kit.StarterExplosive,
-		Assets.SurveyDynamite,
-		"Explosive",
-		CFrame.new(0, -0.15, 0) * CFrame.Angles(0, 0, math.rad(-8))
-	)
+	B.Charge()
 	B.Drill()
 	B.Previews("Explosive")
 	B.Displays("Explosive")

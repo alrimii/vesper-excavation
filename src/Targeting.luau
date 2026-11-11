@@ -7,6 +7,8 @@ function T.new(player, gui, egg, C)
 	local theme = require(shared.InterfaceTheme)
 	local state = shared:WaitForChild("RoundState")
 	local targeter = { confirmedUntil = 0 }
+	local chargePreview
+	local Visuals = require(shared.ToolVisuals)
 	local highlight = Instance.new("Highlight")
 	highlight.Name = "TargetPlate"
 	highlight.FillTransparency = 1
@@ -96,6 +98,9 @@ function T.new(player, gui, egg, C)
 		return false
 	end
 	local function hide()
+		if chargePreview then
+			chargePreview.Parent = nil
+		end
 		highlight.Enabled = false
 		mark.Enabled = false
 		status.Visible = false
@@ -177,6 +182,9 @@ function T.new(player, gui, egg, C)
 		local ch = player.Character
 		local tool = ch and ch:FindFirstChildOfClass("Tool")
 		local kind = tool and tool:GetAttribute("ToolKind")
+		if chargePreview and (not tool or tool:GetAttribute("ToolFamily") ~= "Explosive") then
+			chargePreview.Parent = nil
+		end
 		local camera = workspace.CurrentCamera
 		if not camera then
 			return
@@ -205,6 +213,33 @@ function T.new(player, gui, egg, C)
 				hide()
 				gui.Crosshair.TextColor3 = Color3.fromRGB(190, 196, 196)
 				return
+			end
+			local placed = workspace:FindFirstChild("PlacedExcavationCharges")
+			local pendingCharge = false
+			for _, charge in placed and placed:GetChildren() or {} do
+				if charge:GetAttribute("OwnerUserId") == player.UserId then
+					pendingCharge = true
+					break
+				end
+			end
+			if chargePreview then
+				chargePreview.Parent = nil
+			end
+			if tool:GetAttribute("ToolFamily") == "Explosive" and not pendingCharge then
+				if not chargePreview then
+					chargePreview = Visuals.Clone(shared.EquipmentAssets.Explosive, "LocalChargePreview")
+				end
+				for _, part in chargePreview:GetChildren() do
+					if part:IsA("BasePart") and part.Name ~= "ChargeScreen" then
+						part.Transparency = 0.45
+						local sa = part:FindFirstChildOfClass("SurfaceAppearance")
+						if sa then
+							sa.Color = valid and Color3.new(1, 1, 1) or Color3.fromRGB(255, 95, 75)
+						end
+					end
+				end
+				chargePreview:PivotTo(Visuals.SurfaceFrame(point, normal))
+				chargePreview.Parent = workspace
 			end
 			local color = valid and ready or distant
 			if os.clock() < targeter.confirmedUntil then

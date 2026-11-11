@@ -15,7 +15,7 @@ function M.Create(parent, source, tint)
 	view.LightDirection = Vector3.new(-1, -1, -1)
 	view.Parent = parent
 	local family = source:GetAttribute("ToolFamily") or source.Name
-	if family == "Pickaxe" or family == "Drill" then
+	if family == "Pickaxe" or family == "Drill" or family == "Explosive" then
 		local sky = game:GetService("Lighting"):FindFirstChildOfClass("Sky")
 		if sky then
 			sky:Clone().Parent = view
@@ -25,7 +25,7 @@ function M.Create(parent, source, tint)
 	world.Parent = view
 	local model = Instance.new("Model")
 	for _, p in source:GetDescendants() do
-		if p:IsA("BasePart") and p.Transparency < 1 then
+		if p:IsA("BasePart") and (p.Transparency < 1 or p.Name == "ChargeScreen") then
 			local clone = p:Clone()
 			for _, child in clone:GetDescendants() do
 				if

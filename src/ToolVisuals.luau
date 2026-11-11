@@ -5,6 +5,8 @@ V.PickaxeRevision = "RodinSelected_20261111"
 V.PickaxeIcon = "rbxassetid://92425113043430"
 V.DrillRevision = "RodinDrill_20261111"
 V.DrillIcon = "rbxassetid://138062140706342"
+V.ChargeRevision = "RodinCharge_20261111"
+V.ChargeIcon = "rbxassetid://124689974420203"
 V.PreviewDirections = {
 	Pickaxe = Vector3.new(0.34, 0.22, 1),
 	Drill = Vector3.new(-1, 0.52, -0.8),
@@ -16,7 +18,7 @@ function V.Clone(source, name)
 	local handle = source:FindFirstChild("Handle")
 	local origin = handle and handle.CFrame or source:GetPivot()
 	for _, part in source:GetDescendants() do
-		if part:IsA("BasePart") and part.Transparency < 1 then
+		if part:IsA("BasePart") and (part.Transparency < 1 or part.Name == "ChargeScreen") then
 			local copy = part:Clone()
 			for _, child in copy:GetDescendants() do
 				if
@@ -42,6 +44,7 @@ function V.Clone(source, name)
 		"ToolVisualRevision",
 		source:GetAttribute("ToolFamily") == "Pickaxe" and V.PickaxeRevision
 			or source:GetAttribute("ToolFamily") == "Drill" and V.DrillRevision
+			or source:GetAttribute("ToolFamily") == "Explosive" and V.ChargeRevision
 			or V.Revision
 	)
 	return model
@@ -50,9 +53,10 @@ function V.SurfaceFrame(point, normal)
 	local n = normal.Unit
 	local up = math.abs(n:Dot(Vector3.yAxis)) > 0.94 and Vector3.zAxis or Vector3.yAxis
 	up = (up - n * up:Dot(n)).Unit
-	-- Model +Z is its back. 0.40156 is the measured bundle half-depth; 0.012 is seating clearance.
-	local center = point + n * 0.41356
-	return CFrame.lookAt(center, center + n, up)
+	-- Put the actual rear mounting-plate contact on the hit plane. The origin
+	-- belongs to the hand grip and is deliberately not the model center.
+	local contact = require(script.Parent.ChargePresentation).BackContact
+	return CFrame.lookAt(point + n * 0.012, point + n, up) * CFrame.new(-contact)
 end
 function V.FramePreview(camera, model, family, aspect)
 	local cf = model:GetBoundingBox()

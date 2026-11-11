@@ -1,4 +1,5 @@
-"""Normalize the selected finished Poly Pizza assets; no replacement geometry is authored here."""
+"""Historical Poly Pizza recipe, superseded by the owner-supplied Rodin tools."""
+raise SystemExit('Retired: use assets/tools/rodin-pickaxe, rodin-drill and rodin-charge. Do not regenerate superseded charge visuals.')
 import bpy, json, math
 from pathlib import Path
 from mathutils import Vector, Matrix

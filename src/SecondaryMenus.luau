@@ -150,7 +150,7 @@ function M.Build(shell, player, _base, remote, feedback)
 	K.Paragraph(
 		options,
 		"Attribution",
-		"Original illustrated UI. Pickaxe: Kay Lousberg (CC0). Dynamite: Neko (CC BY 3.0). Full asset credits are recorded in the project.",
+		"Original illustrated UI. Pickaxe: Kay Lousberg (CC0). Sticky charge: owner-supplied Rodin. Full asset credits are recorded in the project.",
 		12,
 		K.Muted
 	)

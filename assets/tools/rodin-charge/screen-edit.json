@@ -1,0 +1,12 @@
+{
+  "changedPixels": 50483,
+  "bounds": [
+    1170,
+    1740,
+    1459,
+    1962
+  ],
+  "mask": "source emissive nonblack pixels, expanded 8 pixels",
+  "changes": "digit regions only in color, metalness, roughness and normal; surrounding glass sampled for neutral values",
+  "packedPbrUnused": true
+}

@@ -1215,6 +1215,7 @@ local function strike(p, target, point, requestRound, sequence, charged)
 		visual:SetAttribute("OwnerUserId", p.UserId)
 		visual:SetAttribute("Sequence", sequence)
 		visual:SetAttribute("RoundId", round)
+		visual:SetAttribute("DetonatesAt", workspace:GetServerTimeNow() + windup)
 		visual:PivotTo(ToolVisuals.SurfaceFrame(point, hit.Normal))
 		visual.Parent = placedCharges
 		placement.visual = visual

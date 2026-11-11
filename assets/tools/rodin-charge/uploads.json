@@ -1,0 +1,101 @@
+{
+  "RodinCharge": {
+    "assetId": "92010232869320",
+    "meshId": "100836062740084"
+  },
+  "ChargeColor": {
+    "path": "assets/107516321449088",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T15:30:45.275Z",
+    "assetId": "107516321449088",
+    "displayName": "Vesper ChargeColor",
+    "description": "Owner supplied sticky charge; cleaned live timer screen, original artwork preserved.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "ChargeMetalness": {
+    "path": "assets/73326595026303",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T15:30:43.801Z",
+    "assetId": "73326595026303",
+    "displayName": "Vesper ChargeMetalness",
+    "description": "Owner supplied sticky charge; cleaned live timer screen, original artwork preserved.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "ChargeRoughness": {
+    "path": "assets/71409232252049",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T15:30:45.147Z",
+    "assetId": "71409232252049",
+    "displayName": "Vesper ChargeRoughness",
+    "description": "Owner supplied sticky charge; cleaned live timer screen, original artwork preserved.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "ChargeNormal": {
+    "path": "assets/129645955556486",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T15:30:46.462Z",
+    "assetId": "129645955556486",
+    "displayName": "Vesper ChargeNormal",
+    "description": "Owner supplied sticky charge; cleaned live timer screen, original artwork preserved.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  },
+  "RodinChargeIcon": {
+    "path": "assets/124689974420203",
+    "revisionId": "1",
+    "revisionCreateTime": "2026-11-11T15:30:48.282Z",
+    "assetId": "124689974420203",
+    "displayName": "Vesper RodinChargeIcon",
+    "description": "Owner supplied sticky charge; cleaned live timer screen, original artwork preserved.",
+    "assetType": "Image",
+    "creationContext": {
+      "creator": {
+        "userId": "291892217"
+      }
+    },
+    "moderationResult": {
+      "moderationState": "Approved"
+    },
+    "state": "Active",
+    "isPublished": true
+  }
+}

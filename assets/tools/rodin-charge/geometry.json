@@ -1,0 +1,35 @@
+{
+  "sourceFile": "base.obj",
+  "sourceTriangles": 8620,
+  "finalTriangles": 8620,
+  "vertices": 4309,
+  "meshCount": 1,
+  "decimated": false,
+  "scale": 0.85,
+  "sourceGripOrigin": [
+    0.6499999761581421,
+    0.0,
+    0.6000000238418579
+  ],
+  "backContact": [
+    0.5534536838531494,
+    0.2459595799446106,
+    0.36808910965919495
+  ],
+  "backFaceSource": [
+    -0.0011219446314498782,
+    0.43304601311683655,
+    0.8893642425537109
+  ],
+  "screenCenter": [
+    0.5525000095367432,
+    0.3059999346733093,
+    -0.30685001611709595
+  ],
+  "screenSize": [
+    0.391,
+    0.255,
+    0.005
+  ],
+  "screenFace": "Front / -Z"
+}

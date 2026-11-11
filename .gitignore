@@ -38,3 +38,8 @@ assets/environment/compact-interior/exports/RodinRoughness.png
 assets/environment/compact-interior/exports/RodinDrill.glb
 assets/environment/compact-interior/exports/RodinDrillIcon.png
 assets/environment/compact-interior/exports/Drill*.png
+
+# Owner-supplied sticky charge upload derivatives remain private.
+assets/environment/compact-interior/exports/RodinCharge.glb
+assets/environment/compact-interior/exports/RodinChargeIcon.png
+assets/environment/compact-interior/exports/Charge*.png

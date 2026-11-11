@@ -1,4 +1,12 @@
-# Current checkpoint - approved tools, grip polish delivered v244
+# Current checkpoint - supplied Rodin sticky charge delivered v248
+
+Integrated the owner's untouched `rodin-charge-source/base.obj`: one UV-mapped mesh, 4,309 vertices / 8,620 triangles, no decimation. Published original place **94763223427049**, branch `planning/development-foundation`, **v248** at **2026-11-11 15:40:43 UTC**. [Review and actual screenshots](docs/reviews/rodin-charge/REVIEW.md), [delivery identity](docs/reviews/rodin-charge/delivery.json).
+
+The same finished charge supplies held/ghost/placed/equipment/workshop/icon views. Four explicit PBR maps; only baked timer digits neutralized on working copies. Actual server-clock countdown preserves the **0.45-second fuse**. Rear-plate contact follows the validated hit normal; placed models anchored with no copied joints. Superseded SurveyDynamite and legacy generator/importer retired. Approved pickaxe/drill, corrected grips, owner live test access, all gameplay values, player data, environment and UI layout preserved.
+
+Two memory-only verification sessions (178 + 142 seconds), plus a 10-second aborted startup after source-sync automation failure. Initial inverted grip corrected; final owner R15 hold, preview/icon, invalid rejection, Cancel/switch cleanup and exactly one detonation checked. Real countdown captured at 0.33 seconds. Other avatars/devices, multiplayer latency and live-client play remain unverified; no owner visual approval claimed. Native before/final backups private under `Backups/RodinCharge_20261111/`; helpers removed and Studio stopped in Edit. Preserve all deferred requirements and approved assets.
+
+# Historical checkpoint - approved tools, grip polish delivered v244
 
 Owner approved the **pickaxe and drill models/materials**. Preserve both. Grip-only correction delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v244** at **2026-11-11 14:35:55 UTC**. [Review and before/after screenshots](docs/reviews/tool-grip-polish/REVIEW.md), [delivery identity](docs/reviews/tool-grip-polish/delivery.json). Corrected pose appearance is awaiting owner review.
 
