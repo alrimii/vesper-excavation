@@ -64,6 +64,16 @@ local function refresh()
 		end)
 	end
 	local model = builder.Build(state:GetAttribute("SpecimenId") or "crownback")
+	if model:GetAttribute("StaticMesh") then
+		-- Static supplied creature: whole assembly only; no fabricated limb rig.
+		local _, size = model:GetBoundingBox()
+		model:ScaleTo(model:GetScale() * 46 / math.max(size.X, size.Y, size.Z))
+		local bounds = model:GetBoundingBox()
+		model:PivotTo(CFrame.new(0, 43.4, 0) * CFrame.new(-bounds.Position) * model:GetPivot())
+		model:SetAttribute("RestPivot", model:GetPivot())
+		model.Parent = chamber
+		return
+	end
 	model:ScaleTo(2.1)
 	model:PivotTo(CFrame.new(0, 43.4, 0))
 	model:SetAttribute("RestPivot", model:GetPivot())

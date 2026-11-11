@@ -100,7 +100,25 @@ P.CreatureVariants = {
 		Power = 0.30,
 		Color = Color3.fromRGB(255, 125, 75),
 	},
+	{
+		Id = "crystal_triceratops",
+		ModelId = "crystal_triceratops",
+		Name = "Crystal Triceratops",
+		Weight = 0,
+		Rarity = "TEST",
+		Power = 0,
+		TestOnly = true,
+		Icon = "rbxassetid://102662158340345",
+		Color = Color3.fromRGB(104, 226, 209),
+	},
 }
+-- The original three weighted entries remain the complete normal drop pool.
+P.CreatureDrops = {}
+for _, entry in P.CreatureVariants do
+	if not entry.TestOnly then
+		table.insert(P.CreatureDrops, entry)
+	end
+end
 P.RoomThemes = {
 	{ Id = "teal", Name = "Containment", Cost = 0, Color = Color3.fromRGB(84, 221, 197) },
 	{ Id = "amber", Name = "Amber Archive", Cost = 4500, Color = Color3.fromRGB(255, 194, 101) },
@@ -167,7 +185,9 @@ function P.PowerBonus(account)
 	return 1 + math.min(1, (account.strength or 0) * 0.0001) + (creature and creature.Power or 0)
 end
 function P.Level(account, id, key)
-	if id == account.toolId then return account[key] or 0 end
+	if id == account.toolId then
+		return account[key] or 0
+	end
 	return (account.toolLevels[id] or {})[key] or 0
 end
 function P.SwitchTool(account, id)

@@ -14,8 +14,14 @@ function M.Place(model, pedestal)
 	local bounds, scaled = model:GetBoundingBox()
 	model:PivotTo(
 		pedestal.CFrame
-			* CFrame.new(0, pedestal.Size.Y / 2 + scaled.Y / 2 + 0.08, 0)
-			* CFrame.Angles(0, math.pi, 0)
+			* CFrame.new(
+				0,
+				pedestal.Size.Y / 2
+					+ scaled.Y / 2
+					+ (model:GetAttribute("CanonicalCreature") and 0.01 or 0.08),
+				0
+			)
+			* CFrame.Angles(0, model:GetAttribute("ForwardNegativeZ") and 0 or math.pi, 0)
 			* bounds:ToObjectSpace(model:GetPivot())
 	)
 end
@@ -173,21 +179,19 @@ function M.Refresh(display, owner)
 			if slot.model then
 				slot.model:Destroy()
 			end
-			-- These three existing variants share Crownback geometry and the existing variant finish.
-			local assetId = entry.ModelId
-				or (Shared.SpecimenAssets:FindFirstChild(entry.Id) and entry.Id)
-				or "crownback"
-			local specimen = Specimen.Build(assetId)
+			local specimen = Specimen.Build(entry.Id)
 			for _, p in specimen:GetDescendants() do
 				if not known and (p:IsA("SurfaceAppearance") or p:IsA("Texture") or p:IsA("Decal")) then
 					p:Destroy()
 				elseif p:IsA("BasePart") then
 					p.Anchored, p.CanCollide, p.CanTouch, p.CanQuery = true, false, false, false
 					if known then
-						p.Color = p.Color:Lerp(entry.Color, 0.35)
-						local appearance = p:FindFirstChildOfClass("SurfaceAppearance")
-						if appearance then
-							appearance.Color = entry.Color
+						if not specimen:GetAttribute("PreserveMaterials") then
+							p.Color = p.Color:Lerp(entry.Color, 0.35)
+							local appearance = p:FindFirstChildOfClass("SurfaceAppearance")
+							if appearance then
+								appearance.Color = entry.Color
+							end
 						end
 					else
 						p.Color, p.Material, p.Reflectance =

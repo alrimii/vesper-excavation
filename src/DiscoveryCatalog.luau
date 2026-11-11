@@ -11,6 +11,17 @@ D.Specimens = {
 		Description = "An ancient armored drake awakened from the mineral shell.",
 		Reward = 650,
 	},
+	{
+		Id = "crystal_triceratops",
+		Name = "Crystal Triceratops",
+		Class = "OWNER TEST / ACQUISITION UNCONFIGURED",
+		Color = Color3.fromRGB(104, 226, 209),
+		Clue = "A crystal-crowned herbivore awaits a future expedition.",
+		Description = "Crystal horns, a sturdy frill and a bright, curious face. Owner test access only.",
+		Reward = 0,
+		TestOnly = true,
+		Icon = "rbxassetid://102662158340345",
+	},
 }
 function D.ForRound(_round)
 	return D.Specimens[1]

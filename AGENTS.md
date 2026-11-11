@@ -1,4 +1,12 @@
-# Current checkpoint - supplied Rodin sticky charge delivered v248
+# Current checkpoint - supplied Crystal Triceratops delivered v250
+
+Integrated `rodin-crystal-triceratops-source/base_basic_pbr.fbx` without topology or texture edits: one static UV-mapped mesh, **5,030 vertices / 10,050 triangles**, floor-center pivot, forward -Z. Published original place **94763223427049**, branch `planning/development-foundation`, **v250** at **2026-11-11 16:16:03 UTC**. [Review and actual GitHub screenshot files](docs/reviews/rodin-crystal-triceratops/REVIEW.md), [delivery identity](docs/reviews/rodin-crystal-triceratops/delivery.json).
+
+No matching Triceratops existed. New distinct catalog ID **crystal_triceratops** is owner-test-only, zero bonus/weight, with **normal acquisition unconfigured**. Normal Crownback IDs, 80/18/2 drop pool, round selection, ownership and balance remain unchanged. Canonical SpecimenAssets model supplies collection, Journal, results, static reveal and current/future room shelves; supplied PBR materials resist variant recoloring. Exact-model icon registered. No rig or new pet system. Approved tools, grips, owner test isolation, saves, environment and UI layout preserved.
+
+One 221-second memory session checked preview, owner selection/assignment, shelf contact, Journal and explicitly labeled staged reveal/results. Additional 2-second material-preload startup was inconclusive (MCP also fails approved control assets). **Remaining Roblox compressed TexturePack delivery warning 133172177939408** is recorded; do not claim it cleared or full published-client material verification. Injected-store owner Load/Save made zero persistent calls; no real save used. Native before/final recovery private under `Backups/RodinCrystalTriceratops_20261111/`; helpers removed and Studio stopped in Edit. No owner visual approval; preserve deferred requirements.
+
+# Historical checkpoint - supplied Rodin sticky charge delivered v248
 
 Integrated the owner's untouched `rodin-charge-source/base.obj`: one UV-mapped mesh, 4,309 vertices / 8,620 triangles, no decimation. Published original place **94763223427049**, branch `planning/development-foundation`, **v248** at **2026-11-11 15:40:43 UTC**. [Review and actual screenshots](docs/reviews/rodin-charge/REVIEW.md), [delivery identity](docs/reviews/rodin-charge/delivery.json).
 

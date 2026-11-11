@@ -83,6 +83,10 @@ local function create(store, studio, pause, testPolicy)
 		for _, id in { "lumen", "ember", "astral", "tide", "sol", "bloom", "crownback" } do
 			a.discoveries[id] = number(type(raw.discoveries) == "table" and raw.discoveries[id], 1e6)
 		end
+		for _, entry in require(game.ReplicatedStorage.VesperShared.DiscoveryCatalog).Specimens do
+			a.discoveries[entry.Id] =
+				number(type(raw.discoveries) == "table" and raw.discoveries[entry.Id], 1e6)
+		end
 
 		for id in Progression.Tools do
 			local config = Progression.ToolConfig(id, C)

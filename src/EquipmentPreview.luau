@@ -15,7 +15,12 @@ function M.Create(parent, source, tint)
 	view.LightDirection = Vector3.new(-1, -1, -1)
 	view.Parent = parent
 	local family = source:GetAttribute("ToolFamily") or source.Name
-	if family == "Pickaxe" or family == "Drill" or family == "Explosive" then
+	if
+		family == "Pickaxe"
+		or family == "Drill"
+		or family == "Explosive"
+		or source:GetAttribute("CanonicalCreature")
+	then
 		local sky = game:GetService("Lighting"):FindFirstChildOfClass("Sky")
 		if sky then
 			sky:Clone().Parent = view
@@ -41,7 +46,7 @@ function M.Create(parent, source, tint)
 			end
 			clone.Anchored = true
 			clone.CanCollide, clone.CanTouch, clone.CanQuery = false, false, false
-			if tint then
+			if tint and not source:GetAttribute("PreserveMaterials") then
 				clone.Color = tint
 				local surface = clone:FindFirstChildOfClass("SurfaceAppearance")
 				if surface then

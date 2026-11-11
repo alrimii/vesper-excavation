@@ -14,6 +14,22 @@ function P.Create(view, id, color)
 	view.CurrentCamera = camera
 	view.Ambient = Color3.fromRGB(210, 220, 230)
 	view.LightColor = Color3.fromRGB(255, 239, 210)
+	if model:GetAttribute("CanonicalCreature") then
+		local sky = game:GetService("Lighting"):FindFirstChildOfClass("Sky")
+		if sky then
+			sky:Clone().Parent = view
+		end
+		local function fit()
+			require(script.Parent.ToolVisuals).FramePreview(
+				camera,
+				model,
+				id,
+				view.AbsoluteSize.X / math.max(1, view.AbsoluteSize.Y)
+			)
+		end
+		view:GetPropertyChangedSignal("AbsoluteSize"):Connect(fit)
+		fit()
+	end
 	local last
 	local control = {}
 	function control:SetUnlocked(unlocked)

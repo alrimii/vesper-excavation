@@ -34,7 +34,7 @@ function M.Build(shell, player, _base, remote, feedback)
 		local b = K.Button(archive, "Creature_" .. d.Id, "", function()
 			selected = d.Id
 		end, true)
-		local view = Preview.Create(b, script.Parent.SpecimenAssets.crownback, d.Color)
+		local view = Preview.Create(b, require(script.Parent.SpecimenBuilder).Source(d.Id), d.Color)
 		tabs[d.Id] = {
 			root = b,
 			view = view,
@@ -310,6 +310,9 @@ function M.Build(shell, player, _base, remote, feedback)
 				)
 			end
 			local chosen = attr("EquippedCreature") == selected
+			if d and d.TestOnly then
+				odds.Text = "Owner test access only. Normal acquisition is not configured."
+			end
 			K.Enabled(
 				equip,
 				count > 0 and not chosen,

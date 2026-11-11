@@ -1,0 +1,22 @@
+{
+  "sourceFile": "base_basic_pbr.fbx",
+  "meshCount": 1,
+  "vertices": 5030,
+  "triangles": 10050,
+  "decimated": false,
+  "rigged": false,
+  "uniformScale": 3.7704634259930914,
+  "sourceOrigin": [
+    0.0002390146255493164,
+    -0.0013310015201568604,
+    -9.407519208082249e-09
+  ],
+  "robloxSize": [
+    4.010996341705322,
+    4.800000190734863,
+    7.1583757400512695
+  ],
+  "pivot": "floor center",
+  "forward": "-Z",
+  "textureModifications": false
+}

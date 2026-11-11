@@ -43,3 +43,8 @@ assets/environment/compact-interior/exports/Drill*.png
 assets/environment/compact-interior/exports/RodinCharge.glb
 assets/environment/compact-interior/exports/RodinChargeIcon.png
 assets/environment/compact-interior/exports/Charge*.png
+
+# Owner-supplied Crystal Triceratops source derivatives stay private.
+assets/environment/compact-interior/exports/CrystalTriceratops.glb
+assets/environment/compact-interior/exports/CrystalTriceratopsIcon.png
+assets/environment/compact-interior/exports/Triceratops*.png

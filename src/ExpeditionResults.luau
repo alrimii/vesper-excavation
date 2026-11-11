@@ -90,7 +90,7 @@ function M.Attach(gui, player)
 		if entry then
 			local v = require(Shared.EquipmentPreview).Create(
 				previewHost,
-				Shared.SpecimenAssets.crownback,
+				require(Shared.SpecimenBuilder).Source(entry.Id),
 				entry.Color
 			)
 			if v then

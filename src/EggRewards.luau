@@ -78,7 +78,7 @@ function M.new(random)
 			result.eligible = result.damage > 0 and totalDamage > 0
 			-- Exactly one independent Bernoulli draw per eligible UserId. No last-hit input.
 			if result.eligible and random:NextNumber() < result.chance then
-				result.creatureId = Rules.Choose(Rules.CreatureVariants, random).Id
+				result.creatureId = Rules.Choose(Rules.CreatureDrops, random).Id
 			end
 		end
 		return settlement
@@ -154,29 +154,26 @@ function M.new(random)
 		for i = math.max(1, #rounds - 11), #rounds do
 			local settlement = settlements[rounds[i]]
 			local result = settlement.results[userId]
-			table.insert(
-				history,
-				{
-					settlementId = settlement.id,
-					round = settlement.round,
-					eggName = settlement.eggName,
-					revealedAt = settlement.revealedAt,
-					nextAt = settlement.nextAt,
-					damage = result.damage,
-					totalDamage = settlement.totalDamage,
-					contributionShare = result.share,
-					soloChance = settlement.soloChance,
-					personalChance = result.chance,
-					eligible = result.eligible,
-					outcome = not result.eligible and "NoRoll" or result.creatureId ~= "" and "Won" or "Lost",
-					creatureId = result.creatureId,
-					delivered = result.delivered,
-					credits = result.delivered and result.creditsDue or 0,
-					xp = result.earnedXP or 0,
-					pendingCredits = result.delivered and 0 or result.creditsDue,
-					pendingXP = result.delivered and 0 or result.xpDue,
-				}
-			)
+			table.insert(history, {
+				settlementId = settlement.id,
+				round = settlement.round,
+				eggName = settlement.eggName,
+				revealedAt = settlement.revealedAt,
+				nextAt = settlement.nextAt,
+				damage = result.damage,
+				totalDamage = settlement.totalDamage,
+				contributionShare = result.share,
+				soloChance = settlement.soloChance,
+				personalChance = result.chance,
+				eligible = result.eligible,
+				outcome = not result.eligible and "NoRoll" or result.creatureId ~= "" and "Won" or "Lost",
+				creatureId = result.creatureId,
+				delivered = result.delivered,
+				credits = result.delivered and result.creditsDue or 0,
+				xp = result.earnedXP or 0,
+				pendingCredits = result.delivered and 0 or result.creditsDue,
+				pendingXP = result.delivered and 0 or result.xpDue,
+			})
 		end
 		return history
 	end
