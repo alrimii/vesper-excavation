@@ -167,8 +167,9 @@ function K.Icon(parent, key, _color)
 	return icon
 end
 function K.SetIcon(icon, key)
-	if key == "Pickaxe" then
-		icon.Image = require(script.Parent.ToolVisuals).PickaxeIcon
+	if key == "Pickaxe" or key == "Drill" then
+		local visuals = require(script.Parent.ToolVisuals)
+		icon.Image = key == "Drill" and visuals.DrillIcon or visuals.PickaxeIcon
 		icon.ImageRectOffset = Vector2.zero
 		icon.ImageRectSize = Vector2.zero
 		icon.ImageColor3 = Color3.new(1, 1, 1)

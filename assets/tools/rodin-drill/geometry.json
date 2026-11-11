@@ -1,0 +1,39 @@
+{
+  "sourceTriangles": 9506,
+  "finalTriangles": 9570,
+  "decimated": false,
+  "splitPlaneSourceY": -0.405,
+  "scale": 1.85,
+  "sourceRearGrip": [
+    -0.18000000715255737,
+    0.824999988079071,
+    0.4000000059604645
+  ],
+  "supportGrip": [
+    -0.7955000400543213,
+    -0.3700000047683716,
+    -1.9517500400543213
+  ],
+  "shaftOrigin": [
+    0.0,
+    0.10175001621246338,
+    -2.2755000591278076
+  ],
+  "workingTip": [
+    0.0,
+    0.10175001621246338,
+    -3.28206467628479
+  ],
+  "parts": [
+    {
+      "name": "RodinDrillHousing",
+      "triangles": 8838,
+      "vertices": 4437
+    },
+    {
+      "name": "RodinDrillBit",
+      "triangles": 732,
+      "vertices": 383
+    }
+  ]
+}

@@ -1,4 +1,12 @@
-# Current checkpoint - exact owner-supplied Rodin pickaxe, published v238
+# Current checkpoint - supplied Rodin drill, published v241
+
+Drill-only integration delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v241** at **2026-11-11 13:44:21 UTC**. See [actual screenshots and review](docs/reviews/rodin-drill/REVIEW.md) and [delivery identity](docs/reviews/rodin-drill/delivery.json).
+
+The untouched `rodin-drill-source/base_basic_pbr.fbx` defines the model. One internal shaft cut, no decimation: **9,570 triangles, two meshes**. Explicit diffuse/metalness/roughness/normal maps and restrained supported emission; same model across equipped tool, preview, workshop and rendered icon. Superseded live drill source removed. Both hands use the existing motion coordinator with the pickaxe's rigid arm-solving method adapted only for this drill. Prices, balance, pickaxe, explosive, environment, rooms, training, UI layout and player data remain unchanged.
+
+Three memory-only sessions (**52 + 210 + 55 seconds**) covered a concrete holding failure/correction, drilling/bit rotation/release/switch/preview/icon, then the affected auxiliary-grip correction only. Pointer fallback caused an additional memory-only tick; the review discloses this and the final idle-only holding check. Native before/final backups and masters are private under `Backups/RodinDrill_20261111/`. Helpers removed; Studio stopped in **Edit**. No owner visual approval is claimed. Stop for owner review; retain all deferred requirements and do not extend this task to other tools or screens.
+
+# Historical checkpoint - exact owner-supplied Rodin pickaxe, published v238
 
 The v235 pickaxe is rejected. The owner selected `agentic_0003_pack_fbx_model.fbx` and authorized only faithful pickaxe integration. Delivered in original place **94763223427049**, branch `planning/development-foundation`, published **v238** at **2026-11-11 12:22:57 UTC**. See [actual screenshots and review](docs/reviews/rodin-pickaxe/REVIEW.md) and [delivery identity](docs/reviews/rodin-pickaxe/delivery.json).
 

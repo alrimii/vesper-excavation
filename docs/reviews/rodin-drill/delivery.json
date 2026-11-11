@@ -1,0 +1,31 @@
+{
+  "placeId": 94763223427049,
+  "universeId": 10773858644,
+  "publishedVersion": 241,
+  "publishedAtUtc": "2026-11-11T13:44:21.480Z",
+  "publicationEvidence": "Studio log: publishType=1, PublishSuccessful, original placeId, Add publish notes to v241",
+  "branch": "planning/development-foundation",
+  "baselineCommit": "5e830843b6dbb779f2bd203edf309c96ac25cd06",
+  "nativeBefore": "Backups/RodinDrill_20261111/ComingSoon_94763223427049_before.rbxl",
+  "nativeFinal": "Backups/RodinDrill_20261111/ComingSoon_94763223427049_final.rbxl",
+  "nativeFinalSha256": "8f50c908ee942a3ca763b4ddd4fe0de3eb80d7a14114887f0f5b3ebd54b8ad27",
+  "sourcePackageUnchanged": true,
+  "sourceSha256": "f041424d6c1aaf1881aa62d99a9f9c37ede9a2cc515c2a3d5655d8722c27e06d",
+  "finalTriangles": 9570,
+  "visibleMeshes": 2,
+  "decimated": false,
+  "modelAssetId": "138354353381740",
+  "iconAssetId": "138062140706342",
+  "creatorUserId": 291892217,
+  "studioMode": "Edit",
+  "runtimeSessions": 3,
+  "runtimeSeconds": 317,
+  "fixedSaveGenerationChanged": false,
+  "productionDataTouched": false,
+  "visualApproval": false,
+  "temporaryHelpersRemoved": true,
+  "screenshots": [
+    "in-hand.png",
+    "equipment.png"
+  ]
+}

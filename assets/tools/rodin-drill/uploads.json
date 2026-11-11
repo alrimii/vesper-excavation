@@ -1,0 +1,86 @@
+{
+  "RodinDrill": {
+    "id": "138354353381740",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/bf15661b-5404-4075-8d2b-9c8ff40a2245 -> 200 OK\n\n{\"path\":\"operations/bf15661b-5404-4075-8d2b-9c8ff40a2245\",\"operationId\":\"bf15661b-5404-4075-8d2b-9c8ff40a2245\",\"done\":true,\"response\":{\"path\":\"assets/138354353381740\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:50.613Z\",\"assetId\":\"138354353381740\",\"displayName\":\"Vesper RodinDrill\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Model\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "DrillColor": {
+    "id": "90195186307933",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/6b5c5603-f7c3-43ca-b635-131896caec4e -> 200 OK\n\n{\"path\":\"operations/6b5c5603-f7c3-43ca-b635-131896caec4e\",\"operationId\":\"6b5c5603-f7c3-43ca-b635-131896caec4e\",\"done\":true,\"response\":{\"path\":\"assets/90195186307933\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:48.869Z\",\"assetId\":\"90195186307933\",\"displayName\":\"Vesper DrillColor\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "DrillMetalness": {
+    "id": "109105119248998",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/7ec5e831-d961-4850-a9e0-38571e2c0a33 -> 200 OK\n\n{\"path\":\"operations/7ec5e831-d961-4850-a9e0-38571e2c0a33\",\"operationId\":\"7ec5e831-d961-4850-a9e0-38571e2c0a33\",\"done\":true,\"response\":{\"path\":\"assets/109105119248998\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:48.677Z\",\"assetId\":\"109105119248998\",\"displayName\":\"Vesper DrillMetalness\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "DrillRoughness": {
+    "id": "116118521758364",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/31b38168-4f00-446a-ae14-a76eced4789e -> 200 OK\n\n{\"path\":\"operations/31b38168-4f00-446a-ae14-a76eced4789e\",\"operationId\":\"31b38168-4f00-446a-ae14-a76eced4789e\",\"done\":true,\"response\":{\"path\":\"assets/116118521758364\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:49.440Z\",\"assetId\":\"116118521758364\",\"displayName\":\"Vesper DrillRoughness\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "DrillNormal": {
+    "id": "135980048625105",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/9bc8cb5f-718d-4e2d-9381-53e0bb3dd6e4 -> 200 OK\n\n{\"path\":\"operations/9bc8cb5f-718d-4e2d-9381-53e0bb3dd6e4\",\"operationId\":\"9bc8cb5f-718d-4e2d-9381-53e0bb3dd6e4\",\"done\":true,\"response\":{\"path\":\"assets/135980048625105\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:51.194Z\",\"assetId\":\"135980048625105\",\"displayName\":\"Vesper DrillNormal\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "DrillEmissiveMask": {
+    "id": "120770337746294",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/ee9803d6-5ccc-4689-bcdb-3d69ce8386bb -> 200 OK\n\n{\"path\":\"operations/ee9803d6-5ccc-4689-bcdb-3d69ce8386bb\",\"operationId\":\"ee9803d6-5ccc-4689-bcdb-3d69ce8386bb\",\"done\":true,\"response\":{\"path\":\"assets/120770337746294\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:50.033Z\",\"assetId\":\"120770337746294\",\"displayName\":\"Vesper DrillEmissiveMask\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "RodinDrillIcon": {
+    "id": "138062140706342",
+    "apiResult": {
+      "content": [
+        {
+          "type": "text",
+          "text": "GET https://apis.roblox.com/assets/v1/operations/6d45d70e-f4df-4b0f-88cb-3f3262403fa6 -> 200 OK\n\n{\"path\":\"operations/6d45d70e-f4df-4b0f-88cb-3f3262403fa6\",\"operationId\":\"6d45d70e-f4df-4b0f-88cb-3f3262403fa6\",\"done\":true,\"response\":{\"path\":\"assets/138062140706342\",\"revisionId\":\"1\",\"revisionCreateTime\":\"2026-11-11T13:31:51.840Z\",\"assetId\":\"138062140706342\",\"displayName\":\"Vesper RodinDrillIcon\",\"description\":\"Owner supplied Rodin drill, faithful private experience integration.\",\"assetType\":\"Image\",\"creationContext\":{\"creator\":{\"userId\":\"291892217\"}},\"moderationResult\":{\"moderationState\":\"Approved\"},\"state\":\"Active\",\"isPublished\":true}}"
+        }
+      ],
+      "isError": false
+    }
+  }
+}

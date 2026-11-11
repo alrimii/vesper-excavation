@@ -14,7 +14,8 @@ function M.Create(parent, source, tint)
 	view.LightColor = Color3.fromRGB(255, 230, 191)
 	view.LightDirection = Vector3.new(-1, -1, -1)
 	view.Parent = parent
-	if (source:GetAttribute("ToolFamily") or source.Name) == "Pickaxe" then
+	local family = source:GetAttribute("ToolFamily") or source.Name
+	if family == "Pickaxe" or family == "Drill" then
 		local sky = game:GetService("Lighting"):FindFirstChildOfClass("Sky")
 		if sky then
 			sky:Clone().Parent = view

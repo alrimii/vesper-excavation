@@ -1,6 +1,64 @@
 -- Both hands solve against a shared drill frame, not against last frame's hand.
 local D = {}
 local Players = game:GetService("Players")
+-- Reuse the rigid-grip two-bone method already used by PickaxeHandling. Some
+-- avatar joint rigs do not follow IKControl's requested hand rotation.
+local function orient(part, from, to, direction)
+	local axisFrom = part.CFrame:VectorToWorldSpace(to - from).Unit
+	local axis = axisFrom:Cross(direction.Unit)
+	local rotation = axis.Magnitude > 1e-5
+			and CFrame.fromAxisAngle(axis.Unit, math.acos(math.clamp(axisFrom:Dot(direction.Unit), -1, 1)))
+		or CFrame.identity
+	return rotation * part.CFrame.Rotation
+end
+local function solveArm(ch, side, torsoFrame, handFrame)
+	local upper, lower, hand =
+		ch:FindFirstChild(side .. "UpperArm"),
+		ch:FindFirstChild(side .. "LowerArm"),
+		ch:FindFirstChild(side .. "Hand")
+	local shoulder, elbow, wrist =
+		ch:FindFirstChild(side .. "Shoulder", true),
+		ch:FindFirstChild(side .. "Elbow", true),
+		ch:FindFirstChild(side .. "Wrist", true)
+	if not upper or not lower or not hand or not shoulder or not elbow or not wrist then
+		return
+	end
+	local ua, ub =
+		upper:FindFirstChild(side .. "ShoulderRigAttachment"),
+		upper:FindFirstChild(side .. "ElbowRigAttachment")
+	local la, lb, ha =
+		lower:FindFirstChild(side .. "ElbowRigAttachment"),
+		lower:FindFirstChild(side .. "WristRigAttachment"),
+		hand:FindFirstChild(side .. "WristRigAttachment")
+	if not ua or not ub or not la or not lb or not ha then
+		return
+	end
+	local origin = (torsoFrame * shoulder.C0).Position
+	local endPoint = (handFrame * ha.CFrame).Position
+	local delta = endPoint - origin
+	local l1, l2 = (ub.Position - ua.Position).Magnitude, (lb.Position - la.Position).Magnitude
+	local distance = delta.Magnitude
+	if distance >= l1 + l2 or distance <= math.abs(l1 - l2) + 0.001 then
+		return
+	end
+	local direction = delta.Unit
+	local pole = torsoFrame.RightVector * (side == "Left" and -1 or 1)
+	pole = pole - direction * pole:Dot(direction)
+	if pole.Magnitude < 0.01 then
+		return
+	end
+	local along = (l1 * l1 - l2 * l2 + distance * distance) / (2 * distance)
+	local mid = origin + direction * along + pole.Unit * math.sqrt(math.max(0, l1 * l1 - along * along))
+	local upperFrame = CFrame.new(origin)
+		* orient(upper, ua.Position, ub.Position, mid - origin)
+		* CFrame.new(-ua.Position)
+	local lowerFrame = CFrame.new(mid)
+		* orient(lower, la.Position, lb.Position, endPoint - mid)
+		* CFrame.new(-la.Position)
+	shoulder.Transform = shoulder.C0:Inverse() * torsoFrame:Inverse() * upperFrame * shoulder.C1
+	elbow.Transform = elbow.C0:Inverse() * upperFrame:Inverse() * lowerFrame * elbow.C1
+	wrist.Transform = wrist.C0:Inverse() * lowerFrame:Inverse() * handFrame * wrist.C1
+end
 local function attachment(parent, name, cf)
 	local a = Instance.new("Attachment")
 	a.Name, a.CFrame, a.Parent = name, cf, parent
@@ -55,6 +113,7 @@ function D.Attach(actor, tool)
 		attachments = {},
 		speed = 0,
 		angle = 0,
+		rigidGrip = tool:GetAttribute("ToolVisualRevision") == "RodinDrill_20261111",
 		drive = 0,
 		rotor = tool:FindFirstChild("DrillRotor", true),
 		torso = torso,
@@ -74,7 +133,9 @@ function D.Attach(actor, tool)
 			)
 			local ik = Instance.new("IKControl")
 			ik.Name = "VesperDrill" .. side
-			ik.Type = side == "Right" and Enum.IKControlType.Transform or Enum.IKControlType.Position
+			ik.Type = (side == "Right" or tool:GetAttribute("ToolVisualRevision") == "RodinDrill_20261111")
+					and Enum.IKControlType.Transform
+				or Enum.IKControlType.Position
 			ik.ChainRoot, ik.EndEffector, ik.Target, ik.Pole = upper, hand, target, pole
 			ik.Priority, ik.SmoothTime, ik.Weight = 5, 0.055, 0
 			ik.Enabled = false
@@ -171,7 +232,8 @@ function D.Update(actor, dt)
 	end
 	local vibration = reduced and 0 or math.sin(now * 71) * 0.006 * d.drive
 	local scale = math.clamp(d.torso.Size.Y / 1.7, 0.7, 1.35)
-	local handleFrame = CFrame.new(Vector3.new(0.52, -0.56 + 0.06 * d.drive, -0.83 - 0.12 * d.drive) * scale)
+	local holdOffset = d.tool:GetAttribute("HoldOffset") or Vector3.new(0.52, -0.56, -0.83)
+	local handleFrame = CFrame.new((holdOffset + Vector3.new(0, 0.06 * d.drive, -0.12 * d.drive)) * scale)
 		* CFrame.Angles(pitch - math.rad(10) * (1 - d.drive), yaw, vibration)
 	local handle = d.tool:FindFirstChild("Handle")
 	local support = handle and handle:FindFirstChild("SupportGrip")
@@ -203,13 +265,14 @@ function D.Update(actor, dt)
 		handleFrame += Vector3.new(0, 0.015, 0.075) * scale
 	end
 	local blend = math.clamp((now - actor.equippedAt) / 0.2, 0, 1)
+	d.handleFrame = handleFrame
 	for side, data in { Right = d.Right, Left = d.Left } do
 		if data and data.grip then
 			local contact = side == "Right" and d.tool.Grip or support and support.CFrame
 			if contact then
 				data.target.CFrame = handFrame(side, data, handleFrame)
 				data.control.Weight = blend
-				data.control.Enabled = blend > 0.001
+				data.control.Enabled = blend > 0.001 and not d.rigidGrip
 			end
 		end
 	end
@@ -218,6 +281,26 @@ function D.Apply(actor)
 	local d = actor.drill
 	if not d then
 		return
+	end
+	if d.rigidGrip and d.torso and d.handleFrame then
+		local waist = actor.joints.Waist
+		local torsoFrame = waist and waist.Part0.CFrame * waist.C0 * waist.Transform * waist.C1:Inverse()
+			or d.torso.CFrame
+		local handleFrame = torsoFrame * d.handleFrame
+		local hand = actor.character:FindFirstChild("RightHand")
+		local grip = hand and hand:FindFirstChild("RightGrip")
+		local support = d.tool.Handle:FindFirstChild("SupportGrip")
+		if grip and grip:IsA("JointInstance") then
+			solveArm(actor.character, "Right", torsoFrame, handleFrame * grip.C1 * grip.C0:Inverse())
+		end
+		if support and d.Left and d.Left.grip then
+			solveArm(
+				actor.character,
+				"Left",
+				torsoFrame,
+				handleFrame * support.CFrame * d.Left.grip.CFrame:Inverse()
+			)
+		end
 	end
 	if d.rotor and d.rotor.Parent then
 		d.rotor.Transform = CFrame.Angles(0, 0, -d.angle)

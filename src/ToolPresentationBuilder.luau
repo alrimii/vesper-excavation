@@ -19,7 +19,9 @@ local function replace(tool, source, family, grip)
 	tool:SetAttribute("ToolFamily", family)
 	tool:SetAttribute(
 		"ToolVisualRevision",
-		family == "Pickaxe" and Visuals.PickaxeRevision or Visuals.Revision
+		family == "Pickaxe" and Visuals.PickaxeRevision
+			or family == "Drill" and Visuals.DrillRevision
+			or Visuals.Revision
 	)
 	for _, part in source:GetDescendants() do
 		if part:IsA("BasePart") then
@@ -91,6 +93,31 @@ function B.Pickaxe()
 	B.Displays("Pickaxe")
 	return "Owner-supplied pickaxe updated; other tool assemblies unchanged"
 end
+function B.Drill()
+	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
+	local drill = Kit.StarterDrill
+	replace(drill, Assets.RodinDrill, "Drill", CFrame.identity)
+	drill.TextureId = Visuals.DrillIcon
+	drill:SetAttribute("HandlingRevision", "RodinRearAndAuxiliaryGrip")
+	drill:SetAttribute("HoldOffset", Vector3.new(0.65, -0.05, 0.35))
+	local handle = drill.Handle
+	local support = Instance.new("Attachment")
+	support.Name = "SupportGrip"
+	support.CFrame = CFrame.new(-0.7955, -0.37, -1.95175) * CFrame.Angles(0, 0, -math.pi / 2)
+	support.Parent = handle
+	local working = Instance.new("Attachment")
+	working.Name, working.Position, working.Parent = "WorkingTip", Vector3.new(0, 0.10175, -3.282065), handle
+	local bit = assert(drill:FindFirstChild("RodinDrillBit"), "Supplied drill bit missing")
+	bit.ToolAssembly:Destroy()
+	local shaft = CFrame.new(0, 0.10175, -2.2755)
+	local rotor = Instance.new("Motor6D")
+	rotor.Name, rotor.Part0, rotor.Part1 = "DrillRotor", handle, bit
+	rotor.C0, rotor.C1 = shaft, bit.CFrame:ToObjectSpace(shaft)
+	rotor.Parent = handle
+	B.Previews("Drill")
+	B.Displays("Drill")
+	return "Supplied Rodin drill fitted to rear and auxiliary grips in all destinations"
+end
 function B.Build()
 	assert(not game:GetService("RunService"):IsRunning(), "Edit-only tool recipe")
 	B.Pickaxe()
@@ -100,42 +127,9 @@ function B.Build()
 		"Explosive",
 		CFrame.new(0, -0.15, 0) * CFrame.Angles(0, 0, math.rad(-8))
 	)
-	local drill = Kit.StarterDrill
-	drill:SetAttribute("ToolFamily", "Drill")
-	drill:SetAttribute("ToolVisualRevision", Visuals.Revision)
-	for _, root in { drill, game.ServerStorage.HelixDrillSource } do
-		for _, p in root:GetDescendants() do
-			if p:IsA("MeshPart") then
-				p.Color = Color3.new(1, 1, 1)
-				p.Material = Enum.Material.SmoothPlastic
-			end
-			if p:IsA("MeshPart") and p.Name == "body_geom" then
-				p.TextureID = Assets:GetAttribute("DrillBodyTexture")
-			end
-		end
-	end
-	for _, p in drill:GetDescendants() do
-		if p:IsA("BasePart") then
-			if p.Name == "MountCollar" or p.Name == "EndCap" then
-				p.Color = Color3.fromRGB(255, 186, 46)
-			end
-			if p.Name == "RubberGrip" then
-				p.Color = Color3.fromRGB(73, 39, 112)
-			end
-		end
-	end
-	local bit = drill:FindFirstChild("drill bit_geom", true)
-	local rotor = drill:FindFirstChild("DrillRotor", true)
-	assert(bit and rotor, "Drill rotor dependency missing")
-	bit.Size = Vector3.new(0.20372286, 0.07962221, 0.56)
-	rotor.C0 = CFrame.new(0.003, 1.2125, -1.24)
-	bit.CFrame = drill.Handle.CFrame * rotor.C0 * rotor.C1:Inverse()
-	local working = drill.Handle:FindFirstChild("WorkingTip") or Instance.new("Attachment")
-	working.Name = "WorkingTip"
-	working.Position = Vector3.new(0.003, 1.2125, -1.52)
-	working.Parent = drill.Handle
-	B.Previews()
-	B.Displays()
+	B.Drill()
+	B.Previews("Explosive")
+	B.Displays("Explosive")
 	return "One finished tool recipe applied to templates, previews and workshop"
 end
 return B

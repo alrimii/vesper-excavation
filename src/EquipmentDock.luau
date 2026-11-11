@@ -13,11 +13,11 @@ function M.Build(gui, player, selectTool)
 		local b = K.Button(root, id, "", function()
 			selectTool(id)
 		end, true)
-		local view = id == "Pickaxe" and K.Icon(b, "Pickaxe")
+		local view = (id == "Pickaxe" or id == "Drill") and K.Icon(b, id)
 			or require(script.Parent.EquipmentPreview).Create(b, script.Parent.EquipmentAssets[id])
 		view.Position = UDim2.fromOffset(14, 0)
 		view.Size = UDim2.new(1, -28, 1, -18)
-		if id == "Pickaxe" then
+		if id == "Pickaxe" or id == "Drill" then
 			view.Position = UDim2.fromOffset(3, 0)
 			view.Size = UDim2.new(1, -6, 1, -18)
 		end

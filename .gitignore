@@ -33,3 +33,8 @@ assets/environment/compact-interior/exports/RodinPickaxeIcon.png
 assets/environment/compact-interior/exports/RodinColor.png
 assets/environment/compact-interior/exports/RodinMetalness.png
 assets/environment/compact-interior/exports/RodinRoughness.png
+
+# Owner-supplied drill derivatives remain private.
+assets/environment/compact-interior/exports/RodinDrill.glb
+assets/environment/compact-interior/exports/RodinDrillIcon.png
+assets/environment/compact-interior/exports/Drill*.png

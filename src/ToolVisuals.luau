@@ -3,9 +3,11 @@ local V = {}
 V.Revision = "AuthoredTools_20261111"
 V.PickaxeRevision = "RodinSelected_20261111"
 V.PickaxeIcon = "rbxassetid://92425113043430"
+V.DrillRevision = "RodinDrill_20261111"
+V.DrillIcon = "rbxassetid://138062140706342"
 V.PreviewDirections = {
 	Pickaxe = Vector3.new(0.34, 0.22, 1),
-	Drill = Vector3.new(1, 0.32, -0.65),
+	Drill = Vector3.new(-1, 0.52, -0.8),
 	Explosive = Vector3.new(0.65, 0.30, -1),
 }
 function V.Clone(source, name)
@@ -38,7 +40,9 @@ function V.Clone(source, name)
 	model.WorldPivot = CFrame.identity
 	model:SetAttribute(
 		"ToolVisualRevision",
-		source:GetAttribute("ToolFamily") == "Pickaxe" and V.PickaxeRevision or V.Revision
+		source:GetAttribute("ToolFamily") == "Pickaxe" and V.PickaxeRevision
+			or source:GetAttribute("ToolFamily") == "Drill" and V.DrillRevision
+			or V.Revision
 	)
 	return model
 end
